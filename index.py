@@ -100,6 +100,28 @@ async def ValidarDatosLogin(idUser, passwd):
     
     return valido
 
+async def ValidarUsuario(idUser):
+    listaMiembros = await ListUsers(bot)
+    valido = False
+    for user in listaMiembros:
+        if idUser == user.id:
+            valido = True
+            break
+    
+    return valido
+
+async def ValidarPersonajeUsuario(idUser, name):
+    listaPersonajes = await ObtenerListaPersonajes()
+    errorMsg = "NULL"
+    for personaje in listaPersonajes:
+        if personaje['idUser'] == idUser:
+            errorMsg = "Solo puedes tener un personaje."
+
+        elif personaje["name"] == name:
+            errorMsg = "El nombre de tu personaje ya está en uso, observa el listado de personajes clasificados y escoge uno que no esté en uso."
+
+    return errorMsg
+
 
 def GenerarContraseña():
     letras = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
@@ -122,7 +144,6 @@ async def ObtenerPersonajePorIdUser(idUser):
             break
     
     return result
-
 
 @bot.event
 async def on_ready():
@@ -167,14 +188,25 @@ async def CrearPersonaje():
     imgUrl = request.form['pjImgUrl']
     color = request.form['color']
 
-    cursor.execute(f"""
-        INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, passwd, idUser)
-        VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{passwd}', '{idUser}');
-    """)
+    errorMsg = await ValidarPersonajeUsuario(idUser, name)
+    userValid = await ValidarUsuario(idUser)
 
-    conection.commit()
+    if userValid == True:
+
+        if errorMsg == "NULL":
+            cursor.execute(f"""
+                INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, passwd, idUser)
+                VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{passwd}', '{idUser}');
+            """)
+            conection.commit()
+            return render_template("/paginas/minecraft_subpg/personajes/personajeCreated.html", name=name, descripcion=descripcion, imgUrl=imgUrl)
     
-    return render_template("/paginas/minecraft_subpg/personajes/personajeCreated.html", name=name, descripcion=descripcion, imgUrl=imgUrl)
+        else:
+            return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
+
+    else:
+        errorMsg = "Para crear un personajes tienes que ser Oficialmente miembro de PANA GAMING."
+        return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
 
 @app.route("/PersonajesMinecraftPG")
 async def PersonajesMinecraftPG():
@@ -198,7 +230,8 @@ async def FormEditPersonaje():
         return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje = personaje)
 
     else:
-        return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.html")
+        errorMsg = "Los datos introducidos son incorrectos, comprueba si has introducido los datos correctamente.<br>Pero si usted perdió su contraseña, contactanos y le ayudaremos."
+        return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.html", errorMsg = errorMsg)
 
 @app.route("/EditPersonaje", methods=["GET", "POST"])
 async def EditPersonaje():
@@ -220,4 +253,6 @@ async def EditPersonaje():
 
     return render_template("/paginas/minecraft_subpg/personajes/personajeEdited.html", personaje = personaje)
 
-bot.run("")
+
+
+bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.GRUir3.n1k7aHsj91LEJENOFxnZTQjCWPRERD66xWllHo")
