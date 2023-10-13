@@ -215,6 +215,9 @@ footer {
 .minecraft_body {
     background-image: url(../img/img_mc/mc_bg.jpg);
 }
+.mcpg_portada img {
+    width: 100%;
+}
 .mc_title {
     padding: 20px;
     text-align: center;
