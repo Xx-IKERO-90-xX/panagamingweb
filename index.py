@@ -15,10 +15,11 @@ bot = commands.Bot(command_prefix="$", intents=intents)
 app = Flask(__name__)
 
 conection = mysql.connector.connect(
-    host="192.168.1.66",
+    host="localhost",
     user="root",
     password="ikero9090",
-    database="MINECRAFTPG"
+    database="MINECRAFTPG",
+    auth_plugin="mysql_native_password"
 )
 
 cursor = conection.cursor()
@@ -101,26 +102,24 @@ async def ValidarDatosLogin(idUser, passwd):
     return valido
 
 async def ValidarUsuario(idUser):
-    listaMiembros = await ListUsers(bot)
-    valido = False
-    for user in listaMiembros:
-        if idUser == user.id:
-            valido = True
-            break
+    listaUsuarios = await ListUsers(bot)
+    valido = True
+    for u in listaUsuarios:
+        if idUser == u.id:
+            valido = False
     
     return valido
 
 async def ValidarPersonajeUsuario(idUser, name):
     listaPersonajes = await ObtenerListaPersonajes()
-    errorMsg = "NULL"
+    codError = 0
     for personaje in listaPersonajes:
-        if personaje['idUser'] == idUser:
-            errorMsg = "Solo puedes tener un personaje."
+        if personaje["idUser"] == idUser:        
+            codError = 1
 
         elif personaje["name"] == name:
-            errorMsg = "El nombre de tu personaje ya está en uso, observa el listado de personajes clasificados y escoge uno que no esté en uso."
-
-    return errorMsg
+            codError = 2
+    return codError
 
 
 def GenerarContraseña():
@@ -188,12 +187,12 @@ async def CrearPersonaje():
     imgUrl = request.form['pjImgUrl']
     color = request.form['color']
 
-    errorMsg = await ValidarPersonajeUsuario(idUser, name)
     userValid = await ValidarUsuario(idUser)
 
     if userValid == True:
-
-        if errorMsg == "NULL":
+        codError = await ValidarPersonajeUsuario(idUser, name)
+        if codError == 0:
+            codError = await ValidarPersonajeUsuario(idUser, name)
             cursor.execute(f"""
                 INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, passwd, idUser)
                 VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{passwd}', '{idUser}');
@@ -201,11 +200,16 @@ async def CrearPersonaje():
             conection.commit()
             return render_template("/paginas/minecraft_subpg/personajes/personajeCreated.html", name=name, descripcion=descripcion, imgUrl=imgUrl)
     
-        else:
+        elif codError == 1:
+            errorMsg = "Solo puedes tener un solo personaje. Si quieres cambiar de personaje editalo para que sea distinto."
+            return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
+        
+        elif codError == 2:
+            errorMsg = "El nombre del personajes que intentas implementar está ya en uso. Porfavor, escoja otro que esté en desuso en el servidor."
             return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
 
     else:
-        errorMsg = "Para crear un personajes tienes que ser Oficialmente miembro de PANA GAMING."
+        errorMsg = "Para poder crear un personaje en nuestro servidor tienes que ser oficialmente miembro de Pana Gaming."
         return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
 
 @app.route("/PersonajesMinecraftPG")
@@ -255,4 +259,4 @@ async def EditPersonaje():
 
 
 
-bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.GRUir3.n1k7aHsj91LEJENOFxnZTQjCWPRERD66xWllHo")
+bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.G4c8uq.6M_c-uWePgIrb4HL9lMQtsr9L79QELzVAexcbk")
