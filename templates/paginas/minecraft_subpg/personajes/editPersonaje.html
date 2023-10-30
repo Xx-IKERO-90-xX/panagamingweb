@@ -10,6 +10,57 @@
     <style>
         main {
             background-image: url(../../../../static/img/img_mc/mc_bg.jpg);
+            background-attachment: fixed;
+        }
+        .returnBtn {
+            text-decoration: none;
+            padding: 10px;
+            background: black;
+            color: white;
+            font-family: Arial;
+            border: solid 0.2em;
+            border-color: green;
+            border-radius: 20px;
+        }
+        .returnBtn:hover {
+            background: rgb(0, 44, 0);
+        }
+        @font-face{
+            font-family: hogwarts;
+            src: url(../assets/texts/HARRYP__.TTF);
+        }
+        @font-face{
+            font-family: starwars;
+            src: url(../assets/texts/soloist3d.ttf);
+        }
+        @font-face{
+            font-family: avengers;
+            src: url(../assets/texts/AVENGEANCE\ HEROIC\ AVENGER.ttf);
+        }
+        @font-face{
+            font-family: doom;
+            src: url(../assets/texts/AmazDooMLeft.ttf);
+        }
+        @font-face{
+            font-family: darkmagic;
+            src: url(../assets/texts/DarkMagic\ Free\ Trial.ttf);
+        }
+        @font-face {
+            font-family: halo_tit;
+            src: url(../assets/texts/halo.ttf);
+        }
+        form label {
+            color: white;
+            font-weight: bold;
+        }
+        .styleInfo {
+            text-align: center;
+            margin-left: 20%;
+            margin-right: 20%;
+            width: 60%;
+            background: rgb(0, 85, 0);
+            padding: 10px;
+            border-radius: 20px;
         }
     </style>
 </head>
@@ -28,8 +79,218 @@
         <br><br><br>
         <br><br>
         <div class="resultPersonaje">
-
+            {%if personaje["color"] == 'green'%}
+                <div class="personaje_green">
+                    {%if personaje["fontTit"] == 'mine'%}
+                        <h2 style="font-family: mine_tit2;">{{ personaje["name"] }}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'hogwarts'%}
+                        <h2 style="font-family: hogwarts;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'halo'%}
+                        <h2 style="font-family: halo_tit;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'starwars'%}
+                        <h2 style="font-family: starwars;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'avengers'%}
+                        <h2 style="font-family: avengers;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'darkmagic'%}
+                        <h2 style="font-family: darkmagic;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'doom'%}
+                        <h2 style="font-family: doom;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'null'%}
+                        <h2 style="font-family: Arial; font-weight: bold;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    <br><br>
+                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    <br><br>
+                    <p>
+                        {{personaje["descripcion"]}}
+                    </p>
+                </div>
+                <br><br><br><br>
+            {%endif%}
+            {%if personaje["color"] == 'blue'%}
+                <div class="personaje_blue">
+                    {%if personaje["fontTit"] == 'mine'%}
+                        <h2 style="font-family: mine_tit2;">{{ personaje["name"] }}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'hogwarts'%}
+                        <h2 style="font-family: hogwarts;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'halo'%}
+                        <h2 style="font-family: halo_tit;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'starwars'%}
+                        <h2 style="font-family: starwars;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'avengers'%}
+                        <h2 style="font-family: avengers;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'darkmagic'%}
+                        <h2 style="font-family: darkmagic;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'doom'%}
+                        <h2 style="font-family: doom;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje['fontTit'] == 'null'%}
+                        <h2 style="font-family: Arial; font-weight: bold;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    <br><br>
+                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    <br><br>
+                    <p>
+                        {{personaje["descripcion"]}}
+                    </p>
+                </div>
+                <br><br><br><br>
+            {%endif%}
+            {%if personaje["color"] == 'red'%}
+                <div class="personaje_red">
+                    {%if personaje["fontTit"] == 'mine'%}
+                        <h2 style="font-family: mine_tit2;">{{ personaje["name"] }}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'hogwarts'%}
+                        <h2 style="font-family: hogwarts;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'halo'%}
+                        <h2 style="font-family: halo_tit;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'starwars'%}
+                        <h2 style="font-family: starwars;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'avengers'%}
+                        <h2 style="font-family: avengers;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'darkmagic'%}
+                        <h2 style="font-family: darkmagic;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'doom'%}
+                        <h2 style="font-family: doom;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'null'%}
+                        <h2 style="font-family: Arial; font-weight: bold;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    <br><br>
+                    <img alt=" " src='{{personaje["imgUrl"]}}''>
+                    <br><br>
+                    <p>
+                        {{personaje["descripcion"]}}
+                    </p>
+                </div>
+                <br><br><br><br>
+            {%endif%}
+            {%if personaje["color"] == 'yellow'%}
+                <div class="personaje_yellow">
+                    {%if personaje["fontTit"] == 'mine'%}
+                        <h2 style="font-family: mine_tit2;">{{ personaje["name"] }}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'hogwarts'%}
+                        <h2 style="font-family: hogwarts;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'halo'%}
+                        <h2 style="font-family: halo_tit;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'starwars'%}
+                        <h2 style="font-family: starwars;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'avengers'%}
+                        <h2 style="font-family: avengers;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'darkmagic'%}
+                        <h2 style="font-family: darkmagic;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'doom'%}
+                        <h2 style="font-family: doom;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'null'%}
+                        <h2 style="font-family: Arial; font-weight: bold;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    <br><br>
+                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    <br><br>
+                    <p>
+                        {{personaje["descripcion"]}}
+                    </p>
+                </div>
+                <br><br><br><br>            
+            {%endif%}
+            {%if personaje["color"] == 'pink'%}
+                <div class="personaje_pink">
+                    {%if personaje["fontTit"] == 'mine'%}
+                        <h2 style="font-family: mine_tit2;">{{ personaje["name"] }}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'hogwarts'%}
+                        <h2 style="font-family: hogwarts;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'halo'%}
+                        <h2 style="font-family: halo_tit;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'starwars'%}
+                        <h2 style="font-family: starwars;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'avengers'%}
+                        <h2 style="font-family: avengers;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'darkmagic'%}
+                        <h2 style="font-family: darkmagic;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'doom'%}
+                        <h2 style="font-family: doom;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'null'%}
+                        <h2 style="font-family: Arial; font-weight: bold;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    <br><br>
+                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    <br><br>
+                    <p>
+                        {{personaje["descripcion"]}}
+                    </p>
+                </div>
+                <br><br><br><br>            
+            {%endif%}
+            {%if personaje["color"] == 'purple'%}
+                <div class="personaje_purple">
+                    {%if personaje["fontTit"] == 'mine'%}
+                        <h2 style="font-family: mine_tit2;">{{ personaje["name"] }}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'hogwarts'%}
+                        <h2 style="font-family: hogwarts;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'halo'%}
+                        <h2 style="font-family: halo_tit;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'starwars'%}
+                        <h2 style="font-family: starwars;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'avengers'%}
+                        <h2 style="font-family: avengers;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'darkmagic'%}
+                        <h2 style="font-family: darkmagic;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'doom'%}
+                        <h2 style="font-family: doom;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    {%if personaje["fontTit"] == 'null'%}
+                        <h2 style="font-family: Arial; font-weight: bold;">{{personaje["name"]}}</h2>
+                    {%endif%}
+                    <br><br>
+                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    <br><br>
+                    <p>
+                        {{personaje["descripcion"]}}
+                    </p>
+                </div>
+                <br><br><br><br>            
+            {%endif%}
         </div>
+        <br><br><br>
         <form action="{{url_for('EditPersonaje')}}" method="post" class="personajeForm">
             <br><br>
             <div class="NuevoPersonaje">
@@ -107,12 +368,40 @@
                 <input type="text" name="pjImgUrl" value="{{personaje['imgUrl']}}">
             </div>
             <br><br>
+            <div class="styleInfo">
+                <label>ASPECTO DEL TITULO</label><br>
+                    <select name="titleStyle">
+                        <option value="null">Ninguno</option>
+                        <option value="mine" selected><div style="font-family: mine_tit2;">MINECRAFT</div></option>
+                        <option value="hogwarts"><div style="font-family: hogwarts;">HOGWARTS</div></option>
+                        <option value="halo"><div style="font-family: halo_tit;">HALO</div></option>
+                        <option value="starwars"><div style="font-family: starwars;">STAR WARS</div></option>
+                        <option value="avengers"><div style="font-family: avengers;">AVENGERS</div></option>
+                        <option value="darkmagic"><div style="font-family: darkmagic;">DARK MAGIC</div></option>
+                        <option value="doom"><div style="font-family: doom;">DOOM</div></option>
+                    </select>
+                <br><br>
+                <label>FONDO:</label><br>
+                <select name="aspecto">
+                    <option value="null">NULL</option>
+                    <option value="mine">MINECRAFT</option>
+                    <option value="hogwarts">HOGWARTS</option>
+                    <option value="starwars">STAR WARS</option>
+                    <option value="ark">ARK SURVIVAL EVOLVED</option>
+                    <option value="halo">HALO</option>
+                    <option value="doom">DOOM</option>
+                </select>
+            </div>
+            <br><br><br>
             <div class="pjButtons">
-                <input type="submit" value="ENVIAR">
+                <input type="submit" value="Editar">
+                <a class="returnBtn" href="{{url_for('PersonajesMinecraftPG')}}">Volver</a>
             </div>
             <input style="display:none;" name="idUser" value="{{personaje['idUser']}}">
+            <input style="display:none;" name="idPersonaje" value="{{personaje['id']}}">
             <br>
-        </form>
+        </form><br>
+        <br><br><br><br><br><br><br>
         <br><br>
     </main>
     <footer>

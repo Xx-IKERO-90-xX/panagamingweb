@@ -82,7 +82,12 @@ async def MostrarMiembros(userList, staffList, ejecList):
     return members
 
 async def ObtenerListaPersonajes():
-    cursor.execute("SELECT * FROM PERSONAJES;")
+    cursor.execute("""
+        SELECT PERSONAJES.id, PERSONAJES.name, PERSONAJES.descripcion, PERSONAJES.color, PERSONAJES.imgUrl, PERSONAJES.passwd, PERSONAJES.idUser,
+            CONFIGURACION_PERSONAJE.idPersonaje, CONFIGURACION_PERSONAJE.fontTit, CONFIGURACION_PERSONAJE.imgBackground 
+        FROM PERSONAJES INNER JOIN CONFIGURACION_PERSONAJE
+            ON PERSONAJES.id = CONFIGURACION_PERSONAJE.idPersonaje;
+    """)
     result = cursor.fetchall()
     columnas = [column[0] for column in cursor.description]
     resultados_json = []
@@ -91,6 +96,26 @@ async def ObtenerListaPersonajes():
         resultados_json.append(fila_json)
     
     return resultados_json
+
+async def ObtenerPersonaje(idUser):
+    cursor.execute(f"""
+        SELECT * FROM PERSONAJES;
+    """)
+    result = cursor.fetchall()
+    columnas = [column[0] for column in cursor.description]
+    resultados_json = []
+    for fila in result:
+        fila_json = dict(zip(columnas, fila))
+        resultados_json.append(fila_json)
+    
+    for personaje in resultados_json:
+        if personaje['idUser'] == idUser:
+            res = personaje
+            break
+    
+    return res
+
+
 
 async def ValidarDatosLogin(idUser, passwd):
     listaPersonajes = await ObtenerListaPersonajes()
@@ -198,6 +223,13 @@ async def CrearPersonaje():
                 VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{passwd}', '{idUser}');
             """)
             conection.commit()
+            newPersonaje = await ObtenerPersonaje(idUser)
+            idPersonaje = newPersonaje['id']
+            cursor.execute(f"""
+                INSERT INTO CONFIGURACION_PERSONAJE (idPersonaje, fontTit, fontDesc, imgBackground)
+                VALUES ({int(idPersonaje)}, 'null', 'null', 'null')
+            """)
+            conection.commit()
             return render_template("/paginas/minecraft_subpg/personajes/personajeCreated.html", name=name, descripcion=descripcion, imgUrl=imgUrl)
     
         elif codError == 1:
@@ -235,9 +267,9 @@ async def FormEditPersonaje():
 
     else:
         errorMsg = "Los datos introducidos son incorrectos, comprueba si has introducido los datos correctamente.<br>Pero si usted perdió su contraseña, contactanos y le ayudaremos."
-        return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.html", errorMsg = errorMsg)
+        return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
 
-@app.route("/EditPersonaje", methods=["GET", "POST"])
+@app.route("/EditPersonaje", methods=["GET","POST"])
 async def EditPersonaje():
 
     name = request.form["pjName"]
@@ -245,6 +277,9 @@ async def EditPersonaje():
     descripcion = request.form["pjDescription"]
     imgUrl = request.form["pjImgUrl"]
     idUser = request.form["idUser"]
+    idPersonaje = request.form["idPersonaje"]
+    titStyle = request.form["titleStyle"]
+    fondo = request.form["aspecto"]
 
     cursor.execute(f"""
         UPDATE PERSONAJES
@@ -252,11 +287,16 @@ async def EditPersonaje():
         WHERE idUser = '{idUser}';
     """)
     conection.commit()
-
+    cursor.execute(f"""
+        UPDATE CONFIGURACION_PERSONAJE
+        SET fontTit = '{titStyle}', imgBackground = '{fondo}'
+        WHERE idPersonaje = {idPersonaje};
+    """)
+    conection.commit()
     personaje = await ObtenerPersonajePorIdUser(idUser)
 
-    return render_template("/paginas/minecraft_subpg/personajes/personajeEdited.html", personaje = personaje)
+    return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje = personaje)
 
 
 
-bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.G4c8uq.6M_c-uWePgIrb4HL9lMQtsr9L79QELzVAexcbk")
+bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.GKxjEE.krqFaQFKR3YQbr78EBALPNACBn3TdWakSJn39c")

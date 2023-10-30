@@ -122,6 +122,50 @@ footer {
 }
 
 
+/*ASSETS*/
+@font-face{
+    font-family: hogwarts;
+    src: url(../assets/texts/HARRYP__.TTF);
+}
+@font-face{
+    font-family: starwars;
+    src: url(../assets/texts/soloist3d.ttf);
+}
+@font-face{
+    font-family: avengers;
+    src: url(../assets/texts/AVENGEANCE\ HEROIC\ AVENGER.ttf);
+}
+@font-face{
+    font-family: doom;
+    src: url(../assets/texts/AmazDooMLeft.ttf);
+}
+@font-face{
+    font-family: darkmagic;
+    src: url(../assets/texts/DarkMagic\ Free\ Trial.ttf);
+}
+@font-face {
+    font-family: halo_tit;
+    src: url(../assets/texts/halo.ttf)
+}
+
+.arkTheme {
+    background-image: url(../assets/img/ark.jpg);
+    border-color: rgb(125, 255, 85);
+}
+.doomTheme {
+    background-image: url(../assets/img/doom.jpg);
+    border-color: rgb(158, 0, 0);
+}
+.haloTheme {
+    background-image: url(../assets/img/halo.png);
+    border-color: blue;
+}
+.hogwartsTheme {
+    background-image: url(../assets/img/hogwarts.jpg);
+    border-color: black;
+}
+
+
 
 
 
