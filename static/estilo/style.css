@@ -927,6 +927,198 @@ footer {
     border-color:rgb(88, 0, 139);
     font-size: 20px;
 }
+.personajeMine {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/minecraft.jpg);
+    border: solid 0.2em;
+    border-color: rgb(0, 92, 3);
+    border-radius: 10px;
+}
+.personajeMine h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgba(0, 255, 0, 0.582);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 40px;
+    
+}
+.personajeMine img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border: solid 0.2em;
+    border-color:rgb(0, 116, 4);
+}
+.personajeMine p {
+    text-align: center;
+    font-size: 20px;
+    font-family: Arial;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.personajeHalo {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/halo.png);
+    border: solid 0.2em;
+    border-color: rgb(0, 110, 255);
+    border-radius: 10px;
+}
+.personajeHalo h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgb(0, 110, 255);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 40px;
+}
+.personajeHalo img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border-color:rgb(0, 0, 0);
+}
+.personajeHalo p {
+    text-align: center;
+    font-size: 20px;
+    font-family: mine_txt;
+    padding: 10px;
+    border-radius: 10px;
+    background:rgba(76, 94, 255, 0.582);
+    font-weight: bold;
+}
+.personajeStarWars {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/starwars.jpg);
+    border: solid 0.2em;
+    border-color: rgb(0, 0, 0);
+    border-radius: 10px;
+}
+.personajeStarWars img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border-color: black;
+}
+.personajeStarWars h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgba(122, 122, 122, 0.589);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 40px;
+}
+.personajeStarWars p {
+    text-align: center;
+    font-size: 20px;
+    font-family: Arial;
+    padding: 10px;
+    border-radius: 10px;
+    background:rgba(100, 100, 100, 0.582);
+    font-weight: bold;
+}
+@font-face {
+    font-family: HogwartsTxt;
+    src: url(../texto/FancyCardText.ttf);
+}
+.personajeHogwarts {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/hogwarts.jpg);
+    border: solid 0.2em;
+    border-color: rgb(89, 0, 255);
+    border-radius: 10px;
+    background-attachment: fixed;
+}
+.personajeHogwarts p {
+    text-align: center;
+    font-size: 30px;
+    font-family: HogwartsTxt;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+.personajeHogwarts img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border-color: black;
+}
+.hogwartsCard {
+    text-align: center;
+    background-image: url(../img/HogwartsCard.jpg);
+    width: 700px;
+    margin: auto;
+    border-radius: 10px;
+    border: solid 0.2em;
+}
+.personajeHogwarts h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgba(112, 64, 0, 0.781);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 50px;
+}
+.personajeDoom {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/doom.jpg);
+    border: solid 0.2em;
+    border-color: rgb(131, 0, 0);
+    border-radius: 10px;
+}
+.personajeDoom img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border-color: rgb(131, 0, 0);
+}
+.personajeDoom p {
+    text-align: center;
+    font-size: 30px;
+    font-family: doom;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    background: rgba(255, 0, 0, 0.589);
+}
+.personajeDoom h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgba(255, 0, 0, 0.589);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 40px;
+}
+
+
+
+
 .crearPersonaje {
     text-align: center;
     padding: 20px;

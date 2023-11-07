@@ -112,10 +112,7 @@ async def ObtenerPersonaje(idUser):
         if personaje['idUser'] == idUser:
             res = personaje
             break
-    
     return res
-
-
 
 async def ValidarDatosLogin(idUser, passwd):
     listaPersonajes = await ObtenerListaPersonajes()
@@ -299,4 +296,4 @@ async def EditPersonaje():
 
 
 
-bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.GKxjEE.krqFaQFKR3YQbr78EBALPNACBn3TdWakSJn39c")
+bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.GUkhDu.N62WcKPB-PJv-5FR0RA-rZgghhqsNJlroS_uCY")
