@@ -1050,7 +1050,7 @@ footer {
     background-attachment: fixed;
 }
 .personajeHogwarts p {
-    text-align: center;
+    text-align: left;
     font-size: 30px;
     font-family: HogwartsTxt;
     padding: 10px;
@@ -1061,7 +1061,9 @@ footer {
     text-align: center;
     font-size: 60px;
     border-radius: 10px;
+    border: solid 0.01em;
     border-color: black;
+    width: 200px;
 }
 .hogwartsCard {
     text-align: center;

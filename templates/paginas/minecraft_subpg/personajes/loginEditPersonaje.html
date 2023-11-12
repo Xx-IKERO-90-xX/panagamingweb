@@ -52,8 +52,20 @@
         .loginButtons input:hover {
             background:rgb(0, 58, 0);
         }
-    
-
+        .errorLabels {
+            text-align: center;
+        }
+        .errorLabels label {
+            text-align: center;
+            padding: 5px;
+            border-radius: 10px;
+            border: solid 0.1em;
+            border-color: red;
+            background: black;
+            color: red;
+            font-family: Arial;
+            font-size: 30px;
+        }
     </style>
 </head>
 <body style="background-image: url(../../../../static/img/img_mc/stone_bg.png);">
@@ -70,7 +82,13 @@
     <main>
         <form method="post" action="{{url_for('FormEditPersonaje')}}" class="loginForm">
             <h2>LOGIN PERSONAJE</h2>
-            <br><br>
+            <br><br><br>
+            {%if errorMsg != null%}
+                <div class="errorMsg">
+                    <label>{{errorMsg}}</label>
+                </div>
+            {%endif%}
+            <br><br><br>
             <div class="datos">
                 <label><strong>ID USUARIO</strong></label><br>
                 <input type="text" name="idUser"><br>

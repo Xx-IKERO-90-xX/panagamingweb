@@ -11,7 +11,20 @@
         main {
             background-image: url(../../../../static/img/img_mc/mc_bg.jpg);
         }
-
+        .errorLabels {
+            text-align: center;
+        }
+        .errorLabels label {
+            text-align: center;
+            padding: 5px;
+            border-radius: 10px;
+            border: solid 0.1em;
+            border-color: red;
+            background: black;
+            color: red;
+            font-family: Arial;
+            font-size: 30px;
+        }
     </style>
 </head>
 <body>
@@ -27,25 +40,28 @@
     </nav><br>
     <main><br>
         <br><br><br>
+        {%if errorMsg != null%}
+            <br><br><br>
+            <div class="errorLabels">
+                <label>{{errorMsg}}</label>
+            </div>
+        {%endif%}
         <br><br>
         <form action="{{url_for('CrearPersonaje')}}" method="post" class="personajeForm">
             <br><br>
             <div class="UserInfo">
                 <label>ID USUARIO</label><br>
-                <input type="text" name="idUser"><br>
+                <input type="text" name="idUser" required><br>
                 <br>
                 <label>CONTRASEÑA</label><br>
-                <input type="text" name="passwd"><br>
+                <input type="text" name="passwd" required><br>
             </div><br>
             <div class="NuevoPersonaje">
                 <label>NOMBRE DE TU NUEVO PERSONAJE</label><br>
-                <input type="text" name="pjName">
-                <br><br>
-                <label>RAZA</label><br>
-                <input type="text" name="pjRaza">
+                <input type="text" name="pjName" required>
                 <br><br>
                 <label>COLOR DEL PERSONAJE</label>
-                <select name="color">
+                <select name="color" required>
                     <option value="green">💚</option>
                     <option value="blue">💙</option>
                     <option value="red">❤️️</option>
@@ -55,8 +71,7 @@
                 </select><br>
                 <br>
                 <label>DESCRIPCION</label><br>
-                <textarea name="pjDescription">
-                </textarea>
+                <textarea name="pjDescription" required></textarea>
                 <br><br>
                 <label>URL DE LA IMAGEN REPRESENTATIVA</label><br>
                 <input type="text" name="pjImgUrl">

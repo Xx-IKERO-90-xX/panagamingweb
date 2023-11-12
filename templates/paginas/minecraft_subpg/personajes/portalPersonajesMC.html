@@ -33,7 +33,20 @@
             width: 60%;
             margin-left: 20%;
             margin-right: 20%;
-
+        }
+        .errorLabels {
+            text-align: center;
+        }
+        .errorLabels label {
+            text-align: center;
+            padding: 5px;
+            border-radius: 10px;
+            border: solid 0.1em;
+            border-color: red;
+            background: black;
+            color: red;
+            font-family: Arial;
+            font-size: 30px;
         }
     </style>
 </head>
@@ -412,17 +425,20 @@
                             <h2 style="font-family: Arial; font-weight: bold;">{{personaje["name"]}}</h2>
                         {%endif%}
                         <br><br>
-                        <img alt=" " src='{{personaje["imgUrl"]}}'>
-                        <br><br>
                         <div class="hogwartsCard">
                             <br><br><br><br><br>
                             <br><br><br><br><br>
+                            <img alt=" " src='{{personaje["imgUrl"]}}'>
+                            <br><br><br>
                             <p>
+                                <strong style="font-family: HogwartsTxt;">NOMBRE: <span style="font-family: hogwarts;">{{personaje["name"]}}</span></strong><br>
+                                <br>
+                                <strong style="font-family: HogwartsTxt;">DESCRIPCION:</strong><br> 
                                 {{personaje["descripcion"]}}
                             </p>
                         </div>
-                    </div>
-                    <br><br><br><br> 
+                        <br><br><br><br>
+                    </div> 
                 {%endif%}
                 {%if personaje["imgBackground"] == 'doom'%}
                     <div class="personajeDoom">

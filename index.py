@@ -24,6 +24,9 @@ conection = mysql.connector.connect(
 
 cursor = conection.cursor()
 
+##################################################################################
+# Funciones del código lógico del procesamiento en el servidor ###################
+##################################################################################
 
 async def ListUsers(bot):
     guild = bot.get_guild(793956939687133184)
@@ -125,10 +128,10 @@ async def ValidarDatosLogin(idUser, passwd):
 
 async def ValidarUsuario(idUser):
     listaUsuarios = await ListUsers(bot)
-    valido = True
+    valido = False
     for u in listaUsuarios:
         if idUser == u.id:
-            valido = False
+            valido = True
     
     return valido
 
@@ -165,11 +168,20 @@ async def ObtenerPersonajePorIdUser(idUser):
             break
     
     return result
+#######################################################################################
 
+#######################################################################################
+# Funciones y eventos del bot del Discord de pana Gaming ##############################
+#######################################################################################
 @bot.event
 async def on_ready():
     app.run()
 
+#######################################################################################
+
+#######################################################################################
+# Paginas de respuesta con procesamiento en el Servidor ###############################
+#######################################################################################
 @app.route("/")
 def Inicio():
     return render_template("index.html")
@@ -231,15 +243,15 @@ async def CrearPersonaje():
     
         elif codError == 1:
             errorMsg = "Solo puedes tener un solo personaje. Si quieres cambiar de personaje editalo para que sea distinto."
-            return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
+            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", errorMsg = errorMsg)
         
         elif codError == 2:
             errorMsg = "El nombre del personajes que intentas implementar está ya en uso. Porfavor, escoja otro que esté en desuso en el servidor."
-            return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
+            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", errorMsg = errorMsg)
 
     else:
         errorMsg = "Para poder crear un personaje en nuestro servidor tienes que ser oficialmente miembro de Pana Gaming."
-        return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
+        return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", errorMsg = errorMsg)
 
 @app.route("/PersonajesMinecraftPG")
 async def PersonajesMinecraftPG():
@@ -253,6 +265,7 @@ async def LoginEditPersonaje():
 
 @app.route("/FormEditPersonaje", methods=["GET", "POST"])
 async def FormEditPersonaje():
+
     idUser = request.form["idUser"]
     passwd = request.form["passwd"]
 
@@ -264,7 +277,7 @@ async def FormEditPersonaje():
 
     else:
         errorMsg = "Los datos introducidos son incorrectos, comprueba si has introducido los datos correctamente.<br>Pero si usted perdió su contraseña, contactanos y le ayudaremos."
-        return render_template("/paginas/minecraft_subpg/personajes/errors/errorPage.html", errorMsg = errorMsg)
+        return render_template("/paginas/minecraft_subpg/personajes/loginEditPersonaje.html", errorMsg = errorMsg)
 
 @app.route("/EditPersonaje", methods=["GET","POST"])
 async def EditPersonaje():
@@ -278,22 +291,29 @@ async def EditPersonaje():
     titStyle = request.form["titleStyle"]
     fondo = request.form["aspecto"]
 
-    cursor.execute(f"""
-        UPDATE PERSONAJES
-        SET name = '{name}', color = '{color}', descripcion = '{descripcion}', imgUrl = '{imgUrl}'
-        WHERE idUser = '{idUser}';
-    """)
-    conection.commit()
-    cursor.execute(f"""
-        UPDATE CONFIGURACION_PERSONAJE
-        SET fontTit = '{titStyle}', imgBackground = '{fondo}'
-        WHERE idPersonaje = {idPersonaje};
-    """)
-    conection.commit()
-    personaje = await ObtenerPersonajePorIdUser(idUser)
+    userValid = ValidarPersonajeUsuario(idUser, name)
 
-    return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje = personaje)
+    if userValid == 0:
+        cursor.execute(f"""
+            UPDATE PERSONAJES
+            SET name = '{name}', color = '{color}', descripcion = '{descripcion}', imgUrl = '{imgUrl}'
+            WHERE idUser = '{idUser}';
+        """)
+        conection.commit()
+        cursor.execute(f"""
+            UPDATE CONFIGURACION_PERSONAJE
+            SET fontTit = '{titStyle}', imgBackground = '{fondo}'
+            WHERE idPersonaje = {idPersonaje};
+        """)
+        conection.commit()
+        personaje = await ObtenerPersonajePorIdUser(idUser)
+        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje = personaje)
 
+    else:
+        errorMsg = "El nombre introducido esta ya en uso, escoja otro porfavor."
+        personaje = await ObtenerPersonajePorIdUser(idUser)
+        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje=personaje, errorMsg=errorMsg)
+    
+###########################################################################################################################################
 
-
-bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.GUkhDu.N62WcKPB-PJv-5FR0RA-rZgghhqsNJlroS_uCY")
+bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.G4Dzd9.v-s8pCQTo-xvSDzn7Unsvpr5XUq9_loy7reRpw")
