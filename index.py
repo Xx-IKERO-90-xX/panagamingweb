@@ -84,6 +84,16 @@ async def MostrarMiembros(userList, staffList, ejecList):
     
     return members
 
+async def ValidarPersonajeEditado(idUser, name):
+    listaPersonajes = await ObtenerListaPersonajes()
+    errorCod = 0
+    for personaje in listaPersonajes:
+        if personaje["name"] == name and personaje["idUser"] != idUser:
+            errorCod = 1
+    
+    return errorCod
+
+
 async def ObtenerListaPersonajes():
     cursor.execute("""
         SELECT PERSONAJES.id, PERSONAJES.name, PERSONAJES.descripcion, PERSONAJES.color, PERSONAJES.imgUrl, PERSONAJES.passwd, PERSONAJES.idUser,
@@ -101,7 +111,7 @@ async def ObtenerListaPersonajes():
     return resultados_json
 
 async def ObtenerPersonaje(idUser):
-    cursor.execute(f"""
+    cursor.execute("""
         SELECT * FROM PERSONAJES;
     """)
     result = cursor.fetchall()
@@ -224,9 +234,8 @@ async def CrearPersonaje():
     userValid = await ValidarUsuario(idUser)
 
     if userValid == True:
-        codError = await ValidarPersonajeUsuario(idUser, name)
+        codError = ValidarPersonajeUsuario(idUser, name)
         if codError == 0:
-            codError = await ValidarPersonajeUsuario(idUser, name)
             cursor.execute(f"""
                 INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, passwd, idUser)
                 VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{passwd}', '{idUser}');
@@ -291,7 +300,7 @@ async def EditPersonaje():
     titStyle = request.form["titleStyle"]
     fondo = request.form["aspecto"]
 
-    userValid = ValidarPersonajeUsuario(idUser, name)
+    userValid = await ValidarPersonajeEditado(idUser, name)
 
     if userValid == 0:
         cursor.execute(f"""
@@ -316,4 +325,4 @@ async def EditPersonaje():
     
 ###########################################################################################################################################
 
-bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.G4Dzd9.v-s8pCQTo-xvSDzn7Unsvpr5XUq9_loy7reRpw")
+bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.G1GHP1.d6kgCGIBJMFPSRrbUpk7PxZA5uq2qIy6IpJMWw")
