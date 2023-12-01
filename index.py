@@ -15,7 +15,7 @@ bot = commands.Bot(command_prefix="$", intents=intents)
 app = Flask(__name__)
 
 conection = mysql.connector.connect(
-    host="192.168.1.38",
+    host="192.168.1.39",
     user="root",
     password="ikero9090",
     database="MINECRAFTPG",
@@ -325,4 +325,4 @@ async def EditPersonaje():
     
 ###########################################################################################################################################
 
-bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.GrhKgx.Fuk1DK6Esdq9JS2jDhQouSmT-3SjVOJA11-LUI")
+bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.GF0UK1.HPCb5XwCwadRaToV8kAkcDuMx6_FK5LlkL3LFw")
