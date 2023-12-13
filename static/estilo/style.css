@@ -43,18 +43,19 @@ nav ul {
     background: black;
     width: 100%;
     float: right;
-    margin: auto;
     display: block;
+    text-align: center;
 }
 nav ul li {
     list-style: None;
-    margin-left: 20%;
+    margin-left: 10%;
     float: left;
     border: solid 0.3em;
     border-color: green;
     border-radius: 30px;
     padding: 9px;
     display: block;
+    text-align: center;
 }
 nav ul li a {
     text-decoration: None;
@@ -71,7 +72,8 @@ nav ul li a:hover {
     padding: 4px;
 }
 body {
-    background: rgb(43, 43, 43);
+    background-image: url("../img/fondoVerdeNeon.jpg");
+    background-attachment: fixed;
 }
 footer {
     background:rgb(0, 0, 0);
@@ -79,6 +81,24 @@ footer {
     font-size: 30px;
     color: white;
     padding: 20px;
+}
+.usuarioSesion {
+    display: block;
+    background: rgb(10, 10, 10);
+    color: white;
+    border-top: solid 0.4em;
+    border-color: black;
+    text-align: center;
+    padding: 20px;
+}
+.usuarioSesion img {
+    width: 80px;
+    border-radius: 50%;
+    border: solid 0.2em;
+}
+.usuarioSesion label {
+    font-size: 25px;
+    font-family: Arial;
 }
 @font-face{
     font-family: pgtit;
