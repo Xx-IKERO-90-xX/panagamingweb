@@ -7,9 +7,8 @@ import mysql.connector
 import json
 import random
 import asyncio
-import gc
 
-BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.G83u0a.t7wSQjknJ-nKQLuSnN_YC52w4foFuDoijIeHi0"
+BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.GiDoIC.C4uG8I4zJApzYG6X6h8GNN6vVH_tOglqX7sg70"
 
 intents = discord.Intents.all()
 intents.members = True
@@ -99,6 +98,7 @@ async def ValidarPersonajeEditado(idUser, name):
     return errorCod
 
 
+
 async def ObtenerListaPersonajes():
     conexion = await AbrirConexionSQL()
     cursor = conexion.cursor()
@@ -113,16 +113,19 @@ async def ObtenerListaPersonajes():
     resultados_json = []
     for fila in result:
         fila_json = dict(zip(columnas, fila))
-        resultados_json.append(fila_json)
-    
+        resultados_json.append(fila_json)    
 
+    conexion.close()
     return resultados_json
 
-async def ObtenerPersonaje(idUser):
+async def ObtenerPersonaje(name):
     conexion = await AbrirConexionSQL()
     cursor = conexion.cursor()
-    cursor.execute("""
-        SELECT * FROM PERSONAJES;
+    cursor.execute(f"""
+        SELECT PERSONAJES.id, PERSONAJES.name, PERSONAJES.descripcion, PERSONAJES.color, PERSONAJES.imgUrl, PERSONAJES.idUser, PERSONAJES.idDiario, USUARIO.name AS userNAme
+        FROM PERSONAJES INNER JOIN USUARIO
+            ON PERSONAJES.idUser = USUARIO.idUser
+        WHERE USUARIO.name = '{name}';
     """)
     result = cursor.fetchall()
     columnas = [column[0] for column in cursor.description]
@@ -131,12 +134,8 @@ async def ObtenerPersonaje(idUser):
         fila_json = dict(zip(columnas, fila))
         resultados_json.append(fila_json)
     
-    for personaje in resultados_json:
-        if personaje['idUser'] == idUser:
-            res = personaje
-            break
     conexion.close()
-    return res
+    return resultados_json
 
 async def ValidarDatosLogin(idUser, passwd):
     listaPersonajes = await ObtenerListaPersonajes()
@@ -162,7 +161,6 @@ async def ValidarPersonajeUsuario(idUser, name):
     for personaje in listaPersonajes:
         if personaje["idUser"] == idUser:        
             codError = 1
-
         elif personaje["name"] == name:
             codError = 2
     return codError
@@ -447,12 +445,30 @@ async def PersonajesMinecraftPG():
 async def LoginEditPersonaje():
     return render_template("/paginas/minecraft_subpg/personajes/loginEditPersonaje.html")
 
-@app.route("/FormEditPersonaje", methods=["GET", "POST"])
+@app.route("/FormEditPersonaje")
 async def FormEditPersonaje():
     if "id" in session:
-        idUser = session["id"]
-        personaje = await ObtenerPersonajePorIdUser(idUser)
-        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje = personaje, session=session)
+        conexion = await AbrirConexionSQL()
+        cursor = conexion.cursor()
+        cursor.execute(f"""
+            SELECT PERSONAJES.id, PERSONAJES.name, PERSONAJES.descripcion, PERSONAJES.color, PERSONAJES.imgUrl, PERSONAJES.idUser, PERSONAJES.idDiario, USUARIO.name AS userName
+            FROM PERSONAJES INNER JOIN USUARIO
+                ON PERSONAJES.idUser = USUARIO.idUser;
+        """)
+        result = cursor.fetchall()
+        columnas = [column[0] for column in cursor.description]
+        resultados_json = []
+        for fila in result:
+            fila_json = dict(zip(columnas, fila))
+            resultados_json.append(fila_json)
+        personaje = {}
+        for per in resultados_json:
+            if per["userName"] == session["name"]:
+                personaje = per
+
+    
+        conexion.close()
+        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje=personaje, session=session)
     else:
         return redirect(url_for("Inicio"))
 
@@ -464,9 +480,7 @@ async def EditPersonaje():
     descripcion = request.form["pjDescription"]
     imgUrl = request.form["pjImgUrl"]
     idUser = request.form["idUser"]
-    idPersonaje = request.form["idPersonaje"]
-    titStyle = request.form["titleStyle"]
-    fondo = request.form["aspecto"]
+    #idPersonaje = request.form["idPersonaje"]
 
     userValid = await ValidarPersonajeEditado(idUser, name)
 
@@ -479,14 +493,15 @@ async def EditPersonaje():
             WHERE idUser = '{idUser}';
         """)
         conexion.commit()
-        cursor.execute(f"""
-            UPDATE CONFIGURACION_PERSONAJE
-            SET fontTit = '{titStyle}', imgBackground = '{fondo}'
-            WHERE idPersonaje = {idPersonaje};
-        """)
-        conexion.commit()
-        personaje = await ObtenerPersonajePorIdUser(idUser)
-        return redirect(url_for("EditPersonaje"))
+        #cursor.execute(f"""
+        #    UPDATE CONFIGURACION_PERSONAJE
+        #    SET fontTit = '{titStyle}', imgBackground = '{fondo}'
+        #    WHERE idPersonaje = {idPersonaje};
+        #""")
+        #conexion.commit()
+        conexion.close()
+        #personaje = await ObtenerPersonajePorIdUser(idUser)
+        return redirect(url_for("FormEditPersonaje"))
 
     else:
         errorMsg = "El nombre introducido esta ya en uso, escoja otro porfavor."
