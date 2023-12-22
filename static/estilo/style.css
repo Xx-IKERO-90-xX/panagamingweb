@@ -1942,6 +1942,48 @@ footer {
     }
 }
 
+.apartadoDiscord {
+    padding: 20px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+    background-image: url(../img/4076929.png);
+    border: solid 0.2em;
+    border-radius: 10px;
+}
+.btnJoinDiscord {
+    padding: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+    text-decoration: none;
+    color: white;
+    font-family: Arial;
+    background: black;
+    border-radius: 10px;
+    border: solid 0.2em;
+    font-size: 30px;
+    --borderWidth: 3px;
+    background: #131313;
+    position: relative;
+    border-color: rgb(102, 0, 255);
+    transition: background 0.5s linear;
+}
+.btnJoinDiscord:hover {
+    background: rgb(49, 0, 128);
+}
+.discordFrame {
+    border: solid 0.2em;
+    border-color:black;
+    border-radius: 10px;
+}
+.discordTitle {
+    background: rgba(85, 38, 255, 0.692);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+
 
 /* FORMULARIO DE CONTACTO*/
 

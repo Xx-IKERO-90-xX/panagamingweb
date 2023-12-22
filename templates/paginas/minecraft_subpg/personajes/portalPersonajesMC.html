@@ -601,30 +601,28 @@
                 {%for personaje in listaPersonajes%}
                 {%if personaje["color"] == 'green'%}
                 <div class="personaje_green">
-                    <h2 style="font-family: mine_tit2"></h2>
+                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="">
-                        <input type="text" style="display: none;" value="{{personaje.id}}">
-                        <input class="greenButton" type="submit" value="Ver Diario">
-                    </form>
+                    <br>
+                    <a href="#" class="buttonGreen">Ver Diario</a>
                 </div>
                 <br><br><br><br>
                 {%endif%}
                 {%if personaje["color"] == 'blue'%}
                 <div class="personaje_blue">
-                    <h2 style="font-family: mine_tit2"></h2>
+                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="">
+                    <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
                         <input type="text" style="display: none;" value="{{personaje.id}}">
                         <input class="buttonBlue" type="submit" value="Ver Diario">
                     </form>
@@ -633,65 +631,53 @@
                 {%endif%}
                 {%if personaje["color"] == 'red'%}
                 <div class="personaje_red">
-                    <h2 style="font-family: mine_tit2"></h2>
+                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="">
-                        <input type="text" style="display: none;" value="{{personaje.id}}">
-                        <input class="buttonRed" type="submit" value="Ver Diario">
-                    </form>
+                    <a href="#" class="buttonRed">Ver Diario</a>
                 </div>
                 <br><br><br><br>
                 {%endif%}
                 {%if personaje["color"] == 'yellow'%}
                 <div class="personaje_yellow">
-                    <h2 style="font-family: mine_tit2"></h2>
+                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
                     <p>
                         personaje["descripcion"]
                     </p><br>
-                    <form class="buttonDiario" method="post" action="">
-                        <input type="text" style="display: none;" value="{{personaje.id}}">
-                        <input class="buttonYellow" type="submit" value="Ver Diario">
-                    </form>
+                    <a href="#" class="buttonYellow"></a>
                 </div>
                 <br><br><br><br>            
                 {%endif%}
                 {%if personaje["color"] == 'pink'%}
                 <div class="personaje_pink">
-                    <h2 style="font-family: mine_tit2"></h2>
+                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="">
-                        <input type="text" style="display: none;" value="{{personaje.id}}">
-                        <input class="buttonPink" type="submit" value="Ver Diario">
-                    </form>
+                    <a href="#" class="buttonPink">Ver Diario</a>
                 </div>
                 <br><br><br><br>            
                 {%endif%}
                 {%if personaje["color"] == 'purple'%}
                 <div class="personaje_purple">
-                    <h2 style="font-family: mine_tit2"></h2>
+                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="">
-                        <input type="text" style="display: none;" value="{{personaje.id}}">
-                        <input class="buttonPurple" type="submit" value="Ver Diario">
-                    </form>
+                    <a href="#" class="buttonPurple">Ver Diario</a>
                 </div>
                 <br><br><br><br>            
                 {%endif%}

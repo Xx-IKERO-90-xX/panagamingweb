@@ -8,7 +8,7 @@ import json
 import random
 import asyncio
 
-BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.GiDoIC.C4uG8I4zJApzYG6X6h8GNN6vVH_tOglqX7sg70"
+BOT_TOKEN = ""
 
 intents = discord.Intents.all()
 intents.members = True
@@ -536,7 +536,7 @@ async def enviarTiket():
         errorMsg = f"No se ha encontrado ningún usuario con el nombre {userName} en el servidor de Discord."
         return render_template("/paginas/tikets.html", errorMsg=errorMsg, session=session)
 
-@app.route('/verDiario', methods=["GET", "POST"])
+@app.route('/verDiario', methods=["POST"])
 async def verDiario():
     if "id" in session:
         idDiario = request.form["idDiario"]
@@ -544,7 +544,8 @@ async def verDiario():
         texto = ""
         for text in diario.history(limit=None):
             texto = texto + text
-        return render_template("/paginas/minecraft_subpg/diario.html", texto=texto)
+        return render_template("/paginas/minecraft_subpg/personajes/diario.html", texto=texto)
+    
     else:
         return redirect(url_for("Inicio"))
 
