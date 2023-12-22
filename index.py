@@ -7,8 +7,13 @@ import mysql.connector
 import json
 import random
 import asyncio
+from pymongo import MongoClient
 
-BOT_TOKEN = ""
+MONGO_URI = "localhost"
+client = MongoClient(MONGO_URI)
+db = client["DIARIOS"]
+
+BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.Gc91I5.QEhECUu4r3OlMD1MM4tPkz9LeMc4a0f_PNJjPM"
 
 intents = discord.Intents.all()
 intents.members = True
@@ -103,10 +108,7 @@ async def ObtenerListaPersonajes():
     conexion = await AbrirConexionSQL()
     cursor = conexion.cursor()
     cursor.execute("""
-        SELECT PERSONAJES.id, PERSONAJES.name, PERSONAJES.descripcion, PERSONAJES.color, PERSONAJES.imgUrl, PERSONAJES.idUser, PERSONAJES.idDiario,
-            CONFIGURACION_PERSONAJE.idPersonaje, CONFIGURACION_PERSONAJE.fontTit, CONFIGURACION_PERSONAJE.imgBackground 
-        FROM PERSONAJES INNER JOIN CONFIGURACION_PERSONAJE
-            ON PERSONAJES.id = CONFIGURACION_PERSONAJE.idPersonaje;
+        SELECT * FROM PERSONAJES;
     """)
     result = cursor.fetchall()
     columnas = [column[0] for column in cursor.description]
@@ -189,7 +191,7 @@ def GenerarContraseña():
 
 async def ObtenerPersonajePorIdUser(idUser):
     listaPersonajes = await ObtenerListaPersonajes()
-    result = "null"
+    result = {}
     for personaje in listaPersonajes:
         if personaje["idUser"] == idUser:
             result = personaje
@@ -203,7 +205,7 @@ async def ObtenerPersonajePorIdUser(idUser):
 #######################################################################################
 @bot.event
 async def on_ready():
-    app.run()
+    app.run(port=8001)
 
 #######################################################################################
 
@@ -252,6 +254,7 @@ def formRegister():
 ########################################################
 
 ########### PROCESAMIENTO DE SESION ####################
+
 async def ComprobarUsuarioRepetido(dName):
     conexion = await AbrirConexionSQL()
     repite = False
@@ -294,24 +297,49 @@ async def ValidarInicioSesion(name, passwd):
     conexion.close()
     return valido
 
+async def comprobarSiTienePersonaje(idUser):
+    conexion = await AbrirConexionSQL()
+    cursor = conexion.cursor()
+    cursor.execute("""
+        SELECT * FROM PERSONAJES;
+    """)
+    result = cursor.fetchall()
+    columnas = [column[0] for column in cursor.description]
+    resultados_json = []
+    for fila in result:
+        fila_json = dict(zip(columnas, fila))
+        resultados_json.append(fila_json)
+    
+    print(resultados_json)
+    tiene = False
+    for personaje in resultados_json:
+        if personaje['idUser'] == idUser:
+            tiene = True
+            break
+    
+    return tiene
+
+
 @app.route('/CrearCuenta', methods=['GET', 'POST'])
 async def CrearCuenta():
     name = request.form['dName']
     passwd = request.form['passwd']
     passwd2 = request.form['passwd2']
-    user = await ObtenerObjetoUsuario()
+    user = await ObtenerObjetoUsuario(name)
 
     usuarioRepetido = await ComprobarUsuarioRepetido(name)
+
     if usuarioRepetido == False:
         if passwd == passwd2 and user != 'null':
             conexion = await AbrirConexionSQL()
             cursor = conexion.cursor()
             cursor.execute(f"""
                 INSERT INTO USUARIO (idUser, name, passwd)
-                VALUES ({user.id}, {name}, {passwd});
+                VALUES ('{user.id}', '{name}', '{passwd}');
             """)
+            conexion.commit()
             conexion.close()
-            session["id"] = user.id
+            session["id"] = str(user.id)
             session["name"] = user.name
             session["imgUrl"] = user.avatar.url
 
@@ -336,8 +364,9 @@ async def IniciarSesion():
 
     valido = await ValidarInicioSesion(name, passwd)
     if valido == True:
+
         user = await ObtenerObjetoUsuario(name)
-        session["id"] = user.id
+        session["id"] = str(user.id)
         session["name"] = user.name
         session["imgUrl"] = user.avatar.url
 
@@ -386,38 +415,47 @@ async def historyMC():
 async def NuevoPersonaje():
     if "id" in session:
         return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", session=session)
+    
     else:
         return redirect(url_for('formLogin'))
 
 @app.route("/CrearPersonaje", methods=["GET","POST"])
 async def CrearPersonaje():
 
-    idUser = request.form['idUser']
-    passwd = request.form['passwd']
     name = request.form['pjName']
     descripcion = request.form['pjDescription']
     imgUrl = request.form['pjImgUrl']
     color = request.form['color']
 
-    userValid = await ValidarUsuario(idUser)
-
-    if userValid == True:
-        codError = ValidarPersonajeUsuario(idUser, name)
+    if 'id' in session:
+        codError = await ValidarPersonajeUsuario(session['id'], name)
         if codError == 0:
             conexion = await AbrirConexionSQL()
             cursor = conexion.cursor()
             cursor.execute(f"""
-                INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, passwd, idUser)
-                VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{passwd}', '{idUser}');
+                INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, idUser, idDiario)
+                VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{session['id']}', 'diario-de-{session['name']}');
             """)
             conexion.commit()
-            newPersonaje = await ObtenerPersonaje(idUser)
-            idPersonaje = newPersonaje['id']
             cursor.execute(f"""
-                INSERT INTO CONFIGURACION_PERSONAJE (idPersonaje, fontTit, fontDesc, imgBackground)
-                VALUES ({int(idPersonaje)}, 'null', 'null', 'null')
+                SELECT * FROM PERSONAJES
+                WHERE idUser = '{session["id"]}';
+            """)
+            result = cursor.fetchall()
+
+            columnas = [column[0] for column in cursor.description]
+            for fila in result:
+                resultado_json = dict(zip(columnas, fila))
+
+            print(resultado_json)
+            idPersonaje = resultado_json['id']
+            cursor.execute(f"""
+                UPDATE USUARIO
+                    SET idPersonaje = {idPersonaje}
+                WHERE idUser = '{session['id']}';
             """)
             conexion.commit()
+            conexion.close()
             return render_template("/paginas/minecraft_subpg/personajes/personajeCreated.html", name=name, descripcion=descripcion, imgUrl=imgUrl, session=session)
     
         elif codError == 1:
@@ -429,15 +467,21 @@ async def CrearPersonaje():
             return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", errorMsg = errorMsg, session=session)
 
     else:
-        errorMsg = "Para poder crear un personaje en nuestro servidor tienes que ser oficialmente miembro de Pana Gaming."
-        return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", errorMsg = errorMsg, session=session)
+        return redirect(url_for('formLogin'))
 
 @app.route("/PersonajesMinecraftPG")
 async def PersonajesMinecraftPG():
     if "id" in session:
         listaPersonajes = []
         listaPersonajes = await ObtenerListaPersonajes()
-        return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.html", listaPersonajes = listaPersonajes, session=session)
+        
+        tienePersonaje = await comprobarSiTienePersonaje(session["id"])
+        
+        if tienePersonaje == True:
+            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC2.html", listaPersonajes = listaPersonajes, session=session)
+        else:
+            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.html", listaPersonajes = listaPersonajes, session=session)
+            
     else:
         return redirect(url_for("formLogin"))
 
@@ -465,10 +509,10 @@ async def FormEditPersonaje():
         for per in resultados_json:
             if per["userName"] == session["name"]:
                 personaje = per
-
     
         conexion.close()
         return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje=personaje, session=session)
+    
     else:
         return redirect(url_for("Inicio"))
 
@@ -539,12 +583,11 @@ async def enviarTiket():
 @app.route('/verDiario', methods=["POST"])
 async def verDiario():
     if "id" in session:
-        idDiario = request.form["idDiario"]
-        diario = bot.get_channel(int(idDiario))
-        texto = ""
-        for text in diario.history(limit=None):
-            texto = texto + text
-        return render_template("/paginas/minecraft_subpg/personajes/diario.html", texto=texto)
+        idDiario = request.form["nameDiario"]
+        collection = db[f'{idDiario}']
+        res = collection.find({})
+
+        return render_template("/paginas/minecraft_subpg/personajes/diario.html", paginas=res)
     
     else:
         return redirect(url_for("Inicio"))

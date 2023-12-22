@@ -585,8 +585,9 @@
             <img src="../../../../static/img/img_mc/personajesPortada.jpg">
         </div>
         <nav class="personajeNav">
-            <div style="text-align: center;" class="personajeNavElements">
-                <a href="{{url_for('NuevoPersonaje')}}">CREAR PERSONAJE</a>
+            <div class="personajeNavElements">
+                <a href="{{url_for('FormEditPersonaje')}}">EDITAR PERSONAJE</a>
+                <a href="#">EDITAR DIARIO</a>
             </div>
         </nav>
         <div class="personajeSections">
@@ -609,7 +610,7 @@
                     </p><br>
                     <br>
                     <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" name="nameDiario" value="{{personaje.idDiario}}">
+                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
                         <input class="greenButton" type="submit" value="Ver Diario">
                     </form>
                 </div>
@@ -625,7 +626,7 @@
                         {{personaje["descripcion"]}}
                     </p><br>
                     <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" name="nameDiario" value="{{personaje.idDiario}}">
+                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
                         <input class="buttonBlue" type="submit" value="Ver Diario">
                     </form>
                 </div>
@@ -641,7 +642,7 @@
                         {{personaje["descripcion"]}}
                     </p><br>
                     <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" name="nameDiario" value="{{personaje.idDiario}}">
+                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
                         <input class="buttonRed" type="submit" value="Ver Diario">
                     </form>
                 </div>
@@ -673,7 +674,7 @@
                         {{personaje["descripcion"]}}
                     </p><br>
                     <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" name="nameDiario" value="{{personaje.idDiario}}">
+                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
                         <input class="buttonPink" type="submit" value="Ver Diario">
                     </form>
                 </div>
@@ -689,7 +690,7 @@
                         {{personaje["descripcion"]}}
                     </p><br>
                     <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" name="nameDiario" value="{{personaje.idDiario}}">
+                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
                         <input class="buttonPurple" type="submit" value="Ver Diario">
                     </form>
                 </div>

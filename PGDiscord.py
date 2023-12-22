@@ -11,11 +11,18 @@ intents.members = True
 bot = commands.Bot(command_prefix="/", intents=intents)
 
 
-@bot.event
-async def on_ready():
-    guild = bot.get_guild(793956939687133184)
-    for m in guild.members: 
-        print(m)
-
-bot.run("OTY3NDI3OTY2NTQxOTE0MTUy.Gq5ubM.5669OrL9msRv5Y1R_z0zxaYkU-MKB_nHaTWl74")
+conection = mysql.connector.connect(
+        host="192.168.1.66",
+        user="root",
+        password="ikero9090",
+        database="MINECRAFTPG",
+        auth_plugin="mysql_native_password"
+)
+cursor = conection.cursor()
+cursor.execute("""
+    SELECT idPersonaje
+    FROM USUARIO;
+""")
+res = cursor.fetchall()
+print(res)
 
