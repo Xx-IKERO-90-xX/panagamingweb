@@ -177,9 +177,6 @@
     border-color: rgb(143, 138, 0);
     border-radius: 10px;
 }
-
-
-
 .personaje_yellow {
     text-align: center;
     width: 80%;
@@ -329,7 +326,7 @@
     margin-left: 10%;
     margin-right: 10%;
     padding: 10px;
-    background-image: url(../assets/img/halo.png);
+    background-image: url(../../../../static/assets/img/halo.png);
     border: solid 0.2em;
     border-color: rgb(0, 110, 255);
     border-radius: 10px;
@@ -476,4 +473,76 @@
     border-radius: 10px;
     padding: 20px;
     font-size: 40px;
+}
+.greenButton {
+    padding: 5px;
+    border-radius: 10px;
+    font-family: Arial;
+    font-weight: bold;
+    border: solid 0.2em;
+    padding: 10px;
+    border-color:rgb(0, 68, 1);
+    font-size: 15px;
+    color: white;
+    background: black;
+}
+.buttonRed {
+    padding: 5px;
+    border-radius: 10px;
+    font-family: Arial;
+    font-weight: bold;
+    border: solid 0.2em;
+    padding: 10px;
+    border-color:rgb(68, 0, 0);
+    font-size: 15px;
+    color: white;
+    background: black;
+}
+.buttonBlue {
+    padding: 5px;
+    border-radius: 10px;
+    font-family: Arial;
+    font-weight: bold;
+    border: solid 0.2em;
+    padding: 10px;
+    border-color:rgb(0, 25, 95);
+    font-size: 15px;
+    color: white;
+    background: black;
+}
+.buttonYellow {
+    padding: 5px;
+    border-radius: 10px;
+    font-family: Arial;
+    font-weight: bold;
+    border: solid 0.2em;
+    padding: 10px;
+    border-color:rgb(95, 94, 0);
+    font-size: 15px;
+    color: white;
+    background: black;
+}
+.buttonPink {
+    padding: 5px;
+    border-radius: 10px;
+    font-family: Arial;
+    font-weight: bold;
+    border: solid 0.2em;
+    padding: 10px;
+    border-color:rgb(119, 0, 103);
+    font-size: 15px;
+    color: white;
+    background: black;
+}
+.buttonPurple {
+    padding: 5px;
+    border-radius: 10px;
+    font-family: Arial;
+    font-weight: bold;
+    border: solid 0.2em;
+    padding: 10px;
+    border-color:rgb(52, 0, 95);
+    font-size: 15px;
+    color: white;
+    background: black;
 }

@@ -586,7 +586,6 @@ async def verDiario():
         idDiario = request.form["nameDiario"]
         collection = db[f'{idDiario}']
         res = collection.find({})
-
         return render_template("/paginas/minecraft_subpg/personajes/diario.html", paginas=res)
     
     else:
