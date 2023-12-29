@@ -1,0 +1,58 @@
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET SQL_NOTES=0 */;
+DROP TABLE IF EXISTS `CONFIGURACION_PERSONAJE`;
+CREATE TABLE `CONFIGURACION_PERSONAJE` (
+  `idConf` int NOT NULL AUTO_INCREMENT,
+  `idPersonaje` int NOT NULL,
+  `fontTit` varchar(100) NOT NULL,
+  `fontDesc` varchar(100) NOT NULL,
+  `imgBackground` varchar(100) NOT NULL,
+  PRIMARY KEY (`idConf`,`idPersonaje`),
+  KEY `idPersonaje` (`idPersonaje`),
+  CONSTRAINT `CONFIGURACION_PERSONAJE_ibfk_1` FOREIGN KEY (`idPersonaje`) REFERENCES `PERSONAJES` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `DIARIO`;
+CREATE TABLE `DIARIO` (
+  `idPagina` int NOT NULL,
+  `idPersonaje` int NOT NULL,
+  `contenido` varchar(3000) NOT NULL,
+  PRIMARY KEY (`idPagina`,`idPersonaje`),
+  KEY `idPersonaje` (`idPersonaje`),
+  CONSTRAINT `DIARIO_ibfk_1` FOREIGN KEY (`idPersonaje`) REFERENCES `PERSONAJES` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `PERSONAJES`;
+CREATE TABLE `PERSONAJES` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `descripcion` varchar(4500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `color` varchar(50) NOT NULL,
+  `imgUrl` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `idUser` varchar(300) NOT NULL,
+  `idDiario` varchar(300) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idUser` (`idUser`),
+  CONSTRAINT `PERSONAJES_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `USUARIO` (`idUser`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `TIKET`;
+CREATE TABLE `TIKET` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `texto` varchar(1000) NOT NULL,
+  `idUser` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`,`idUser`),
+  KEY `idUser` (`idUser`),
+  CONSTRAINT `TIKET_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `USUARIO` (`idUser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DROP TABLE IF EXISTS `USUARIO`;
+CREATE TABLE `USUARIO` (
+  `idUser` varchar(300) NOT NULL,
+  `name` varchar(500) NOT NULL,
+  `passwd` varchar(500) NOT NULL,
+  `idPersonaje` int DEFAULT NULL,
+  PRIMARY KEY (`idUser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

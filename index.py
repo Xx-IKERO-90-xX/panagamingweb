@@ -7,13 +7,8 @@ import mysql.connector
 import json
 import random
 import asyncio
-from pymongo import MongoClient
 
-#MONGO_URI = "localhost"
-#client = MongoClient(MONGO_URI)
-#db = client["DIARIOS"]
-
-BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.GULBRN.3pT_Q5z-K9hYipm15lKOC358PxQUtL7veE6aLM"
+BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.G1r82a.tEtEbpSBtZkGVXk7oWP278nYypW3GtyXaPMuW4"
 
 intents = discord.Intents.all()
 intents.members = True
@@ -25,7 +20,7 @@ app.secret_key = "tr4rt34t334yt"
 
 async def AbrirConexionSQL():
     conection = mysql.connector.connect(
-        host="localhost",
+        host="192.168.1.66",
         user="root",
         password="ikero9090",
         database="MINECRAFTPG",
