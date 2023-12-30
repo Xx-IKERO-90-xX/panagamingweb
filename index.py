@@ -8,7 +8,7 @@ import json
 import random
 import asyncio
 
-BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.G1r82a.tEtEbpSBtZkGVXk7oWP278nYypW3GtyXaPMuW4"
+BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.Gws2T3.BKZSc64MDGLIVHAtc8ZrKXzsd8Qtu740DF6jZk"
 
 intents = discord.Intents.all()
 intents.members = True
@@ -20,7 +20,7 @@ app.secret_key = "tr4rt34t334yt"
 
 async def AbrirConexionSQL():
     conection = mysql.connector.connect(
-        host="192.168.1.66",
+        host="localhost",
         user="root",
         password="ikero9090",
         database="MINECRAFTPG",
@@ -193,6 +193,20 @@ async def ObtenerPersonajePorIdUser(idUser):
             break
     
     return result
+
+async def ObtenerPaginas():
+    conexion = await AbrirConexionSQL()
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM DIARIO;")
+    result = cursor.fetchall()
+    columnas = [column[0] for column in cursor.description]
+    resultados_json = []
+    for fila in result:
+        fila_json = dict(zip(columnas, fila))
+        resultados_json.append(fila_json)
+    conexion.close()
+    return resultados_json
+
 #######################################################################################
 
 #######################################################################################
@@ -311,9 +325,7 @@ async def comprobarSiTienePersonaje(idUser):
         if personaje['idUser'] == idUser:
             tiene = True
             break
-    
     return tiene
-
 
 @app.route('/CrearCuenta', methods=['GET', 'POST'])
 async def CrearCuenta():
@@ -468,15 +480,16 @@ async def CrearPersonaje():
 async def PersonajesMinecraftPG():
     if "id" in session:
         listaPersonajes = []
-        listaPersonajes = await ObtenerListaPersonajes()
+        paginas = []
         
+        listaPersonajes = await ObtenerListaPersonajes()
+        paginas = await ObtenerPaginas()
         tienePersonaje = await comprobarSiTienePersonaje(session["id"])
         
         if tienePersonaje == True:
-            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC2.html", listaPersonajes = listaPersonajes, session=session)
+            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC2.html", listaPersonajes = listaPersonajes, session=session, paginas=paginas)
         else:
-            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.html", listaPersonajes = listaPersonajes, session=session)
-            
+            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.html", listaPersonajes = listaPersonajes, session=session, paginas=paginas)
     else:
         return redirect(url_for("formLogin"))
 
@@ -575,16 +588,30 @@ async def enviarTiket():
         errorMsg = f"No se ha encontrado ningún usuario con el nombre {userName} en el servidor de Discord."
         return render_template("/paginas/tikets.html", errorMsg=errorMsg, session=session)
 
-@app.route('/verDiario', methods=["POST"])
-async def verDiario():
+
+@app.route('/nuevaPagina')
+async def nuevaPagina():
     if "id" in session:
-        idDiario = request.form["nameDiario"]
-        collection = db[f'{idDiario}']
-        res = collection.find({})
-        return render_template("/paginas/minecraft_subpg/personajes/diario.html", paginas=res)
+        return render_template("/paginas/minecraft_subpg/personajes/diarios/nuevaPagina.html", session=session)
+    else:
+        return redirect(url_for("formLogin"))
+
+@app.route('/crearPagina', methods=["GET", "POST"])
+async def crearPagina():
+    if "id" in session:
+        personaje = await ObtenerPersonajePorIdUser(session["id"])
+        contenido = request.form["content"]
+        conexion = await AbrirConexionSQL()
+        cursor = conexion.cursor()
+        cursor.execute(f"""
+            INSERT INTO DIARIO (idPersonaje, contenido)
+            VALUES ({personaje["id"]}, '{contenido}');
+        """)
+        conexion.commit()
+        return redirect(url_for("PersonajesMinecraftPG"))
     
     else:
-        return redirect(url_for("Inicio"))
+        return redirect(url_for("formLogin"))
 
 ###########################################################################################################################################
 

@@ -11,7 +11,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src='../../../../static/scripts/main.js'></script>
     <style>
-        
+        .on {
+            display: block;
+        }
+        #dOpts {
+            margin-top: 40px;
+            background: rgb(29, 29, 29);
+        }
+        #dOpts a {
+            background: black;
+            color: white;
+        }
         
     </style>
 </head>
@@ -36,9 +46,22 @@
             <img src="../../../../static/img/img_mc/personajesPortada.jpg">
         </div>
         <nav class="personajeNav">
-            <div class="personajeNavElements">
-                <a href="{{url_for('FormEditPersonaje')}}">EDITAR PERSONAJE</a>
-                <a href="#">EDITAR DIARIO</a>
+            <a class="btn btn-success" style="color:white; height: 40px;" href="{{url_for('FormEditPersonaje')}}">EDITAR PERSONAJE</a>
+            <div class="btn-group">
+                <button id="buttonMenu" style="font-size: 19px; font-weight: bold;" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  DIARIO
+                </button>
+                <div id="dOpts" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="{{url_for('nuevaPagina')}}">NUEVA PAGINA</a>
+                    <a class="dropdown-item" href="#">EDITAR</a>
+                </div>
+                <script>
+                    let btnMenu = document.getElementById("buttonMenu");
+                    let menuOpts = document.getElementById("dOpts");
+                    btnMenu.addEventListener("click", ()=> {
+                        menuOpts.classList.toggle("on");
+                    });
+                </script>
             </div>
         </nav>
         <div class="personajeSections">
@@ -60,10 +83,23 @@
                         {{personaje["descripcion"]}}
                     </p><br>
                     <br>
-                    <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
-                        <input class="greenButton" type="submit" value="Ver Diario">
-                    </form>
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                          {%for pagina in paginas%}
+                            {%if pagina["idPersonaje"] == personaje["id"]%}
+                                <textarea class="d-block w-100 carousel-item" readonly>{{pagina["contenido"]}}</textarea> 
+                            {%endif%}
+                          {%endfor%}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
                 <br><br><br><br>
                 {%endif%}
@@ -76,10 +112,23 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
-                        <input class="buttonBlue" type="submit" value="Ver Diario">
-                    </form>
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                            {%for pagina in paginas%}
+                                {%if pagina["idPersonaje"] == personaje["id"]%}
+                                    <textarea class="d-block w-100 carousel-item" readonly>{{pagina["contenido"]}}</textarea>
+                                {%endif%}
+                            {%endfor%}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
                 <br><br><br><br>
                 {%endif%}
@@ -92,10 +141,23 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
-                        <input class="buttonRed" type="submit" value="Ver Diario">
-                    </form>
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                            {%for pagina in paginas%}
+                                {%if pagina["idPersonaje"] == personaje["id"]%}
+                                    <textarea class="d-block w-100 carousel-item active" readonly>{{pagina["contenido"]}}</textarea>
+                                {%endif%}
+                            {%endfor%}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
                 </div>
                 <br><br><br><br>
                 {%endif%}
@@ -108,10 +170,23 @@
                     <p>
                         personaje["descripcion"]
                     </p><br>
-                    <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
-                        <input class="buttonYellow" type="submit" value="Ver Diario">
-                    </form>
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                            {%for pagina in paginas%}
+                                {%if pagina["idPersonaje"] == personaje["id"]%}
+                                    <textarea class="d-block w-100 carousel-item" readonly>{{pagina["contenido"]}}</textarea>
+                                {%endif%}
+                            {%endfor%}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
                 </div>
                 <br><br><br><br>            
                 {%endif%}
@@ -124,10 +199,23 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
-                        <input class="buttonPink" type="submit" value="Ver Diario">
-                    </form>
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                            {%for pagina in paginas%}
+                                {%if pagina["idPersonaje"] == personaje["id"]%}
+                                    <textarea class="d-block w-100 carousel-item" readonly>{{pagina["contenido"]}}</textarea>
+                                {%endif%}
+                            {%endfor%}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
                 </div>
                 <br><br><br><br>            
                 {%endif%}
@@ -140,10 +228,23 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <form class="buttonDiario" method="post" action="{{url_for('verDiario')}}">
-                        <input type="text" style="display: none;" value="{{personaje.idDiario}}">
-                        <input class="buttonPurple" type="submit" value="Ver Diario">
-                    </form>
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                            {%for pagina in paginas%}
+                                {%if pagina["idPersonaje"] == personaje["id"]%}
+                                    <textarea class="d-block w-100 carousel-item" readonly>{{pagina["contenido"]}}</textarea>
+                                {%endif%}
+                            {%endfor%}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
                 </div>
                 <br><br><br><br>            
                 {%endif%}
