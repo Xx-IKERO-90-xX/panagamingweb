@@ -56,24 +56,14 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <br>
-                    <div id="carouselExample" class="carousel slide">
-                        <div class="carousel-inner">
-                          {%for pagina in paginas%}
-                            {%if pagina["idPersonaje"] == personaje["id"]%}
-                                <textarea class="d-block w-100" readonly>{{pagina["contenido"]}}</textarea> 
-                            {%endif%}
-                          {%endfor%}
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    <br><br>
+                    <form action="{{url_for('VerDiario')}}" method="post">
+                        <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+                        <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+                        <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+                        <input type="submit" value="VER DIARIO" class="greenButton">
+                    </form>
+                    <br><br>
                 </div>
                 <br><br><br><br>
                 {%endif%}
@@ -86,23 +76,14 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <div id="carouselExample" class="carousel slide">
-                        <div class="carousel-inner">
-                          {%for pagina in paginas%}
-                            {%if pagina["idPersonaje"] == personaje["id"]%}
-                                <textarea class="d-block w-100" readonly>{{pagina["contenido"]}}</textarea> 
-                            {%endif%}
-                          {%endfor%}
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    <br><br>
+                    <form method="post" action="{{url_for('VerDiario')}}">
+                        <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+                        <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+                        <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+                        <input type="submit" value="VER DIARIO" class="buttonBlue">
+                    </form>
+                    <br><br>
                 </div>
                 <br><br><br><br>
                 {%endif%}
@@ -115,23 +96,14 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <div id="carouselExample" class="carousel slide">
-                        <div class="carousel-inner">
-                          {%for pagina in paginas%}
-                            {%if pagina["idPersonaje"] == personaje["id"]%}
-                                <textarea class="d-block w-100" readonly>{{pagina["contenido"]}}</textarea> 
-                            {%endif%}
-                          {%endfor%}
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    <br><br>
+                    <form action="{{url_for('VerDiario')}}" method="post">
+                        <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+                        <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+                        <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+                        <input type="submit" value="VER DIARIO" class="buttonRed">
+                    </form>
+                    <br><br>
                 </div>
                 <br><br><br><br>
                 {%endif%}
@@ -144,23 +116,14 @@
                     <p>
                         personaje["descripcion"]
                     </p><br>
-                    <div id="carouselExample" class="carousel slide">
-                        <div class="carousel-inner">
-                          {%for pagina in paginas%}
-                            {%if pagina["idPersonaje"] == personaje["id"]%}
-                                <textarea class="d-block w-100" readonly>{{pagina["contenido"]}}</textarea> 
-                            {%endif%}
-                          {%endfor%}
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    <br><br>
+                    <form action="{{url_for('VerDiario')}}" method="post">
+                        <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;"> 
+                        <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+                        <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+                        <input type="submit" value="VER DIARIO" class="buttonYellow">
+                    </form>
+                    <br><br>
                 </div>
                 <br><br><br><br>            
                 {%endif%}
@@ -173,23 +136,14 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <div id="carouselExample" class="carousel slide">
-                        <div class="carousel-inner">
-                          {%for pagina in paginas%}
-                            {%if pagina["idPersonaje"] == personaje["id"]%}
-                                <textarea class="d-block w-100" readonly>{{pagina["contenido"]}}</textarea> 
-                            {%endif%}
-                          {%endfor%}
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    <br><br>
+                    <form action="{{url_for('VerDiario')}}" method="post">
+                        <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+                        <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+                        <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+                        <input type="submit" value="VER DIARIO" class="buttonPink">
+                    </form>
+                    <br><br>
                 </div>
                 <br><br><br><br>            
                 {%endif%}
@@ -202,23 +156,14 @@
                     <p>
                         {{personaje["descripcion"]}}
                     </p><br>
-                    <div id="carouselExample" class="carousel slide">
-                        <div class="carousel-inner">
-                          {%for pagina in paginas%}
-                            {%if pagina["idPersonaje"] == personaje["id"]%}
-                                <textarea class="d-block w-100" readonly>{{pagina["contenido"]}}</textarea> 
-                            {%endif%}
-                          {%endfor%}
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
+                    <br><br>
+                    <form action="{{url_for('VerDiario')}}" method="post">
+                        <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+                        <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+                        <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+                        <input type="submit" value="VER DIARIO" class="buttonPurple">
+                    </form>
+                    <br><br>
                 </div>
                 <br><br><br><br>            
                 {%endif%}

@@ -90,9 +90,6 @@
     font-family: mine_tit2;
     font-size: 60px;
 }
-
-
-
 .personaje_blue {
     width: 80%;
     margin-left: 10%;
@@ -485,6 +482,10 @@
     font-size: 15px;
     color: white;
     background: black;
+    text-decoration: none;
+}
+.greenButton:hover {
+    background: rgb(0, 36, 0);
 }
 .buttonRed {
     padding: 5px;
@@ -497,6 +498,10 @@
     font-size: 15px;
     color: white;
     background: black;
+    text-decoration: none;
+}
+.buttonRed:hover {
+    background: rgb(32, 0, 0);
 }
 .buttonBlue {
     padding: 5px;
@@ -509,6 +514,10 @@
     font-size: 15px;
     color: white;
     background: black;
+    text-decoration: none;
+}
+.buttonBlue:hover {
+    background:rgb(0, 5, 59);
 }
 .buttonYellow {
     padding: 5px;
@@ -521,6 +530,10 @@
     font-size: 15px;
     color: white;
     background: black;
+    text-decoration: none;
+}
+.buttonYellow:hover {
+    background: rgb(41, 41, 0);
 }
 .buttonPink {
     padding: 5px;
@@ -533,6 +546,10 @@
     font-size: 15px;
     color: white;
     background: black;
+    text-decoration: none;
+}
+.buttonPink:hover {
+    background: rgb(39, 0, 34);
 }
 .buttonPurple {
     padding: 5px;
@@ -545,4 +562,8 @@
     font-size: 15px;
     color: white;
     background: black;
+    text-decoration: none;
+}
+.buttonPurple:hover {
+    background: rgb(34, 0, 34);
 }

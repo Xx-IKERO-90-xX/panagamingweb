@@ -8,7 +8,7 @@ import json
 import random
 import asyncio
 
-BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.Gws2T3.BKZSc64MDGLIVHAtc8ZrKXzsd8Qtu740DF6jZk"
+BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.G13Es8.eziB0GI2BHo2ozbTlgL7Gw5jRuHcddgkr4b70s"
 
 intents = discord.Intents.all()
 intents.members = True
@@ -613,6 +613,29 @@ async def crearPagina():
     else:
         return redirect(url_for("formLogin"))
 
+
+@app.route('/VerDiario', methods=["GET", "POST"])
+async def VerDiario():
+    if "id" in session:
+        idPersonaje = request.form["idPersonaje"]
+        nombre = request.form["nombre"]
+        imgUrl = request.form["imgUrl"]
+        conexion = await AbrirConexionSQL()
+        cursor = conexion.cursor()
+        cursor.execute(f"""
+            SELECT * FROM DIARIO
+            WHERE idPersonaje = {idPersonaje};
+        """)
+        result = cursor.fetchall()
+        columnas = [column[0] for column in cursor.description]
+        paginas = []
+        for fila in result:
+            fila_json = dict(zip(columnas, fila))
+            paginas.append(fila_json)
+        return render_template("/paginas/minecraft_subpg/personajes/diarios/diario.html", paginas=paginas, nombre=nombre, imgUrl=imgUrl)
+
+    else:
+        return redirect(url_for('formLogin'))
 ###########################################################################################################################################
 
 if __name__ == '__main__':
