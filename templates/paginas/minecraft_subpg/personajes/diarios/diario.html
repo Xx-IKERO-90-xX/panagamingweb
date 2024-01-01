@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Crear Personaje</title>
+    <title>Diario de {{nombre}}</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../../../../../static/estilo/style.css'>
     <script src='../../../../../static/scripts/main.js'></script>
@@ -12,11 +12,11 @@
     <style>
         .diarioPortada {
             text-align: center;
-            background: green;
             width: 60%;
             margin-left: 20%;
             margin-right: 20%;
             height: 600px;
+            border-radius: 10px;
         }
         .diarioPortada img {
             width: 400px;
@@ -30,7 +30,10 @@
             margin-right: 20%;
             height: 600px;
             border-radius: 10px;
-            border: solid 0.2em;    
+            border: solid 0.2em;
+            text-align: center;
+            font-size: 10px;
+            color: black;    
         }
         
     </style>
@@ -56,12 +59,54 @@
         <div id="carouselExample" class="carousel slide">
             <div class="carousel-inner">  
               <div class="carousel-item active">
-                <div class="diarioPortada">
+                {%if color == 'green'%}
+                <div style="background: green;" class="diarioPortada">
                     <br><br>
                     <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
                     <br><br>
                     <img src="{{imgUrl}}">
                 </div>
+                {%endif%}
+                {%if color == 'blue'%}
+                <div style="background: blue;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'red'%}
+                <div style="background: red;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'yellow'%}
+                <div style="background: yellow;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'pink'%}
+                <div style="background: pink;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'purple'%}
+                <div style="background: purple;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
               </div>
               {%for pagina in paginas%}
                 <div class="carousel-item">

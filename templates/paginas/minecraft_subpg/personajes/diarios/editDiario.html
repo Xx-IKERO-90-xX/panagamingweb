@@ -88,6 +88,54 @@
         .off {
             display: none;
         }
+        .newPageForm textarea {
+            margin-left: 10%;
+            margin-right: 10%;
+            width: 80%;
+            height: 500px;
+            text-align: center;
+            padding: 3px;
+            border-radius: 5px;
+            border: solid 0.2em;
+            border-color: green;
+        }
+        .newPageForm input {
+            font-weight: bold;
+            padding: 10px;
+            border: solid 0.2em;
+            border-color: green;
+            background: black;
+            color: white;
+        }
+        .newPageForm input:hover {
+            background: rgb(0, 54, 0);
+        }
+        .newPageForm {
+            padding: 10px;
+            background: rgb(12, 12, 12);
+            margin-left: 10%;
+            margin-right: 10%;
+            width: 80%;
+            border: solid 0.2em;
+            border-radius: 10px;
+            border-color: green;
+        }
+        .diarioPortada {
+            text-align: center;
+            margin-left: 10%;
+            margin-right: 10%;
+            width: 80%;
+        }
+        #contenido {
+            text-align: center;
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            height: 500px;
+        }
+        .pagina {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -109,46 +157,96 @@
     <main style="height: 100vh;"><br>
         <br><br><br>
         <div id="carouselExample" class="carousel slide">
-            <div class="carousel-inner">
-                {%for pagina in paginas%}
-                <div style="text-align: center;" class="carousel-item active">
-                    <div class="divPageConent">
-                        <p id="pageContenido" class="pageContenido">{{pagina["contenido"]}}</p>
-                        <br><br>
-                        <button id="btnFormulario" class="btnFormulario">Editar</button>
-                    </div>
+            <div class="carousel-inner">  
+              <div class="carousel-item active">
+                {%if color == 'green'%}
+                <div style="background: green;" class="diarioPortada">
                     <br><br>
-                    <form id="editarPagina" class="editDiarioForm" method="post" action="">
-                        <br>
-                        <textarea name="contenido">{{pagina["contenido"]}}</textarea><br>
-                        <br>
-                        <div class="editDiarioButtons">
-                            <input type="submit" value="Guardar">
-                        </div>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'blue'%}
+                <div style="background: blue;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'red'%}
+                <div style="background: red;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'yellow'%}
+                <div style="background: yellow;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'pink'%}
+                <div style="background: pink;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+                {%if color == 'purple'%}
+                <div style="background: purple;" class="diarioPortada">
+                    <br><br>
+                    <h3 style="font-family: Arial;"><strong>DIARIO DE {{nombre}}</strong></h3>
+                    <br><br>
+                    <img src="{{imgUrl}}">
+                </div>
+                {%endif%}
+            </div>
+            {%for pagina in paginas%}
+                <div class="carousel-item">
+                    <form class="pagina" method="post" action="{{url_for('EditarPagina')}}">
+                        <textarea id="contenido" name="contenido" readonly>{{pagina["contenido"]}}</textarea>
+                        <br><br>
+                        <input type="text" value="{{pagina['idPagina']}}" style="display: none;">
+                        <div style="text-align: center;">
+                            <input id="saveBtn" type="submit" class="btnGuardar off" value="GUARDAR">
+                            <a id="editBtn" class="editBtn on">EDITAR</a>
+                        </div>                                                                              
                     </form>
                     <script>
-                        let btnFormu = document.getElementById("btnFormulario");
-                        
-                        let formEditPage = document.getElementById("editarPagina");
-                        
-                        btnFormu.addEventListener("click", ()=> {
-                            formEditPage.classList.toggle("on");
-                            if (btnFormu.textContent == "Descartar")
-                                btnFormu.textContent = "Editar";
-                            else
-                                btnFormu.textContent = "Descartar";
+                        let saveBtn = document.getElementById('saveBtn');
+                        let editBtn = document.getElementById('editBtn');
+                        let contenido = document.getElementById('contenido');
+                        contenido.readOnly = true;
+                        editBtn.addEventListener("click", ()=> {
+                            if (editBtn.textContent == 'EDITAR'){
+                                contenido.readOnly = false;
+                                editBtn.textContent = "DESCARTAR";
+                                saveBtn.classList.toggle("on");
+                            }
+                            else {
+                                contenido.readOnly = true;
+                                editBtn.textContent = "EDITAR";
+                                saveBtn.classList.toggle("on");
+                            }
                         });
                     </script>
                 </div>
-                {%endfor%}
+            {%endfor%}                       
             </div>
-            <button id="slideBtn" class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
             </button>
-            <button id="slideBtn" class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
             </button>
           </div>
     </main>

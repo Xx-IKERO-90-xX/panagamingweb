@@ -8,7 +8,7 @@ import json
 import random
 import asyncio
 
-BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.G13Es8.eziB0GI2BHo2ozbTlgL7Gw5jRuHcddgkr4b70s"
+BOT_TOKEN = "OTY3NDI3OTY2NTQxOTE0MTUy.GHp89g.SCpnAc_8Fg0Tq5JQ9fZ-dv4KehMKOmy7VRFk5c"
 
 intents = discord.Intents.all()
 intents.members = True
@@ -620,6 +620,7 @@ async def VerDiario():
         idPersonaje = request.form["idPersonaje"]
         nombre = request.form["nombre"]
         imgUrl = request.form["imgUrl"]
+        color = request.form["color"]
         conexion = await AbrirConexionSQL()
         cursor = conexion.cursor()
         cursor.execute(f"""
@@ -632,7 +633,7 @@ async def VerDiario():
         for fila in result:
             fila_json = dict(zip(columnas, fila))
             paginas.append(fila_json)
-        return render_template("/paginas/minecraft_subpg/personajes/diarios/diario.html", paginas=paginas, nombre=nombre, imgUrl=imgUrl)
+        return render_template("/paginas/minecraft_subpg/personajes/diarios/diario.html", paginas=paginas, nombre=nombre, imgUrl=imgUrl, color=color)
 
     else:
         return redirect(url_for('formLogin'))
