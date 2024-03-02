@@ -22,7 +22,6 @@
             background: black;
             color: white;
         }
-        
     </style>
 </head>
 <body>
@@ -53,7 +52,7 @@
                 </button>
                 <div id="dOpts" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{{url_for('nuevaPagina')}}">NUEVA PAGINA</a>
-                    <a class="dropdown-item" href="#">EDITAR</a>
+                    <a class="dropdown-item" href="{{url_for('EditarDiario')}}">EDITAR</a>
                 </div>
                 <script>
                     let btnMenu = document.getElementById("buttonMenu");

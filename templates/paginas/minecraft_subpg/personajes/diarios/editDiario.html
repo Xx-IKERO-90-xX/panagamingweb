@@ -136,6 +136,33 @@
         .pagina {
             text-align: center;
         }
+        .btnGuardar {
+            display: none;
+            padding: 10px;
+            border-radius: 10px;
+            border: solid 0.2em;
+            border-color: green;
+            color: white;
+            background: black;
+        }
+        .editBtn {
+            display: block;
+            padding: 10px;
+            border: solid 0.2em;
+            border-color: green;
+            background: black;
+            color: white;
+            text-decoration: none;
+            margin-left: 40%;
+            margin-right: 40%;
+            width: 20%;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+        .editBtn:hover {
+            color: white;
+            background:rgb(0, 54, 0);
+        }
     </style>
 </head>
 <body>
@@ -211,32 +238,11 @@
             {%for pagina in paginas%}
                 <div class="carousel-item">
                     <form class="pagina" method="post" action="{{url_for('EditarPagina')}}">
-                        <textarea id="contenido" name="contenido" readonly>{{pagina["contenido"]}}</textarea>
+                        <textarea id="contenido" name="contenido">{{pagina["contenido"]}}</textarea>
                         <br><br>
-                        <input type="text" value="{{pagina['idPagina']}}" style="display: none;">
-                        <div style="text-align: center;">
-                            <input id="saveBtn" type="submit" class="btnGuardar off" value="GUARDAR">
-                            <a id="editBtn" class="editBtn on">EDITAR</a>
-                        </div>                                                                              
+                        <input type="text" name="idPagina" value="{{pagina['idPagina']}}" style="display: none;">
+                        <input type="submit" value="EDITAR" class="editBtn">                                                                       
                     </form>
-                    <script>
-                        let saveBtn = document.getElementById('saveBtn');
-                        let editBtn = document.getElementById('editBtn');
-                        let contenido = document.getElementById('contenido');
-                        contenido.readOnly = true;
-                        editBtn.addEventListener("click", ()=> {
-                            if (editBtn.textContent == 'EDITAR'){
-                                contenido.readOnly = false;
-                                editBtn.textContent = "DESCARTAR";
-                                saveBtn.classList.toggle("on");
-                            }
-                            else {
-                                contenido.readOnly = true;
-                                editBtn.textContent = "EDITAR";
-                                saveBtn.classList.toggle("on");
-                            }
-                        });
-                    </script>
                 </div>
             {%endfor%}                       
             </div>
