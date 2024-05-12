@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Principal</title>
+    <link rel="stylesheet" href="../../static/estilo/style.css">
+</head>
+<body>
+    <header>
+        <img alt=" " src="../../static/img/img_index/logo.png">
+    </header>
+    <div class="usuarioSesion">
+        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img src="{{session['imgUrl']}}"><br></a>
+        <label>{{session['name']}}</label>
+    </div> 
+    <main>
+        <!--Menu principal-->
+        <nav>
+            <ul>
+                <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
+                <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
+                <li><span><a href="{{url_for('soporte')}}">SOPORTE</a></span></li>
+                <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
+            </ul>
+        </nav><br>
+        <br>
+        <!--Portada-->
+        <div class="portada">
+            <img alt=" " src="../../static/img/img_index/portada.PNG">
+        </div>
+
+
+        <!--Contenido principal-->
+        <div class="main_content">
+            <h2>BIENVENIDO A LA WEB DE PANA GAMING!!!</h2>
+        </div><br>
+    
+        <!--Comunidades-->
+        <div class="comunidad3">
+            <br>
+            <h3>MINECRAFT</h3>
+            <br>
+            <img alt=" " src="../../static/img/img_mc/mc_bg4.jpg">
+            <br><br>
+            <div class="button3">
+                <a href="{{url_for('minecraft')}}">VISITAR</a><br>
+                <br><br>
+            </div>
+        </div>
+        <br>
+    </main>
+    <footer>
+        <p>
+            Creado por Iker Javier Rodriguez Hernandez.
+        </p>
+    </footer>
+</body>
+</html>
+

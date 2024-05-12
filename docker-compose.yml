@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web:
+    build: .
+    port: 
+      - "5000:5000"
+
+  database:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ikero9090
+      

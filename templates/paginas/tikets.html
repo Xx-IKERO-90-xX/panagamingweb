@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Soporte Pana Gaming</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/estilo/style.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/estilo/styleSoporte.css'>
+    <script src='../../static/scripts/main.js'></script>
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}"><img alt=" " src="../../static/img/img_index/logo.png"></a>
+    </header>
+    <div class="usuarioSesion">
+        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img src="{{session['imgUrl']}}"><br></a>
+        <label>{{session['name']}}</label>
+    </div>
+    <main style="height: 100vh;">
+        <nav>
+            <ul>
+                <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
+                <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
+                <li><span><a href="{{url_for('soporte')}}">SOPORTE</a></span></li>
+                <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
+            </ul>
+        </nav><br><br>
+        <br><br><br><br>
+        {%if errorMsg != null%}
+            <div style="text-align: center;">
+                <label class="errorMsg">{{errorMsg}}</label>
+            </div>
+        {%endif%}
+        <form class="tiketForm" action="{{url_for('enviarTiket')}}" method="post">
+            <h2>TIKET</h2>
+            <br><br>
+            <label><strong>Nombre de Discord: </strong></label><br><input type="text" name="userName"><br>
+            <br>
+            <label><strong>Asunto: </strong></label><br>
+            <textarea name="texto"></textarea>
+            <div class="tiketFormButtons">
+                <input type="submit" value="Enviar">
+                <input type="reset" value="Borrar">
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>@Pana Gaming Community</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>{{name}}</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../../static/estilo/style.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/estilo/profileStyle.css'>
+    <script src='main.js'></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}"><img alt=" " src="../../static/img/img_index/logo.png"></a>
+    </header>
+    <div class="usuarioSesion">
+        <a style="text-decoration: none; color: white;" href="{{url_for('VerPerfil', id=session['id'])}}"><img src="{{session['imgUrl']}}"><br></a>
+        <label>{{session['name']}}</label>
+    </div>
+    <main style="height: 100%;">
+        <!--Menu principal-->
+        <nav>
+            <ul>
+                <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
+                <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
+                <li><span><a href="{{url_for('soporte')}}">SOPORTE</a></span></li>
+                <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
+            </ul>
+        </nav><br><br><br><br>
+        <br><br><br><br><br>
+        {%if user['color'] == 'green'%}
+        <div class="profileGreen">
+            <br><br>
+            <div class="profileAvatar">
+                <br>
+                <img src="{{user['avatar']}}">
+                <br><br>
+            </div>
+            <br>
+            <div class="profileDatos">
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Sobre mi:</strong></label>
+                    <br><br>
+                    <p style="color: white;">
+                        {{user["descripcion"]}}
+                    </p>
+                </div>
+                <br><br>
+            </div>
+            <br><br>
+        </div>
+        {%endif%}
+        {%if user['color'] == 'blue'%}
+        <div class="profileBlue">
+            <br><br>
+            <div class="profileAvatar">
+                <br>
+                <img src="{{user['avatar']}}">
+                <br><br>
+            </div>
+            <br>
+            <div class="profileDatos">
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Sobre mi:</strong></label>
+                    <br><br>
+                    <p style="color: white;">
+                        {{user["descripcion"]}}
+                    </p>
+                </div>
+                <br><br>
+            </div>
+            <br><br>
+        </div>
+        {%endif%}
+        {%if user['color'] == 'red'%}
+        <div class="profileRed">
+            <br><br>
+            <div class="profileAvatar">
+                <br>
+                <img src="{{user['avatar']}}">
+                <br><br>
+            </div>
+            <br>
+            <div class="profileDatos">
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Sobre mi:</strong></label>
+                    <br><br>
+                    <p style="color: white;">
+                        {{user["descripcion"]}}
+                    </p>
+                </div>
+                <br><br>
+            </div>
+            <br><br>
+        </div>
+        {%endif%}
+        {%if user['color'] == 'yellow'%}
+        <div class="profileYellow">
+            <br><br>
+            <div class="profileAvatar">
+                <br>
+                <img src="{{user['avatar']}}">
+                <br><br>
+            </div>
+            <br>
+            <div class="profileDatos">
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Sobre mi:</strong></label>
+                    <br><br>
+                    <p style="color: white;">
+                        {{user["descripcion"]}}
+                    </p>
+                </div>
+                <br><br>
+            </div>
+            <br><br>
+        </div>
+        {%endif%}
+        {%if user['color'] == 'pink'%}
+        <div class="profilePink">
+            <br><br>
+            <div class="profileAvatar">
+                <br>
+                <img src="{{user['avatar']}}">
+                <br><br>
+            </div>
+            <br>
+            <div class="profileDatos">
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Sobre mi:</strong></label>
+                    <br><br>
+                    <p style="color: white;">
+                        {{user["descripcion"]}}
+                    </p>
+                </div>
+                <br><br>
+            </div>
+            <br><br>
+        </div>
+        {%endif%}
+        {%if user['color'] == 'purple'%}
+        <div class="profilePurple">
+            <br><br>
+            <div class="profileAvatar">
+                <br>
+                <img src="{{user['avatar']}}">
+                <br><br>
+            </div>
+            <br>
+            <div class="profileDatos">
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Sobre mi:</strong></label>
+                    <br><br>
+                    <p style="color: white;">
+                        {{user["descripcion"]}}
+                    </p>
+                </div>
+                <br><br>
+            </div>
+            <br><br>
+        </div>
+        {%endif%}
+        <br><br><br><br>
+    </main>
+    <footer>
+
+        
+    </footer>
+</body>
+
+</html>

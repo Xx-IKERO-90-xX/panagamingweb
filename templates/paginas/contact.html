@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>contacto</title>
+    <link rel="stylesheet" href="../../static/estilo/style.css">
+    <script src="../../static/scripts/main.js"></script>
+</head>
+<body>
+    <header>
+
+        <a href="{{url_for('Inicio')}}"><img alt=" " src="../../static/img/img_index/logo.png"></a>
+
+    </header>
+    <!--Menu de navegación-->
+    <nav>
+        <ul>
+            <li><a href="{{url_for('contacto')}}">CONTACTO</a></li>
+            <li><a href="{{url_for('Inicio')}}">PRINCIPAL</a></li>
+            <li><span class="mine"><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
+        </ul>
+    </nav>
+    <main><br>
+        <br>
+        <form method="post" class="contactForm" name="formulario" action="mailto:ikerjrh2003@gmail.com?subject=contacto" method="post" enctype="text/plain" accept-charset="utf-8" onsubmit="return ValidarFormulario()">
+            <img alt=" " src="../../static/img/img_index/logo.png"><br>
+            <br>
+            <h1>Formulario</h1><br>
+            <div class="content">
+                <div class="datos">
+                    <p>
+                        Nombre: <br><input type="text" name="nombre" size="15" maxlength="20"><br>
+                    </p><br>
+                    <p>
+                        Apellidos: <br><input type="text" name="apellido" size="20" maxlength="30"><br>
+                    </p><br>
+                    <p>
+                        Correo Electrótico: <br><input type="text" name="correo" size="20" maxlength="30"><br>
+                    </p><br>
+                    <p>
+                        Surgerencias: <br><textarea name="surgerencias" rows="5" cols="50"></textarea><br>
+                    </p><br>
+                </div>
+                <p>
+                    Temas de interés:<br>
+                    <select name="servidores">
+                        <option value="mine">MINECRAFT</option>
+                        <option value="halo">HALO RP</option>
+                        <option value="pg">COMUNIDAD</option>
+                        <option value="pgnw">PANA GAMING NETWORK</option>
+                        <option value="otros">OTROS</option>
+                    </select>
+                </p><br>
+                <div class="allow_news">
+                    <p>
+                        ¿Desea ver las novedades de la WEB?<br><input type="checkbox" name="novedades" value="habilitar" checked> SI
+                    </p><br>
+                </div>
+                <p>
+                    Calificación de la web: <br>
+                    <select name="calificacion">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected>5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </p><br>
+                <div class="terms">
+                    <p>
+                        Aceptar términos y condiciones:<br>
+                        <input type="radio" name="check" value="yes" checked> Acepto<br>   
+                        <input type="radio" name="check" value="no"> NO acepto<br>
+                    </p><br>
+                </div>
+            </div><br>
+            <div class="button">
+                <input type="submit">
+                <input type="reset">
+            </div>        
+        </form>
+    </main>
+    <footer>
+        <p>Creado por Iker Javier Rodriguez Hernandez</p>
+    </footer>
+</body>

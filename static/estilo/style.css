@@ -1,0 +1,2414 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+header {
+    text-align: center;
+    padding: 70px 0;
+    background-image: url("../img/fondoverde.jpg");
+    display: block;
+    width: 100%;
+}
+
+header img {
+    width: 200px;
+    border-radius: 50%;
+    box-shadow: 0px 10px 45px 30px green;
+    animation: 1.5s infinite alternate;
+}
+
+header h1 {
+    padding: 10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 50px;
+    background: black;
+    margin-left: 40px;
+    margin-right: 40px;
+    color: white;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+nav {
+    text-align: center;
+    background: black;
+    padding: 20px;
+    width: 100%;
+    float: left;
+    margin: auto;
+    display: block;
+}
+
+nav ul {
+    background: black;
+    width: 100%;
+    float: right;
+    display: block;
+    text-align: center;
+}
+
+nav ul li {
+    list-style: None;
+    margin-left: 10%;
+    float: left;
+    border: solid 0.3em;
+    border-color: green;
+    border-radius: 30px;
+    padding: 9px;
+    display: block;
+    text-align: center;
+}
+
+nav ul li a {
+    text-decoration: None;
+    color: white;
+    padding: 4px;
+    font-weight: bold;
+    transition: background-color 0.5s;
+    border-radius: 20px;
+    font-family: Arial;
+}
+
+nav ul li a:hover {
+    background: rgb(0, 177, 0);
+    border-radius: 20px;
+    padding: 4px;
+}
+
+body {
+    background-image: url("../img/fondoVerdeNeon.jpg");
+    background-attachment: fixed;
+}
+
+footer {
+    background: rgb(0, 0, 0);
+    text-align: center;
+    font-size: 30px;
+    color: white;
+    padding: 20px;
+}
+
+.usuarioSesion {
+    display: block;
+    background: rgb(10, 10, 10);
+    color: white;
+    border-top: solid 0.4em;
+    border-color: black;
+    text-align: center;
+    padding: 20px;
+}
+
+.usuarioSesion img {
+    width: 80px;
+    border-radius: 50%;
+    border: solid 0.2em;
+}
+
+.usuarioSesion label {
+    font-size: 25px;
+    font-family: Arial;
+}
+
+@font-face {
+    font-family: pgtit;
+    src: url(../texto/title/title1.ttf);
+}
+
+@media screen and (max-width: 900px) {
+    nav ul li {
+        margin-left: 30px;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    nav ul li {
+        margin-left: 10px;
+        float: none;
+        margin: 20px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    nav ul li a {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    header img {
+        width: 130px;
+        height: 100px;
+    }
+
+    footer {
+        font-size: 20px;
+    }
+
+    nav ul li span a {
+        font-size: 13px;
+    }
+}
+
+
+.errorLabels label {
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+    border: solid 0.1em;
+    border-color: red;
+    background: black;
+    color: red;
+    font-family: Arial;
+    font-size: 30px;
+}
+
+/**JS interactions**/
+
+.on {
+    display: block;
+}
+
+
+/*ASSETS*/
+@font-face {
+    font-family: hogwarts;
+    src: url(../assets/texts/HARRYP__.TTF);
+}
+
+@font-face {
+    font-family: starwars;
+    src: url(../assets/texts/soloist3d.ttf);
+}
+
+@font-face {
+    font-family: avengers;
+    src: url(../assets/texts/AVENGEANCE\ HEROIC\ AVENGER.ttf);
+}
+
+@font-face {
+    font-family: doom;
+    src: url(../assets/texts/AmazDooMLeft.ttf);
+}
+
+@font-face {
+    font-family: darkmagic;
+    src: url(../assets/texts/DarkMagic\ Free\ Trial.ttf);
+}
+
+@font-face {
+    font-family: halo_tit;
+    src: url(../assets/texts/halo.ttf)
+}
+
+.arkTheme {
+    background-image: url(../assets/img/ark.jpg);
+    border-color: rgb(125, 255, 85);
+}
+
+.doomTheme {
+    background-image: url(../assets/img/doom.jpg);
+    border-color: rgb(158, 0, 0);
+}
+
+.haloTheme {
+    background-image: url(../assets/img/halo.png);
+    border-color: blue;
+}
+
+.hogwartsTheme {
+    background-image: url(../assets/img/hogwarts.jpg);
+    border-color: black;
+}
+
+
+
+/**COMUNIDAD**/
+
+.userInfo {
+    margin: 10px;
+    background: grey;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.userlist h2 {
+    font-family: Arial;
+    text-align: center;
+    font-size: 30px;
+}
+
+.userInfo label {
+    font-family: Arial;
+}
+
+.userInfo img {
+    width: 50px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.userData {
+    margin-top: 10px;
+    margin-left: 30px;
+    width: 300px;
+}
+
+.userlist {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    background: white;
+    height: 100%;
+}
+
+.userInfo form {
+    margin-top: 15px;
+    display: block;
+    text-align: center;
+}
+
+.userInfo form input {
+    text-align: center;
+    padding: 10px;
+    padding-right: 30px;
+    font-family: Arial;
+    font-weight: bold;
+    width: 40px;
+    background: rgb(85, 85, 85);
+}
+
+.userInfo form input:hover {
+    text-align: center;
+    padding: 10px;
+    padding-right: 30px;
+    font-family: Arial;
+    font-weight: bold;
+    width: 40px;
+    background: rgb(255, 255, 255);
+}
+
+.info {
+    display: flex;
+}
+
+.extraInfo {
+    margin-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+/*Minecraft Pana Gaming*/
+
+@font-face {
+    font-family: mine_tit;
+    src: url("../texto/minecraft/MINECRAFT PE.ttf");
+}
+
+@font-face {
+    font-family: mine_txt;
+    src: url(../texto/minecraft/Minecraft.ttf);
+}
+
+@font-face {
+    font-family: mine_tit2;
+    src: url(../texto/minecraft/Minectaft2.ttf);
+}
+
+.minecraft_body {
+    background-image: url(../img/img_mc/mc_bg.jpg);
+}
+
+.mcpg_portada img {
+    width: 100%;
+}
+
+.mc_title {
+    padding: 20px;
+    text-align: center;
+    background-image: url(../img/img_mc/grass_bg.png);
+    border-radius: 30px;
+    border: solid 0.3em;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 90px;
+
+}
+
+.mc_title h1 {
+    font-size: 50px;
+    font-family: mine_tit;
+    padding: 10px;
+}
+
+.mc_title h2 {
+    font-family: mine_txt;
+}
+
+.mc_title img {
+    width: 20%;
+}
+
+.line_mc {
+    background: black;
+    padding: 10px;
+    margin-top: 10px;
+    border: solid 0.3em;
+}
+
+.mc_section1 {
+    background-image: url(../img/img_mc/mc_grass2.jpg);
+    padding: 30px;
+    border: solid 0.3em;
+}
+
+.mc_section1 h1 {
+    text-align: center;
+    font-family: mine_tit;
+}
+
+.mc_servidor_link {
+    padding: 20px;
+    text-align: center;
+}
+
+.mc_servidor_link a {
+    text-decoration: none;
+    font-size: 20px;
+    font-family: mine_txt;
+    background: rgba(15, 126, 0, 0.705);
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    border: solid 0.2em;
+    padding: 10px;
+}
+
+.mc_servidor_link a:hover {
+    text-decoration: none;
+    font-size: 20px;
+    font-family: mine_txt;
+    background: rgba(24, 207, 0, 0.705);
+    padding: 20px;
+    border-radius: 20px;
+    color: rgb(0, 0, 0);
+    border: solid 0.2em;
+    padding: 10px;
+}
+
+.mc_section1 p {
+    font-family: mine_txt;
+}
+
+.mc_section1_text {
+    background: rgba(105, 70, 47, 0.705);
+    padding: 12px;
+    border-radius: 20px;
+    border: solid 0.2em;
+}
+
+.mc_section2 {
+    background-image: url(../img/img_mc/stone_bg.png);
+    padding: 20px;
+    border: solid 0.3em;
+}
+
+.mc_section2 img {
+    width: 100px;
+}
+
+.mc_section2 h1 {
+    font-family: mine_tit2;
+    background: rgb(80, 79, 79);
+    padding: 14px;
+    text-align: center;
+    border-radius: 20px;
+    border: solid 0.1em;
+    font-size: 70px;
+}
+
+.mc_section2 p {
+    font-family: mine_txt;
+    background: rgba(51, 51, 51, 0.76);
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 30px;
+}
+
+.mc_section2_personaje {
+    padding: 20px;
+    margin-top: 80px;
+    background: rgba(0, 160, 147, 0.521);
+    border-radius: 20px;
+    border: solid 0.2em;
+    text-align: center;
+}
+
+.mc_section2_personaje h2 {
+    background: rgb(0, 137, 155);
+    padding: 20px;
+    font-family: mine_tit2;
+    font-size: 50px;
+    border: solid 0.1em;
+    border-radius: 10px;
+}
+
+.mc_section2_personaje img {
+    margin-left: auto;
+    margin-right: auto;
+    width: 130px;
+    border: solid 0.2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+}
+
+.mc_section2_personaje a {
+    border: solid 0.1em;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: black;
+    font-family: mine_txt;
+    font-size: 30px;
+}
+
+.mc_section2_personaje a:hover {
+    border: solid 0.1em;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: black;
+    font-family: mine_txt;
+    font-size: 30px;
+    background: rgba(0, 171, 194, 0.685);
+}
+
+.mc_section2_personaje p {
+    background: rgba(157, 238, 248, 0.479);
+}
+
+.mc_section2_ingame {
+    background: rgba(96, 0, 221, 0.61);
+    padding: 20px;
+    margin-top: 50px;
+    border: solid 0.2em;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.mc_section2_ingame h2 {
+    font-family: mine_tit2;
+    font-size: 60px;
+    padding: 20px;
+    background: rgb(96, 0, 221);
+    border-radius: 10px;
+    border: solid 0.1em;
+}
+
+.mc_section2_ingame img {
+    width: 130px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    border-radius: 30px;
+    border: solid 0.3em;
+}
+
+.mc_section2_ingame a {
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-size: 30px;
+    border: solid 0.1em;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-family: mine_txt;
+}
+
+.mc_section2_ingame a:hover {
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-size: 30px;
+    border: solid 0.1em;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-family: mine_txt;
+    background: rgba(142, 56, 255, 0.678);
+}
+
+.mc_section2_ingame p {
+    background: rgba(202, 88, 255, 0.582);
+}
+
+.mc_sections img {
+    width: 300px;
+}
+
+
+@media screen and (max-width: 900px) {
+    nav ul li {
+        margin-left: 30px;
+    }
+
+    .mc_title {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .mc_title h1 {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .mc_title {
+        padding: 20px;
+        text-align: center;
+        background-image: url(../img/img_mc/grass_bg.png);
+        border-radius: 30px;
+        border: solid 0.3em;
+        margin-top: 330px;
+    }
+
+    .mc_title h1 {
+        font-size: 40px;
+        font-family: mine_tit;
+        padding: 25px;
+    }
+
+    .mc_title img {
+        width: 200px;
+    }
+
+    .mc_section2 h1 {
+        font-size: 34px;
+    }
+
+    .mc_section2_personaje h2 {
+        background: rgb(0, 137, 155);
+        padding: 10px;
+        font-family: mine_tit2;
+        font-size: 26px;
+        border: solid 0.1em;
+        border-radius: 10px;
+    }
+
+    .mc_section2_personaje a {
+        font-size: 20px;
+    }
+
+    .mc_section2_personaje a:hover {
+        font-size: 20px;
+    }
+
+    .mc_section2_ingame h2 {
+        font-size: 34px;
+    }
+
+    .mc_section2_ingame a {
+        font-size: 20px;
+    }
+
+    .mc_section2_ingame a:hover {
+        font-size: 20px;
+    }
+
+    .mc_sections {
+        display: block;
+    }
+
+    .mc_sections img {
+        width: 200px;
+    }
+}
+
+
+@media screen and (max-width: 390px) {
+    .mc_title {
+        padding: 10px;
+        text-align: center;
+        background-image: url(../img/img_mc/grass_bg.png);
+        border-radius: 30px;
+        border: solid 0.3em;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 330px;
+    }
+
+    .mc_title h1 {
+        font-size: 20px;
+        font-family: mine_tit;
+        padding: 2px;
+    }
+
+    .mc_title img {
+        width: 50px;
+    }
+
+    .mc_section1 h1 {
+        font-family: mine_tit;
+        font-size: 18px;
+    }
+
+    .mc_section1 {
+        font-size: 13px;
+    }
+
+    .mc_section2 {
+        background-image: url(../img/img_mc/stone_bg.png);
+        padding: 20px;
+        border: solid 0.3em;
+    }
+
+    .mc_section2 h1 {
+        font-family: mine_tit2;
+        background: rgb(80, 79, 79);
+        padding: 14px;
+        text-align: center;
+        border-radius: 20px;
+        border: solid 0.1em;
+        font-size: 30px;
+    }
+
+    .mc_section2 p {
+        font-size: 16px;
+    }
+
+    .mc_section2 {
+        padding: 0;
+    }
+
+    .mc_section2_personaje {
+        padding: 10px;
+        margin-top: 80px;
+        background: rgba(0, 160, 147, 0.521);
+        border-radius: 20px;
+        border: solid 0.2em;
+        text-align: center;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .mc_section2_personaje h2 {
+        background: rgb(0, 137, 155);
+        padding: 10px;
+        font-family: mine_tit2;
+        font-size: 20px;
+        height: 40px;
+        border: solid 0.2em;
+        border-radius: 10px;
+        padding-bottom: 30px;
+    }
+
+    .mc_section2_personaje img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 120px;
+        border: solid 0.2em;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+    }
+
+    .mc_section2_personaje a {
+        border: solid 0.1em;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        text-decoration: none;
+        color: black;
+        font-family: mine_txt;
+        font-size: 10px;
+    }
+    .mc_section2_personaje a:hover {
+        border: solid 0.1em;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        text-decoration: none;
+        color: black;
+        font-family: mine_txt;
+        font-size: 10px;
+        background: rgba(0, 171, 194, 0.685);
+    }
+
+    .mc_section2_ingame {
+        background: rgba(96, 0, 221, 0.61);
+        padding: 10px;
+        margin-top: 50px;
+        border: solid 0.2em;
+        border-radius: 20px;
+        text-align: center;
+    }
+
+    .mc_section2_ingame h2 {
+        font-family: mine_tit2;
+        font-size: 28px;
+        padding: 10px;
+        background: rgb(96, 0, 221);
+        border-radius: 10px;
+        border: solid 0.2em;
+    }
+
+    .mc_section2_ingame img {
+        width: 130px;
+        margin-bottom: 20px;
+        margin-top: 30px;
+        border-radius: 20px;
+        border: solid 0.3em;
+    }
+
+    .mc_section2_ingame a {
+        text-decoration: none;
+        color: black;
+        padding: 10px;
+        font-size: 10px;
+        border: solid 0.1em;
+        border-radius: 20px;
+        margin-bottom: 23px;
+        font-family: mine_txt;
+    }
+
+    .mc_section2_ingame a:hover {
+        text-decoration: none;
+        color: black;
+        padding: 10px;
+        font-size: 10px;
+        border: solid 0.1em;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        font-family: mine_txt;
+        background: rgba(142, 56, 255, 0.678);
+    }
+
+    .mc_sections div {
+        margin-left: 1px;
+        margin-left: 1px;
+        padding: 5px;
+    }
+
+    .mc_sections a {
+        font-size: 13px;
+    }
+
+    .mc_sections a:hover {
+        font-size: 13px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*PORTAL PERSONAJES*/
+
+.portadaPersonajes {
+    width: 100%;
+}
+
+.portadaPersonajes img {
+    width: 100%;
+    border: solid 0.2em;
+}
+
+.personajeSections {
+    background-image: url(../img/img_mc/stone_bg.png);
+    padding: 10px;
+}
+
+.listaPersonajes h2 {
+    text-align: center;
+    font-family: mine_tit2;
+    font-size: 130px;
+}
+
+.personaje_green {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background: rgb(73, 255, 73);
+    border: solid 0.2em;
+    border-color: rgb(0, 97, 0);
+    text-align: center;
+    border-radius: 10px;
+}
+
+.personaje_green img {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: solid 0.2em;
+    border-color: rgb(0, 97, 0);
+    border-radius: 10px;
+}
+
+.personaje_green p {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: mine_txt;
+    text-align: center;
+    border: solid 0.2em;
+    padding: 5px;
+    border-color: rgb(0, 97, 0);
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.personaje_green h2 {
+    text-align: center;
+    font-family: mine_tit2;
+    font-size: 60px;
+}
+
+
+
+.personaje_blue {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background: rgb(105, 180, 255);
+    border: solid 0.2em;
+    border-color: rgb(0, 21, 255);
+    text-align: center;
+    border-radius: 10px;
+}
+
+.personaje_blue img {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: solid 0.2em;
+    border-color: rgb(0, 21, 255);
+    border-radius: 10px;
+}
+
+.personaje_blue h2 {
+    text-align: center;
+    font-family: mine_tit2;
+    font-size: 60px;
+}
+
+.personaje_blue p {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: mine_txt;
+    text-align: center;
+    border: solid 0.2em;
+    padding: 5px;
+    border-color: rgb(0, 21, 255);
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.personaje_red {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background: rgb(255, 105, 105);
+    border: solid 0.2em;
+    border-color: rgb(143, 0, 0);
+    border-radius: 10px;
+}
+
+.personaje_red img {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: solid 0.2em;
+    border-color: rgb(143, 0, 0);
+    border-radius: 10px;
+}
+
+.personaje_red h2 {
+    text-align: center;
+    font-family: mine_tit2;
+    font-size: 60px;
+}
+
+.personaje_red p {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: mine_txt;
+    text-align: center;
+    border: solid 0.2em;
+    padding: 5px;
+    border-color: rgb(143, 0, 0);
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.personaje_yellow {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background: rgb(245, 255, 105);
+    border: solid 0.2em;
+    border-color: rgb(143, 138, 0);
+    border-radius: 10px;
+}
+
+.personaje_yellow img {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: solid 0.2em;
+    border-color: rgb(143, 138, 0);
+    border-radius: 10px;
+}
+
+.personaje_yellow h2 {
+    text-align: center;
+    font-family: mine_tit2;
+    font-size: 60px;
+}
+
+.personaje_yellow p {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: mine_txt;
+    text-align: center;
+    border: solid 0.2em;
+    padding: 5px;
+    border-color: rgb(143, 138, 0);
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.personaje_pink {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background: rgb(255, 150, 243);
+    border: solid 0.2em;
+    border-color: rgb(255, 26, 240);
+    border-radius: 10px;
+}
+
+.personaje_pink img {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: solid 0.2em;
+    border-color: rgb(255, 26, 240);
+    border-radius: 10px;
+}
+
+.personaje_pink h2 {
+    text-align: center;
+    font-family: mine_tit2;
+    font-size: 60px;
+}
+
+.personaje_pink p {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: mine_txt;
+    text-align: center;
+    border: solid 0.2em;
+    padding: 5px;
+    border-color: rgb(255, 26, 240);
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.personaje_purple {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background: rgb(199, 78, 255);
+    border: solid 0.2em;
+    border-color: rgb(88, 0, 139);
+    border-radius: 10px;
+}
+
+.personaje_purple img {
+    width: 60%;
+    border: solid 0.2em;
+    border-color: rgb(88, 0, 139);
+    border-radius: 10px;
+}
+
+.personaje_purple h2 {
+    text-align: center;
+    font-family: mine_tit2;
+    font-size: 60px;
+}
+
+.personaje_purple p {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: mine_txt;
+    text-align: center;
+    border: solid 0.2em;
+    padding: 10px;
+    border-radius: 10px;
+    border-color: rgb(88, 0, 139);
+    font-size: 20px;
+}
+
+.personajeMine {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/minecraft.jpg);
+    border: solid 0.2em;
+    border-color: rgb(0, 92, 3);
+    border-radius: 10px;
+}
+
+.personajeMine h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgba(0, 255, 0, 0.582);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 40px;
+
+}
+
+.personajeMine img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border: solid 0.2em;
+    border-color: rgb(0, 116, 4);
+}
+
+.personajeMine p {
+    text-align: center;
+    font-size: 20px;
+    font-family: Arial;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.personajeHalo {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/halo.png);
+    border: solid 0.2em;
+    border-color: rgb(0, 110, 255);
+    border-radius: 10px;
+}
+
+.personajeHalo h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgb(0, 110, 255);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 40px;
+}
+
+.personajeHalo img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border-color: rgb(0, 0, 0);
+}
+
+.personajeHalo p {
+    text-align: center;
+    font-size: 20px;
+    font-family: mine_txt;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(76, 94, 255, 0.582);
+    font-weight: bold;
+}
+
+.personajeStarWars {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/starwars.jpg);
+    border: solid 0.2em;
+    border-color: rgb(0, 0, 0);
+    border-radius: 10px;
+}
+
+.personajeStarWars img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border-color: black;
+}
+
+.personajeStarWars h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgba(122, 122, 122, 0.589);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 40px;
+}
+
+.personajeStarWars p {
+    text-align: center;
+    font-size: 20px;
+    font-family: Arial;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(100, 100, 100, 0.582);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: HogwartsTxt;
+    src: url(../texto/FancyCardText.ttf);
+}
+
+.personajeHogwarts {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/hogwarts.jpg);
+    border: solid 0.2em;
+    border-color: rgb(89, 0, 255);
+    border-radius: 10px;
+    background-attachment: fixed;
+}
+
+.personajeHogwarts p {
+    text-align: left;
+    font-size: 30px;
+    font-family: HogwartsTxt;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.personajeHogwarts img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border: solid 0.01em;
+    border-color: black;
+    width: 200px;
+}
+
+.hogwartsCard {
+    text-align: center;
+    background-image: url(../img/HogwartsCard.jpg);
+    width: 700px;
+    margin: auto;
+    border-radius: 10px;
+    border: solid 0.2em;
+}
+
+.personajeHogwarts h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgba(112, 64, 0, 0.781);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 50px;
+}
+
+.personajeDoom {
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 10px;
+    background-image: url(../assets/img/doom.jpg);
+    border: solid 0.2em;
+    border-color: rgb(131, 0, 0);
+    border-radius: 10px;
+}
+
+.personajeDoom img {
+    text-align: center;
+    font-size: 60px;
+    border-radius: 10px;
+    border-color: rgb(131, 0, 0);
+}
+
+.personajeDoom p {
+    text-align: center;
+    font-size: 30px;
+    font-family: doom;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    background: rgba(255, 0, 0, 0.589);
+}
+
+.personajeDoom h2 {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    background: rgba(255, 0, 0, 0.589);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 40px;
+}
+
+
+
+
+.crearPersonaje {
+    text-align: center;
+    padding: 20px;
+    font-family: Arial;
+}
+
+.crearPersonaje a {
+    padding: 10px;
+    border: solid 0.2em;
+    border-radius: 30px;
+    text-decoration: none;
+    color: black;
+    border-color: black;
+    font-size: 20px;
+    background: green;
+}
+
+.crearPersonaje a:hover {
+    background: rgb(0, 255, 0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*MINECRAFT PERSONAJES*/
+
+.mc_personaje_portada img {
+    position: relative;
+    width: 100%;
+    border: solid 0.3em;
+}
+
+.mc_personaje_body {
+    background-image: url(../img/img_mc/stone_bg.png);
+}
+
+.crear_personaje {
+    background: rgba(0, 128, 111, 0.692);
+    border-radius: 20px;
+    padding: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    border: solid 0.2em;
+}
+
+.crear_personaje h2 {
+    font-family: mine_tit2;
+    text-align: center;
+    padding: 20px;
+    font-size: 40px;
+    background: rgb(0, 156, 177);
+    border: solid 0.1em;
+    border-radius: 20px;
+}
+
+.crear_personaje img {
+    width: 520px;
+    border-radius: 20px;
+    border: solid 0.2em;
+    margin-bottom: 20px;
+    margin: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.crear_personaje p {
+    font-family: mine_txt;
+}
+
+.crear_personaje_step1 {
+    padding: 20px;
+    background: rgba(117, 234, 255, 0.774);
+    border-radius: 20px;
+    border: solid 0.2em;
+}
+
+.crear_personaje_step1 h3 {
+    font-family: mine_tit;
+    text-align: center;
+    font-size: 35px;
+}
+
+.crear_personaje_step2 {
+    padding: 20px;
+    background: rgba(0, 215, 253, 0.322);
+    border-radius: 20px;
+    border: solid 0.2em;
+}
+
+.crear_personaje_step2 h3 {
+    font-family: mine_tit;
+    text-align: center;
+    font-size: 35px;
+
+}
+
+.crear_personaje_step2 a {
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+    font-family: mine_txt;
+    border: solid 0.2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    border-color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0)
+}
+
+.crear_personaje_step2 a:hover {
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+    font-family: mine_txt;
+    border: solid 0.2em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    border-color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
+    background: rgb(0, 247, 255)
+}
+
+.crear_personaje_step3 {
+    padding: 20px;
+    background: rgba(117, 234, 255, 0.774);
+    border-radius: 20px;
+    border: solid 0.2em;
+}
+
+.crear_personaje_step3 h3 {
+    font-family: mine_tit;
+    text-align: center;
+    font-size: 35px;
+}
+
+.mc_return1 {
+    text-align: center;
+    padding: 20px;
+}
+
+.mc_return1 a {
+    text-decoration: none;
+    font-size: 30px;
+    font-family: mine_txt;
+    color: black;
+    border: solid 0.2em;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(0, 173, 196, 0.568);
+}
+
+.mc_return1 a:hover {
+    text-decoration: none;
+    font-size: 30px;
+    font-family: mine_txt;
+    color: black;
+    border: solid 0.2em;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgb(0, 225, 255);
+}
+
+
+@media screen and (max-width: 660px) {
+    .crear_personaje {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .crear_personaje h2 {
+        font-size: 20px;
+    }
+
+    .crear_personaje img {
+        width: 160px;
+        border-radius: 10px;
+    }
+
+    .crear_personaje_step1 h3 {
+        font-size: 23px;
+    }
+
+    .crear_personaje_step1 p {
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .crear_personaje_step2 {
+        text-align: center;
+    }
+
+    .crear_personaje_step2 h3 {
+        font-size: 23px;
+    }
+
+    .crear_personaje_step2 p {
+        font-size: 13px;
+    }
+
+    .crear_personaje_step3 h3 {
+        font-size: 21px;
+    }
+
+    .crear_personaje_step3 p {
+        text-align: center;
+        font-size: 13px;
+    }
+
+    .mc_return1 a {
+        padding: 10px;
+    }
+
+    .mc_return1 a:hover {
+        padding: 10px;
+    }
+
+    .mc_sections {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .crear_personaje {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .crear_personaje div {
+        padding: 10px;
+    }
+
+    .crear_personaje p {
+        text-align: center;
+    }
+
+    .crear_personaje h2 {
+        font-size: 15px;
+    }
+
+    .crear_personaje img {
+        width: 120px;
+        border-radius: 10px;
+    }
+
+    .crear_personaje_step1 h3 {
+        font-size: 14px;
+    }
+
+    .crear_personaje_step1 p {
+        text-align: center;
+        ;
+    }
+
+    .crear_personaje_step2 {
+        text-align: center;
+    }
+
+    .crear_personaje_step2 h3 {
+        font-size: 13px;
+    }
+
+    .crear_personaje_step3 h3 {
+        font-size: 11px;
+    }
+
+    .crear_personaje_step3 p {
+        text-align: center;
+    }
+
+    .mc_return1 a {
+        padding: 10px;
+    }
+
+    .mc_return1 a:hover {
+        padding: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+/*Minecraft Contenido*/
+
+.mc_contenido_body {
+    background-image: url(../img/img_mc/stone_bg.png);
+}
+
+.mc_contenido_body p {
+    font-family: mine_txt;
+    background: rgb(105, 70, 47);
+    padding: 20px;
+    border-radius: 20px;
+    border: solid 0.2em;
+    font-size: 20px;
+}
+
+.mc_contenido_body a {
+    text-decoration: none;
+}
+
+.mc_contenido_portada img {
+    position: relative;
+    width: 100%;
+    border: solid 0.4em;
+}
+
+.mc_contenido1 {
+    background: rgba(1, 117, 7, 0.603);
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px;
+    border: solid 0.2em;
+    border-radius: 20px;
+}
+
+.mc_contenido1 img {
+    border: solid 0.2em;
+    border-radius: 20px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin: auto;
+    display: block;
+}
+
+.mc_contenido1 h2 {
+    text-align: center;
+    padding: 20px;
+    font-size: 40px;
+    font-family: mine_tit;
+    background: rgb(0, 65, 3);
+    border-radius: 20px;
+    border: solid 0.1em;
+}
+
+.mc_contenido2 {
+    background: rgba(1, 117, 7, 0.603);
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px;
+    border: solid 0.2em;
+    border-radius: 20px;
+}
+
+.mc_contenido2 img {
+    width: 400px;
+    border: solid 0.2em;
+    border-radius: 20px;
+    margin: auto;
+    display: block;
+}
+
+.mc_contenido2 hr {
+    padding: 5px;
+    background: rgb(0, 0, 0);
+    border-color: rgb(0, 0, 0);
+}
+
+.mc_contenido2 h2 {
+    text-align: center;
+    padding: 20px;
+    font-size: 50px;
+    font-family: mine_tit2;
+    background: rgb(0, 65, 3);
+    border-radius: 20px;
+    border: solid 0.1em;
+}
+
+.mc_return2 {
+    text-align: center;
+    padding: 20px;
+}
+
+.mc_return2 a {
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-family: mine_txt;
+    background: rgb(0, 155, 13);
+    border: solid 0.2em;
+    border-radius: 20px;
+}
+
+.mc_return2 a:hover {
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-family: mine_txt;
+    background: rgb(9, 255, 0);
+    border: solid 0.2em;
+    border-radius: 20px;
+}
+
+@media screen and (max-width: 660px) {
+    .mc_contenido1 img {
+        width: 250px;
+    }
+
+    .mc_contenido2 img {
+        width: 250px;
+    }
+}
+
+@media screen and (max-width: 390px) {
+    .mc_contenido1 {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .mc_contenido1 h2 {
+        font-size: 15px;
+    }
+
+    .mc_contenido1 img {
+        width: 150px;
+    }
+
+    .mc_contenido1 p {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .mc_contenido2 {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .mc_contenido2 h2 {
+        font-size: 20px;
+    }
+
+    .mc_contenido2 img {
+        width: 150px;
+    }
+
+    .mc_contenido2 p {
+        font-size: 14px;
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+/*FORMULARIO CREAR PERSONAJE DE MC*/
+
+.personajeForm {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 20px;
+    padding: 10px;
+    background: black;
+    border-radius: 10px;
+}
+
+.personajeForm label {
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.personajeForm input {
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 20px;
+    border: solid 0.3em;
+    border-color: green;
+}
+
+.personajeForm textarea {
+    border: solid 0.3em;
+    border-color: green;
+    border-radius: 10px;
+    padding: 20px;
+    width: 200px;
+    height: 100px;
+}
+
+.UserInfo {
+    color: white;
+    text-align: center;
+    background: rgb(0, 41, 0);
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 20px;
+    width: 60%;
+    border-radius: 10px;
+}
+
+.NuevoPersonaje {
+    text-align: center;
+    background: rgb(0, 41, 0);
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 60%;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.NuevoPersonaje label {
+    color: white;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.pjButtons {
+    text-align: center;
+}
+
+.pjButtons input {
+    padding: 7px;
+    background: black;
+    color: white;
+    font-weight: bold;
+}
+
+.pjButtons input:hover {
+    background: rgb(0, 46, 2);
+}
+
+
+
+
+
+
+
+
+/* PAGINA PRINCIPAL (INDEX) */
+
+.portada img {
+    width: 100%;
+    z-index: -1;
+    display: block;
+    position: relative;
+    border: solid 0.4em;
+}
+
+.logo_web {
+    position: absolute;
+    z-index: 1;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    top: 690px;
+    left: 699px;
+    align-self: center;
+    display: block;
+}
+
+.logo_web img {
+    border-radius: 50%;
+    border: solid 0.4em;
+    border-color: rgb(209, 72, 209);
+    position: absolute;
+
+}
+
+.main_content {
+    padding: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background: rgb(0, 0, 0);
+    margin-top: 20px;
+    border: solid 0.3em;
+    border-radius: 20px;
+    color: white;
+    border-color: rgb(15, 126, 0);
+}
+
+.main_content h2 {
+    text-align: center;
+    font-family: Arial;
+    font-size: 40px;
+}
+
+.information {
+    text-align: center;
+    background: black;
+    color: white;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: solid 0.1em;
+    border-color: green;
+    font-family: Arial;
+}
+
+.comunities {
+    padding: 20px;
+    background: rgb(0, 0, 0);
+    border: solid 0.2em;
+    border-radius: 20px;
+    border-color: rgb(0, 112, 0);
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    margin: 20px;
+}
+
+.comunidad2 img {
+    width: 310px;
+    border-radius: 20px;
+    border: solid 0.2em;
+}
+
+.comunidad2 h3 {
+    text-align: center;
+    padding: 20px;
+    font-size: 30px;
+    border: solid 0.2em;
+    border-radius: 20px;
+    font-family: halo_text;
+    background: rgba(0, 73, 182, 0.685);
+}
+
+.comunidad2 a {
+    text-align: center;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-family: halo_text;
+    padding: 20px;
+    border: solid 0.2em;
+    border-radius: 20px;
+    background: rgba(0, 41, 155, 0.541);
+}
+
+.comunidad2 a:hover {
+    text-align: center;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-family: halo_text;
+    padding: 20px;
+    border: solid 0.2em;
+    border-radius: 20px;
+    background: rgba(0, 68, 255, 0.541);
+}
+
+.comunidad3 h3 {
+    text-align: center;
+    padding: 15px;
+    font-size: 30px;
+    background: rgba(0, 255, 255, 0.511);
+    border-bottom: solid 0.1em;
+    border-top: solid 0.1em;
+    border-radius: 20px;
+    font-family: mine_tit;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.comunidad3 {
+    text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    background: url(../img/img_mc/mcBg.png);
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 0.2em;
+}
+
+.comunidad3 img {
+    width: 95%;
+    border-top: solid 0.2em;
+    border-bottom: solid 0.2em;
+    padding: 10px;
+    z-index: 1;
+    border-radius: 20px;
+    background-image: url(../img/img_mc/stone_bg.png);
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.comunidad3 a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-family: mine_txt;
+    font-size: 20px;
+    padding: 20px;
+    background: rgba(0, 131, 11, 0.712);
+    border: solid 0.2em;
+    border-radius: 20px;
+
+}
+
+.comunidad3 a:hover {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-family: mine_txt;
+    font-size: 20px;
+    padding: 20px;
+    background: rgba(0, 255, 21, 0.712);
+    border: solid 0.2em;
+    border-radius: 20px;
+}
+
+.button3 {
+    background-image: url(../img/img_mc/wood_bg1.jpg);
+    padding-top: 40px;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 20px;
+    border-top: solid 0.2em;
+    border-bottom: solid 0.2em;
+
+}
+
+.information img {
+    width: 100%;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    border: solid 0.1em;
+    border-color: rgb(0, 112, 0);
+}
+
+@media screen and (max-width: 1200px) {
+    .comunities div {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+@media screen and (max-width: 856px) {
+    .comunities {
+        flex: none;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .comunities div {
+        margin-left: 1px;
+        margin-right: 1px;
+    }
+
+    .comunidad2 {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .comunidad3 {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .comunidad3 h3 {
+        font-size: 25px;
+    }
+
+    .comunidad3 img {
+        border: solid 0.2em;
+        border-radius: 20px;
+        width: 200px;
+    }
+
+    .comunidad2 img {
+        width: 200px;
+    }
+
+    .comunities {
+        flex: none;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 390px) {
+
+    .main_content h2 {
+        text-align: center;
+        font-family: Arial;
+        font-size: 15px;
+    }
+
+    .comunities {
+        padding: 10px;
+        background: rgb(0, 0, 0);
+        margin-left: 10px;
+        margin-right: 10px;
+        border: solid 0.2em;
+        border-radius: 20px;
+        border-color: rgb(0, 112, 0);
+    }
+
+    .comunidad2 {
+        padding: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+        background-image: url(../img/img_halo/forback2.jpg);
+        border-radius: 20px;
+        border: solid 0.2em;
+        text-align: center;
+    }
+
+    .comunidad2 img {
+        width: 110px;
+        border-radius: 20px;
+        border: solid 0.2em;
+    }
+
+    .comunidad2 h3 {
+        text-align: center;
+        font-size: 20px;
+        border: solid 0.2em;
+        border-radius: 15px;
+        font-family: halo_text;
+        background: rgba(0, 73, 182, 0.685);
+    }
+
+    .comunidad2 a {
+        text-align: center;
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-family: halo_text;
+        padding: 10px;
+        border: solid 0.2em;
+        border-radius: 20px;
+        background: rgba(0, 41, 155, 0.541);
+    }
+
+    .comunidad2 a:hover {
+        text-align: center;
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-family: halo_text;
+        padding: 10px;
+        border: solid 0.2em;
+        border-radius: 20px;
+        background: rgba(0, 68, 255, 0.541);
+    }
+
+    .comunidad3 {
+        padding: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
+        background-image: url(../img/img_mc/stone_bg.png);
+        border-radius: 20px;
+        border: solid 0.2em;
+        text-align: center;
+    }
+
+    .comunidad3 h3 {
+        padding: 5px;
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        background: rgba(0, 119, 10, 0.822);
+        border: solid 0.2em;
+        border-radius: 20px;
+        font-family: mine_tit;
+    }
+
+    .comunidad3 img {
+        border: solid 0.2em;
+        border-radius: 20px;
+        width: 100px;
+    }
+
+    .comunidad3 a {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-family: mine_txt;
+        font-size: 15px;
+        padding: 10px;
+        background: rgba(0, 131, 11, 0.712);
+        border: solid 0.2em;
+        border-radius: 15px;
+    }
+
+    .comunidad3 a:hover {
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        font-family: mine_txt;
+        font-size: 10px;
+        padding: 10px;
+        background: rgba(0, 255, 21, 0.712);
+        border: solid 0.2em;
+        border-radius: 15px;
+    }
+
+    .comunities {
+        display: block;
+        flex: none;
+    }
+
+    .comunities div {
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+}
+
+.apartadoDiscord {
+    padding: 20px;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: center;
+    background-image: url(../img/4076929.png);
+    border: solid 0.2em;
+    border-radius: 10px;
+}
+
+.btnJoinDiscord {
+    padding: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
+    text-decoration: none;
+    color: white;
+    font-family: Arial;
+    background: black;
+    border-radius: 10px;
+    border: solid 0.2em;
+    font-size: 30px;
+    --borderWidth: 3px;
+    background: #131313;
+    position: relative;
+    border-color: rgb(102, 0, 255);
+    transition: background 0.5s linear;
+}
+
+.btnJoinDiscord:hover {
+    background: rgb(49, 0, 128);
+}
+
+.discordFrame {
+    border: solid 0.2em;
+    border-color: black;
+    border-radius: 10px;
+}
+
+.discordTitle {
+    background: rgba(85, 38, 255, 0.692);
+    padding: 30px;
+    border-radius: 10px;
+}
+
+
+
+/* FORMULARIO DE CONTACTO*/
+
+.contactForm {
+    width: 70%;
+    display: block;
+    padding: 20px;
+    margin-left: 20%;
+    align-self: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-right: 20%;
+    background: black;
+    color: white;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+
+}
+
+.contactForm h1 {
+    padding: 20px;
+    text-align: center;
+    border: solid 0.2em;
+    border-radius: 20px;
+    border-color: rgb(0, 105, 5);
+}
+
+.contactForm p {
+    font-size: 20px;
+}
+
+.contactForm img {
+    border-radius: 50%;
+    width: 190px;
+    align-items: center;
+}
+
+.content {
+    padding: 40px;
+    background: rgba(6, 53, 2, 0.521);
+    border-radius: 20px;
+}
+
+.datos input {
+    border: solid 0.3em;
+    padding: 10px;
+    width: 290px;
+    border-radius: 20px;
+    border-color: rgb(0, 105, 5);
+    color: white;
+    background: rgb(173, 173, 173)
+}
+
+.content textarea {
+    border-radius: 10px;
+    padding: 5px;
+    border: solid 0.3em;
+    border-color: rgb(0, 105, 5);
+    width: 210px;
+}
+
+.button {
+    text-align: center;
+}
+
+.button input {
+    padding: 7px;
+    margin-left: 20px;
+    border: solid 0.3em;
+    border-radius: 10px;
+    border-color: rgb(0, 105, 5);
+    background: rgb(0, 0, 0);
+    color: white;
+}
+
+.button input:hover {
+    padding: 7px;
+    margin-left: 20px;
+    border: solid 0.3em;
+    border-radius: 10px;
+    border-color: rgb(0, 105, 5);
+    background: rgb(0, 92, 5);
+    color: white;
+}
+
+@media screen and (max-width: 900px) {
+    .content textarea {
+        width: 220px;
+    }
+}
+
+@media screen and (max-width: 660px) {
+    .contactForm {
+        margin-top: 320px;
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .datos input {
+        width: 90%;
+    }
+
+}
+
+@media screen and (max-width: 390px) {
+    .contactForm {
+        margin-left: 1px;
+        margin-right: 1px;
+        padding: 7px;
+        width: 100%;
+        margin-top: 310px;
+    }
+
+    .contactForm img {
+        width: 60px;
+    }
+
+    .contactForm h1 {
+        font-size: 20px;
+    }
+
+    .content input {
+        width: 140px;
+        height: 20px;
+        margin-top: 5px;
+    }
+
+    .contactForm p {
+        margin-left: 1px;
+        padding: 1px;
+        font-size: 15px;
+    }
+
+    .content textarea {
+        width: 130px;
+    }
+
+    select {
+        width: 130px;
+    }
+
+    .allow_news input {
+        width: 30px;
+        margin-top: 10px;
+    }
+
+    .terms input {
+        width: 20px;
+        margin-top: 20px;
+    }
+}

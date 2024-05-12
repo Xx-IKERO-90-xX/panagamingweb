@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Comunidad Pana Gaming</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/estilo/style.css'>
+    <script src="../../static/scripts/main.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}"><img alt=" " src="../static/img/img_index/logo.png"></a>
+    </header>
+    <nav>
+        <ul>
+            <li><span><a href="{{url_for('comunidad1')}}">COMUNIDAD</a></span></li>
+            <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
+            <li><span><a href="{{url_for('formLogin')}}">INICIAR SESION</a></span></li>
+            <li><span><a href="{{url_for('formRegister')}}">REGISTRAR</a></span></li>
+        </ul>
+    </nav><br>
+    <main>
+        <div class="userlist"><br>
+            <br><br><br><br><br>
+            <h2 style="color:rgb(0, 190, 190);">EJECUTIVOS</h2>
+            {% for user in ejecList %}
+                <div id="ejecutivo" class="ejecutivo">
+                    <div style="border: solid 0.2em; border-color: rgb(0, 190, 190);" class="userInfo">
+                        <div class="info">
+                            <img src="{{user.avatar.url}}"><br>
+                            <div class="userData">
+                                {%if user.nick != None%}
+                                    <label><strong>Nombre: </strong>{{user.nick}}</label><br>
+                                {%else%}
+                                    <label><strong>Nombre: </strong>Indefinido</label><br>
+                                {%endif%}
+                            </div>
+                            <div id="extraInfo" class="extraInfo">
+                                <br>
+                                <label><strong>Fecha Incorporacion: </strong>{{user.joined_at}}</label><br>
+                                <label><strong>Fecha Creación: </strong>{{user.created_at}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+            <br><br><br><br>
+            <h2 style="color:blue;">STAFF</h2>
+            {%for user in staffList%}
+                <div id="staff" class="staff">
+                    <div style="border: solid 0.2em; border-color: rgb(0, 13, 255);" class="userInfo">
+                        <div class="info">
+                            <img src="{{user.avatar.url}}"><br>
+                            <div class="userData">
+                                {%if user.nick != None%}
+                                    <label><strong>Nombre: </strong> {{user.nick}} </label><br>
+                                {%else%}
+                                    <label><strong>Nombre: </strong> Indefinido</label><br>
+                                {%endif%}
+                            </div>
+                            <div id="extraInfo" class="extraInfo">
+                                <br>
+                                <label><strong>Fecha Incorporacion: </strong>{{user.joined_at}}</label><br>
+                                <label><strong>Fecha Creación: </strong>{{user.created_at}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+            <br><br><br><br>
+            <h2 style="color:rgb(172, 0, 172);">MIEMBROS</h2>
+            {%for user in memberList%}
+                <div id="members" class="members">
+                    <div style="border: solid 0.2em; border-color: rgb(225, 0, 255);" class="userInfo">
+                        <div class="info">
+                            <img src="{{user.avatar.url}}"><br>
+                            <div class="userData">
+                                {%if user.nick != None%}
+                                    <label><strong>Nombre:</strong> {{user.nick}} </label><br>
+                                {%else%}
+                                    <label><strong>Nombre:</strong> Indefinido</label><br>
+                                {%endif%}
+                            </div>
+                            <div id="extraInfo" class="extraInfo">
+                                <br>
+                                <label><strong>Fecha Incorporacion: </strong>{{user.joined_at}}</label><br>
+                                <label><strong>Fecha Creación: </strong>{{user.created_at}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {%endfor%}
+            <br>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    
+</body>
+</html>

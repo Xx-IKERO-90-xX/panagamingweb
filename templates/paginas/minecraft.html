@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>MinecraftPG</title>
+    <link rel="stylesheet" href="../../static/estilo/style.css">
+</head>
+<body>
+    <header>
+        <a href="{{url_for('Inicio')}}"><img alt=" " src="../../static/img/img_index/logo.png"></a><br>
+    </header>
+   <div class="usuarioSesion">
+        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img src="{{session['imgUrl']}}"><br></a>
+        <label>{{session['name']}}</label>
+    </div> 
+    <nav>
+        <ul>
+            <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
+            <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
+            <li><span><a href="{{url_for('soporte')}}">SOPORTE</a></span></li>
+            <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
+        </ul>
+    </nav><br>
+    <main>
+        <br>
+        <div class="mcpg_portada">
+            <img src="../../static/img/img_mc/mc_bg.jpg">
+        </div>
+
+        <!--Contenido del apartado-->
+
+        <div class="mc_section1">
+            <h1>DESCRIPCION</h1><br>
+            <div class="mc_section1_text">
+                <p>Minecraft Pana Gaming es un servidor RP con mods e historia con el propósito de crear un entorno de juego amigable y divertido para aquellas personas que juegan por pasarlo bien.<br>
+                No evaluamos el nivel de experiencia en el juego sino el comportamiento de los usuarios y como rolean.<br>
+                <br>
+                <strong>Historia y Lore: </strong><br>
+                La historia del lore tiene relacion con los personajes del server, es decir, van sucediendo cosas imprevistas dependiendo de pendiendo de la historia de los personajes principales del la historia y está dividido por temporadas.
+                </p>
+            </div><br>
+            <div class="mc_servidor_link">
+                <a href="https://discord.gg/zCjmQWnEG3">UNIRSE</a>
+            </div>
+        </div>
+        <div class="mc_section2">
+            <br>
+            <h1>CATEGORIA</h1><br>
+            <p>
+                Visita nuestra categoria para saber mas del lo que hacemos. 
+            </p>
+            
+            <!--Personajes de los usuarios-->
+            <div class="mc_sections">
+                <div class="mc_section2_personaje">
+                    <br>
+                    <h2><strong>PERSONAJES</strong></h2>
+                    <img alt=" " src="../../static/img/img_mc/personaje.jpg"><br>
+                    <p>
+                        En este apartado podrás aprender a crear tu propio personaje y los pasos a realizar para que puedas dar a luz tu imaginación.
+                    </p><br><br>
+                    <br>
+                    <a href="{{url_for('PersonajesMinecraftPG')}}">VER CONTENIDO</a><br>
+                    <br>
+                </div><br>
+
+                <!--Contenido del servidor-->
+                <div class="mc_section2_ingame">
+                    <br>
+                    <h2><strong>SERVIDOR</strong></h2>
+                    <img alt=" " src="../../static/img/img_mc/mc_bg3.jpg"><br>
+                    <br>
+                    <p>
+                        Unete al mejor servidor semirp con un buen lore de toda españa y latinoamerica. Crea nuevos amigos, disfruta de los evento y misiones que vamos creando, y pasen un excelente rato con nosotros.
+                    </p>
+                    <br><br>
+                    <a href="#">VER CONTENIDO</a><br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Creado por Iker Javier Rodriguez Hernandez</p>
+    </footer>
+</body>
+</html>

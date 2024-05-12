@@ -1,0 +1,24 @@
+{
+    "database": {
+        "host": "localhost",
+        "user": "root",
+        "passwd": "ikero9090",
+        "db": "MINECRAFTPG",
+        "auth_plugin": "mysql_native_password"
+    },
+    "discord": {
+        "token": "OTY3NDI3OTY2NTQxOTE0MTUy.GL1dN5.FAEoZBfxxK8mP_WrC-iQaiUOxpeV2EqqBJH3Vs",
+        "server": {
+            "id": 793956939687133184
+        },
+        "roles": {
+            "member": 852500184662409216,
+            "staff": 856835937816674314,
+            "ejecutive": 889578160495140898
+        }
+    },
+    "flask": {
+        "port": 8999,
+        "host": "0.0.0.0"
+    }
+}
