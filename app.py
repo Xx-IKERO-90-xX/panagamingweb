@@ -30,8 +30,8 @@ async def ListUsers():
     return list
 
 async def MostrarEjecutivos(userList):
-    guild = await bot.get_guild(int(datos["discord"]["server"]["id"]))
-    ejecRole = await guild.get_roles(datos["discord"]["roles"]["ejecutive"])
+    guild = bot.get_guild(int(datos["discord"]["server"]["id"]))
+    ejecRole = guild.get_role(datos["discord"]["roles"]["ejecutive"])
     ejec = []
     for user in userList:
         if ejecRole in user.roles:
@@ -39,8 +39,8 @@ async def MostrarEjecutivos(userList):
     return ejec
 
 async def MostrarStaff(userList, ejecList):
-    guild = await bot.get_guild(int(datos["discord"]["server"]["id"]))
-    staffRole = await guild.get_roles(datos["discord"]["roles"]["staff"])
+    guild = bot.get_guild(int(datos["discord"]["server"]["id"]))
+    staffRole = guild.get_role(datos["discord"]["roles"]["staff"])
     staff = []
     for user in userList:
         if staffRole in user.roles:
@@ -53,8 +53,8 @@ async def MostrarStaff(userList, ejecList):
     return staff
 
 async def MostrarMiembros(userList, staffList, ejecList):
-    guild = await bot.get_guild(int(datos["discord"]["server"]["id"]))
-    memberRole = await guild.get_roles(datos["discord"]["roles"]["member"])
+    guild = bot.get_guild(int(datos["discord"]["server"]["id"]))
+    memberRole = guild.get_role(datos["discord"]["roles"]["member"])
     members = []
     for user in userList:
         if memberRole in user.roles:
@@ -254,7 +254,6 @@ async def CrearCuenta():
     passwd = request.form['passwd']
     passwd2 = request.form['passwd2']
     descripcion = request.form['descripcion']
-    color = request.form['color']
 
     usuarioRepetido = await ComprobarUsuarioRepetido(idUser)
     if usuarioRepetido == False:
@@ -263,8 +262,8 @@ async def CrearCuenta():
             conexion = await AbrirConexionSQL()
             cursor = conexion.cursor()
             cursor.execute(f"""
-                INSERT INTO USUARIO (idUser, passwd, descripcion, color)
-                VALUES ('{idUser}', '{passwd}', '{descripcion}', '{color}');                
+                INSERT INTO USUARIO (idUser, passwd, descripcion)
+                VALUES ('{idUser}', '{passwd}', '{descripcion}');                
             """)
             conexion.commit()
             cursor.execute(f"""
@@ -587,6 +586,7 @@ async def EditUserStyle(id):
     if 'id' in session:
         appUser = await ObtenerUsuario(id)
         dUser = await ObtenerObjetoUsuario(id)
+        print(appUser["main"])
         result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"] }
         return render_template('/paginas/users/styleProfile.html', user=result, session=session)
     else:

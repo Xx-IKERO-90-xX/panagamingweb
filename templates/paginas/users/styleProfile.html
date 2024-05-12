@@ -56,16 +56,12 @@
         </nav>
         <br><br><br>
         <br><br><br>
-        {% if user['main'] != null %}
-        {% set mainBk = user['main'] %}
-        {% else %}
-        {% set mainBk = 'profileDefault' %}
-        {% endif %}
         <div style="text-align: center;">
             <a href="{{url_for('MiPerfil', id=session['id'])}}" class="btn btn-success"><strong>Volver</strong></a>
         </div>
         <br><br>
-        <div id="profileGreen" class="{{mainBk}}">
+        {% if user['main'] != None %}
+        <div id="profileGreen" class="{{user['main']}}">
             <br><br>
             <div class="profileAvatar">
                 <br>
@@ -94,6 +90,37 @@
             </div>
             <br><br>
         </div>
+        {% else %}
+        <div id="profileGreen" class="profileDefault">
+            <br><br>
+            <div class="profileAvatar">
+                <br>
+                <img src="{{user['avatar']}}">
+                <br><br>
+            </div>
+            <br>
+            <div class="profileDatos">
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+                </div>
+                <br><br>
+                <div>
+                    <label style="color: white;"><strong>Sobre mi:</strong></label>
+                    <br><br><br>
+                    <textarea id="textDescripcion" name="descripcion" readonly>
+                        {{user["descripcion"]}}
+                    </textarea>
+                    <br>
+                </div><br>
+            </div>
+            <br><br>
+        </div>
+        {% endif %}
         <br><br>
         <br>
         <div class="editPannel">

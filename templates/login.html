@@ -9,14 +9,17 @@
     <style>
         .errors {
             text-align: center;
-            color: red;
+            color: rgb(0, 0, 0);
             font-weight: bold;
             font-family: Arial;
-            background: rgb(0, 0, 0);
+            background: rgb(255, 54, 54);
             margin-left: 10%;
             margin-right: 10%;
+            border-radius: 20px;
             width: 80%;
             padding: 10px;
+            margin-top: 20px;
+            font-size: 20px;
         }
         .loginForm {
             margin-left: 20%;
@@ -76,10 +79,11 @@
                 <li><span><a href="{{url_for('formRegister')}}">REGISTRAR</a></span></li>
             </ul>
         </nav><br>
+        <br><br><br>
         {%if errorMsg != null%}
-        <div class="errors">
-            <label class="errorMsg">{{errorMsg}}</label>
-        </div>
+            <div class="errors" role="alert">
+                {{ errorMsg }}
+            </div>
         {%endif%}
         <form action="{{url_for('IniciarSesion')}}" class="loginForm" method="post">
             <div class="formContent">

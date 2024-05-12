@@ -1,13 +1,13 @@
 {
     "database": {
-        "host": "localhost",
+        "host": "192.168.1.99",
         "user": "root",
         "passwd": "ikero9090",
-        "db": "MINECRAFTPG",
+        "db": "PANAGAMING",
         "auth_plugin": "mysql_native_password"
     },
     "discord": {
-        "token": "",
+        "token": "OTY3NDI3OTY2NTQxOTE0MTUy.GFTcX5.btVT5E30wZMKds8fz1xfg4dDvKgv8uiH4-sIh8",
         "server": {
             "id": 793956939687133184
         },
