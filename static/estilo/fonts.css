@@ -1,0 +1,49 @@
+@font-face {
+    font-family: neometra;
+    src: url(../texto/NEOMETRA-FFP.ttf);
+}
+@font-face {
+    font-family: mine_tit;
+    src: url("../texto/minecraft/MINECRAFT PE.ttf");
+}
+
+@font-face {
+    font-family: mine_txt;
+    src: url(../texto/minecraft/Minecraft.ttf);
+}
+
+@font-face {
+    font-family: mine_tit2;
+    src: url(../texto/minecraft/Minectaft2.ttf);
+}
+
+/*ASSETS*/
+@font-face {
+    font-family: hogwarts;
+    src: url(../assets/texts/HARRYP__.TTF);
+}
+
+@font-face {
+    font-family: starwars;
+    src: url(../assets/texts/soloist3d.ttf);
+}
+
+@font-face {
+    font-family: avengers;
+    src: url(../assets/texts/AVENGEANCE\ HEROIC\ AVENGER.ttf);
+}
+
+@font-face {
+    font-family: doom;
+    src: url(../assets/texts/AmazDooMLeft.ttf);
+}
+
+@font-face {
+    font-family: darkmagic;
+    src: url(../assets/texts/DarkMagic\ Free\ Trial.ttf);
+}
+
+@font-face {
+    font-family: halo_tit;
+    src: url(../assets/texts/halo.ttf)
+}

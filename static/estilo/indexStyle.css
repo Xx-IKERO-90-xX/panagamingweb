@@ -1,0 +1,49 @@
+.minecraftIndexLink {
+    width: 80%;
+    margin-left: 10%;
+    margin-left: 10%;
+    background-image: url(../img/nature_hd_minecraft.jpg);
+    background-size: cover;
+    height: 900px;
+    padding: 20px;
+    border-radius: 10px;
+    border: solid 0.2em;
+    border-color: rgb(0, 255, 13);
+    text-align: center;
+}
+.minecraftIndexLink h1 {
+    text-align: center;
+    font-family: mine_tit2;
+    font-size: 80px;
+    margin-top: 30px;
+}
+.minecraftIndexLink p {
+    text-align: center;
+    margin-top: 200px;
+    font-size: 30px;
+    font-family: mine_txt;
+    background: rgba(0, 238, 255, 0.432);
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.minecraftIndexLink a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-family: mine_txt;
+    font-size: 20px;
+    padding: 20px;
+    background: rgba(0, 131, 11, 0.712);
+    border: solid 0.2em;
+    border-radius: 20px;
+    text-align: center;
+}
+.minecraftIndexLink a:hover {
+    background:rgba(0, 255, 21, 0.712);
+}
+.minecraftIndexLink div {
+    margin-top: 200px;
+}

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
-    <script src='/static/scripts/styleProfile.js'></script>
+    <script type="module" src='/static/scripts/styleProfile.js'></script>
 </head>
 <body>
     <template id="defaultTemplate">
@@ -194,7 +196,6 @@
             </form>
         </div>
     </template>
-    
     <template id="blueTemplate">
         <div class="row" class="blueThemes">
             <form class="col-sm-3" method="post" action="{{url_for('SetUserBackground', id=session['id'])}}"
@@ -404,5 +405,6 @@
             </form>
         </div>
     </template>
+    <script type="module" src='/static/scripts/styleProfile.js'></script>
 </body>
 </html>

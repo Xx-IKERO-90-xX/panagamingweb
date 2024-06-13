@@ -7,40 +7,69 @@ import mysql.connector
 import json
 import random
 import asyncio
-from Personajes import *
-from database import *
-from UsuarioController import *
+from controller.PersonajesController import *
+from controller.database import *
+from controller.UsuarioController import *
+from controller.DiscordServerController import *
+from controller.LoginController import *
+from controller.DiarioController import *
+from controller.ProfileController import *
+from threading import Thread
+import bot
+
+import globals
 
 datos = {}
 with open('settings.json') as archivo:
     datos = json.load(archivo)
 
-intents = discord.Intents.all()
-intents.members = True
+intents = discord.Intents.default()
 intents.guilds = True
-intents.message_content = True
+intents.members = True
+
 bot = discord.Client(intents=intents)
 
+@bot.event
+async def on_ready():
+    globals.guild = bot.get_guild(datos["discord"]["server"]["id"])
+    if globals.guild is not None:
+        print(f"El bot se ha conectado con el servidor: {globals.guild.name}")
+    else:
+        print("El bot no pudo conectarse con el servidor")
+
+    app.run(
+        port = datos["flask"]["port"], 
+        host = datos["flask"]["host"],
+        debug=True
+    )
+    
+def run_discord_bot():
+    bot.run(app.datos["discord"]["token"])
+
+def start_discord_bot():
+    loop = asyncio.get_event_loop()
+    loop.create_task(run_discord_bot())
+
+app = Flask(__name__)
+app.secret_key = "tr4rt34t334yt"
+
 async def ListUsers():
-    guild = bot.get_guild(int(datos["discord"]["server"]["id"]))
     list = []
-    print(guild)
-    for m in guild.members: 
+    print(globals.guild)
+    for m in globals.guild.members: 
         list.append(m)
     return list
 
-async def MostrarEjecutivos(userList):
-    guild = bot.get_guild(int(datos["discord"]["server"]["id"]))
-    ejecRole = guild.get_role(datos["discord"]["roles"]["ejecutive"])
+async def ShowEjecutives(userList):
+    ejecRole = globals.guild.get_role(datos["discord"]["roles"]["ejecutive"])
     ejec = []
     for user in userList:
         if ejecRole in user.roles:
             ejec.append(user)
     return ejec
 
-async def MostrarStaff(userList, ejecList):
-    guild = bot.get_guild(int(datos["discord"]["server"]["id"]))
-    staffRole = guild.get_role(datos["discord"]["roles"]["staff"])
+async def ShowStaffMembers(userList, ejecList):
+    staffRole = globals.guild.get_role(datos["discord"]["roles"]["staff"])
     staff = []
     for user in userList:
         if staffRole in user.roles:
@@ -52,9 +81,8 @@ async def MostrarStaff(userList, ejecList):
                 staff.append(user)
     return staff
 
-async def MostrarMiembros(userList, staffList, ejecList):
-    guild = bot.get_guild(int(datos["discord"]["server"]["id"]))
-    memberRole = guild.get_role(datos["discord"]["roles"]["member"])
+async def ShowMembers(userList, staffList, ejecList):
+    memberRole = globals.guild.get_role(datos["discord"]["roles"]["member"])
     members = []
     for user in userList:
         if memberRole in user.roles:
@@ -69,155 +97,18 @@ async def MostrarMiembros(userList, staffList, ejecList):
                 members.append(user)  
     return members
 
-async def ObtenerObjetoUsuario(idUser):
-    listaUsuarios = await ListUsers()
-    usuario = 'null'
-    for user in listaUsuarios:
-        if user.id == int(idUser):
-            usuario = user
-            break
-    return usuario
-
-async def ComprobarNombreDiscord(nombre):
-    valido = False
-    listaUsuario = await ListUsers()
-    for user in listaUsuario:
-        if user.name == nombre:
-            valido = True
-    return valido
-
-async def UsuarioEnElServidor(idUser):
-    listaUsuarios = []
-    listaUsuarios = await ListUsers()
-    valido = False
-    for user in listaUsuarios:
-        if user.id == int(idUser):
-            valido = True
-            break
-    return valido
-
-async def ObtenerObjetoUsuarioNombre(nombre):
-    listaUsuarios = await ListUsers()
-    usuario = 'null'
-    for user in listaUsuarios:
-        if nombre == user.name:
-            usuario = user
-            break
-    return usuario
-
-async def ObtenerObjetoUsuario(idUser):
-    listaUsuarios = await ListUsers()
-    usuario = 'null'
-    for user in listaUsuarios:
-        if user.id == int(idUser):
-            usuario = user
-            break
-    return usuario
-
-async def comprobarSiTienePersonaje(idUser):
-    conexion = await AbrirConexionSQL()
-    cursor = conexion.cursor()
-    cursor.execute("""
-        SELECT * FROM PERSONAJES;
-    """)
-    result = cursor.fetchall()
-    resultados_json = await ConvertirJSON(result, cursor)
-    tiene = False
-    for personaje in resultados_json:
-        if personaje['idUser'] == idUser:
-            tiene = True
-            break
-    conexion.close()
-    return tiene
-
-async def ValidarUsuario(idUser):
-    listaUsuarios = await ListUsers()
-    valido = False
-    for u in listaUsuarios:
-        if idUser == u.id:
-            valido = True
-    return valido
-
-async def ComprobarUsuarioRepetido(idUser):
-    conexion = await AbrirConexionSQL()
-    repite = False
-    cursor = conexion.cursor()
-    cursor.execute("""
-        SELECT * FROM USUARIO;
-    """)
-    result = cursor.fetchall()
-    resultados_json = await ConvertirJSON(result, cursor)
-    for usuario in resultados_json:
-        if str(usuario['idUser']) == idUser:
-            repite = True
-            break     
-    conexion.close()
-    return repite
-
-async def ValidarInicioSesion(passwd):
-    conexion = await AbrirConexionSQL()
-    valido = False
-    cursor = conexion.cursor()
-    cursor.execute("""
-        SELECT * FROM USUARIO;
-    """)
-    result = cursor.fetchall()
-    resultados_json = await ConvertirJSON(result, cursor)
-    for usuario in resultados_json:
-        if usuario['passwd'] == passwd:
-            valido = True
-            break
-    conexion.close()
-    return valido
-
-async def ObtenerUsuario(idUser):
-    conexion = await AbrirConexionSQL()
-    cursor = conexion.cursor()
-    cursor.execute(f"""
-        SELECT USUARIO.descripcion AS descripcion, STYLE_USUARIO.main AS main, STYLE_USUARIO.banner
-        FROM USUARIO INNER JOIN STYLE_USUARIO
-            ON USUARIO.idUser = STYLE_USUARIO.idUser
-        WHERE USUARIO.idUser = {idUser};
-    """)
-    result = cursor.fetchall()
-    resultadoJson = await ConvertirJSON(result, cursor)
-    conexion.close()
-    print(resultadoJson)
-    return resultadoJson[0]
-
-
-guild = bot.get_guild(793956939687133184)
-
-app = Flask(__name__)
-app.secret_key = "tr4rt34t334yt"
-
-#######################################################################################
-# Funciones y eventos del bot del Discord de pana Gaming ##############################
-#######################################################################################
-
-@bot.event
-async def on_ready():
-    app.run(
-        port = datos["flask"]["port"], 
-        host = datos["flask"]["host"]
-    )
-
 #######################################################################################
 
 #######################################################################################
-# Paginas de respuesta con procesamiento en el Servidor ###############################
+############## RUTAS SIN SESIÓN #######################################################
 #######################################################################################
 
 @app.route("/")
-def Inicio():
+async def Inicio():
     if "id" in session:
-        return render_template("/paginas/index2.html", session = session)
+        return render_template("/paginas/index2.jinja", session = session)
     else:
-        return render_template("index.html")
-
-@app.route("/contacto")
-def contacto():
-    return render_template("/paginas/contact.html")
+        return render_template("index.jinja")
 
 @app.route("/cerrarSesion")
 async def cerrarSesion():
@@ -227,24 +118,24 @@ async def cerrarSesion():
 @app.route('/comunidad')
 async def comunidad1():
     userList = await ListUsers()
-    ejecList = await MostrarEjecutivos(userList)
-    staffList = await MostrarStaff(userList, ejecList)
-    memberList = await MostrarMiembros(userList, staffList, ejecList)
+    ejecList = await ShowEjecutives(userList)
+    staffList = await ShowStaffMembers(userList, ejecList)
+    memberList = await ShowMembers(userList, staffList, ejecList)
     if "id" in session:
-        return render_template("/paginas/comunidad.html", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)
+        return render_template("/paginas/comunidad.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)
     else:
-        return render_template("comunidad1.html", ejecList=ejecList, staffList=staffList, memberList=memberList)
+        return render_template("comunidad1.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList)
 
 
 @app.route('/formLogin')
 def formLogin():
-    return render_template("login.html")
+    return render_template("login.jinja")
 
 @app.route('/formRegister')
 def formRegister():
-    return render_template("registrar.html")
-########################################################
+    return render_template("registrar.jinja")
 
+########################################################
 ########### PROCESAMIENTO DE SESION ####################
 
 
@@ -258,24 +149,12 @@ async def CrearCuenta():
     usuarioRepetido = await ComprobarUsuarioRepetido(idUser)
     if usuarioRepetido == False:
         if passwd == passwd2:
-            user = await ObtenerObjetoUsuario(idUser)
-            conexion = await AbrirConexionSQL()
-            cursor = conexion.cursor()
-            cursor.execute(f"""
-                INSERT INTO USUARIO (idUser, passwd, descripcion)
-                VALUES ('{idUser}', '{passwd}', '{descripcion}');                
-            """)
-            conexion.commit()
-            cursor.execute(f"""
-                INSERT INTO STYLE_USUARIO (idUser, main, banner)
-                VALUES({idUser}, null, null);
-            """)
-            conexion.commit()
-            conexion.close()
+            user = await GetDiscordUser(idUser)
+            await nuevoUsuario(idUser, passwd, descripcion)
             session["id"] = idUser
             session["name"] = user.name
             session["imgUrl"] = user.avatar.url
-            return render_template("/paginas/index2.html", session=session)
+            return render_template("/paginas/index2.jinja", session=session)
     else:
         return redirect(url_for("formRegister"))
     
@@ -287,32 +166,34 @@ async def IniciarSesion():
     valido = await ValidarInicioSesion(passwd)
     if valido == True:
         if await ComprobarNombreDiscord(name) == True:
-            user = await ObtenerObjetoUsuarioNombre(name)
+            user = await GetDiscordUserByName(name)
             session["id"] = str(user.id)
             session["name"] = user.name
             session["imgUrl"] = user.avatar.url
-            return render_template("/paginas/index2.html", session=session)
+            return render_template("/paginas/index2.jinja", session=session)
         else:
             errorMsg = "El nombre introducido no coincide con ningun usuario."
-            return render_template("login.html", errorMsg=errorMsg)
+            return render_template("login.jinja", errorMsg=errorMsg)
     else:
         errorMsg = "No existe el usuario introducido."
-        return render_template("login.html", errorMsg = errorMsg)
+        return render_template("login.jinja", errorMsg = errorMsg)
+    
+    
+########################################################
+######### PÁGINAS CON SESIÓN ###########################
+########################################################
 
-#####################################################
-
-###### PÁGINAS CON SESIÓN ##########################
 @app.route('/principal')
 async def principal():
     if "id" in session:
-        return render_template("/paginas/index2.html", session=session)
+        return render_template("/paginas/index2.jinja", session=session)
     else:
         return redirect(url_for('formLogin'))
     
 @app.route("/minecraft")
 def minecraft():
     if "id" in session:
-        return render_template("/paginas/minecraft.html", session=session)
+        return render_template("/paginas/minecraft.jinja", session=session)
     else:
         return redirect(url_for('formLogin'))
 
@@ -320,24 +201,56 @@ def minecraft():
 async def comunidad():
     if "id" in session:    
         userList = await ListUsers()
-        ejecList = await MostrarEjecutivos(userList)
-        staffList = await MostrarStaff(userList, ejecList)
-        memberList = await MostrarMiembros(userList, staffList, ejecList)
-        return render_template("/paginas/comunidad.html", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)    
+        ejecList = await ShowEjecutives(userList)
+        staffList = await ShowStaffMembers(userList, ejecList)
+        memberList = await ShowMembers(userList, staffList, ejecList)
+        return render_template("/paginas/comunidad.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)    
     else:
         return redirect(url_for('formLogin'))
 
-@app.route('/mineacraft/gameplay')
+@app.route('/soporte')
+async def soporte():
+    if "id" in session:
+        return render_template('/paginas/tikets.jinja', session=session)
+    else:
+        return redirect(url_for("formLogin"))
+
+@app.route('/enviarTiket', methods=["GET", "POST"])
+async def enviarTiket():
+    userName = request.form["userName"]
+    texto = request.form["texto"]
+    channel = bot.get_channel(int(1180858213982273617))
+    usuario = await GetDiscordUserByName(userName)
+    
+    if usuario != 'null':
+        embed = discord.Embed(
+            title=f"**TIKET DE {usuario.name}**",
+            description=f"{texto}",
+            color=discord.Color.random()
+        )
+        bot.loop.create_task(channel.send(embed=embed))
+        return render_template("/paginas/tiketSended.jinja", usuario=usuario, texto=texto, session=session)  
+    
+    else:
+        errorMsg = f"No se ha encontrado ningún usuario con el nombre {userName} en el servidor de Discord."
+        return render_template("/paginas/tikets.jinja", errorMsg=errorMsg, session=session)
+
+
+#####################################################################################
+############ PORTAL PRINCIPAL DE MINECRAFT ##########################################
+#####################################################################################
+
+@app.route('/mineacraft/server')
 async def portalServer():
     if "id" in session:
-        return render_template('/paginas/minecraft_subpg/history/portalMc.html', session=session)
+        return render_template('/paginas/minecraft_subpg/history/portalMc.jinja', session=session)
     else:
         return redirect(url_for('formLogin'))
 
 @app.route("/mineacraft/personajes/NuevoPersonaje")
 async def NuevoPersonaje():
     if "id" in session:
-        return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", session=session)
+        return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.jinja", session=session)
     else:
         return redirect(url_for('formLogin'))
 
@@ -356,23 +269,16 @@ async def CrearPersonaje():
         if codError == 0:
             if imgUrl or imgUrl == "":
                 imgUrl = "/static/img/userlog.jpg"
-            conexion = await AbrirConexionSQL()
-            cursor = conexion.cursor()
-            cursor.execute(f"""
-                INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, idUser, raza, edad, sexo)
-                VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{session['id']}', '{raza}', '{edad}', '{sexo}');
-            """)
-            conexion.commit()
-            conexion.close()
-            return render_template("/paginas/minecraft_subpg/personajes/personajeCreated.html", name=name, descripcion=descripcion, imgUrl=imgUrl, session=session)
+            await NuevoPersonajePost(name, descripcion, color, imgUrl, session['id'], raza, edad, sexo)
+            return redirect(url_for('PersonajesMinecraftPG'))
         
         elif codError == 1:
             errorMsg = "Solo puedes tener un solo personaje. Si quieres cambiar de personaje editalo para que sea distinto."
-            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", errorMsg = errorMsg, session=session)   
+            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.jinja", errorMsg = errorMsg, session=session)   
         
         elif codError == 2:
             errorMsg = "El nombre del personajes que intentas implementar está ya en uso. Porfavor, escoja otro que esté en desuso en el servidor."
-            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.html", errorMsg = errorMsg, session=session)
+            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.jinja", errorMsg = errorMsg, session=session)
     else:
         return redirect(url_for('formLogin'))
 
@@ -381,13 +287,13 @@ async def PersonajesMinecraftPG():
     if "id" in session:
         listaPersonajes = []
         paginas = []  
-        listaPersonajes = await ObtenerListaPersonajes()
+        listaPersonajes = await GetCharacterList()
         paginas = await ObtenerPaginas()
         tienePersonaje = await comprobarSiTienePersonaje(session["id"])
         if tienePersonaje == True:
-            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC2.html", listaPersonajes = listaPersonajes, session=session, paginas=paginas)
+            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC2.jinja", listaPersonajes = listaPersonajes, session=session, paginas=paginas)
         else:
-            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.html", listaPersonajes = listaPersonajes, session=session, paginas=paginas)
+            return render_template("/paginas/minecraft_subpg/personajes/portalPersonajesMC.jinja", listaPersonajes = listaPersonajes, session=session, paginas=paginas)
     else:
         return redirect(url_for("formLogin"))
 
@@ -396,16 +302,28 @@ async def FormEditPersonaje():
     if "id" in session:
         personaje = await ObtenerPersonajePorIdUser(str(session['id']))
         print(personaje)
-        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje=personaje[0], session=session)
+        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.jinja", personaje=personaje[0], session=session)
     else:
         return redirect(url_for("Inicio"))
+
+
+@app.route("/minecraft/miPersonaje/<int:idUser>", methods=["GET"])
+async def miPersonaje(idUser):
+    if 'id' in session:
+        personaje = await personajes.ObtenerPersonajePorIdUser(session['id'])
+        print(personaje)
+        return render_template('/paginas/minecraft_subpg/personajes/miPersonaje.jinja', personaje=personaje[0], session=session)
+    else:
+        return redirect(url_for("formLogin"))
 
 @app.route("/minecraft/personajes/detalles/<int:idPersonaje>", methods=["GET"])
 async def VerInfoPersonaje(idPersonaje):
     if 'id' in session:
-        personaje = await ObtenerPersonajePorId(idPersonaje)
+        paginas = []
+        personaje = await GetCharacterById(idPersonaje)
+        paginas = await ShowDiarioPages(idPersonaje)
         print(personaje)
-        return render_template("/paginas/minecraft_subpg/personajes/detalles.html", personaje=personaje[0], session=session) 
+        return render_template("/paginas/minecraft_subpg/personajes/personaje.jinja", personaje=personaje, paginas=paginas, session=session) 
     else:
         return redirect(url_for('formLogin'))
 
@@ -424,57 +342,18 @@ async def EditPersonaje():
     userValid = await ValidarPersonajeEditado(idUser, name)
     
     if userValid == 0:
-        conexion = await AbrirConexionSQL()
-        cursor = conexion.cursor()
-        cursor.execute(f"""
-            UPDATE PERSONAJES
-            SET name = '{name}', 
-                color = '{color}', 
-                descripcion = '{descripcion}', 
-                imgUrl = '{imgUrl}', raza = '{raza}', 
-                edad = {edad}, 
-                sexo = '{sexo}'
-            WHERE idUser = '{idUser}';
-        """)
-        conexion.commit() 
-        conexion.close()
+        await EditarPersonajePost(name, color, descripcion, imgUrl, idUser, raza, edad, sexo)
         return redirect(url_for("FormEditPersonaje"))
     else:
         errorMsg = "El nombre introducido esta ya en uso, escoja otro porfavor."
         personaje = await ObtenerPersonajePorIdUser(idUser)
-        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.html", personaje=personaje, errorMsg=errorMsg, session=session)
-
-@app.route('/soporte')
-async def soporte():
-    if "id" in session:
-        return render_template('/paginas/tikets.html', session=session)
-    else:
-        return redirect(url_for("formLogin"))
-
-@app.route('/enviarTiket', methods=["GET", "POST"])
-async def enviarTiket():
-    userName = request.form["userName"]
-    texto = request.form["texto"]
-    channel = bot.get_channel(int(1180858213982273617))
-    usuario = await ObtenerObjetoUsuario(userName)
-    
-    if usuario != 'null':
-        embed = discord.Embed(
-            title=f"**TIKET DE {usuario.name}**",
-            description=f"{texto}",
-            color=discord.Color.random()
-        )
-        bot.loop.create_task(channel.send(embed=embed))
-        return render_template("/paginas/tiketSended.html", usuario=usuario, texto=texto, session=session)  
-    else:
-        errorMsg = f"No se ha encontrado ningún usuario con el nombre {userName} en el servidor de Discord."
-        return render_template("/paginas/tikets.html", errorMsg=errorMsg, session=session)
+        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.jinja", personaje=personaje, errorMsg=errorMsg, session=session)
 
 
 @app.route('/mineacraft/personajes/diario/nuevaPagina')
 async def nuevaPagina():
     if "id" in session:
-        return render_template("/paginas/minecraft_subpg/personajes/diarios/nuevaPagina.html", session=session)
+        return render_template("/paginas/minecraft_subpg/personajes/diarios/nuevaPagina.jinja", session=session)
     else:
         return redirect(url_for("formLogin"))
 
@@ -496,99 +375,72 @@ async def crearPagina():
         return redirect(url_for("formLogin"))
 
 
-@app.route('/mineacraft/personajes/diario/VerDiario', methods=["GET", "POST"])
-async def VerDiario():
-    if "id" in session:
-        idPersonaje = request.form["idPersonaje"]
-        nombre = request.form["nombre"]
-        imgUrl = request.form["imgUrl"]
-        color = request.form["color"]
-        conexion = await AbrirConexionSQL()
-        cursor = conexion.cursor()
-        cursor.execute(f"""
-            SELECT * FROM DIARIO
-            WHERE idPersonaje = {idPersonaje};
-        """)
-        result = cursor.fetchall()
-        paginas = await ConvertirJSON(result, cursor)    
-        conexion.close()
-        return render_template("/paginas/minecraft_subpg/personajes/diarios/diario.html", paginas=paginas, nombre=nombre, imgUrl=imgUrl, color=color)
-    else:
-        return redirect(url_for('formLogin'))
-
-@app.route('/mineacraft/personajes/diario/EditarDiario')
-async def EditarDiario():
-    if "id" in session:
-        personaje = await ObtenerPersonajePorIdUser(session['id'])
-        listaPaginas = await ObtenerPaginas()
-        paginas = []
-        for page in listaPaginas:
-            if page['idPersonaje'] == personaje['id']:
-                paginas.append(page)
-        return render_template("/paginas/minecraft_subpg/personajes/diarios/editDiario.html", paginas=paginas, nombre=personaje['name'], imgUrl=personaje['imgUrl'], color=personaje['color'])
-    else:
-        return redirect(url_for('formLogin'))
-
-@app.route('/EditarPagina', methods=['GET', 'POST'])
+@app.route('/EditarPagina', methods=['POST'])
 async def EditarPagina():
     if "id" in session:
         idPagina = request.form["idPagina"]
         contenido = request.form["contenido"]
-        conexion = await AbrirConexionSQL()
-        cursor = conexion.cursor()
-        cursor.execute(f"""
-            UPDATE DIARIO
-                SET contenido = '{contenido}'
-            WHERE idPagina = {idPagina};
-        """)
-        conexion.commit()
-        conexion.close()
-        return redirect(url_for("EditarDiario"))
+        await UpdateDiarioPageAction(idPagina, contenido)
+        return redirect(url_for("MiDiario"))
     else:
         return redirect(url_for("formLogin"))
 
-@app.route('/usuario/me/<int:id>', methods=['GET'])
-async def MiPerfil(id):
+@app.route('/minecraft/personajes/me/diario', methods=['GET'])
+async def MiDiario():
+    if "id" in session:
+        personaje = await ObtenerPersonajePorIdUser(session['id'])
+        print(personaje)
+        paginas = await ShowDiarioPages(int(personaje[0]['id']))
+        return render_template("/paginas/minecraft_subpg/personajes/miDiario.jinja", paginas=paginas, personaje=personaje[0], session=session)
+    else:
+        return redirect(url_for("formLogin"))
+
+@app.route('/minecraft/personajes/me/diario/newPage/<int:idPersonaje>', methods=['GET', 'POST'])
+async def NewPage(idPersonaje):
     if 'id' in session:
-        appUser = await ObtenerUsuario(id)
-        dUser = await ObtenerObjetoUsuario(id)
-        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
-        return render_template('/paginas/users/myProfile.html', user=result, session=session)
+        await NewPageAction(idPersonaje)
+        return redirect(url_for("MiDiario"))
     else:
         return redirect(url_for("formLogin"))
 
-
+@app.route('/minecraft/personajes/me/diario/deletePage/<int:idPagina>', methods=["GET"])
+async def DeletePage(idPagina):
+    if 'id' in session:
+        await DeletePageAction(idPagina)
+        return redirect(url_for("MiDiario"))
+    else:
+        return redirect(url_for("formLogin"))
 
 #-----------------------------------------------------------------------#
 #-------------------- USUARIOS -----------------------------------------#
 #-----------------------------------------------------------------------#
-
+@app.route('/usuario/me/<int:id>', methods=['GET'])
+async def MiPerfil(id):
+    if 'id' in session:
+        appUser = await ObtenerUsuario(id)
+        dUser = await GetDiscordUser(id)
+        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
+        return render_template('/paginas/users/myProfile.jinja', user=result, session=session)
+    else:
+        return redirect(url_for("formLogin"))
 
 @app.route('/usuario/edit/descripcion/<int:id>', methods=["GET","POST"])
 async def EditMyDescription(id):
     if 'id' in session:
         descripcion = request.form["descripcion"]
-        conexion = await AbrirConexionSQL()
-        cursor = conexion.cursor()
-        cursor.execute(f"""
-            UPDATE USUARIO
-                SET descripcion = '{descripcion}'
-            WHERE idUser = {id};
-        """)
-        conexion.commit()
-        conexion.close()
+        await EditMyDescriptionPost(id, descripcion)
         return redirect(url_for('MiPerfil', id=id))
     else:
         return redirect(url_for("formLogin"))
+
 
 @app.route('/usuario/edit/style/<int:id>', methods=["GET"])
 async def EditUserStyle(id):
     if 'id' in session:
         appUser = await ObtenerUsuario(id)
-        dUser = await ObtenerObjetoUsuario(id)
-        print(appUser["main"])
+        dUser = await GetDiscordUser(id)
         result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"] }
-        return render_template('/paginas/users/styleProfile.html', user=result, session=session)
+        return render_template('/paginas/users/styleProfile.jinja', user=result, session=session)
     else:
         return redirect(url_for("formLogin"))
 
@@ -596,17 +448,12 @@ async def EditUserStyle(id):
 @app.route('/usuario/edit/style/newMainBk/<int:id>', methods=["POST"])
 async def SetUserBackground(id):
     mainBk = request.form["mainBk"]
-    conexion = await AbrirConexionSQL()
-    cursor = conexion.cursor()
-    cursor.execute(f"""
-        UPDATE STYLE_USUARIO
-            SET main = '{mainBk}'
-        WHERE idUser = {id};
-    """)
-    conexion.commit()
-    conexion.close()
+    await SetMainUserTheme(id, mainBk)
     return redirect(url_for('EditUserStyle', id=id))
+
 ###########################################################################################################################################
 
 if __name__ == '__main__':
-    bot.run(datos["discord"]["token"])
+    bot_thread = Thread(target=bot.run(datos['discord']['token']))
+    bot_thread.start()
+    

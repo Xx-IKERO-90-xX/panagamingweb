@@ -69,5 +69,4 @@ btnFilterRed.addEventListener("click", loadRedThemes);
 btnFilterYellow.addEventListener("click", loadYellowThemes);
 btnFilterPurple.addEventListener("click", loadPurpleThemes);
 
-
 loadDefaultThemes();

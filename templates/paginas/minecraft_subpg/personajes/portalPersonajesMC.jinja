@@ -35,7 +35,7 @@
         </div>
         <nav class="personajeNav">
             <div style="text-align: center;" class="personajeNavElements">
-                <a href="{{url_for('NuevoPersonaje')}}">CREAR PERSONAJE</a>
+                <a class="btn btn-success" href="{{url_for('NuevoPersonaje')}}">CREAR PERSONAJE</a>
             </div>
         </nav>
         <div class="personajeSections">
@@ -43,7 +43,7 @@
                 <br><br><br>
                 <br><br><br>
                 <br><br><br>
-                <h2 style="color: black;">PERSONAJES CLASIFICADOS</h2>
+                <h2 style="font-family: mine_tit2; color: black;">PERSONAJES CLASIFICADOS</h2>
                 <br><br><br><br>
                 <br><br>
                 {%for personaje in listaPersonajes%}

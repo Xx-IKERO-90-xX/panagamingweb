@@ -51,7 +51,7 @@
 }
 .listaPersonajes h2 {
     text-align: center;
-    font-family: mine_tit2;
+    font-family: neometra;
     font-size: 130px;
 }
 .personaje_green {
@@ -66,12 +66,13 @@
     border-radius: 10px;
 }
 .personaje_green img {
-    width: 60%;
+    width: 500px;
     margin-left: 20%;
     margin-right: 20%;
     border: solid 0.2em;
     border-color: rgb(0, 97, 0);
     border-radius: 10px;
+
 }
 .personaje_green p {
     width: 90%;
@@ -96,6 +97,17 @@
     color: white;
     text-align: left;
     width: 300px;
+}
+.personaje_green input {
+    width: 300px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.personaje_green .data {
+    background: rgb(0, 173, 0);
+    border-radius: 7px;
+    
 }
 .personaje_blue {
     width: 80%;
@@ -141,6 +153,11 @@
     font-size: 20px;
     border-radius: 10px;
 }
+.personaje_blue .data {
+    background:rgb(27, 126, 255);
+    border-radius: 10px;
+    
+}
 
 .personaje_red {
     text-align: center;
@@ -184,6 +201,11 @@
     padding: 5px;
     border-color:rgb(143, 0, 0);
     font-size: 20px;
+    border-radius: 10px;
+}
+
+.personaje_red .data {
+    background: rgb(255, 61, 61);
     border-radius: 10px;
 }
 .personaje_yellow {
@@ -240,6 +262,10 @@
     text-align: left;
     width: 300px;
 }
+.personaje_yellow .data {
+    background: rgb(180, 180, 0);
+    border-radius: 10px;
+}
 
 .personaje_pink {
     text-align: center;
@@ -284,6 +310,10 @@
     text-align: left;
     width: 300px;
 }
+.personaje_pink .data {
+    background: rgb(255, 131, 152);
+    border-radius: 10px;
+}
 .personaje_purple {
     text-align: center;
     width: 80%;
@@ -324,6 +354,10 @@
     color: white;
     text-align: left;
     width: 300px;
+}
+.personaje_purple .data {
+    background: rgb(255, 54, 255);
+    border-radius: 10px;
 }
 .personajeMine {
     text-align: center;

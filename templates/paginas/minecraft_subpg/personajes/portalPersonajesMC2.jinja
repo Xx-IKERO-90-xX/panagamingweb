@@ -45,36 +45,21 @@
             <img src="../../../../static/img/img_mc/personajesPortada.jpg">
         </div>
         <nav class="personajeNav">
-            <a class="btn btn-success" style="color:white; height: 40px;" href="{{url_for('FormEditPersonaje')}}">EDITAR PERSONAJE</a>
-            <div class="btn-group">
-                <button id="buttonMenu" style="font-size: 19px; font-weight: bold;" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  DIARIO
-                </button>
-                <div id="dOpts" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{url_for('nuevaPagina')}}">NUEVA PAGINA</a>
-                    <a class="dropdown-item" href="{{url_for('EditarDiario')}}">EDITAR</a>
-                </div>
-                <script>
-                    let btnMenu = document.getElementById("buttonMenu");
-                    let menuOpts = document.getElementById("dOpts");
-                    btnMenu.addEventListener("click", ()=> {
-                        menuOpts.classList.toggle("on");
-                    });
-                </script>
-            </div>
+            <a class="btn btn-success" style="color:white; height: 40px;" href="{{url_for('FormEditPersonaje')}}"><strong>Editar Personaje</strong></a>
+            <a class="btn btn-success" style="color: white; height: 40px;" href="{{url_for('MiDiario')}}"><strong>Diario</strong></a>
         </nav>
         <div class="personajeSections">
             <div class="listaPersonajes">
                 <br><br><br>
                 <br><br><br>
                 <br><br><br>
-                <h2>PERSONAJES CLASIFICADOS</h2>
+                <h2 style="font-family: mine_tit2; color: black;">PERSONAJES CLASIFICADOS</h2>
                 <br><br><br><br>
                 <br><br>
                 {%for personaje in listaPersonajes%}
                 {%if personaje["color"] == 'green'%}
                 <div class="personaje_green">
-                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
+                    <h2 style="font-family: mine_tit2; color: black;">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
@@ -89,7 +74,7 @@
                 {%endif%}
                 {%if personaje["color"] == 'blue'%}
                 <div class="personaje_blue">
-                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
+                    <h2 style="font-family: mine_tit2: color: black;">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
@@ -104,7 +89,7 @@
                 {%endif%}
                 {%if personaje["color"] == 'red'%}
                 <div class="personaje_red">
-                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
+                    <h2 style="font-family: mine_tit2: color: black;">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
@@ -119,12 +104,12 @@
                 {%endif%}
                 {%if personaje["color"] == 'yellow'%}
                 <div class="personaje_yellow">
-                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
+                    <h2 style="font-family: mine_tit2; color: black;">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
                     <p>
-                        personaje["descripcion"]
+                        {{personaje["descripcion"]}}
                     </p><br>
                     <br><br>
                     <a href="{{url_for('VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonYellow">Detalles</a>
@@ -134,7 +119,7 @@
                 {%endif%}
                 {%if personaje["color"] == 'pink'%}
                 <div class="personaje_pink">
-                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
+                    <h2 style="font-family: mine_tit2; color: black;">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
@@ -149,7 +134,7 @@
                 {%endif%}
                 {%if personaje["color"] == 'purple'%}
                 <div class="personaje_purple">
-                    <h2 style="font-family: mine_tit2">{{personaje["name"]}}</h2>
+                    <h2 style="font-family: mine_tit2; color: black;">{{personaje["name"]}}</h2>
                     <br><br>
                     <img alt=" " src='{{personaje["imgUrl"]}}'>
                     <br><br>
@@ -167,7 +152,7 @@
         </div>
     </main>
     <footer>
-
+        
     </footer>
 </body>
 </html>

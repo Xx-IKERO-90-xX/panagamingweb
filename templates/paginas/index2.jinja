@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Principal</title>
     <link rel="stylesheet" href="../../static/estilo/style.css">
+    <link rel="stylesheet" href="../../static/estilo/indexStyle.css">
+    <style></style>
 </head>
 <body>
     <header>
@@ -23,7 +25,7 @@
                 <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
             </ul>
         </nav><br>
-        <br>
+        <br> 
         <!--Portada-->
         <div class="portada">
             <img alt=" " src="../../static/img/img_index/portada.PNG">
@@ -33,20 +35,27 @@
         <!--Contenido principal-->
         <div class="main_content">
             <h2>BIENVENIDO A LA WEB DE PANA GAMING!!!</h2>
+
         </div><br>
     
         <!--Comunidades-->
-        <div class="comunidad3">
-            <br>
-            <h3>MINECRAFT</h3>
-            <br>
-            <img alt=" " src="../../static/img/img_mc/mc_bg4.jpg">
+
+        <div class="newsPannel">
+
+        </div>
+        <div class="minecraftIndexLink">
+            <h1>MINECRAFT PANA GAMING</h1>
             <br><br>
-            <div class="button3">
-                <a href="{{url_for('minecraft')}}">VISITAR</a><br>
-                <br><br>
+            <p>
+                Unete al mejor servidor de minecraft RPG y roleplay de toda España y Latinoamerica.
+                Disfruta de los mejores eventos, misiones y del lore que tenemos preparado para vosotros.
+            </p>
+            <br><br><br><br><br>
+            <div>
+                <a href="{{url_for('minecraft')}}">Visitar</a>
             </div>
         </div>
+        
         <br>
     </main>
     <footer>

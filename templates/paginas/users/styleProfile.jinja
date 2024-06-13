@@ -160,9 +160,6 @@
     <footer>
 
     </footer>
-    <script src="/static/scripts/styleProfile.js"></script>
-
-    <!-- Plantillas -->
 
     <template id="defaultTemplate">
         <div class="row" id="defaultThemes">
@@ -185,7 +182,7 @@
                 style="margin-bottom: 40px;">
                 <input type="hidden" name="mainBk" value="bBlue3">
                 <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_blue.png"></button>
+                        src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_blue.png"></button>
             </form>
             <form class="col-sm-3" method="post" action="{{url_for('SetUserBackground', id=session['id'])}}"
                 style="margin-bottom: 40px;">
@@ -353,6 +350,7 @@
             </form>
         </div>
     </template>
+
     <template id="blueTemplate">
         <div class="row" id="blueThemes">
             <form class="col-sm-3" method="post" action="{{url_for('SetUserBackground', id=session['id'])}}"
@@ -436,6 +434,7 @@
             </form>
         </div>
     </template>
+
     <template id="yellowTemplate">
         <div class="row" id="yellowThemes">
             <form class="col-sm-3" method="post" action="{{url_for('SetUserBackground', id=session['id'])}}"
@@ -477,6 +476,7 @@
             </form>
         </div>
     </template>
+
     <template id="redTemplate">
         <div class="row" id="redThemes">
             <form class="col-sm-3" method="post" action="{{url_for('SetUserBackground', id=session['id'])}}"
@@ -518,6 +518,7 @@
             </form>
         </div>
     </template>
+
     <template id="purpleTemplate">
         <div class="row" id="purpleThemes">
             <form class="col-sm-3" method="post" action="{{url_for('SetUserBackground', id=session['id'])}}"
@@ -559,6 +560,9 @@
             </form>
         </div>
     </template>
+    <script src="../../../static/scripts/styleProfile.js"></script>
+
+    <!-- Plantillas -->
 </body>
 
 </html>

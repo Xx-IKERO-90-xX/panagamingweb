@@ -1,4 +1,5 @@
 import os 
+import sys
 import discord
 from discord.ext import commands
 from discord.utils import *
@@ -7,15 +8,23 @@ import mysql.connector
 import json
 import random
 import asyncio
-from app import *
+from globals import guild
+
+
+sys.path.append("..")
+
+app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))
+if app_route not in sys.path:
+    sys.path.insert(0, app_route)
+import app
 
 async def AbrirConexionSQL():
     conection = mysql.connector.connect(
-        host = datos["database"]["host"],
-        user = datos["database"]["user"],
-        password = datos["database"]["passwd"],
-        database = datos["database"]["db"],
-        auth_plugin = datos["database"]["auth_plugin"]
+        host = app.datos["database"]["host"],
+        user = app.datos["database"]["user"],
+        password = app.datos["database"]["passwd"],
+        database = app.datos["database"]["db"],
+        auth_plugin = app.datos["database"]["auth_plugin"]
     )
     return conection
 
