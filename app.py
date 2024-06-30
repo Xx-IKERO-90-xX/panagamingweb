@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for
+from flask_socketio import SocketIO, send, emit
 import mysql.connector
 import json
 import random
@@ -37,7 +38,8 @@ async def on_ready():
     else:
         print("El bot no pudo conectarse con el servidor")
 
-    app.run(
+    socketio.run(
+        app,
         port = datos["flask"]["port"], 
         host = datos["flask"]["host"],
         debug=True
@@ -52,6 +54,7 @@ def start_discord_bot():
 
 app = Flask(__name__)
 app.secret_key = "tr4rt34t334yt"
+socketio = SocketIO(app)
 
 async def ListUsers():
     list = []
@@ -135,8 +138,9 @@ def formLogin():
 def formRegister():
     return render_template("registrar.jinja")
 
-########################################################
-########### PROCESAMIENTO DE SESION ####################
+#######################################################################################
+######################## PROCESAMIENTO DE SESION ######################################
+#######################################################################################
 
 
 @app.route('/CrearCuenta', methods=['GET', 'POST'])
@@ -411,9 +415,13 @@ async def DeletePage(idPagina):
     else:
         return redirect(url_for("formLogin"))
 
+
+
 #-----------------------------------------------------------------------#
 #-------------------- USUARIOS -----------------------------------------#
 #-----------------------------------------------------------------------#
+
+
 @app.route('/usuario/me/<int:id>', methods=['GET'])
 async def MiPerfil(id):
     if 'id' in session:
@@ -423,6 +431,16 @@ async def MiPerfil(id):
         return render_template('/paginas/users/myProfile.jinja', user=result, session=session)
     else:
         return redirect(url_for("formLogin"))
+
+@app.route('/usuario/<int:id>', methods=['GET'])
+async def UserProfile(id):
+    if 'id' in session:
+        appUser = await ObtenerUsuario(id)
+        dUser = await GetDiscordUser(id)
+        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
+        return render_template('/paginas/users/profile.jinja', user=result, session=session)
+    else:
+        return redirect(url_for('formLogin'))
 
 @app.route('/usuario/edit/descripcion/<int:id>', methods=["GET","POST"])
 async def EditMyDescription(id):
@@ -450,6 +468,27 @@ async def SetUserBackground(id):
     mainBk = request.form["mainBk"]
     await SetMainUserTheme(id, mainBk)
     return redirect(url_for('EditUserStyle', id=id))
+
+
+############################################################################################
+############# SERVIDOR DE MINECRAFT ########################################################
+############################################################################################
+
+@app.route('/minecraft/server', methods=['GET'])
+async def minecraftServer():
+    if 'id' in session:
+        return render_template('/paginas/minecraft_subpg/server/minecraftServer.jinja', session=session)
+    else:
+        return redirect(url_for('formLogin'))
+
+@socketio.on('send_message')
+def handleMessage(data):
+    app.logger.info(f"Message: {data['message']} from {data['username']}")
+    data['id'] = f"/usuario/{data['id']}"
+    emit('receive_message', data, broadcast=True)
+
+
+
 
 ###########################################################################################################################################
 

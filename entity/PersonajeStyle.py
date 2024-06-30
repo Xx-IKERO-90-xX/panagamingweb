@@ -10,3 +10,10 @@ import asyncio
 from controller.PersonajesController import *
 from controller.database import *
 from controller.UsuarioController import *
+
+class PersonajeStyle:
+    def __init__(self, idConf, idPersonaje, mainTheme, diarioTheme):
+        self.idConfig = idConf
+        self.idPersonaje = idPersonaje
+        self.mainTheme = mainTheme
+        self.diarioTheme = diarioTheme

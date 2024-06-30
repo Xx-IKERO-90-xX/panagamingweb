@@ -29,7 +29,8 @@
                 <li><span><a href="{{url_for('soporte')}}">SOPORTE</a></span></li>
                 <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
             </ul>
-        </nav><br><br><br><br>
+        </nav>
+        <br><br><br><br>
         <br><br><br><br><br>
         {% if user['main'] != None %}
         <div id="profileGreen" class="{{user['main']}}">
@@ -116,11 +117,18 @@
             <div class="profileDatos">
                 <br><br>
                 <div>
-                    <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+                    <label style="color: white;"><strong>Nombre :</strong> {{user["name"]}}</label>
                 </div>
                 <br><br>
                 <div>
-                    <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+                    <label style="color: white;"><strong>Mote: </strong> {{user["mote"]}}</label><br>
+                </div>
+                {% if user['minecraftName'] != none%}
+                    <div>
+                        <label style="color: white;"><strong>Minecraft: </strong> {{user['minecraftName']}} </label>
+                    </div>
+                {% endif %}
+                <div>
                 </div>
                 <br><br>
                 <div>

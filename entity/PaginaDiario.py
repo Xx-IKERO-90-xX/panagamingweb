@@ -10,3 +10,9 @@ import asyncio
 from controller.PersonajesController import *
 from controller.database import *
 from controller.UsuarioController import *
+
+class PaginaDiario:
+    def __init__(self, idPagina, idPersonaje, contenido):
+        self.idPagina = idPagina
+        self.idPersonaje = idPersonaje
+        self.contenido = contenido

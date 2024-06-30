@@ -1,0 +1,85 @@
+#galaxyMap {
+    background-image: url(../../../static/img/mcServer/galaxyMap.jpg);
+    position: relative;
+    width: 90vw;
+    height: 80vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: solid 0.2em;
+    border-color: white;
+    margin-bottom: 100px;
+}
+.planet {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.modal-content h1 {
+    font-family: Arial;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+}
+
+.planet:hover {
+    width: 110px;
+    height: 110px;
+}
+
+.planetBetweenlands {
+    top: 80%;
+    left: 10%;
+}
+
+.planetFjordur {
+    top: 50%;
+    left: 50%;
+}
+
+.planetAberration {
+    top: 70%;
+    left: 50%;
+}
+
+#fjordurModal .mainInfo img {
+    width: 150px;
+    height: 150px;
+}
+
+#fjordurModal .mainInfo p {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#betweenlandsModal .mainInfo img {
+    width: 150px;
+    height: 150px;
+}
+
+#betweenlandsModal .mainInfo p {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#betweenlandsCarousel {
+    text-align: center;
+}
+
+#betweenlandsCarousel img {
+    width: 400px;
+    margin: auto;
+}
+
+#aberrationModal .mainInfo img {
+    width: 150px;
+    height: 150px;
+}

@@ -10,3 +10,9 @@ import asyncio
 from controller.PersonajesController import *
 from controller.database import *
 from controller.UsuarioController import *
+
+class Ticket:
+    def __init__(self, id, texto, idUser):
+        self.id = id
+        self.texto = texto
+        self.idUser = idUser

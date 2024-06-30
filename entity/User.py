@@ -10,3 +10,10 @@ import asyncio
 from controller.PersonajesController import *
 from controller.database import *
 from controller.UsuarioController import *
+
+class User:
+    def __init__(self, idUser, passwd, descripcion, mithrilCoins):
+        self.idUser = idUser
+        self.passwd = passwd
+        self.descripcion = descripcion
+        self.mithrilCoins = mithrilCoins
