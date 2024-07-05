@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for
 from flask_socketio import SocketIO, send, emit
+from werkzeug.utils import secure_filename
 import mysql.connector
 import json
 import random
@@ -11,14 +12,16 @@ import asyncio
 from controller.PersonajesController import *
 from controller.database import *
 from controller.UsuarioController import *
-from controller.DiscordServerController import *
-from controller.LoginController import *
+import controller.DiscordServerController as DiscordServer
+import controller.LoginController as Login
+import controller.SectoresPerdidosController as SectoresPerdidos
 from controller.DiarioController import *
 from controller.ProfileController import *
 from threading import Thread
 import bot
 
 import globals
+
 
 datos = {}
 with open('settings.json') as archivo:
@@ -55,10 +58,12 @@ def start_discord_bot():
 app = Flask(__name__)
 app.secret_key = "tr4rt34t334yt"
 socketio = SocketIO(app)
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+
+#######################################################################################
 
 async def ListUsers():
     list = []
-    print(globals.guild)
     for m in globals.guild.members: 
         list.append(m)
     return list
@@ -66,6 +71,7 @@ async def ListUsers():
 async def ShowEjecutives(userList):
     ejecRole = globals.guild.get_role(datos["discord"]["roles"]["ejecutive"])
     ejec = []
+    
     for user in userList:
         if ejecRole in user.roles:
             ejec.append(user)
@@ -74,12 +80,14 @@ async def ShowEjecutives(userList):
 async def ShowStaffMembers(userList, ejecList):
     staffRole = globals.guild.get_role(datos["discord"]["roles"]["staff"])
     staff = []
+    
     for user in userList:
         if staffRole in user.roles:
             encontrado = False
             for r in ejecList:
                 if user == r:
                     encontrado = True
+                    break
             if encontrado == False:
                 staff.append(user)
     return staff
@@ -87,6 +95,7 @@ async def ShowStaffMembers(userList, ejecList):
 async def ShowMembers(userList, staffList, ejecList):
     memberRole = globals.guild.get_role(datos["discord"]["roles"]["member"])
     members = []
+    
     for user in userList:
         if memberRole in user.roles:
             encontrado = False
@@ -99,8 +108,6 @@ async def ShowMembers(userList, staffList, ejecList):
             if encontrado == False:
                 members.append(user)  
     return members
-
-#######################################################################################
 
 #######################################################################################
 ############## RUTAS SIN SESIÓN #######################################################
@@ -124,6 +131,7 @@ async def comunidad1():
     ejecList = await ShowEjecutives(userList)
     staffList = await ShowStaffMembers(userList, ejecList)
     memberList = await ShowMembers(userList, staffList, ejecList)
+    
     if "id" in session:
         return render_template("/paginas/comunidad.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)
     else:
@@ -167,13 +175,15 @@ async def CrearCuenta():
 async def IniciarSesion():
     name = request.form["dName"]
     passwd = request.form["passwd"]
-    valido = await ValidarInicioSesion(passwd)
+    valido = await Login.ValidarInicioSesion(passwd)
+    
     if valido == True:
         if await ComprobarNombreDiscord(name) == True:
             user = await GetDiscordUserByName(name)
             session["id"] = str(user.id)
             session["name"] = user.name
             session["imgUrl"] = user.avatar.url
+            session['role'] = await Login.DeducirRol(user.id)
             return render_template("/paginas/index2.jinja", session=session)
         else:
             errorMsg = "El nombre introducido no coincide con ningun usuario."
@@ -462,13 +472,11 @@ async def EditUserStyle(id):
     else:
         return redirect(url_for("formLogin"))
 
-
 @app.route('/usuario/edit/style/newMainBk/<int:id>', methods=["POST"])
 async def SetUserBackground(id):
     mainBk = request.form["mainBk"]
     await SetMainUserTheme(id, mainBk)
     return redirect(url_for('EditUserStyle', id=id))
-
 
 ############################################################################################
 ############# SERVIDOR DE MINECRAFT ########################################################
@@ -487,10 +495,117 @@ def handleMessage(data):
     data['id'] = f"/usuario/{data['id']}"
     emit('receive_message', data, broadcast=True)
 
-
-
-
 ###########################################################################################################################################
+
+
+
+###############################################################################################
+################### PANEL ADMINISTRADOR #######################################################
+###############################################################################################
+
+
+########### [SECTORES PERDIDOS ]###########################
+
+@app.route('/minecraft/SectoresPerdidos', methods=["GET"])
+async def GestionarSectoresPerdidos():
+    if 'id' in session:
+        if session['role'] == 'Ejecutivo' or session['role'] == 'Staff':
+           sectoresPerdidosList = await SectoresPerdidos.MostrarSectoresPerdidosAction()
+           return render_template('/paginas/minecraft_subpg/server/sectoresPerdidos/sectorsIndex.jinja', sectoresPerdidos=sectoresPerdidosList, session=session)
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+
+@app.route('/minecraft/SectoresPerdidos/create', methods=['GET'])
+async def NewSectorPerdido():
+    if 'id' in session:
+        if session['role'] == 'Ejecutivo' or session['role'] == 'Staff':
+            return render_template('/paginas/minecraft_subpg/server/sectoresPerdidos/create.jinja', session=session)
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+
+@app.route('/minecraft/SectoresPerdidos/new', methods=['POST'])
+async def CrearSectorPerdido():
+    if 'id' in session:
+        if session['role'] == 'Ejecutivo' or session['role'] == 'Staff':
+            descripcion = request.form['descripcion']
+            imagen_name = None
+            
+            if 'imagen' not in request.files or request.files['imagen'].filename == '':
+                imagen_name = None
+            else:
+                imagen = request.files['imagen']
+                imagen_name = secure_filename(imagen.filename)
+                imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagen_name))
+                
+            activo = request.form['activo']
+            planeta = request.form['planeta']
+            cord_x = request.form['cord_x']
+            cord_y = request.form['cord_y']
+            cord_z = request.form['cord_z']
+            
+            await SectoresPerdidos.CrearSectorPerdidoAction(descripcion, planeta, imagen_name, activo, cord_x, cord_y, cord_z) 
+            return redirect(url_for('GestionarSectoresPerdidos'))
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+
+
+@app.route('/minecraft/sectoresPerdidos/edit/<int:id>', methods=['GET'])
+async def EditSectorPerdido(id):
+    if 'id' in session:
+        if session['role'] == 'Ejecutivo' or session['role'] == 'Staff':
+            sectorPerdido = await SectoresPerdidos.GetSectorPerdido(id)
+            return render_template('/paginas/minecraft_subpg/server/sectoresPerdidos/edit.jinja', sectorPerdido=sectorPerdido, session=session)
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+
+@app.route('/minecraft/sectoresPerdidos/editing/<int:id>', methods=['POST'])
+async def EditarSectorPerdido(id):
+    if 'id' in session:
+        if session['role'] == 'Ejecutivo' or session['role'] == 'Staff':
+            descripcion = request.form['descripcion']
+            imagen_name = None
+            
+            if 'imagen' not in request.files or request.files['imagen'].filename == '':
+                imagen_name = None
+            else:
+                imagen = request.files['imagen']
+                imagen_name = secure_filename(imagen.filename)
+                imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagen_name))
+                
+            activo = request.form['activo']
+            planeta = request.form['planeta']
+            cord_x = request.form['cord_x']
+            cord_y = request.form['cord_y']
+            cord_z = request.form['cord_z']
+            
+            await SectoresPerdidos.EditarSectorPerdidoAction(id, descripcion, planeta, imagen_name, activo, cord_x, cord_y, cord_z)
+            
+            return redirect(url_for('GestionarSectoresPerdidos'))
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+
+@app.route('/minecraft/sectoresPerdidos/delete/<int:id>', methods=['GET'])
+async def DeleteSectorPerdido(id):
+    if 'id' in session:
+        if session['role'] == 'Ejecutivo' or session['role'] == 'Staff':
+            await SectoresPerdidos.DeleteSectorPerdidoAction(id)
+            return redirect(url_for('GestionarSectoresPerdidos'))
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+################################################################################################
+
 
 if __name__ == '__main__':
     bot_thread = Thread(target=bot.run(datos['discord']['token']))

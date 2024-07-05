@@ -24,6 +24,7 @@ import app
 async def GetDiscordUserByName(name):
     listaUsuarios = await app.ListUsers()
     usuario = 'null'
+    
     for user in listaUsuarios:
         if name == user.name:
             usuario = user
@@ -34,6 +35,7 @@ async def UserInDiscordServer(idUser):
     listaUsuarios = []
     listaUsuarios = await app.ListUsers()
     valido = False
+    
     for user in listaUsuarios:
         if user.id == int(idUser):
             valido = True
@@ -43,7 +45,44 @@ async def UserInDiscordServer(idUser):
 async def ComprobarNombreDiscord(nombre):
     valido = False
     listaUsuario = await app.ListUsers()
+    
     for user in listaUsuario:
         if user.name == nombre:
             valido = True
     return valido
+
+async def IsEjecutive(idUser):
+    isEjecutive = False
+    listUsers = await app.ListUsers()
+    listEjecutives = await app.ShowEjecutives(listUsers)
+    
+    for ejec in listEjecutives:
+        if idUser == ejec.id:
+            isEjecutive = True
+            break
+    return isEjecutive
+
+async def IsStaff(idUser):
+    isStaff = False
+    listUsers = await app.ListUsers()
+    listEjecutives = await app.ShowEjecutives(listUsers)
+    listStaff = await app.ShowStaffMembers(listUsers, listEjecutives)
+    
+    for staff in listStaff:
+        if idUser == staff.id:
+            isStaff = True
+            break
+    return isStaff
+
+async def IsMember(idUser):
+    isMember = False 
+    listUsers = await app.ListUsers()
+    listEjecutives = await app.ShowEjecutives(listUsers)
+    listStaff = await app.ShowStaffMembers(listUsers, listEjecutives)
+    listMembers = await app.ShowMembers(listUsers, listStaff, listEjecutives)
+    
+    for member in listMembers:
+        if idUser == member.id:
+            isMember = True
+            break
+    return isMember

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Sectores Perdidos</title>
+    <link rel="stylesheet" href="../../../../../static/estilo/style.css">
+    <link rel="stylesheet" href="../../../../../static/estilo/indexStyle.css">
+    <link rel="stylesheet" href="../../../../../static/estilo/components/tables.css">
+    <link rel="stylesheet" href="../../../../../static/estilo/components/buttons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .table {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img alt=" " src="../../../../../static/img/img_index/logo.png">
+    </header>
+    <div class="usuarioSesion">
+        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}">
+            <img src="{{session['imgUrl']}}"><br>
+        </a>
+        <label>{{session['name']}}</label>
+    </div>
+    <nav>
+        <ul>
+            <li><span><a style="color: white;" href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
+            <li><span><a style="color: white;" href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
+            <li><span><a style="color: white;" href="{{url_for('soporte')}}">SOPORTE</a></span></li>
+            <li><span><a style="color: white;" href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
+        </ul>
+    </nav><br>
+
+    <main style="height: 100vh;">
+        <div class="container">
+            <ul class="responsive-table ">
+                <li class="table-header">
+                    <div class="col col-1"><a class="btn btn-success" href="{{url_for('NewSectorPerdido')}}"><strong>Nuevo</strong></a></div>
+                    <div class="col col-2">Descripción</div>
+                    <div class="col col-4">ACTIVO</div>
+                    <div class="col col-5"></div>
+                </li>
+                {% for sector in sectoresPerdidos %}
+                <li class="table-row">
+                    <div class="col col-1">
+                    {% if sector['imagen'] != none or sector['imagen']%}
+                        <img src="../../../../../static/uploads/{{sector['imagen']}}">
+                    {% else %}
+                        <img src="../../../../../static/img/noImage.jpg">
+                    {% endif %}
+                    </div>
+                    <div class="col col-2">{{sector['descripcion']}}</div>
+                    <div class="col col-3">
+                        {% if sector['activo'] == 'true'%}
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+                            viewBox="0 0 48 48">
+                            <linearGradient id="TpFkpHq7AGWb~Tkla4kyga_YDFV6MVN9cNl_gr1" x1="24" x2="24" y1="6.121"
+                                y2="42.039" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stop-color="#9dffce"></stop>
+                                <stop offset="1" stop-color="#50d18d"></stop>
+                            </linearGradient>
+                            <path fill="url(#TpFkpHq7AGWb~Tkla4kyga_YDFV6MVN9cNl_gr1)"
+                                d="M40,42H8c-1.1,0-2-0.9-2-2V8c0-1.1,0.9-2,2-2h32c1.1,0,2,0.9,2,2v32C42,41.1,41.1,42,40,42z">
+                            </path>
+                            <linearGradient id="TpFkpHq7AGWb~Tkla4kygb_YDFV6MVN9cNl_gr2" x1="13" x2="36" y1="24.793"
+                                y2="24.793" gradientUnits="userSpaceOnUse">
+                                <stop offset=".824" stop-color="#135d36"></stop>
+                                <stop offset=".931" stop-color="#125933"></stop>
+                                <stop offset="1" stop-color="#11522f"></stop>
+                            </linearGradient>
+                            <path fill="url(#TpFkpHq7AGWb~Tkla4kygb_YDFV6MVN9cNl_gr2)"
+                                d="M21.293,32.707l-8-8c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414	c0.391-0.391,1.024-0.391,1.414,0L22,27.758l10.879-10.879c0.391-0.391,1.024-0.391,1.414,0l1.414,1.414	c0.391,0.391,0.391,1.024,0,1.414l-13,13C22.317,33.098,21.683,33.098,21.293,32.707z">
+                            </path>
+                        </svg>
+                        {% else %}
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
+                            viewBox="0 0 48 48">
+                            <path fill="#f44336"
+                                d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path>
+                            <path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z">
+                            </path>
+                            <path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z">
+                            </path>
+                        </svg>
+                        {% endif %}
+                    </div>
+                    <div class="col col-4" style="margin: 10px;">
+                        <a href="#" class="btn_table">Detalles</a>
+                        <a href="{{url_for('EditSectorPerdido', id=sector['id'])}}" class="btn_table">Editar</a>
+                        <a href="{{url_for('DeleteSectorPerdido', id=sector['id'])}}" class="btn_table">Eliminar</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+    <footer>
+    </footer>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <title>MinecraftPG</title>
+    <title>Minecraft PanaGaming</title>
     <link rel="stylesheet" href="../../static/estilo/style.css">
 </head>
 <body>
@@ -19,6 +19,10 @@
             <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
             <li><span><a href="{{url_for('soporte')}}">SOPORTE</a></span></li>
             <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
+            {% if session['role'] == 'Ejecutivo' or session['role'] == 'Staff' %}
+                <li><span><a href="{{url_for('GestionarSectoresPerdidos')}}">SECTORES PERDIDOS</a></span></li>
+                <li><span><a href="#">MISIONES</a></span></li>
+            {% endif %}
         </ul>
     </nav><br>
     <main>

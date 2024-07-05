@@ -1,0 +1,14 @@
+.btn_table {
+    border: solid 0.1em;
+    text-decoration: none;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    background:rgb(44, 44, 44);
+    border: solid 0.1em;
+    border-color: #00ff62;
+    box-shadow: 3px 3px 3px black;
+}
+.btn_table:hover {
+    background: #00bd48;
+}

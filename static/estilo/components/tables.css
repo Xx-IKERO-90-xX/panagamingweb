@@ -1,0 +1,99 @@
+.container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+h2 {
+    font-size: 26px;
+    margin: 20px 0;
+    text-align: center;
+
+    small {
+        font-size: 0.5em;
+    }
+}
+
+.responsive-table {
+    margin-top: 200px;
+    
+    li {
+        border-radius: 3px;
+        padding: 25px 30px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+    }
+    li img {
+        width: 100px;
+    }
+
+    .table-header {
+        background-color: #00ff62;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+    }
+
+    .table-row {
+        background-color: #3a3a3a;
+        box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+        color: white;
+        border: solid 0.1em;
+        border-color: #00ff62;
+    }
+
+    .col-1 {
+        flex-basis: 20%;
+    }
+
+    .col-2 {
+        flex-basis: 40%;
+    }
+
+    .col-3 {
+        flex-basis: 10%;
+    }
+
+    .col-4 {
+        flex-basis: 30%;
+    }
+    .col-4 a {
+        margin: 10px;
+    }
+
+    @media all and (max-width: 767px) {
+        .table-header {
+            display: none;
+        }
+
+        .table-row {}
+
+        li {
+            display: block;
+        }
+
+        .col {
+
+            flex-basis: 100%;
+
+        }
+
+        .col {
+            display: flex;
+            padding: 10px 0;
+
+            &:before {
+                color: #6C7A89;
+                padding-right: 10px;
+                content: attr(data-label);
+                flex-basis: 50%;
+                text-align: right;
+            }
+        }
+    }
+}

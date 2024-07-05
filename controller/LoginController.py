@@ -37,3 +37,20 @@ async def ValidarInicioSesion(passwd):
             break
     conexion.close()
     return valido
+
+async def DeducirRol(idUser):
+    if await DiscordServer.IsEjecutive(idUser):
+        return "Ejecutivo"
+    
+    if await DiscordServer.IsStaff(idUser):
+        return "Staff"
+
+    if await DiscordServer.IsMember(idUser):
+        return "Miembro"
+    
+    return "Usuario"
+        
+        
+        
+
+

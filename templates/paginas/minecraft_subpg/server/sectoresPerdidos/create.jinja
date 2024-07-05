@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Nuevo Sector Perdido</title>
+    <link rel="stylesheet" href="../../../../../static/estilo/style.css">
+    <link rel="stylesheet" href="../../../../../static/estilo/indexStyle.css">
+    <link rel="stylesheet" href="../../../../../static/estilo/components/tables.css">
+    <link rel="stylesheet" href="../../../../../static/estilo/components/buttons.css">
+    <link rel="stylesheet" href="../../../../../static/estilo/components/forms.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <img alt=" " src="../../../../../static/img/img_index/logo.png">
+    </header>
+    <div class="usuarioSesion">
+        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}">
+            <img src="{{session['imgUrl']}}"><br>
+        </a>
+        <label>{{session['name']}}</label>
+    </div>
+    <nav>
+        <ul>
+            <li><span><a style="color: white;" href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
+            <li><span><a style="color: white;" href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
+            <li><span><a style="color: white;" href="{{url_for('soporte')}}">SOPORTE</a></span></li>
+            <li><span><a style="color: white;" href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
+        </ul>
+    </nav><br>
+
+    <main style="height: 100vh;">
+        <div class="container">
+            <form class="manageForm" action="{{url_for('CrearSectorPerdido')}}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <h2>Descripción</h2><br>
+                    <textarea name="descripcion"></textarea>
+                </div>
+                <br><br>
+                <div class="row">
+                    <div class="col col-6">
+                        <br>
+                        <div class="form-group">
+                            <label>Imágen</label>
+                            <br>
+                            <input type="file" name="imagen" accept="image/png, image/jpeg, image/jpg"
+                                style="color: white;">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <div>
+                                <label>Activo:</label>
+                                <select name="activo">
+                                    <option value="true">✔️</option>
+                                    <option value="false">❌</option>
+                                </select>
+                            </div>
+                            <br>
+                            <div>
+                                <label>Planeta:</label>
+                                <select name="planeta">
+                                    <option value="Fjordur">Fjordur</option>
+                                    <option value="Betweenlands">Betweenlands</option>
+                                    <option value="Scorched">Scorched</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-6 coordenadas">
+                        <h2>Coordenadas</h2>
+                        <br>
+                        <div>
+                            <label>Cord X</label>
+                            <input type="number" name="cord_x">
+                        </div><br>
+                        <div>
+                            <label>Cord Y</label>
+                            <input type="number" name="cord_y">
+                        </div><br>
+                        <div>
+                            <label>Cord Z</label>
+                            <input type="number" name="cord_z">
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <button type="submit" class="btn_table">Crear</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+    </footer>
+</body>
+
+</html>
