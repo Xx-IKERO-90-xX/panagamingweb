@@ -39,6 +39,50 @@
             border-top: solid 0.2em;
             border-color: black;
         }
+
+        .detallesContent {
+            background: rgb(53, 53, 53);
+            border: solid 0.1em;
+            border-color: rgb(0, 255, 0);
+        }
+
+        .detallesContent img {
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            border-radius: 5px;
+        }
+
+        .detallesDescription {
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            background: rgb(31, 31, 31);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .detallesPlanet {
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            background: rgb(31, 31, 31);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .detallesCord {
+            background: rgb(31, 31, 31);
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .detallesCord span {
+            margin: 10px;
+        }
     </style>
 
 </head>
@@ -72,6 +116,8 @@
                 data-bs-target="#fjordurModal" class="planet planetFjordur">
             <img src="../../../../static/img/mcServer/planets/aberration.png" data-bs-toggle="modal"
                 data-bs-target="#aberrationModal" class="planet planetAberration">
+            <img src="../../../../static/img/mcServer/planets/scorched.png" data-bs-toggle="modal"
+                data-bs-target="#ScorchedModal" class="planet planetScorched">
         </div>
         <div class="contentMc" style="text-align: center;">
             <br><br>
@@ -123,6 +169,9 @@
                         </p>
                     </div>
                 </div>
+                <div class="sectoresPerdidos">
+
+                </div>
             </div>
         </div>
     </div>
@@ -146,6 +195,71 @@
                             proteger el planeta.
                         </p>
                     </div>
+                </div>
+                <br>
+                <div class="sectoresPerdidos">
+                    {% for sector in sectoresPerdidos %}
+                    {% if sector['planeta'] == 'Fjordur' and sector['activo'] == 'true' %}
+                    <div class="row sector">
+                        <div class="col col-3">
+                            {% if sector['imagen'] != none or sector['imagen'] %}
+                            <img src="../../../../../static/uploads/{{sector['imagen']}}">
+                            {% else %}
+                            <img src="../../../../../static/img/noImage.jpg">
+                            {% endif %}
+                        </div>
+                        <div class="col col-5" style="height: 100px;">
+                            <p class="sectorDescripcion">
+                                {{sector['descripcion']}}
+                            </p>
+                        </div>
+                        <div class="col col-3">
+                            <br>
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="detalles_{{sector['id']}}">VER</button>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content detallesContent">
+                                <br>
+                                <div style="text-align: center;">
+                                    {% if sector['imagen'] != none or sector['imagen'] %}
+                                    <img style="
+                                            width: 80%;
+                                            margin-left: 10%;
+                                            margin-right: 10%;
+                                            border-radius: 5px;"
+                                        src="../../../../../static/uploads/{{sector['imagen']}}">
+                                    {% else %}
+                                    <img style="
+                                            width: 80%;
+                                            margin-left: 10%;
+                                            margin-right: 10%;
+                                            border-radius: 5px;" src="../../../../../static/img/noImage.jpg">
+                                    {% endif %}
+                                </div>
+                                <br>
+                                <div class="detallesDescription">
+                                    {{sector['descripcion']}}
+                                </div>
+                                <br>
+                                <div class="detallesPlanet">
+                                    <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
+                                </div>
+                                <br>
+                                <div class="detallesCord">
+                                    <label><strong>Coordenadas: </strong></label>
+                                    <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
+                                        {{sector['cord_z']}}</span>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -185,6 +299,159 @@
                                 alt="...">
                         </div>
                     </div>
+                </div>
+                <div class="sectoresPerdidos">
+                    {% for sector in sectoresPerdidos %}
+                    {% if sector['planeta'] == 'Betweenlands' and sector['activo'] == 'true' %}
+                    <div class="row sector">
+                        <div class="col col-3">
+                            {% if sector['imagen'] != none or sector['imagen'] %}
+                            <img src="../../../../../static/uploads/{{sector['imagen']}}">
+                            {% else %}
+                            <img src="../../../../../static/img/noImage.jpg">
+                            {% endif %}
+                        </div>
+                        <div class="col col-5" style="height: 100px;">
+                            <p class="sectorDescripcion">
+                                {{sector['descripcion']}}
+                            </p>
+                        </div>
+                        <div class="col col-3">
+                            <br>
+                            <button class="btn btn-success" data-bs-target="detalles_{{sector['id']}}" data-bs-toggle="modal">VER</button>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content detallesContent">
+                                <br>
+                                <div style="text-align: center;">
+                                    {% if sector['imagen'] != none or sector['imagen'] %}
+                                    <img style="
+                                            width: 80%;
+                                            margin-left: 10%;
+                                            margin-right: 10%;
+                                            border-radius: 5px;"
+                                        src="../../../../../static/uploads/{{sector['imagen']}}">
+                                    {% else %}
+                                    <img style="
+                                            width: 80%;
+                                            margin-left: 10%;
+                                            margin-right: 10%;
+                                            border-radius: 5px;" src="../../../../../static/img/noImage.jpg">
+                                    {% endif %}
+                                </div>
+                                <br>
+                                <div class="detallesDescription">
+                                    {{sector['descripcion']}}
+                                </div>
+                                <br>
+                                <div class="detallesPlanet">
+                                    <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
+                                </div>
+                                <br>
+                                <div class="detallesCord">
+                                    <label><strong>Coordenadas: </strong></label>
+                                    <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
+                                        {{sector['cord_z']}}</span>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <br><br>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ScorchedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="
+                background: rgb(48, 48, 48);
+                border: solid 0.2em;
+                border-color: rgb(255, 123, 0);
+            ">
+                <div class="planetInfo">
+                    <h1 style="color: white; margin-top: 10px;">SCORCHED</h1>
+                    <hr style="color: white;">
+                    <div class="mainInfo" style="text-align: center;">
+                        <br>
+                        <img src="../../../../static/img/mcServer/planets/scorched.png">
+                        <br><br><br>
+                        <p style="color: white;">
+                            Scorched, un planeta desertico donde existe varias tribus con culturas diferentes que
+                            representan a su dios de diferentes formas o tienen diferentes dioses que los maneja.
+                        </p>
+                    </div>
+                </div>
+                <div class="sectoresPerdidos">
+                    {% for sector in sectoresPerdidos %}
+                    {% if sector['planeta'] == 'Scorched' and sector['activo'] == 'true' %}
+                    <div class="row sector">
+                        <div class="col col-3">
+                            {% if sector['imagen'] != none or sector['imagen'] %}
+                            <img src="../../../../../static/uploads/{{sector['imagen']}}">
+                            {% else %}
+                            <img src="../../../../../static/img/noImage.jpg">
+                            {% endif %}
+                        </div>
+                        <div class="col col-5" style="height: 100px;">
+                            <p class="sectorDescripcion">
+                                {{sector['descripcion']}}
+                            </p>
+                        </div>
+                        <div class="col col-3">
+                            <br>
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="detalles_{{sector['id']}}">VER</button>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content detallesContent">
+                                <br>
+                                <div style="text-align: center;">
+                                    {% if sector['imagen'] != none or sector['imagen'] %}
+                                    <img style="
+                                            width: 80%;
+                                            margin-left: 10%;
+                                            margin-right: 10%;
+                                            border-radius: 5px;"
+                                        src="../../../../../static/uploads/{{sector['imagen']}}">
+                                    {% else %}
+                                    <img style="
+                                            width: 80%;
+                                            margin-left: 10%;
+                                            margin-right: 10%;
+                                            border-radius: 5px;" 
+                                        src="../../../../../static/img/noImage.jpg">
+                                    {% endif %}
+                                </div>
+                                <br>
+                                <div class="detallesDescription">
+                                    {{sector['descripcion']}}
+                                </div>
+                                <br>
+                                <div class="detallesPlanet">
+                                    <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
+                                </div>
+                                <br>
+                                <div class="detallesCord">
+                                    <label><strong>Coordenadas: </strong></label>
+                                    <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
+                                        {{sector['cord_z']}}</span>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
                 <br><br>
             </div>

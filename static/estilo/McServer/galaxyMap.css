@@ -49,6 +49,10 @@
     top: 70%;
     left: 50%;
 }
+.planetScorched {
+    top: 30%;
+    left: 60%;
+}
 
 #fjordurModal .mainInfo img {
     width: 150px;
@@ -82,4 +86,30 @@
 #aberrationModal .mainInfo img {
     width: 150px;
     height: 150px;
+}
+#ScorchedModal .mainInfo img {
+    width: 150px;
+    height: 150px;
+}
+#ScorchedModal .mainInfo p {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.sector img {
+    width: 100px;
+    height: 80px;
+}
+.sector {
+    background: rgb(100, 100, 100);
+    box-shadow: 3px 3px 3px black;
+    height: 80px;
+}
+.sectorDescripcion {
+    text-overflow: ellipsis;
+    color: white;
+    overflow-y: auto;
+    height: 80px;
+    display: inline-block;
+    max-height: 80px;
+    width: 200px;
 }

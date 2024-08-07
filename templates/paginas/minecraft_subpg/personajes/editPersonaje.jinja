@@ -103,7 +103,11 @@
                 <br><br>
                 <div class="row">
                     <div class="col-6">
-                        <img alt=" " src='{{personaje["imgUrl"]}}' width="150">
+                        {% if personaje['imgUrl'] == 'None' %}
+                            <img alt=" " src="../../../../static/img/userlog.jpg" width="150">
+                        {% else %}
+                            <img alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}' width="150">
+                        {% endif %}
                     </div>
                     <div class="col-5" style="text-align: left;">
                         <div class="data">

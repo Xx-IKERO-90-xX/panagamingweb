@@ -43,6 +43,10 @@ nav {
     margin: auto;
     display: block;
 }
+nav > ul {
+    display: flex;
+    justify-content: center;
+}
 
 nav ul {
     background: black;
@@ -50,11 +54,11 @@ nav ul {
     float: right;
     display: block;
     text-align: center;
+    margin: auto;
 }
 
 nav ul li {
     list-style: None;
-    margin-left: 10%;
     float: left;
     border: solid 0.3em;
     border-color: green;
@@ -62,6 +66,7 @@ nav ul li {
     padding: 9px;
     display: block;
     text-align: center;
+    margin: 0 .75rem;
 }
 
 nav ul li a {
@@ -72,6 +77,7 @@ nav ul li a {
     transition: background-color 0.5s;
     border-radius: 20px;
     font-family: Arial;
+    margin: 5px;
 }
 
 nav ul li a:hover {
@@ -1757,42 +1763,6 @@ footer {
 
 
 
-
-
-
-/*FORMULARIO CREAR PERSONAJE DE MC*/
-
-.personajeForm {
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-top: 20px;
-    padding: 10px;
-    background: black;
-    border-radius: 10px;
-}
-
-.personajeForm label {
-    font-family: Arial;
-    font-weight: bold;
-}
-
-.personajeForm input {
-    padding: 5px;
-    margin-left: 10px;
-    border-radius: 20px;
-    border: solid 0.3em;
-    border-color: green;
-}
-
-.personajeForm textarea {
-    border: solid 0.3em;
-    border-color: green;
-    border-radius: 10px;
-    padding: 20px;
-    width: 200px;
-    height: 100px;
-}
 
 .UserInfo {
     color: white;

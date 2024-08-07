@@ -88,12 +88,12 @@ async def GetCharacterById(id):
     conexion.close()
     return resultados_json[0]
 
-async def NuevoPersonajePost(name, descripcion, color, imgUrl, idUser, raza, edad, sexo):
+async def NuevoPersonajePost(name, descripcion, color, imgUrl, idUser, raza, edad, sexo, tipo):
     conexion = await database.AbrirConexionSQL()
     cursor = conexion.cursor()
     cursor.execute(f"""
-        INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, idUser, raza, edad, sexo)
-        VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{idUser}', '{raza}', '{edad}', '{sexo}');
+        INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, idUser, raza, edad, sexo, tipo, reputacion)
+        VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{idUser}', '{raza}', '{edad}', '{sexo}', '{tipo}', 0);
     """)
     conexion.commit()
     conexion.close()
@@ -115,3 +115,4 @@ async def EditarPersonajePost(name, color, descripcion, imgUrl, idUser, raza, ed
     """)
     conexion.commit() 
     conexion.close()
+    

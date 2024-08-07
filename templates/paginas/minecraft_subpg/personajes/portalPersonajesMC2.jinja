@@ -61,7 +61,11 @@
                 <div class="personaje_green">
                     <h2 style="font-family: mine_tit2; color: black;">{{personaje["name"]}}</h2>
                     <br><br>
-                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    {% if personaje['imgUrl'] == 'None' %}
+                        <img alt=" " src="../../../../static/img/userlog.jpg">
+                    {% else %}
+                        <img alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}'>
+                    {%endif%}
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
@@ -76,7 +80,11 @@
                 <div class="personaje_blue">
                     <h2 style="font-family: mine_tit2: color: black;">{{personaje["name"]}}</h2>
                     <br><br>
-                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    {% if personaje['imgUrl'] != 'None' or personaje['imgUrl'] %}
+                        <img alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}'>
+                    {% else %}
+                        <img alt=" " src="../../../../static/img/noImage.jpg">
+                    {% endif %}
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
@@ -91,7 +99,11 @@
                 <div class="personaje_red">
                     <h2 style="font-family: mine_tit2: color: black;">{{personaje["name"]}}</h2>
                     <br><br>
-                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    {% if personaje['imgUrl'] != 'None' or personaje['imgUrl']%}
+                        <img alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}'>
+                    {% else %}
+                        <img alt=" " src="../../../../static/img/noImage.jpg">
+                    {% endif %}
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
@@ -106,7 +118,11 @@
                 <div class="personaje_yellow">
                     <h2 style="font-family: mine_tit2; color: black;">{{personaje["name"]}}</h2>
                     <br><br>
-                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    {% if personaje['imgUrl'] != none or personaje['imgUrl']%}
+                        <img alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}'>
+                    {% else %}
+                        <img alt=" " src="../../../../static/img/noImage.jpg">
+                    {% endif %}
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
@@ -121,7 +137,11 @@
                 <div class="personaje_pink">
                     <h2 style="font-family: mine_tit2; color: black;">{{personaje["name"]}}</h2>
                     <br><br>
-                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    {% if personaje['imgUrl'] != none or personaje['imgUrl'] %}
+                        <img alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}'>
+                    {% else %}
+                        <img alt=" " src="../../../../static/img/noImage.jpg">
+                    {% endif %}
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}
@@ -136,7 +156,11 @@
                 <div class="personaje_purple">
                     <h2 style="font-family: mine_tit2; color: black;">{{personaje["name"]}}</h2>
                     <br><br>
-                    <img alt=" " src='{{personaje["imgUrl"]}}'>
+                    {% if personaje['imgUrl'] != 'None' or personaje['imgUrl'] %}
+                        <img alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}'>
+                    {% else %}
+                        <img alt=" " src="../../../../static/img/noImage.jpg">
+                    {% endif %}
                     <br><br>
                     <p>
                         {{personaje["descripcion"]}}

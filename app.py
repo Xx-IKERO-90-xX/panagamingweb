@@ -261,40 +261,34 @@ async def portalServer():
     else:
         return redirect(url_for('formLogin'))
 
-@app.route("/mineacraft/personajes/NuevoPersonaje")
+@app.route("/mineacraft/personajes/NuevoPersonaje", methods=['GET', 'POST'])
 async def NuevoPersonaje():
     if "id" in session:
-        return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.jinja", session=session)
-    else:
-        return redirect(url_for('formLogin'))
-
-@app.route("/mineacraft/personajes/CrearPersonaje", methods=["POST"])
-async def CrearPersonaje():
-    name = request.form['pjName']
-    descripcion = request.form['pjDescription']
-    imgUrl = request.form['pjImgUrl']
-    color = request.form['color']
-    raza = request.form['raza']
-    edad = request.form['edad']
-    sexo = request.form['sexo']
-
-    if 'id' in session:
-        codError = await ValidarPersonajeUsuario(session['id'], name)
-        if codError == 0:
-            if imgUrl or imgUrl == "":
-                imgUrl = "/static/img/userlog.jpg"
-            await NuevoPersonajePost(name, descripcion, color, imgUrl, session['id'], raza, edad, sexo)
+        if request.method == 'POST':
+            name = request.form['pjName']
+            descripcion = request.form['pjDescription']
+            color = request.form['color']
+            raza = request.form['raza']
+            edad = request.form['edad']
+            sexo = request.form['sexo']
+            tipo = request.form['type']
+            
+            imagen_name = None
+            
+            if 'imagen' not in request.files or request.files['imagen'].filename == '':
+                imagen_name = None
+            else:
+                imagen = request.files['imagen']
+                imagen_name = secure_filename(imagen.filename)
+                imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagen_name))
+        
+            await NuevoPersonajePost(name, descripcion, color, imagen_name, session['id'], raza, edad, sexo, tipo)
             return redirect(url_for('PersonajesMinecraftPG'))
-        
-        elif codError == 1:
-            errorMsg = "Solo puedes tener un solo personaje. Si quieres cambiar de personaje editalo para que sea distinto."
-            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.jinja", errorMsg = errorMsg, session=session)   
-        
-        elif codError == 2:
-            errorMsg = "El nombre del personajes que intentas implementar está ya en uso. Porfavor, escoja otro que esté en desuso en el servidor."
-            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.jinja", errorMsg = errorMsg, session=session)
+        else:
+            return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.jinja", session=session)
     else:
         return redirect(url_for('formLogin'))
+
 
 @app.route("/minecraft/personajes")
 async def PersonajesMinecraftPG():
@@ -485,7 +479,8 @@ async def SetUserBackground(id):
 @app.route('/minecraft/server', methods=['GET'])
 async def minecraftServer():
     if 'id' in session:
-        return render_template('/paginas/minecraft_subpg/server/minecraftServer.jinja', session=session)
+        sectoresPerdidos = await SectoresPerdidos.MostrarSectoresPerdidosAction()
+        return render_template('/paginas/minecraft_subpg/server/minecraftServer.jinja', sectoresPerdidos=sectoresPerdidos, session=session)
     else:
         return redirect(url_for('formLogin'))
 
@@ -503,8 +498,9 @@ def handleMessage(data):
 ################### PANEL ADMINISTRADOR #######################################################
 ###############################################################################################
 
-
-########### [SECTORES PERDIDOS ]###########################
+###############################################################
+############### [SECTORES PERDIDOS] ###########################
+###############################################################
 
 @app.route('/minecraft/SectoresPerdidos', methods=["GET"])
 async def GestionarSectoresPerdidos():
@@ -604,6 +600,7 @@ async def DeleteSectorPerdido(id):
             return redirect(url_for('minecraft'))
     else:
         return redirect(url_for('formLogin'))
+
 ################################################################################################
 
 

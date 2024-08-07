@@ -43,7 +43,11 @@
             <div class="personaje_green">
                 <h2 style="font-family: mine_tit2">{{personaje['name']}}</h2>
                 <br><br>
-                <img alt=" " src='{{personaje["imgUrl"]}}' width="150">
+                {% if personaje['imgUrl'] == 'None' %}
+                <img alt=" " src="../../../../static/img/userlog.jpg" width="150">
+                {% else %}
+                <img class="" alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}' width="150">
+                {% endif %}
                 <br><br>
                 <div id="razaDiv">
                     <strong>Raza </strong><br>
@@ -53,9 +57,9 @@
                 <div id="generoDiv">
                     <strong>Genero </strong><br>
                     {%if personaje['sexo'] == 'm' %}
-                        <input type="text" name="genero" value="Hombre"><br>
+                    <input type="text" name="genero" value="Hombre"><br>
                     {%else%}
-                        <input type="text" name="genero" value="">
+                    <input type="text" name="genero" value="">
                 </div>
                 <br>
                 <div id="edadDiv">
