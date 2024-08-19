@@ -9,19 +9,19 @@ import mysql.connector
 import json
 import random
 import asyncio
-from controller.PersonajesController import *
+import controller.PersonajesController as Personajes
 from controller.database import *
 from controller.UsuarioController import *
 import controller.DiscordServerController as DiscordServer
 import controller.LoginController as Login
 import controller.SectoresPerdidosController as SectoresPerdidos
+import controller.MisionesController as Misiones
 from controller.DiarioController import *
 from controller.ProfileController import *
 from threading import Thread
 import bot
 
 import globals
-
 
 datos = {}
 with open('settings.json') as archivo:
@@ -295,7 +295,7 @@ async def PersonajesMinecraftPG():
     if "id" in session:
         listaPersonajes = []
         paginas = []  
-        listaPersonajes = await GetCharacterList()
+        listaPersonajes = await Personajes.GetCharacterList()
         paginas = await ObtenerPaginas()
         tienePersonaje = await comprobarSiTienePersonaje(session["id"])
         if tienePersonaje == True:
@@ -305,15 +305,33 @@ async def PersonajesMinecraftPG():
     else:
         return redirect(url_for("formLogin"))
 
-@app.route("/minecraft/personajes/FormEditPersonaje")
-async def FormEditPersonaje():
+@app.route("/minecraft/personajes/EditPersonaje", methods=['GET', 'POST'])
+async def EditPersonaje():
     if "id" in session:
-        personaje = await ObtenerPersonajePorIdUser(str(session['id']))
-        print(personaje)
-        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.jinja", personaje=personaje[0], session=session)
+        if request.method == 'POST':
+            name = request.form["name"]
+            color = request.form["color"]
+            descripcion = request.form["pjDescription"]
+            raza = request.form['raza']
+            edad = request.form['edad']
+            
+            imagen_name = None
+            
+            if 'imagen' not in request.files or request.files['imagen'].filename == '':
+                imagen_name = None
+            else:
+                imagen = request.files['imagen']
+                imagen_name = secure_filename(imagen.filename)
+                imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagen_name))
+            
+            await Personajes.EditarPersonajeAction(name, color, descripcion, imagen_name, session['id'], raza, edad)
+            personaje = await Personajes.ObtenerPersonajePorIdUser(str(session['id']))
+            return render_template('/paginas/minecraft_subpg/personajes/editPersonaje.jinja', personaje=personaje[0], session=session)
+        else:
+            personaje = await Personajes.ObtenerPersonajePorIdUser(str(session['id']))
+            return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.jinja", personaje=personaje[0], session=session)
     else:
         return redirect(url_for("Inicio"))
-
 
 @app.route("/minecraft/miPersonaje/<int:idUser>", methods=["GET"])
 async def miPersonaje(idUser):
@@ -328,34 +346,12 @@ async def miPersonaje(idUser):
 async def VerInfoPersonaje(idPersonaje):
     if 'id' in session:
         paginas = []
-        personaje = await GetCharacterById(idPersonaje)
+        personaje = await Personajes.GetCharacterById(idPersonaje)
         paginas = await ShowDiarioPages(idPersonaje)
         print(personaje)
         return render_template("/paginas/minecraft_subpg/personajes/personaje.jinja", personaje=personaje, paginas=paginas, session=session) 
     else:
         return redirect(url_for('formLogin'))
-
-@app.route("/mineacraft/personajes/EditPersonaje", methods=["GET", "POST"])
-async def EditPersonaje():
-    name = request.form["pjName"]
-    color = request.form["color"]
-    descripcion = request.form["pjDescription"]
-    imgUrl = request.form["pjImgUrl"]
-    idUser = request.form["idUser"]
-
-    raza = request.form['raza']
-    edad = request.form['edad']
-    sexo = request.form['sexo']
-
-    userValid = await ValidarPersonajeEditado(idUser, name)
-    
-    if userValid == 0:
-        await EditarPersonajePost(name, color, descripcion, imgUrl, idUser, raza, edad, sexo)
-        return redirect(url_for("FormEditPersonaje"))
-    else:
-        errorMsg = "El nombre introducido esta ya en uso, escoja otro porfavor."
-        personaje = await ObtenerPersonajePorIdUser(idUser)
-        return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.jinja", personaje=personaje, errorMsg=errorMsg, session=session)
 
 
 @app.route('/mineacraft/personajes/diario/nuevaPagina')
@@ -403,7 +399,7 @@ async def MiDiario():
     else:
         return redirect(url_for("formLogin"))
 
-@app.route('/minecraft/personajes/me/diario/newPage/<int:idPersonaje>', methods=['GET', 'POST'])
+@app.route('/minecraft/personajes/me/diario/newPage/<int:idPersonaje>', methods=['POST'])
 async def NewPage(idPersonaje):
     if 'id' in session:
         await NewPageAction(idPersonaje)
@@ -480,7 +476,8 @@ async def SetUserBackground(id):
 async def minecraftServer():
     if 'id' in session:
         sectoresPerdidos = await SectoresPerdidos.MostrarSectoresPerdidosAction()
-        return render_template('/paginas/minecraft_subpg/server/minecraftServer.jinja', sectoresPerdidos=sectoresPerdidos, session=session)
+        misiones = await Misiones.GetMisiones()
+        return render_template('/paginas/minecraft_subpg/server/minecraftServer.jinja', sectoresPerdidos=sectoresPerdidos, misiones=misiones, session=session)
     else:
         return redirect(url_for('formLogin'))
 
@@ -498,9 +495,10 @@ def handleMessage(data):
 ################### PANEL ADMINISTRADOR #######################################################
 ###############################################################################################
 
-###############################################################
+
+
 ############### [SECTORES PERDIDOS] ###########################
-###############################################################
+
 
 @app.route('/minecraft/SectoresPerdidos', methods=["GET"])
 async def GestionarSectoresPerdidos():
@@ -583,8 +581,8 @@ async def EditarSectorPerdido(id):
             cord_z = request.form['cord_z']
             
             await SectoresPerdidos.EditarSectorPerdidoAction(id, descripcion, planeta, imagen_name, activo, cord_x, cord_y, cord_z)
-            
             return redirect(url_for('GestionarSectoresPerdidos'))
+        
         else:
             return redirect(url_for('minecraft'))
     else:
@@ -601,8 +599,104 @@ async def DeleteSectorPerdido(id):
     else:
         return redirect(url_for('formLogin'))
 
-################################################################################################
 
+
+
+
+################## [MISIONES] ##########################
+
+@app.route('/minecraft/misiones', methods=['GET'])
+async def GestionarMisiones():
+    if 'id' in session:
+        if session['role'] == 'Staff' or session['role'] == 'Ejecutivo':
+            misiones = await Misiones.GetMisiones()
+            return render_template('/paginas/minecraft_subpg/server/misiones/indexMisiones.jinja', misiones=misiones, session=session)            
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+
+@app.route('/minecraft/misiones/new', methods=['GET', 'POST'])
+async def NuevaMision():
+    if 'id' in session:
+        if session['role'] == 'Staff' or session['role'] == 'Ejecutivo':
+            if request.method == 'GET':
+                return render_template('/paginas/minecraft_subpg/server/misiones/create.jinja', session=session)
+            else:
+                descripcion = request.form['descripcion']
+                tipo = request.form['tipo']
+                dificultad = request.form['dificultad']
+                estado = request.form['estado']
+                grupo = request.form['grupo']
+                guerrero = request.form['allowGuerrero']
+                aventurero = request.form['allowAventurero']
+                hechicero = request.form['allowHechicero']
+                
+                imagen_name = None
+                
+                if 'imagen' not in request.files or request.files['imagen'].filename == '':
+                    imagen_name = None
+                else:
+                    imagen = request.files['imagen']
+                    imagen_name = secure_filename(imagen.filename)
+                    imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagen_name))
+                
+                await Misiones.NuevaMisionAction(descripcion, tipo, imagen_name, dificultad, estado, grupo, guerrero, aventurero, hechicero)
+                
+                return redirect(url_for('GestionarMisiones'))
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+    
+
+@app.route('/minecraft/misiones/edit/<int:id>', methods=['GET', 'POST'])
+async def EditarMision(id):
+    if 'id' in session:
+        if session['role'] == 'Staff' or session['role'] == 'Ejecutivo':
+            if request.method == 'GET':
+                mision = await Misiones.ObtenerMisionPorId(id)
+                return render_template('/paginas/minecraft_subpg/server/misiones/edit.jinja', mision=mision, session=session)
+            else:
+                descripcion = request.form['descripcion']
+                tipo = request.form['tipo']
+                dificultad = request.form['dificultad']
+                estado = request.form['estado']
+                grupo = request.form['grupo']
+                guerrero = request.form['allowGuerrero']
+                aventurero = request.form['allowAventurero']
+                hechicero = request.form['allowHechicero']
+                
+                imagen_name = None
+                
+                if 'imagen' not in request.files or request.files['imagen'].filename == '':
+                    imagen_name = None
+                else:
+                    imagen = request.files['imagen']
+                    imagen_name = secure_filename(imagen.filename)
+                    imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagen_name))
+
+                await Misiones.EditarMisionAction(id, descripcion, tipo, imagen_name, dificultad, estado, grupo, guerrero, aventurero, hechicero)
+                return redirect(url_for('GestionarMisiones'))
+        else:
+            return redirect(url_for('Minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+    
+@app.route('/minecraft/misiones/delete/<int:id>', methods=['GET'])
+async def BorrarMision(id):
+    if 'id' in session:
+        if  session['role'] == 'Staff' or session['role'] == 'Ejecutivo':
+            await Misiones.BorrarMisionAction(id)
+            return redirect(url_for('GestionarMisiones'))
+        else:
+            return redirect(url_for('Minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+
+
+
+################################################################################################
 
 if __name__ == '__main__':
     bot_thread = Thread(target=bot.run(datos['discord']['token']))

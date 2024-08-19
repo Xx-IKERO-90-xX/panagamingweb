@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Sectores Perdidos</title>
+    <title>Admin Misiones</title>
     <link rel="stylesheet" href="../../../../../static/estilo/style.css">
     <link rel="stylesheet" href="../../../../../static/estilo/indexStyle.css">
     <link rel="stylesheet" href="../../../../../static/estilo/components/tables.css">
@@ -24,7 +24,7 @@
             border-color: rgb(0, 255, 0);
         }
 
-        .detallesContent img {
+        .detallesImg img {
             width: 80%;
             margin-left: 10%;
             margin-right: 10%;
@@ -48,28 +48,42 @@
             padding: 5px;
             border-radius: 10px;
         }
+
         .detallesCord {
-            background:rgb(31, 31, 31);
+            background: rgb(31, 31, 31);
             width: 80%;
             margin-left: 10%;
             margin-right: 10%;
             padding: 5px;
             border-radius: 10px;
         }
+
         .detallesCord span {
             margin: 10px;
         }
+
+        .detallesData {
+            background: rgb(31, 31, 31);
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        .tiposPersonajes img {
+            margin: 20px;
+        }
     </style>
+
 </head>
 
 <body>
     <header>
-        <img alt=" " src="../../../../../static/img/img_index/logo.png">
+        <a href="{{url_for('Inicio')}}"><img alt=" " src="../../../../static/img/img_index/logo.png"></a>
     </header>
     <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}">
-            <img src="{{session['imgUrl']}}"><br>
-        </a>
+        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img
+                src="{{session['imgUrl']}}"><br></a>
         <label>{{session['name']}}</label>
     </div>
     <nav>
@@ -80,7 +94,6 @@
             <li><span><a style="color: white;" href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
         </ul>
     </nav><br>
-
     <main style="height: 100vh;">
         <div class="container">
             <ul class="responsive-table ">
@@ -88,98 +101,95 @@
                     <div class="col col-1"><a class="btn btn-secondary"
                             href="{{url_for('minecraft')}}"><strong>Volver</strong></a></div>
                     <div class="col col-2">Descripción</div>
-                    <div class="col col-4">ACTIVO</div>
+                    <div class="col col-4">Estado</div>
                     <div class="col col-5"><a class="btn btn-success"
-                            href="{{url_for('NewSectorPerdido')}}"><strong>Nuevo</strong></a></div>
+                            href="{{url_for('NuevaMision')}}"><strong>Nuevo</strong></a></div>
                 </li>
-                {% for sector in sectoresPerdidos %}
+                {% for mision in misiones %}
                 <li class="table-row">
                     <div class="col col-1">
-                        {% if sector['imagen'] != none or sector['imagen']%}
-                        <img src="../../../../../static/uploads/{{sector['imagen']}}">
+                        {% if mision['imagen'] != 'None'%}
+                        <img src="../../../../../static/uploads/{{mision['imagen']}}">
                         {% else %}
                         <img src="../../../../../static/img/noImage.jpg">
                         {% endif %}
                     </div>
-                    <div class="col col-2">{{sector['descripcion']}}</div>
+                    <div class="col col-2">{{mision['descripcion']}}</div>
                     <div class="col col-3">
-                        {% if sector['activo'] == 'true'%}
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
-                            viewBox="0 0 48 48">
-                            <linearGradient id="TpFkpHq7AGWb~Tkla4kyga_YDFV6MVN9cNl_gr1" x1="24" x2="24" y1="6.121"
-                                y2="42.039" gradientUnits="userSpaceOnUse">
-                                <stop offset="0" stop-color="#9dffce"></stop>
-                                <stop offset="1" stop-color="#50d18d"></stop>
-                            </linearGradient>
-                            <path fill="url(#TpFkpHq7AGWb~Tkla4kyga_YDFV6MVN9cNl_gr1)"
-                                d="M40,42H8c-1.1,0-2-0.9-2-2V8c0-1.1,0.9-2,2-2h32c1.1,0,2,0.9,2,2v32C42,41.1,41.1,42,40,42z">
-                            </path>
-                            <linearGradient id="TpFkpHq7AGWb~Tkla4kygb_YDFV6MVN9cNl_gr2" x1="13" x2="36" y1="24.793"
-                                y2="24.793" gradientUnits="userSpaceOnUse">
-                                <stop offset=".824" stop-color="#135d36"></stop>
-                                <stop offset=".931" stop-color="#125933"></stop>
-                                <stop offset="1" stop-color="#11522f"></stop>
-                            </linearGradient>
-                            <path fill="url(#TpFkpHq7AGWb~Tkla4kygb_YDFV6MVN9cNl_gr2)"
-                                d="M21.293,32.707l-8-8c-0.391-0.391-0.391-1.024,0-1.414l1.414-1.414	c0.391-0.391,1.024-0.391,1.414,0L22,27.758l10.879-10.879c0.391-0.391,1.024-0.391,1.414,0l1.414,1.414	c0.391,0.391,0.391,1.024,0,1.414l-13,13C22.317,33.098,21.683,33.098,21.293,32.707z">
-                            </path>
-                        </svg>
-                        {% else %}
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50"
-                            viewBox="0 0 48 48">
-                            <path fill="#f44336"
-                                d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path>
-                            <path fill="#fff" d="M29.656,15.516l2.828,2.828l-14.14,14.14l-2.828-2.828L29.656,15.516z">
-                            </path>
-                            <path fill="#fff" d="M32.484,29.656l-2.828,2.828l-14.14-14.14l2.828-2.828L32.484,29.656z">
-                            </path>
-                        </svg>
-                        {% endif %}
+                        {{mision['estado']}}
                     </div>
                     <div class="col col-4" style="margin: 10px;">
-                        <button data-bs-toggle="modal" data-bs-target="#detalles_{{sector['id']}}"
-                            class="btn_table">Detalles</button>
-                        <a href="{{url_for('EditSectorPerdido', id=sector['id'])}}" class="btn_table">Editar</a>
-                        <a href="{{url_for('DeleteSectorPerdido', id=sector['id'])}}" class="btn_table">Eliminar</a>
+                        <button class="btn_table" data-bs-toggle="modal"
+                            data-bs-target="#detalles_{{mision['id']}}">Detalles</button>
+                        <a href="{{url_for('EditarMision', id=mision['id'])}}" class="btn_table">Editar</a>
+                        <a href="{{url_for('BorrarMision', id=mision['id'])}}" class="btn_table">Eliminar</a>
 
-                        <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="detalles_{{mision['id']}}" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content detallesContent">
                                     <br>
-                                    <div style="text-align: center;">
-                                        {% if sector['imagen'] != none or sector['imagen'] %}
+                                    <div style="text-align: center;" class="detallesImg">
+                                        {% if mision['imagen'] != 'None' %}
                                         <img style="
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
                                             border-radius: 5px;"
-                                            src="../../../../../static/uploads/{{sector['imagen']}}">
+                                            src="../../../../../static/uploads/{{mision['imagen']}}">
                                         {% else %}
                                         <img style="
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
-                                            border-radius: 5px;"
-                                        src="../../../../../static/img/noImage.jpg">
+                                            border-radius: 5px;" src="../../../../../static/img/noImage.jpg">
                                         {% endif %}
                                     </div>
                                     <br>
                                     <div class="detallesDescription">
-                                        {{sector['descripcion']}}
+                                        {{mision['descripcion']}}
                                     </div>
                                     <br>
-                                    <div class="detallesPlanet">
-                                        <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
+                                    <div class="detallesData">
+                                        <div>
+                                            <strong>Tipo: </strong><span>{{mision['tipo']}}</span>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <strong>Grupo: </strong>
+                                            {% if mision['num_personas'] == 1 %}
+                                            <span>Individual</span>
+                                            {% endif %}
+                                            {% if mision['num_personas'] == 2 %}
+                                            <span>Duo</span>
+                                            {% endif %}
+                                            {% if mision['num_personas'] == 4 %}
+                                            <span>Escuadron</span>
+                                            {% endif %}
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <strong>Dificultad: </strong><span>{{mision['dificultad']}}</span>
+                                        </div>
+                                        <br>
+                                        <div class="tipoPersonajes">
+                                            <strong>Tipo de Personajes: </strong><br>
+                                            {% if mision['guerrero'] == "true" %}
+                                            <img src="../../../../../static/img/guerreroSymbol.png">
+                                            {% endif %}
+                                            {% if mision['aventurero'] == "true" %}
+                                            <img src="../../../../../static/img/aventureroSymbol.png">
+                                            {% endif %}
+                                            {% if mision['hechicero'] == "true" %}
+                                            <img src="../../../../../static/img/hechizeroSymbol.png">
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <br>
-                                    <div class="detallesCord">
-                                        <label><strong>Coordenadas: </strong></label>
-                                        <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z: {{sector['cord_z']}}</span>
-                                    </div>
+                                    <br><br>
                                 </div>
                             </div>
                         </div>
+
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
                             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                             crossorigin="anonymous"></script>
@@ -191,7 +201,12 @@
         </div>
     </main>
     <footer>
+
+
+
     </footer>
 </body>
+
+
 
 </html>

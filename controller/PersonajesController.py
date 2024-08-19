@@ -12,7 +12,6 @@ import controller.database as database
 import controller.UsuarioController as usuario
 from globals import guild
 
-
 sys.path.append("..")
 
 app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))
@@ -99,7 +98,7 @@ async def NuevoPersonajePost(name, descripcion, color, imgUrl, idUser, raza, eda
     conexion.close()
     
 
-async def EditarPersonajePost(name, color, descripcion, imgUrl, idUser, raza, edad, sexo):
+async def EditarPersonajeAction(name, color, descripcion, imagen, idUser, raza, edad):
     conexion = await database.AbrirConexionSQL()
     cursor = conexion.cursor()
     cursor.execute(f"""
@@ -107,10 +106,9 @@ async def EditarPersonajePost(name, color, descripcion, imgUrl, idUser, raza, ed
         SET name = '{name}', 
             color = '{color}', 
             descripcion = '{descripcion}', 
-            imgUrl = '{imgUrl}', 
+            imgUrl = '{imagen}', 
             raza = '{raza}', 
-            edad = {edad}, 
-            sexo = '{sexo}'
+            edad = {edad}
         WHERE idUser = '{idUser}';
     """)
     conexion.commit() 

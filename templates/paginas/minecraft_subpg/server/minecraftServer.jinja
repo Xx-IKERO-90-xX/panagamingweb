@@ -46,11 +46,12 @@
             border-color: rgb(0, 255, 0);
         }
 
-        .detallesContent img {
+        .misionPortada {
             width: 80%;
             margin-left: 10%;
             margin-right: 10%;
             border-radius: 5px;
+            height: 250px;
         }
 
         .detallesDescription {
@@ -82,6 +83,80 @@
 
         .detallesCord span {
             margin: 10px;
+        }
+
+        .missionsPanel {
+            background: rgba(0, 255, 255, 0.616);
+            height: 1700px;
+            width: 90%;
+            margin-left: 5%;
+            margin-right: 5%;
+            border-radius: 10px;
+            border: solid 0.2em;
+            overflow: auto;
+            scroll-snap-type: y mandatory;
+        }
+
+        .mision {
+            background: rgb(179,179,179);
+            background: radial-gradient(circle, rgba(179,179,179,1) 0%, rgba(98,98,98,1) 47%, rgba(64,64,64,1) 97%);
+            padding: 10px;
+            margin: 5px;
+            border-radius: 10px;
+            height: 850px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .misionPortada {
+            margin-left: 10%;
+            margin-right: 10%;
+            width: 80%;
+            border-radius: 10px;
+            height: 200px:
+        }
+
+        .mision .contenido {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .mision .descripcion {
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            background: rgb(53, 53, 53);
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            height: 130px;
+            overflow: auto;
+            scroll-snap-type: y mandatory;
+        }
+
+        .mision .data {
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            background: rgb(53, 53, 53);
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+        }
+        .mision .personajes {
+            width: 80%;
+            margin-left: 10%;
+            margin-right: 10%;
+            background: rgb(53, 53, 53);
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+        }
+        .mision .personajes img {
+            width: 60px;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
         }
     </style>
 
@@ -143,12 +218,88 @@
                 </div>
             </div>
             <br><br>
+            <div class="missionsPanel row">
+                {%for mision in misiones%}
+                {%if mision['estado'] == 'Activado'%}
+                <div class="mision col col-3">
+                    <div class="contenido">
+                        <br>
+                        {%if mision['imagen'] != 'None'%}
+                        <img class="misionPortada" src="../../../../static/uploads/{{mision['imagen']}}">
+                        {%else%}
+                        <img class="misionPortada" src="../../../../static/img/noImage.jpg">
+                        {%endif%}
+                        <br><br>
+                        <div class="descripcion">
+                            {{mision['descripcion']}}
+                        </div>
+                        <br>
+                        <div class="data">
+                            <strong>Tipo: </strong><span>{{mision['tipo']}}</span>
+                        </div>
+                        <br>
+                        <div class="data">
+                            <strong>Grupo: </strong>
+                            {% if mision['num_personas'] == 1%}
+                            <span>Individual</span>
+                            {%endif%}
+                            {%if mision['num_personas'] == 2%}
+                            <span>Duo</span>
+                            {%endif%}
+                            {%if mision['num_personas'] == 4%}
+                            <span>Escuadron</span>
+                            {%endif%}
+                        </div>
+                        <br>
+                        <div class="data">
+                            <strong>Dificultad: </strong><span>{{mision['dificultad']}}</span>
+                        </div>
+                        <br>
+                        <div class="personajes">
+                            {%if mision['guerrero'] == "true"%}
+                                <img src="../../../../static/img/guerreroSymbol.png">
+                            {%endif%}
+                            {%if mision['aventurero'] == "true"%}
+                                <img src="../../../../static/img/aventureroSymbol.png">
+                            {%endif%}
+                            {%if mision['hechicero'] == "true"%}
+                                <img src="../../../../static/img/hechizeroSymbol.png">
+                            {%endif%}
+                        </div>
+                        <br>
+                        <div>
+                            <a class="btn btn-success" href="#"><strong>Solicitar</strong></a>
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+                {%endfor%}
+            </div>
+            <br><br>
         </div>
         <script type="module" src="../../../../static/scripts/serverChat.js"></script>
     </main>
     <footer>
 
     </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <div class="modal fade" id="aberrationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -215,7 +366,8 @@
                         </div>
                         <div class="col col-3">
                             <br>
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="detalles_{{sector['id']}}">VER</button>
+                            <button class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="detalles_{{sector['id']}}">VER</button>
                         </div>
                     </div>
                     <br><br>
@@ -318,7 +470,8 @@
                         </div>
                         <div class="col col-3">
                             <br>
-                            <button class="btn btn-success" data-bs-target="detalles_{{sector['id']}}" data-bs-toggle="modal">VER</button>
+                            <button class="btn btn-success" data-bs-target="detalles_{{sector['id']}}"
+                                data-bs-toggle="modal">VER</button>
                         </div>
                     </div>
                     <br><br>
@@ -406,7 +559,8 @@
                         </div>
                         <div class="col col-3">
                             <br>
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="detalles_{{sector['id']}}">VER</button>
+                            <button class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="detalles_{{sector['id']}}">VER</button>
                         </div>
                     </div>
                     <br><br>
@@ -428,8 +582,7 @@
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
-                                            border-radius: 5px;" 
-                                        src="../../../../../static/img/noImage.jpg">
+                                            border-radius: 5px;" src="../../../../../static/img/noImage.jpg">
                                     {% endif %}
                                 </div>
                                 <br>
