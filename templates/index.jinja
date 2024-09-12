@@ -1,54 +1,29 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <title>Principal</title>
-    <link rel="stylesheet" href="../static/estilo/style.css">
-</head>
-<body>
-    <header>
-        <img alt=" " src="../static/img/img_index/logo.png">
-    </header>
-    <style>
+{%extends 'base.jinja'%}
 
-    </style>
-    <main>
-        <!--Menu principal-->
-        <nav>
-            <ul>
-                <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
-                <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
-                <li><span><a href="{{url_for('formLogin')}}">INICIAR SESION</a></span></li>
-                <li><span><a href="{{url_for('formRegister')}}">REGISTRAR</a></span></li>
-            </ul>
-        </nav><br>
-        <br>
-        <!--Portada-->
-        <div class="portada">
-            <img alt=" " src="../static/img/img_index/portada.PNG">
-        </div>
+{%block title%} {%endblock%}
 
-        <!--Contenido principal-->
-        <div class="main_content">
-            <h2>BIENVENIDO A LA WEB DE PANA GAMING!!!</h2>
-        </div><br>
-    
-        <!--Comunidades-->
-        <div class="apartadoDiscord">
-            <img class="discordTitle" src="../static/img/discordTitle.png">
-            <br><br>
-            <iframe class="discordFrame" src="https://discordapp.com/widget?id=793956939687133184&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-            <br><br><br><br>
-            <a class="btnJoinDiscord" href="https://discord.gg/cKyNhmXbmP"><strong>UNIRSE</strong></a><br>
-            <br><br>
-        </div>
-        <br>
-    </main>
-    <footer>
-        <p>
-            Creado por Iker Javier Rodriguez Hernandez.
-        </p>
-    </footer>
-</body>
-</html>
+{%block content%}
+<!--Portada-->
+<div class="portada">
+    <img alt=" " src="../static/img/img_index/portada.PNG">
+</div>
 
+<!--Contenido principal-->
+<div class="main_content">
+    <h2>BIENVENIDO A LA WEB DE PANA GAMING!!!</h2>
+</div><br>
+<div class="container">
+
+    <!--Comunidades-->
+    <div class="apartadoDiscord">
+        <br><br>
+        <iframe class="discordFrame" src="https://discordapp.com/widget?id=793956939687133184&theme=dark" width="350"
+            height="500" allowtransparency="true" frameborder="0"
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        <br><br><br><br>
+        <a class="btnJoinDiscord" href="https://discord.gg/cKyNhmXbmP"><strong>UNIRSE</strong></a><br>
+        <br><br>
+    </div>
+    <br>
+</div>
+{%endblock%}

@@ -45,7 +45,7 @@ async def on_ready():
         app,
         port = datos["flask"]["port"], 
         host = datos["flask"]["host"],
-        debug=True
+        debug = True
     )
     
 def run_discord_bot():
@@ -125,18 +125,6 @@ async def cerrarSesion():
     session.clear()
     return redirect(url_for("Inicio"))
 
-@app.route('/comunidad')
-async def comunidad1():
-    userList = await ListUsers()
-    ejecList = await ShowEjecutives(userList)
-    staffList = await ShowStaffMembers(userList, ejecList)
-    memberList = await ShowMembers(userList, staffList, ejecList)
-    
-    if "id" in session:
-        return render_template("/paginas/comunidad.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)
-    else:
-        return render_template("comunidad1.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList)
-
 
 @app.route('/formLogin')
 def formLogin():
@@ -213,15 +201,17 @@ def minecraft():
 
 @app.route("/comunidad")
 async def comunidad():
-    if "id" in session:    
-        userList = await ListUsers()
-        ejecList = await ShowEjecutives(userList)
-        staffList = await ShowStaffMembers(userList, ejecList)
-        memberList = await ShowMembers(userList, staffList, ejecList)
+    userList = await ListUsers()
+    ejecList = await ShowEjecutives(userList)
+    staffList = await ShowStaffMembers(userList, ejecList)
+    memberList = await ShowMembers(userList, staffList, ejecList)
+    
+    if "id" in session:         
         return render_template("/paginas/comunidad.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)    
+    
     else:
-        return redirect(url_for('formLogin'))
-
+        return render_template("comunidad1.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList)
+        
 @app.route('/soporte')
 async def soporte():
     if "id" in session:
@@ -605,6 +595,7 @@ async def DeleteSectorPerdido(id):
 
 ################## [MISIONES] ##########################
 
+#### [ ADMIN ] ######
 @app.route('/minecraft/misiones', methods=['GET'])
 async def GestionarMisiones():
     if 'id' in session:
@@ -691,6 +682,15 @@ async def BorrarMision(id):
             return redirect(url_for('GestionarMisiones'))
         else:
             return redirect(url_for('Minecraft'))
+    else:
+        return redirect(url_for('formLogin'))
+
+#### [CLIENT] ####
+@app.route('/minecraft/misiones/solicitar/<int:id>', methods=['GET', 'POST'])
+async def request_mission(id):
+    if 'id' in session:
+        await Misiones.change_to_requested(id, int(session['id']))
+        return redirect(url_for('minecraftServer'))
     else:
         return redirect(url_for('formLogin'))
 

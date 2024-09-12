@@ -1,68 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <title>Principal</title>
-    <link rel="stylesheet" href="../../static/estilo/style.css">
-    <link rel="stylesheet" href="../../static/estilo/indexStyle.css">
-    <style></style>
-</head>
-<body>
-    <header>
-        <img alt=" " src="../../static/img/img_index/logo.png">
-    </header>
-    <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img src="{{session['imgUrl']}}"><br></a>
-        <label>{{session['name']}}</label>
-    </div> 
-    <main>
-        <!--Menu principal-->
-        <nav>
-            <ul>
-                <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
-                <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
-                <li><span><a href="{{url_for('soporte')}}">SOPORTE</a></span></li>
-                <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
-            </ul>
-        </nav><br>
-        <br> 
-        <!--Portada-->
-        <div class="portada">
-            <img alt=" " src="../../static/img/img_index/portada.PNG">
-        </div>
+{%extends 'base.jinja'%}
+
+{%block title%} Inicio {%endblock%}
+
+{%block content%}
+<!--Portada-->
+<div class="portada">
+    <img alt=" " src="/static/img/img_index/portada.PNG">
+</div>
 
 
-        <!--Contenido principal-->
-        <div class="main_content">
-            <h2>BIENVENIDO A LA WEB DE PANA GAMING!!!</h2>
+<!--Contenido principal-->
+<div class="main_content">
+    <h2><strong>BIENVENIDO A LA WEB DE PANA GAMING!!!</strong></h2>
 
-        </div><br>
-    
-        <!--Comunidades-->
+</div><br>
 
-        <div class="newsPannel">
+<!--Comunidades-->
 
-        </div>
-        <div class="minecraftIndexLink">
-            <h1>MINECRAFT PANA GAMING</h1>
-            <br><br>
-            <p>
-                Unete al mejor servidor de minecraft RPG y roleplay de toda España y Latinoamerica.
-                Disfruta de los mejores eventos, misiones y del lore que tenemos preparado para vosotros.
-            </p>
-            <br><br><br><br><br>
-            <div>
-                <a href="{{url_for('minecraft')}}">Visitar</a>
-            </div>
-        </div>
-        
-        <br>
-    </main>
-    <footer>
-        <p>
-            Creado por Iker Javier Rodriguez Hernandez.
+<div class="container">
+    <div class="newsPannel">
+
+    </div>
+    <div class="minecraftIndexLink">
+        <h1 style="color: black;"><strong>MINECRAFT PANA GAMING</strong></h1>
+        <br><br>
+        <p style="color: black;">
+            Unete al mejor servidor de minecraft RPG y roleplay de toda España y Latinoamerica.
+            Disfruta de los mejores eventos, misiones y del lore que tenemos preparado para vosotros.
         </p>
-    </footer>
-</body>
-</html>
+        <br><br>
+        <a href="{{url_for('minecraft')}}">Visitar</a>
+        <br><br>
+    </div>
+</div>
 
+<br>
+{%endblock%}

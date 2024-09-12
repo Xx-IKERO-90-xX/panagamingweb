@@ -12,7 +12,6 @@ import controller.database as database
 import controller.UsuarioController as usuario
 from globals import guild
 
-
 sys.path.append("..")
 
 app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))
@@ -108,6 +107,20 @@ async def BorrarMisionAction(id):
     
     conexion.commit()
     conexion.close()
+
+async def change_to_requested(id, idUser):
+    conexion = await database.AbrirConexionSQL()
+    cursor = conexion.cursor()
     
+    cursor.execute(f"""
+        UPDATE MISIONES
+            SET estado = 'Solicitado',
+                idUserSolicitante = '{idUser}'               
+        WHERE id = '{id}';
+    """)
+    
+    conexion.commit()
+    conexion.close()
+
         
         
