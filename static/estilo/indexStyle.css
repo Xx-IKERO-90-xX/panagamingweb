@@ -1,10 +1,6 @@
 .minecraftIndexLink {
-    width: 80%;
-    margin-left: 10%;
-    margin-left: 10%;
     background-image: url(../img/nature_hd_minecraft.jpg);
     background-size: cover;
-    height: 900px;
     padding: 20px;
     border-radius: 10px;
     border: solid 0.2em;
@@ -19,15 +15,12 @@
 }
 .minecraftIndexLink p {
     text-align: center;
-    margin-top: 200px;
     font-size: 30px;
     font-family: mine_txt;
     background: rgba(0, 238, 255, 0.432);
-    margin-left: 15%;
-    margin-right: 15%;
-    width: 70%;
     padding: 10px;
     border-radius: 10px;
+    margin-top: 50px;
 }
 
 .minecraftIndexLink a {
@@ -44,6 +37,15 @@
 .minecraftIndexLink a:hover {
     background:rgba(0, 255, 21, 0.712);
 }
-.minecraftIndexLink div {
-    margin-top: 200px;
+
+@media (max-width: 768px){
+    .minecraftIndexLink h1 {
+        font-size: 45px;
+    }
+    .minecraftIndexLink p {
+        font-size: 20px;
+    }
+    .main_content h2 {
+        font-size: 25px;
+    }
 }
