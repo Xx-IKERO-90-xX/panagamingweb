@@ -1,85 +1,62 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <title>Minecraft PanaGaming</title>
-    <link rel="stylesheet" href="../../static/estilo/style.css">
-</head>
-<body>
-    <header>
-        <a href="{{url_for('Inicio')}}"><img alt=" " src="../../static/img/img_index/logo.png"></a><br>
-    </header>
-   <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img src="{{session['imgUrl']}}"><br></a>
-        <label>{{session['name']}}</label>
-    </div> 
-    <nav>
-        <ul>
-            <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
-            <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
-            <li><span><a href="{{url_for('soporte')}}">SOPORTE</a></span></li>
-            <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
-            {% if session['role'] == 'Ejecutivo' or session['role'] == 'Staff' %}
-                <li><span><a href="{{url_for('GestionarSectoresPerdidos')}}">SECTORES PERDIDOS</a></span></li>
-                <li><span><a href="{{url_for('GestionarMisiones')}}">MISIONES</a></span></li>
-            {% endif %}
-        </ul>
-    </nav><br>
-    <main>
-        <br>
-        <div class="mcpg_portada">
-            <img src="../../static/img/img_mc/server_preview.png">
-        </div>
-        <div class="mc_section1">
-            <h1>DESCRIPCION</h1><br>
-            <div class="mc_section1_text">
-                <p>Minecraft Pana Gaming es un servidor RP con mods e historia con el propósito de crear un entorno de juego amigable y divertido para aquellas personas que juegan por pasarlo bien.<br>
-                No evaluamos el nivel de experiencia en el juego sino el comportamiento de los usuarios y como rolean.<br>
-                <br>
-                <strong>Historia y Lore: </strong><br>
-                La historia del lore tiene relacion con los personajes creados por la comunidad, es decir, van sucediendo cosas imprevistas dependiendo de los rumbos que pueden hacernos seguir cada personajes o suceso de cada evento.
-                </p>
-            </div><br>
-        </div>
-        <div class="mc_section2">
-            <br>
-            <h1>CATEGORIA</h1><br>
-            <p>
-                Visita todas las opciones que ofrecemos a nuestro servidor de Minecraft. 
-            </p>
-            
-            <!--Personajes de los usuarios-->
-            <div class="mc_sections">
-                <div class="mc_section2_personaje">
-                    <br>
-                    <h2><strong>PERSONAJES</strong></h2>
-                    <img alt=" " src="../../static/img/img_mc/personaje.jpg"><br>
-                    <p>
-                        Habre tu mente, crea tu propio personaje en nuestro Servidor y sientete participe en este maravilloso lore vamos creando entre todos.
-                    </p><br><br>
-                    <br>
-                    <a href="{{url_for('PersonajesMinecraftPG')}}">VER CONTENIDO</a><br>
-                    <br>
-                </div><br>
+{%extends 'basemc.jinja'%}
 
-                <!--Contenido del servidor-->
-                <div class="mc_section2_ingame">
-                    <br>
-                    <h2><strong>SERVIDOR</strong></h2>
-                    <img alt=" " src="../../static/img/img_mc/mc_bg3.jpg"><br>
-                    <br>
-                    <p>
-                        Unete al mejor servidor de Minecraft Semi-RP de toda españa y latinoamerica. Completa misiones, investiga los planetas y destinos, y disfruta con nosotros.
-                    </p>
-                    <br><br>
-                    <a href="{{url_for('minecraftServer')}}">VER CONTENIDO</a><br>
-                    <br>
-                </div>
-            </div>
+{%block title%} Minecraft Pana Gaming {%endblock%}
+
+{%block content%}
+<br>
+<div class="mcpg_portada" style="border-color: black;">
+    <img src="../../static/img/img_mc/server_preview.png">
+</div>
+<div class="mc_section1" >
+    <h1 style="color: black;"><strong>DESCRIPCION</strong></h1><br>
+    <div class="mc_section1_text" style="border-color: black;">
+        <p style="border-color: black; color: black;">Minecraft Pana Gaming es un servidor RP con mods e historia con el propósito de crear un entorno de juego
+            amigable y divertido para aquellas personas que juegan por pasarlo bien.<br>
+            No evaluamos el nivel de experiencia en el juego sino el comportamiento de los usuarios y como rolean.<br>
+            <br>
+            <strong>Historia y Lore: </strong><br>
+            La historia del lore tiene relacion con los personajes creados por la comunidad, es decir, van sucediendo
+            cosas imprevistas dependiendo de los rumbos que pueden hacernos seguir cada personajes o suceso de cada
+            evento.
+        </p>
+    </div><br>
+</div>
+<div class="mc_section2">
+    <br>
+    <h1 style="border-color: black; color: black;">CATEGORIA</h1><br>
+    <p style="color: black;">
+        Visita todas las opciones que ofrecemos a nuestro servidor de Minecraft.
+    </p>
+
+    <!--Personajes de los usuarios-->
+    <div class="mc_sections">
+        <div class="mc_section2_personaje" style="border-color: black;">
+            <br>
+            <h2 style="border-color: black;"><strong style="color: black;">PERSONAJES</strong></h2>
+            <img style="border-color: black;" alt=" " src="../../static/img/img_mc/personaje.jpg"><br>
+            <p style="color: black;">
+                Habre tu mente, crea tu propio personaje en nuestro Servidor y sientete participe en este maravilloso
+                lore vamos creando entre todos.
+            </p><br><br>
+            <br>
+            <a href="{{url_for('PersonajesMinecraftPG')}}">VER CONTENIDO</a><br>
+            <br>
+        </div><br>
+
+        <!--Contenido del servidor-->
+        <div class="mc_section2_ingame" style="border-color: black;">
+            <br>
+            <h2 style="border-color: black;"><strong style="color: black;">SERVIDOR</strong></h2>
+            <img style="border-color: black;" alt=" " src="../../static/img/img_mc/mc_bg3.jpg"><br>
+            <br>
+            <p style="color: black;">
+                Unete al mejor servidor de Minecraft Semi-RP de toda españa y latinoamerica. Completa misiones,
+                investiga los planetas y destinos, y disfruta con nosotros.
+            </p>
+            <br><br>
+            <a href="{{url_for('minecraftServer')}}">VER CONTENIDO</a><br>
+            <br>
         </div>
-    </main>
-    <footer>
-        <p>Creado por Iker Javier Rodriguez Hernandez</p>
-    </footer>
-</body>
-</html>
+    </div>
+</div>
+{%endblock%}

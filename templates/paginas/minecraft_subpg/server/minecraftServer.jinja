@@ -1,615 +1,546 @@
-<!DOCTYPE html>
-<html lang="es">
+{%extends 'basemc.jinja'%}
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Server</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../../../static/estilo/style.css'>
-    <link rel="stylesheet" type="text/css" media="screen" href="../../../../static/estilo/fonts.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="../../../../static/estilo/McServer/galaxyMap.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="../../../../static/estilo/McServer/PublicChat.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src='../../../../static/scripts/main.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"
-        integrity="sha512-luMnTJZ7oEchNDZAtQhgjomP1eZefnl82ruTH/3Oj/Yu5qYtwL7+dVRccACS/Snp1lFXq188XFipHKYE75IaQQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"
-        integrity="sha512-luMnTJZ7oEchNDZAtQhgjomP1eZefnl82ruTH/3Oj/Yu5qYtwL7+dVRccACS/Snp1lFXq188XFipHKYE75IaQQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="../../../../static/scripts/serverChat.js"></script>
-    <style>
-        main {
-            height: 100%;
-            background-image: url('../../../../static/img/img_mc/server_preview.png');
-            background-attachment: fixed;
-        }
+{%block title%}Servidor{%endblock%}
 
-        .contentMc {
-            background-image: url(../../../../static/img/img_mc/stone_bg.png);
-            border-top: solid 0.2em;
-            border-color: black;
-        }
+{%block content %}
+<style>
+    main {
+        height: 100%;
+        background-image: url('../../../../static/img/img_mc/server_preview.png');
+        background-attachment: fixed;
+    }
 
-        .detallesContent {
-            background: rgb(53, 53, 53);
-            border: solid 0.1em;
-            border-color: rgb(0, 255, 0);
-        }
+    .contentMc {
+        background-image: url(../../../../static/img/img_mc/stone_bg.png);
+        border-top: solid 0.2em;
+        border-color: black;
+    }
 
-        .misionPortada {
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-            border-radius: 5px;
-            height: 250px;
-        }
+    .detallesContent {
+        background: rgb(53, 53, 53);
+        border: solid 0.1em;
+        border-color: rgb(0, 255, 0);
+    }
 
-        .detallesDescription {
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-            background: rgb(31, 31, 31);
-            padding: 5px;
-            border-radius: 10px;
-        }
+    .misionPortada {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        border-radius: 5px;
+        height: 250px;
+    }
 
-        .detallesPlanet {
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-            background: rgb(31, 31, 31);
-            padding: 5px;
-            border-radius: 10px;
-        }
+    .detallesDescription {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        background: rgb(31, 31, 31);
+        padding: 5px;
+        border-radius: 10px;
+    }
 
-        .detallesCord {
-            background: rgb(31, 31, 31);
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-            padding: 5px;
-            border-radius: 10px;
-        }
+    .detallesPlanet {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        background: rgb(31, 31, 31);
+        padding: 5px;
+        border-radius: 10px;
+    }
 
-        .detallesCord span {
-            margin: 10px;
-        }
+    .detallesCord {
+        background: rgb(31, 31, 31);
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        padding: 5px;
+        border-radius: 10px;
+    }
 
-        .missionsPanel {
-            background: rgba(0, 255, 255, 0.616);
-            height: 1700px;
-            width: 90%;
-            margin-left: 5%;
-            margin-right: 5%;
-            border-radius: 10px;
-            border: solid 0.2em;
-            overflow: auto;
-            scroll-snap-type: y mandatory;
-        }
+    .detallesCord span {
+        margin: 10px;
+    }
 
-        .mision {
-            background: rgb(179,179,179);
-            background: radial-gradient(circle, rgba(179,179,179,1) 0%, rgba(98,98,98,1) 47%, rgba(64,64,64,1) 97%);
-            padding: 10px;
-            margin: 5px;
-            border-radius: 10px;
-            height: 850px;
-            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
-        }
+    .missionsPanel {
+        background: rgba(0, 255, 255, 0.616);
+        height: 1700px;
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        border-radius: 10px;
+        border: solid 0.2em;
+        overflow: auto;
+        scroll-snap-type: y mandatory;
+    }
 
-        .misionPortada {
-            margin-left: 10%;
-            margin-right: 10%;
-            width: 80%;
-            border-radius: 10px;
-            height: 200px:
-        }
+    .mision {
+        background: rgb(179, 179, 179);
+        background: radial-gradient(circle, rgba(179, 179, 179, 1) 0%, rgba(98, 98, 98, 1) 47%, rgba(64, 64, 64, 1) 97%);
+        padding: 10px;
+        margin: 5px;
+        border-radius: 10px;
+        height: 850px;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+    }
 
-        .mision .contenido {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
+    .misionPortada {
+        margin-left: 10%;
+        margin-right: 10%;
+        width: 80%;
+        border-radius: 10px;
+        height: 200px:
+    }
 
-        .mision .descripcion {
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-            background: rgb(53, 53, 53);
-            padding: 10px;
-            border-radius: 5px;
-            color: white;
-            height: 130px;
-            overflow: auto;
-            scroll-snap-type: y mandatory;
-        }
+    .mision .contenido {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
 
-        .mision .data {
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-            background: rgb(53, 53, 53);
-            text-align: left;
-            padding: 10px;
-            border-radius: 5px;
-            color: white;
-        }
-        .mision .personajes {
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-            background: rgb(53, 53, 53);
-            padding: 10px;
-            border-radius: 5px;
-            color: white;
-        }
-        .mision .personajes img {
-            width: 60px;
-            background: white;
-            border-radius: 50%;
-            padding: 5px;
-        }
-    </style>
+    .mision .descripcion {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        background: rgb(53, 53, 53);
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+        height: 130px;
+        overflow: auto;
+        scroll-snap-type: y mandatory;
+    }
 
-</head>
+    .mision .data {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        background: rgb(53, 53, 53);
+        text-align: left;
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+    }
 
-<body>
-    <header>
-        <a href="{{url_for('Inicio')}}"><img alt=" " src="../../../../static/img/img_index/logo.png"></a>
-    </header>
-    <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img
-                src="{{session['imgUrl']}}"><br></a>
-        <label>{{session['name']}}</label>
+    .mision .personajes {
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+        background: rgb(53, 53, 53);
+        padding: 10px;
+        border-radius: 5px;
+        color: white;
+    }
+
+    .mision .personajes img {
+        width: 60px;
+        background: white;
+        border-radius: 50%;
+        padding: 5px;
+    }
+</style>
+<link rel="stylesheet" href="../../../../static/estilo/McServer/galaxyMap.css">
+<link rel="stylesheet" href="../../../../static/estilo/McServer/PublicChat.css">
+<br><br><br><br><br><br><br><br><br>
+<div id="galaxyMap">
+    <img type="button" data-bs-toggle="modal" data-bs-target="#betweenlandsModal"
+        src="../../../../static/img/mcServer/planets/betweenlands.png" class="planet planetBetweenlands">
+    <img src="../../../../static/img/mcServer/planets/fjordur.png" data-bs-toggle="modal" data-bs-target="#fjordurModal"
+        class="planet planetFjordur">
+    <img src="../../../../static/img/mcServer/planets/aberration.png" data-bs-toggle="modal"
+        data-bs-target="#aberrationModal" class="planet planetAberration">
+    <img src="../../../../static/img/mcServer/planets/scorched.png" data-bs-toggle="modal"
+        data-bs-target="#ScorchedModal" class="planet planetScorched">
+</div>
+<div class="contentMc" style="text-align: center;">
+    <br><br>
+    <div class="publicChat">
+        <div id="messages" style="color: white;">
+
+        </div>
+        <template id="messageTemplate" class="mesageTemplate">
+            <div id="msg" class="msg">
+                <img id="msgImg" href="#">
+                <a id="msgName" href="#"></a>
+                <p id="content"></p>
+            </div>
+        </template>
+        <div class="msgControls">
+            <input type="hidden" id="idUser" value="{{session['id']}}">
+            <input type="hidden" id="idName" value="{{session['name']}}">
+            <input type="hidden" id="imgUrl" value="{{session['imgUrl']}}">
+            <input type="text" id="myMessage">
+            <button type="button" class="btnSend" onclick="sendMessage()" id="send"><strong>Enviar</strong></button>
+            <button type="button" class="btnCancel" id="cancel"><strong>Cancelar</strong></button>
+        </div>
     </div>
-    <nav>
-        <ul>
-            <li><span><a style="color: white;" href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
-            <li><span><a style="color: white;" href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
-            <li><span><a style="color: white;" href="{{url_for('soporte')}}">SOPORTE</a></span></li>
-            <li><span><a style="color: white;" href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
-        </ul>
-    </nav><br>
-    <main>
-        <div class="mcServerStatus">
-
-        </div>
-        <br><br><br><br><br><br><br><br><br>
-        <div id="galaxyMap">
-            <img type="button" data-bs-toggle="modal" data-bs-target="#betweenlandsModal"
-                src="../../../../static/img/mcServer/planets/betweenlands.png" class="planet planetBetweenlands">
-            <img src="../../../../static/img/mcServer/planets/fjordur.png" data-bs-toggle="modal"
-                data-bs-target="#fjordurModal" class="planet planetFjordur">
-            <img src="../../../../static/img/mcServer/planets/aberration.png" data-bs-toggle="modal"
-                data-bs-target="#aberrationModal" class="planet planetAberration">
-            <img src="../../../../static/img/mcServer/planets/scorched.png" data-bs-toggle="modal"
-                data-bs-target="#ScorchedModal" class="planet planetScorched">
-        </div>
-        <div class="contentMc" style="text-align: center;">
-            <br><br>
-            <div class="publicChat">
-                <div id="messages" style="color: white;">
-
-                </div>
-                <template id="messageTemplate" class="mesageTemplate">
-                    <div id="msg" class="msg">
-                        <img id="msgImg" href="#">
-                        <a id="msgName" href="#"></a>
-                        <p id="content"></p>
-                    </div>
-                </template>
-                <div class="msgControls">
-                    <input type="hidden" id="idUser" value="{{session['id']}}">
-                    <input type="hidden" id="idName" value="{{session['name']}}">
-                    <input type="hidden" id="imgUrl" value="{{session['imgUrl']}}">
-                    <input type="text" id="myMessage">
-                    <button type="button" class="btnSend" onclick="sendMessage()"
-                        id="send"><strong>Enviar</strong></button>
-                    <button type="button" class="btnCancel" id="cancel"><strong>Cancelar</strong></button>
-                </div>
-            </div>
-            <br><br>
-            <div class="missionsPanel row">
-                {%for mision in misiones%}
-                {%if mision['estado'] == 'Activado'%}
-                <div class="mision col col-3">
-                    <div class="contenido">
-                        <br>
-                        {%if mision['imagen'] != 'None'%}
-                        <img class="misionPortada" src="../../../../static/uploads/{{mision['imagen']}}">
-                        {%else%}
-                        <img class="misionPortada" src="../../../../static/img/noImage.jpg">
-                        {%endif%}
-                        <br><br>
-                        <div class="descripcion">
-                            {{mision['descripcion']}}
-                        </div>
-                        <br>
-                        <div class="data">
-                            <strong>Tipo: </strong><span>{{mision['tipo']}}</span>
-                        </div>
-                        <br>
-                        <div class="data">
-                            <strong>Grupo: </strong>
-                            {% if mision['num_personas'] == 1%}
-                            <span>Individual</span>
-                            {%endif%}
-                            {%if mision['num_personas'] == 2%}
-                            <span>Duo</span>
-                            {%endif%}
-                            {%if mision['num_personas'] == 4%}
-                            <span>Escuadron</span>
-                            {%endif%}
-                        </div>
-                        <br>
-                        <div class="data">
-                            <strong>Dificultad: </strong><span>{{mision['dificultad']}}</span>
-                        </div>
-                        <br>
-                        <div class="personajes">
-                            {%if mision['guerrero'] == "true"%}
-                                <img src="../../../../static/img/guerreroSymbol.png">
-                            {%endif%}
-                            {%if mision['aventurero'] == "true"%}
-                                <img src="../../../../static/img/aventureroSymbol.png">
-                            {%endif%}
-                            {%if mision['hechicero'] == "true"%}
-                                <img src="../../../../static/img/hechizeroSymbol.png">
-                            {%endif%}
-                        </div>
-                        <br>
-                        <div>
-                            <a class="btn btn-success" href="{{url_for('request_mission', id=mision['id'])}}"><strong>Solicitar</strong></a>
-                        </div>
-                    </div>
-                </div>
+    <br><br>
+    <div class="missionsPanel row">
+        {%for mision in misiones%}
+        {%if mision['estado'] == 'Activado'%}
+        <div class="mision col col-3">
+            <div class="contenido">
+                <br>
+                {%if mision['imagen'] != 'None'%}
+                <img class="misionPortada" src="../../../../static/uploads/{{mision['imagen']}}">
+                {%else%}
+                <img class="misionPortada" src="../../../../static/img/noImage.jpg">
                 {%endif%}
-                {%endfor%}
+                <br><br>
+                <div class="descripcion">
+                    {{mision['descripcion']}}
+                </div>
+                <br>
+                <div class="data">
+                    <strong>Tipo: </strong><span>{{mision['tipo']}}</span>
+                </div>
+                <br>
+                <div class="data">
+                    <strong>Grupo: </strong>
+                    {% if mision['num_personas'] == 1%}
+                    <span>Individual</span>
+                    {%endif%}
+                    {%if mision['num_personas'] == 2%}
+                    <span>Duo</span>
+                    {%endif%}
+                    {%if mision['num_personas'] == 4%}
+                    <span>Escuadron</span>
+                    {%endif%}
+                </div>
+                <br>
+                <div class="data">
+                    <strong>Dificultad: </strong><span>{{mision['dificultad']}}</span>
+                </div>
+                <br>
+                <div class="personajes">
+                    {%if mision['guerrero'] == "true"%}
+                    <img src="../../../../static/img/guerreroSymbol.png">
+                    {%endif%}
+                    {%if mision['aventurero'] == "true"%}
+                    <img src="../../../../static/img/aventureroSymbol.png">
+                    {%endif%}
+                    {%if mision['hechicero'] == "true"%}
+                    <img src="../../../../static/img/hechizeroSymbol.png">
+                    {%endif%}
+                </div>
+                <br>
+                <div>
+                    <a class="btn btn-success"
+                        href="{{url_for('request_mission', id=mision['id'])}}"><strong>Solicitar</strong></a>
+                </div>
             </div>
-            <br><br>
         </div>
-        <script type="module" src="../../../../static/scripts/serverChat.js"></script>
-    </main>
-    <footer>
+        {%endif%}
+        {%endfor%}
+    </div>
+    <br><br>
+</div>
+<script type="module" src="../../../../static/scripts/serverChat.js"></script>
 
-    </footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="modal fade" id="aberrationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="
+<div class="modal fade" id="aberrationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="
                 background: rgb(48, 48, 48);
                 border: solid 0.2em;
                 border-color: rgb(0, 255, 34);
             ">
-                <div class="planetInfo">
-                    <h1 style="color: white; margin-top: 10px;">ABERRATION</h1>
-                    <hr style="color: white;">
-                    <div class="mainInfo" style="text-align: center;">
-                        <img src="../../../../static/img/mcServer/planets/aberration.png">
-                        <p style="color: white;">
-                            Planeta donde abita nuestro hogar Nephelim, una civilización formado por insurgentes del
-                            Imperio Orion y supervivientes de la mayoría de las guerras que ha sucedido en la galaxia.
-                        </p>
-                    </div>
+            <div class="planetInfo">
+                <h1 style="color: white; margin-top: 10px;">ABERRATION</h1>
+                <hr style="color: white;">
+                <div class="mainInfo" style="text-align: center;">
+                    <img src="../../../../static/img/mcServer/planets/aberration.png">
+                    <p style="color: white;">
+                        Planeta donde abita nuestro hogar Nephelim, una civilización formado por insurgentes del
+                        Imperio Orion y supervivientes de la mayoría de las guerras que ha sucedido en la galaxia.
+                    </p>
                 </div>
-                <div class="sectoresPerdidos">
+            </div>
+            <div class="sectoresPerdidos">
 
-                </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="fjordurModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="
+</div>
+<div class="modal fade" id="fjordurModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="
                 background: rgb(48, 48, 48);
                 border: solid 0.2em;
                 border-color: rgb(0, 26, 255);
             ">
-                <div class="planetInfo">
-                    <h1 style="color: white; margin-top: 10px;">FJORDUR</h1>
-                    <hr style="color: white;">
-                    <div class="mainInfo" style="text-align: center;">
-                        <img src="../../../../static/img/mcServer/planets/fjordur.png">
-                        <p style="color: white;">
-                            Planeta donde la vida persiste a pesar de todas las incidencias provocados por la galaxia
-                            desde que el <strong>Imperio Orion</strong> se alzara con fuerza y violencia.
-                            Este planeta es bendecido por la <strong>Magia Luminosa</strong> pero al mismo tiempo cuando
-                            la noche cae, la <strong>Magia Oscura</strong> se manifiesta generando seres hostiles para
-                            proteger el planeta.
+            <div class="planetInfo">
+                <h1 style="color: white; margin-top: 10px;">FJORDUR</h1>
+                <hr style="color: white;">
+                <div class="mainInfo" style="text-align: center;">
+                    <img src="../../../../static/img/mcServer/planets/fjordur.png">
+                    <p style="color: white;">
+                        Planeta donde la vida persiste a pesar de todas las incidencias provocados por la galaxia
+                        desde que el <strong>Imperio Orion</strong> se alzara con fuerza y violencia.
+                        Este planeta es bendecido por la <strong>Magia Luminosa</strong> pero al mismo tiempo cuando
+                        la noche cae, la <strong>Magia Oscura</strong> se manifiesta generando seres hostiles para
+                        proteger el planeta.
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="sectoresPerdidos">
+                {% for sector in sectoresPerdidos %}
+                {% if sector['planeta'] == 'Fjordur' and sector['activo'] == 'true' %}
+                <div class="row sector">
+                    <div class="col col-3">
+                        {% if sector['imagen'] != none or sector['imagen'] %}
+                        <img src="../../../../../static/uploads/{{sector['imagen']}}">
+                        {% else %}
+                        <img src="../../../../../static/img/noImage.jpg">
+                        {% endif %}
+                    </div>
+                    <div class="col col-5" style="height: 100px;">
+                        <p class="sectorDescripcion">
+                            {{sector['descripcion']}}
                         </p>
                     </div>
-                </div>
-                <br>
-                <div class="sectoresPerdidos">
-                    {% for sector in sectoresPerdidos %}
-                    {% if sector['planeta'] == 'Fjordur' and sector['activo'] == 'true' %}
-                    <div class="row sector">
-                        <div class="col col-3">
-                            {% if sector['imagen'] != none or sector['imagen'] %}
-                            <img src="../../../../../static/uploads/{{sector['imagen']}}">
-                            {% else %}
-                            <img src="../../../../../static/img/noImage.jpg">
-                            {% endif %}
-                        </div>
-                        <div class="col col-5" style="height: 100px;">
-                            <p class="sectorDescripcion">
-                                {{sector['descripcion']}}
-                            </p>
-                        </div>
-                        <div class="col col-3">
-                            <br>
-                            <button class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="detalles_{{sector['id']}}">VER</button>
-                        </div>
+                    <div class="col col-3">
+                        <br>
+                        <button class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="detalles_{{sector['id']}}">VER</button>
                     </div>
-                    <br><br>
-                    <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content detallesContent">
-                                <br>
-                                <div style="text-align: center;">
-                                    {% if sector['imagen'] != none or sector['imagen'] %}
-                                    <img style="
+                </div>
+                <br><br>
+                <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content detallesContent">
+                            <br>
+                            <div style="text-align: center;">
+                                {% if sector['imagen'] != none or sector['imagen'] %}
+                                <img style="
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
                                             border-radius: 5px;"
-                                        src="../../../../../static/uploads/{{sector['imagen']}}">
-                                    {% else %}
-                                    <img style="
+                                    src="../../../../../static/uploads/{{sector['imagen']}}">
+                                {% else %}
+                                <img style="
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
                                             border-radius: 5px;" src="../../../../../static/img/noImage.jpg">
-                                    {% endif %}
-                                </div>
-                                <br>
-                                <div class="detallesDescription">
-                                    {{sector['descripcion']}}
-                                </div>
-                                <br>
-                                <div class="detallesPlanet">
-                                    <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
-                                </div>
-                                <br>
-                                <div class="detallesCord">
-                                    <label><strong>Coordenadas: </strong></label>
-                                    <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
-                                        {{sector['cord_z']}}</span>
-                                </div>
-                                <br>
+                                {% endif %}
                             </div>
+                            <br>
+                            <div class="detallesDescription">
+                                {{sector['descripcion']}}
+                            </div>
+                            <br>
+                            <div class="detallesPlanet">
+                                <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
+                            </div>
+                            <br>
+                            <div class="detallesCord">
+                                <label><strong>Coordenadas: </strong></label>
+                                <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
+                                    {{sector['cord_z']}}</span>
+                            </div>
+                            <br>
                         </div>
                     </div>
-                    {% endif %}
-                    {% endfor %}
                 </div>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
-    <div class="modal fade" id="betweenlandsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="
+</div>
+<div class="modal fade" id="betweenlandsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="
                 background: rgb(48, 48, 48);
                 border: solid 0.2em;
                 border-color: rgb(76, 0, 255);
             ">
-                <div class="planetInfo">
-                    <h1 style="color: white; margin-top: 10px;">BETWEENLANDS</h1>
-                    <hr style="color: white;">
-                    <div class="mainInfo" style="text-align: center;">
-                        <br>
-                        <img src="../../../../static/img/mcServer/planets/betweenlands.png">
-                        <br><br><br>
-                        <p style="color: white;">
-                            Planeta hueco y oscuro donde es controlado a 100% por la magia oscura debido a una batalla
-                            que ocurrió en dicho planeta entre los <strong>Seres Luminosos y Seres Oscuros</strong>.
+            <div class="planetInfo">
+                <h1 style="color: white; margin-top: 10px;">BETWEENLANDS</h1>
+                <hr style="color: white;">
+                <div class="mainInfo" style="text-align: center;">
+                    <br>
+                    <img src="../../../../static/img/mcServer/planets/betweenlands.png">
+                    <br><br><br>
+                    <p style="color: white;">
+                        Planeta hueco y oscuro donde es controlado a 100% por la magia oscura debido a una batalla
+                        que ocurrió en dicho planeta entre los <strong>Seres Luminosos y Seres Oscuros</strong>.
+                    </p>
+                </div>
+            </div>
+            <div id="betweenlandsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../../../../static/img/mcServer/planets/betweenlands/img1.png" class="d-block"
+                            alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../../../../static/img/mcServer/planets/betweenlands/img2.png" class="d-block"
+                            alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="../../../../static/img/mcServer/planets/betweenlands/img3.png" class="d-block"
+                            alt="...">
+                    </div>
+                </div>
+            </div>
+            <div class="sectoresPerdidos">
+                {% for sector in sectoresPerdidos %}
+                {% if sector['planeta'] == 'Betweenlands' and sector['activo'] == 'true' %}
+                <div class="row sector">
+                    <div class="col col-3">
+                        {% if sector['imagen'] != none or sector['imagen'] %}
+                        <img src="../../../../../static/uploads/{{sector['imagen']}}">
+                        {% else %}
+                        <img src="../../../../../static/img/noImage.jpg">
+                        {% endif %}
+                    </div>
+                    <div class="col col-5" style="height: 100px;">
+                        <p class="sectorDescripcion">
+                            {{sector['descripcion']}}
                         </p>
                     </div>
-                </div>
-                <div id="betweenlandsCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../../../../static/img/mcServer/planets/betweenlands/img1.png" class="d-block"
-                                alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../../../static/img/mcServer/planets/betweenlands/img2.png" class="d-block"
-                                alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../../../../static/img/mcServer/planets/betweenlands/img3.png" class="d-block"
-                                alt="...">
-                        </div>
+                    <div class="col col-3">
+                        <br>
+                        <button class="btn btn-success" data-bs-target="detalles_{{sector['id']}}"
+                            data-bs-toggle="modal">VER</button>
                     </div>
                 </div>
-                <div class="sectoresPerdidos">
-                    {% for sector in sectoresPerdidos %}
-                    {% if sector['planeta'] == 'Betweenlands' and sector['activo'] == 'true' %}
-                    <div class="row sector">
-                        <div class="col col-3">
-                            {% if sector['imagen'] != none or sector['imagen'] %}
-                            <img src="../../../../../static/uploads/{{sector['imagen']}}">
-                            {% else %}
-                            <img src="../../../../../static/img/noImage.jpg">
-                            {% endif %}
-                        </div>
-                        <div class="col col-5" style="height: 100px;">
-                            <p class="sectorDescripcion">
-                                {{sector['descripcion']}}
-                            </p>
-                        </div>
-                        <div class="col col-3">
+                <br><br>
+                <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content detallesContent">
                             <br>
-                            <button class="btn btn-success" data-bs-target="detalles_{{sector['id']}}"
-                                data-bs-toggle="modal">VER</button>
-                        </div>
-                    </div>
-                    <br><br>
-                    <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content detallesContent">
-                                <br>
-                                <div style="text-align: center;">
-                                    {% if sector['imagen'] != none or sector['imagen'] %}
-                                    <img style="
+                            <div style="text-align: center;">
+                                {% if sector['imagen'] != none or sector['imagen'] %}
+                                <img style="
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
                                             border-radius: 5px;"
-                                        src="../../../../../static/uploads/{{sector['imagen']}}">
-                                    {% else %}
-                                    <img style="
+                                    src="../../../../../static/uploads/{{sector['imagen']}}">
+                                {% else %}
+                                <img style="
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
                                             border-radius: 5px;" src="../../../../../static/img/noImage.jpg">
-                                    {% endif %}
-                                </div>
-                                <br>
-                                <div class="detallesDescription">
-                                    {{sector['descripcion']}}
-                                </div>
-                                <br>
-                                <div class="detallesPlanet">
-                                    <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
-                                </div>
-                                <br>
-                                <div class="detallesCord">
-                                    <label><strong>Coordenadas: </strong></label>
-                                    <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
-                                        {{sector['cord_z']}}</span>
-                                </div>
-                                <br>
+                                {% endif %}
                             </div>
+                            <br>
+                            <div class="detallesDescription">
+                                {{sector['descripcion']}}
+                            </div>
+                            <br>
+                            <div class="detallesPlanet">
+                                <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
+                            </div>
+                            <br>
+                            <div class="detallesCord">
+                                <label><strong>Coordenadas: </strong></label>
+                                <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
+                                    {{sector['cord_z']}}</span>
+                            </div>
+                            <br>
                         </div>
                     </div>
-                    {% endif %}
-                    {% endfor %}
                 </div>
-                <br><br>
+                {% endif %}
+                {% endfor %}
             </div>
+            <br><br>
         </div>
     </div>
-    <div class="modal fade" id="ScorchedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="
+</div>
+<div class="modal fade" id="ScorchedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="
                 background: rgb(48, 48, 48);
                 border: solid 0.2em;
                 border-color: rgb(255, 123, 0);
             ">
-                <div class="planetInfo">
-                    <h1 style="color: white; margin-top: 10px;">SCORCHED</h1>
-                    <hr style="color: white;">
-                    <div class="mainInfo" style="text-align: center;">
-                        <br>
-                        <img src="../../../../static/img/mcServer/planets/scorched.png">
-                        <br><br><br>
-                        <p style="color: white;">
-                            Scorched, un planeta desertico donde existe varias tribus con culturas diferentes que
-                            representan a su dios de diferentes formas o tienen diferentes dioses que los maneja.
+            <div class="planetInfo">
+                <h1 style="color: white; margin-top: 10px;">SCORCHED</h1>
+                <hr style="color: white;">
+                <div class="mainInfo" style="text-align: center;">
+                    <br>
+                    <img src="../../../../static/img/mcServer/planets/scorched.png">
+                    <br><br><br>
+                    <p style="color: white;">
+                        Scorched, un planeta desertico donde existe varias tribus con culturas diferentes que
+                        representan a su dios de diferentes formas o tienen diferentes dioses que los maneja.
+                    </p>
+                </div>
+            </div>
+            <div class="sectoresPerdidos">
+                {% for sector in sectoresPerdidos %}
+                {% if sector['planeta'] == 'Scorched' and sector['activo'] == 'true' %}
+                <div class="row sector">
+                    <div class="col col-3">
+                        {% if sector['imagen'] != none or sector['imagen'] %}
+                        <img src="../../../../../static/uploads/{{sector['imagen']}}">
+                        {% else %}
+                        <img src="../../../../../static/img/noImage.jpg">
+                        {% endif %}
+                    </div>
+                    <div class="col col-5" style="height: 100px;">
+                        <p class="sectorDescripcion">
+                            {{sector['descripcion']}}
                         </p>
                     </div>
-                </div>
-                <div class="sectoresPerdidos">
-                    {% for sector in sectoresPerdidos %}
-                    {% if sector['planeta'] == 'Scorched' and sector['activo'] == 'true' %}
-                    <div class="row sector">
-                        <div class="col col-3">
-                            {% if sector['imagen'] != none or sector['imagen'] %}
-                            <img src="../../../../../static/uploads/{{sector['imagen']}}">
-                            {% else %}
-                            <img src="../../../../../static/img/noImage.jpg">
-                            {% endif %}
-                        </div>
-                        <div class="col col-5" style="height: 100px;">
-                            <p class="sectorDescripcion">
-                                {{sector['descripcion']}}
-                            </p>
-                        </div>
-                        <div class="col col-3">
-                            <br>
-                            <button class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="detalles_{{sector['id']}}">VER</button>
-                        </div>
+                    <div class="col col-3">
+                        <br>
+                        <button class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="detalles_{{sector['id']}}">VER</button>
                     </div>
-                    <br><br>
-                    <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content detallesContent">
-                                <br>
-                                <div style="text-align: center;">
-                                    {% if sector['imagen'] != none or sector['imagen'] %}
-                                    <img style="
+                </div>
+                <br><br>
+                <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content detallesContent">
+                            <br>
+                            <div style="text-align: center;">
+                                {% if sector['imagen'] != none or sector['imagen'] %}
+                                <img style="
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
                                             border-radius: 5px;"
-                                        src="../../../../../static/uploads/{{sector['imagen']}}">
-                                    {% else %}
-                                    <img style="
+                                    src="../../../../../static/uploads/{{sector['imagen']}}">
+                                {% else %}
+                                <img style="
                                             width: 80%;
                                             margin-left: 10%;
                                             margin-right: 10%;
                                             border-radius: 5px;" src="../../../../../static/img/noImage.jpg">
-                                    {% endif %}
-                                </div>
-                                <br>
-                                <div class="detallesDescription">
-                                    {{sector['descripcion']}}
-                                </div>
-                                <br>
-                                <div class="detallesPlanet">
-                                    <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
-                                </div>
-                                <br>
-                                <div class="detallesCord">
-                                    <label><strong>Coordenadas: </strong></label>
-                                    <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
-                                        {{sector['cord_z']}}</span>
-                                </div>
-                                <br>
+                                {% endif %}
                             </div>
+                            <br>
+                            <div class="detallesDescription">
+                                {{sector['descripcion']}}
+                            </div>
+                            <br>
+                            <div class="detallesPlanet">
+                                <label><strong>Planeta: </strong> {{sector['planeta']}}</label>
+                            </div>
+                            <br>
+                            <div class="detallesCord">
+                                <label><strong>Coordenadas: </strong></label>
+                                <span>X: {{sector['cord_x']}}</span><span>Y: {{sector['cord_y']}}</span><span>Z:
+                                    {{sector['cord_z']}}</span>
+                            </div>
+                            <br>
                         </div>
                     </div>
-                    {% endif %}
-                    {% endfor %}
                 </div>
-                <br><br>
+                {% endif %}
+                {% endfor %}
             </div>
+            <br><br>
         </div>
     </div>
-</body>
-
-</html>
+</div>
+{%endblock%}

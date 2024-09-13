@@ -34,8 +34,15 @@
 
 <body>
     <header>
-        <img alt=" " src="../static/img/img_index/logo.png">
+        <img alt=" " src="/static/img/img_index/logo.png">
     </header>
+    {%if session%}
+    <div class="usuarioSesion">
+        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img
+                src="{{session['imgUrl']}}"><br></a>
+        <label>{{session['name']}}</label>
+    </div>
+    {%endif%}
     <nav>
         {%if session%}
         <ul>
@@ -53,14 +60,6 @@
         </ul>
         {%endif%}
     </nav><br>
-    {%if session%}
-    <div class="usuarioSesion">
-        <br><br>
-        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img
-                src="{{session['imgUrl']}}"><br></a>
-        <label>{{session['name']}}</label>
-    </div>
-    {%endif%}
     <main style="height: 100%;">
         {%block content%} {%endblock%}
     </main>
