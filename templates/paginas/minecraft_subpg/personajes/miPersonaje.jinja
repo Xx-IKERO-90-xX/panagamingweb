@@ -1,268 +1,234 @@
-<!DOCTYPE html>
-<html lang="es">
+{%extends 'basemc.jinja'%}
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>{{personaje['name']}}</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../../../static/estilo/style.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='../../../../static/estilo/stylePersonajes.css'>
-    <script src='../../../../static/scripts/main.js'></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        body {
-            background-image: url(../../../../static/img/img_mc/mc_bg.jpg);
-        }
-    </style>
-</head>
+{%block title%}{{personaje['name']}}{%endblock%}
 
-<body>
-    <header>
-        <a href="{{url_for('Inicio')}}"><img alt=" " src="../../../../static/img/img_index/logo.png"></a>
-    </header>
-    <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img
-                src="{{session['imgUrl']}}"><br></a>
-        <label>{{session['name']}}</label>
+{%block content%}
+<style>
+    body {
+        background-image: url(../../../../static/img/img_mc/mc_bg.jpg);
+    }
+</style>
+
+<br><br><br><br>
+<div class="resultPersonaje">
+    {%if personaje["color"] == 'green'%}
+    <div class="personaje_green">
+        <h2 style="font-family: mine_tit2">{{personaje['name']}}</h2>
+        <br><br>
+        {% if personaje['imgUrl'] == 'None' %}
+        <img alt=" " src="../../../../static/img/userlog.jpg" width="150">
+        {% else %}
+        <img class="" alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}' width="150">
+        {% endif %}
+        <br><br>
+        <div id="razaDiv">
+            <strong>Raza </strong><br>
+            <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
+        </div>
+        <br>
+        <div id="generoDiv">
+            <strong>Genero </strong><br>
+            {%if personaje['sexo'] == 'm' %}
+            <input type="text" name="genero" value="Hombre"><br>
+            {%else%}
+            <input type="text" name="genero" value="">
+        </div>
+        <br>
+        <div id="edadDiv">
+            <strong>Edad </strong><br>
+            <input type="text" name="edad" value="{{personaje['edad']}}"><br>
+        </div>
+        <br>
+        <br><br>
+        <p style="color: black;">
+            {{personaje["descripcion"]}}
+        </p>
+        <br><br>
+        <form action="{{url_for('VerDiario')}}" method="post">
+            <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+            <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+            <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+            <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
+            <button type="submit" class="btn btn-success">Ver Diario</button>
+        </form>
+        <br><br>
     </div>
-    <nav>
-        <ul>
-            <li><span><a href="{{url_for('comunidad')}}" style="color: white;">COMUNIDAD</a></span></li>
-            <li><span><a href="{{url_for('Inicio')}}" style="color: white;">PRINCIPAL</a></span></li>
-            <li><span><a href="{{url_for('soporte')}}" style="color: white;">SOPORTE</a></span></li>
-            <li><span><a href="{{url_for('cerrarSesion')}}" style="color: white;">CERRAR SESION</a></span></li>
-        </ul>
-    </nav><br>
-    <br>
-    <main>
-        <br><br><br><br>
-        <div class="resultPersonaje">
-            {%if personaje["color"] == 'green'%}
-            <div class="personaje_green">
-                <h2 style="font-family: mine_tit2">{{personaje['name']}}</h2>
-                <br><br>
-                {% if personaje['imgUrl'] == 'None' %}
-                <img alt=" " src="../../../../static/img/userlog.jpg" width="150">
-                {% else %}
-                <img class="" alt=" " src='../../../../static/uploads/{{personaje["imgUrl"]}}' width="150">
-                {% endif %}
-                <br><br>
-                <div id="razaDiv">
-                    <strong>Raza </strong><br>
-                    <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
-                </div>
-                <br>
-                <div id="generoDiv">
-                    <strong>Genero </strong><br>
-                    {%if personaje['sexo'] == 'm' %}
-                    <input type="text" name="genero" value="Hombre"><br>
-                    {%else%}
-                    <input type="text" name="genero" value="">
-                </div>
-                <br>
-                <div id="edadDiv">
-                    <strong>Edad </strong><br>
-                    <input type="text" name="edad" value="{{personaje['edad']}}"><br>
-                </div>
-                <br>
-                <br><br>
-                <p style="color: black;">
-                    {{personaje["descripcion"]}}
-                </p>
-                <br><br>
-                <form action="{{url_for('VerDiario')}}" method="post">
-                    <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
-                    <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
-                    <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
-                    <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
-                    <button type="submit" class="btn btn-success">Ver Diario</button>
-                </form>
-                <br><br>
-            </div>
-            <br><br><br><br>
-            {%endif%}
-            {%if personaje["color"] == 'blue'%}
-            <div class="personaje_blue">
-                <h2 style="font-family: mine_tit2; color: black;">{{personaje['name']}}</h2>
-                <br><br>
-                <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
-                <br><br>
-                <div id="razaDiv">
-                    <strong>Raza </strong><br>
-                    <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
-                </div>
-                <br>
-                <div id="generoDiv">
-                    <strong>Genero </strong><br>
-                    <input type="text" name="genero" value="{{personaje['raza']}}"><br>
-                </div>
-                <br>
-                <div id="edadDiv">
-                    <strong>Edad </strong><br>
-                    <input type="text" name="edad" value="{{personaje['edad']}}"><br>
-                </div>
-                <br>
-                <br><br>
-                <p style="color: black;">
-                    {{personaje["descripcion"]}}
-                </p>
-                <br><br>
-                <form method="post" action="{{url_for('VerDiario')}}">
-                    <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
-                    <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
-                    <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
-                    <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
-                    <button type="submit" class="btn btn-success">Ver Diario</button>
-                </form>
-                <br><br>
-            </div>
-            <br><br><br><br>
-            {%endif%}
-            {%if personaje["color"] == 'red'%}
-            <div class="personaje_red">
-                <h2 style="font-family: mine_tit2; color: black;">{{personaje['name']}}</h2>
-                <br><br>
-                <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
-                <br><br>
-                <div id="razaDiv">
-                    <strong>Raza </strong><br>
-                    <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
-                </div>
-                <br>
-                <div id="generoDiv">
-                    <strong>Genero </strong><br>
-                    <input type="text" name="genero" value="{{personaje['raza']}}"><br>
-                </div>
-                <br>
-                <div id="edadDiv">
-                    <strong>Edad </strong><br>
-                    <input type="text" name="edad" value="{{personaje['edad']}}"><br>
-                </div>
-                <br>
-                <br>
-                <p style="color: black;">
-                    {{personaje["descripcion"]}}
-                </p>
-                <br><br>
-                <form method="post" action="{{url_for('VerDiario')}}">
-                    <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
-                    <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
-                    <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
-                    <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
-                    <button type="submit" class="btn btn-success">Ver Diario</button>
-                </form>
-                <br><br>
-            </div>
-            <br><br><br><br>
-            {%endif%}
-            {%if personaje["color"] == 'yellow'%}
-            <div class="personaje_yellow">
-                <h2 style="font-family: mine_tit2" style=>{{personaje['name']}}</h2>
-                <br><br>
-                <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
-                <br><br>
-                <div id="razaDiv">
-                    <strong>Raza </strong><br>
-                    <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
-                </div>
-                <br>
-                <div id="generoDiv">
-                    <strong>Genero </strong><br>
-                    <input type="text" name="genero" value="{{personaje['raza']}}"><br>
-                </div>
-                <br>
-                <div id="edadDiv">
-                    <strong>Edad </strong><br>
-                    <input type="text" name="edad" value="{{personaje['edad']}}"><br>
-                </div>
-                <br>
-                <br>
-                <p style="color: black;">
-                    personaje["descripcion"]
-                </p>
-                <br><br>
-                <form method="post" action="{{url_for('VerDiario')}}">
-                    <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
-                    <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
-                    <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
-                    <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
-                    <button type="submit" class="btn btn-success">Ver Diario</button>
-                </form>
-                <br><br>
-            </div>
-            <br><br><br><br>
-            {%endif%}
-            {%if personaje["color"] == 'pink'%}
-            <div class="personaje_pink">
-                <h2 style="font-family: mine_tit2; color: black;">{{personaje['name']}}</h2>
-                <br><br>
-                <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
-                <br><br>
-                <label><strong>Raza: </strong>{{personaje['raza']}}</label><br>
-                <br>
-                <label><strong>Genero: </strong>{{personaje['raza']}}</label><br>
-                <br>
-                <label><strong>Edad: </strong>{{personaje['edad']}}</label><br>
-                <br>
-                <p style="color: black;">
-                    {{personaje["descripcion"]}}
-                </p>
-                <br><br>
-                <form method="post" action="{{url_for('VerDiario')}}">
-                    <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
-                    <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
-                    <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
-                    <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
-                    <button type="submit" class="btn btn-success">Ver Diario</button>
-                </form>
-                <br><br>
-            </div>
-            <br><br><br><br>
-            {%endif%}
-            {%if personaje["color"] == 'purple'%}
-            <div class="personaje_purple">
-                <h2 style="font-family: mine_tit2; color: black;">{{personaje['name']}}</h2>
-                <br><br>
-                <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
-                <br><br>
-                <div id="razaDiv">
-                    <strong>Raza </strong><br>
-                    <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
-                </div>
-                <br>
-                <div id="generoDiv">
-                    <strong>Genero </strong><br>
-                    <input type="text" name="genero" value="{{personaje['raza']}}"><br>
-                </div>
-                <br>
-                <div id="edadDiv">
-                    <strong>Edad </strong><br>
-                    <input type="text" name="edad" value="{{personaje['edad']}}"><br>
-                </div>
-                <br>
-                <br>
-                <p style="color: black;">
-                    {{personaje["descripcion"]}}
-                </p>
-                <br><br>
-                <form method="post" action="{{url_for('VerDiario')}}">
-                    <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
-                    <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
-                    <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
-                    <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
-                    <button type="submit" class="btn btn-success">Ver Diario</button>
-                </form>
-                <br><br>
-            </div>
-            {%endif%}
-            <br><br><br><br>
-        </div><br><br><br>
-    </main>
-    <footer>
-
-    </footer>
-</body>
-
-</html>
+    <br><br><br><br>
+    {%endif%}
+    {%if personaje["color"] == 'blue'%}
+    <div class="personaje_blue">
+        <h2 style="font-family: mine_tit2; color: black;">{{personaje['name']}}</h2>
+        <br><br>
+        <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
+        <br><br>
+        <div id="razaDiv">
+            <strong>Raza </strong><br>
+            <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
+        </div>
+        <br>
+        <div id="generoDiv">
+            <strong>Genero </strong><br>
+            <input type="text" name="genero" value="{{personaje['raza']}}"><br>
+        </div>
+        <br>
+        <div id="edadDiv">
+            <strong>Edad </strong><br>
+            <input type="text" name="edad" value="{{personaje['edad']}}"><br>
+        </div>
+        <br>
+        <br><br>
+        <p style="color: black;">
+            {{personaje["descripcion"]}}
+        </p>
+        <br><br>
+        <form method="post" action="{{url_for('VerDiario')}}">
+            <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+            <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+            <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+            <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
+            <button type="submit" class="btn btn-success">Ver Diario</button>
+        </form>
+        <br><br>
+    </div>
+    <br><br><br><br>
+    {%endif%}
+    {%if personaje["color"] == 'red'%}
+    <div class="personaje_red">
+        <h2 style="font-family: mine_tit2; color: black;">{{personaje['name']}}</h2>
+        <br><br>
+        <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
+        <br><br>
+        <div id="razaDiv">
+            <strong>Raza </strong><br>
+            <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
+        </div>
+        <br>
+        <div id="generoDiv">
+            <strong>Genero </strong><br>
+            <input type="text" name="genero" value="{{personaje['raza']}}"><br>
+        </div>
+        <br>
+        <div id="edadDiv">
+            <strong>Edad </strong><br>
+            <input type="text" name="edad" value="{{personaje['edad']}}"><br>
+        </div>
+        <br>
+        <br>
+        <p style="color: black;">
+            {{personaje["descripcion"]}}
+        </p>
+        <br><br>
+        <form method="post" action="{{url_for('VerDiario')}}">
+            <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+            <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+            <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+            <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
+            <button type="submit" class="btn btn-success">Ver Diario</button>
+        </form>
+        <br><br>
+    </div>
+    <br><br><br><br>
+    {%endif%}
+    {%if personaje["color"] == 'yellow'%}
+    <div class="personaje_yellow">
+        <h2 style="font-family: mine_tit2" style=>{{personaje['name']}}</h2>
+        <br><br>
+        <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
+        <br><br>
+        <div id="razaDiv">
+            <strong>Raza </strong><br>
+            <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
+        </div>
+        <br>
+        <div id="generoDiv">
+            <strong>Genero </strong><br>
+            <input type="text" name="genero" value="{{personaje['raza']}}"><br>
+        </div>
+        <br>
+        <div id="edadDiv">
+            <strong>Edad </strong><br>
+            <input type="text" name="edad" value="{{personaje['edad']}}"><br>
+        </div>
+        <br>
+        <br>
+        <p style="color: black;">
+            personaje["descripcion"]
+        </p>
+        <br><br>
+        <form method="post" action="{{url_for('VerDiario')}}">
+            <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+            <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+            <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+            <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
+            <button type="submit" class="btn btn-success">Ver Diario</button>
+        </form>
+        <br><br>
+    </div>
+    <br><br><br><br>
+    {%endif%}
+    {%if personaje["color"] == 'pink'%}
+    <div class="personaje_pink">
+        <h2 style="font-family: mine_tit2; color: black;">{{personaje['name']}}</h2>
+        <br><br>
+        <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
+        <br><br>
+        <label><strong>Raza: </strong>{{personaje['raza']}}</label><br>
+        <br>
+        <label><strong>Genero: </strong>{{personaje['raza']}}</label><br>
+        <br>
+        <label><strong>Edad: </strong>{{personaje['edad']}}</label><br>
+        <br>
+        <p style="color: black;">
+            {{personaje["descripcion"]}}
+        </p>
+        <br><br>
+        <form method="post" action="{{url_for('VerDiario')}}">
+            <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+            <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+            <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+            <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
+            <button type="submit" class="btn btn-success">Ver Diario</button>
+        </form>
+        <br><br>
+    </div>
+    <br><br><br><br>
+    {%endif%}
+    {%if personaje["color"] == 'purple'%}
+    <div class="personaje_purple">
+        <h2 style="font-family: mine_tit2; color: black;">{{personaje['name']}}</h2>
+        <br><br>
+        <img alt=" " src='{{personaje["imgUrl"]}}' width="250">
+        <br><br>
+        <div id="razaDiv">
+            <strong>Raza </strong><br>
+            <input type="text" name="raza" value="{{personaje['raza']}}" readonly><br>
+        </div>
+        <br>
+        <div id="generoDiv">
+            <strong>Genero </strong><br>
+            <input type="text" name="genero" value="{{personaje['raza']}}"><br>
+        </div>
+        <br>
+        <div id="edadDiv">
+            <strong>Edad </strong><br>
+            <input type="text" name="edad" value="{{personaje['edad']}}"><br>
+        </div>
+        <br>
+        <br>
+        <p style="color: black;">
+            {{personaje["descripcion"]}}
+        </p>
+        <br><br>
+        <form method="post" action="{{url_for('VerDiario')}}">
+            <input type="text" name="idPersonaje" value="{{personaje['id']}}" style="display: none;">
+            <input type="text" name="imgUrl" value="{{personaje['imgUrl']}}" style="display:none;">
+            <input type="text" name="nombre" value="{{personaje['name']}}" style="display:none;">
+            <input type="text" name="color" value="{{personaje['color']}}" style="display:none;">
+            <button type="submit" class="btn btn-success">Ver Diario</button>
+        </form>
+        <br><br>
+    </div>
+    {%endif%}
+    <br><br><br><br>
+</div><br><br><br>
+{%endblock%}

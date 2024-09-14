@@ -193,7 +193,7 @@ async def principal():
         return redirect(url_for('formLogin'))
     
 @app.route("/minecraft")
-def minecraft():
+async def minecraft():
     if "id" in session:
         return render_template("/paginas/minecraft.jinja", session=session)
     else:
@@ -212,10 +212,29 @@ async def comunidad():
     else:
         return render_template("comunidad1.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList)
         
-@app.route('/soporte')
-async def soporte():
+@app.route('/tiket', methods=['GET', 'POST'])
+async def tiket():
     if "id" in session:
-        return render_template('/paginas/tikets.jinja', session=session)
+        if request.method == 'GET':
+            return render_template('/paginas/tikets.jinja', session=session)
+        else:
+            userName = request.form["userName"]
+            texto = request.form["texto"]
+            channel = bot.get_channel(int(1180858213982273617))
+            usuario = await GetDiscordUserByName(userName)
+    
+            if usuario != 'null':
+                embed = discord.Embed(
+                    title=f"**TIKET DE {usuario.name}**",
+                    description=f"{texto}",
+                    color=discord.Color.random()
+                )
+                bot.loop.create_task(channel.send(embed=embed))
+                return render_template("/paginas/tiketSended.jinja", usuario=usuario, texto=texto, session=session)  
+    
+            else:
+                errorMsg = f"No se ha encontrado ningún usuario con el nombre {userName} en el servidor de Discord."
+                return render_template("/paginas/tikets.jinja", errorMsg=errorMsg, session=session)
     else:
         return redirect(url_for("formLogin"))
 
@@ -382,14 +401,14 @@ async def EditarPagina():
 @app.route('/minecraft/personajes/me/diario', methods=['GET'])
 async def MiDiario():
     if "id" in session:
-        personaje = await ObtenerPersonajePorIdUser(session['id'])
+        personaje = await personajes.ObtenerPersonajePorIdUser(session['id'])
         print(personaje)
         paginas = await ShowDiarioPages(int(personaje[0]['id']))
         return render_template("/paginas/minecraft_subpg/personajes/miDiario.jinja", paginas=paginas, personaje=personaje[0], session=session)
     else:
         return redirect(url_for("formLogin"))
 
-@app.route('/minecraft/personajes/me/diario/newPage/<int:idPersonaje>', methods=['POST'])
+@app.route('/minecraft/personajes/me/diario/newPage/<int:idPersonaje>', methods=['GET'])
 async def NewPage(idPersonaje):
     if 'id' in session:
         await NewPageAction(idPersonaje)
