@@ -11,6 +11,7 @@ import asyncio
 import controller.PersonajesController as personajes
 import controller.database as database
 import controller.UsuarioController as usuarios
+import controller.UsuarioController as users
 from globals import guild
 
 sys.path.append("..")
@@ -21,19 +22,23 @@ if app_route not in sys.path:
 
 import app
 
-async def GetDiscordUserByName(name):
-    listaUsuarios = await app.ListUsers()
-    usuario = 'null'
+async def get_discord_user_by_username(username):
+    discord_user = {}
     
-    for user in listaUsuarios:
-        if name == user.name:
-            usuario = user
-            break
-    return usuario
+    users_list = await app.get_discord_users()
+    web_user = await users.get_user_by_username(username)
+
+    print(web_user)
+
+    for user in users_list:
+        if user.id == int(web_user['idUser']):
+            discord_user = user
+    
+    return discord_user
 
 async def UserInDiscordServer(idUser):
     listaUsuarios = []
-    listaUsuarios = await app.ListUsers()
+    listaUsuarios = await app.get_discord_users()
     valido = False
     
     for user in listaUsuarios:
@@ -44,45 +49,49 @@ async def UserInDiscordServer(idUser):
 
 async def ComprobarNombreDiscord(nombre):
     valido = False
-    listaUsuario = await app.ListUsers()
+    listaUsuario = await app.get_discord_users()
     
     for user in listaUsuario:
         if user.name == nombre:
             valido = True
+            
     return valido
 
 async def IsEjecutive(idUser):
     isEjecutive = False
-    listUsers = await app.ListUsers()
-    listEjecutives = await app.ShowEjecutives(listUsers)
+    listUsers = await app.get_discord_users()
+    listEjecutives = await app.get_discord_ejecutives(listUsers)
     
     for ejec in listEjecutives:
         if idUser == ejec.id:
             isEjecutive = True
             break
+        
     return isEjecutive
 
 async def IsStaff(idUser):
     isStaff = False
-    listUsers = await app.ListUsers()
-    listEjecutives = await app.ShowEjecutives(listUsers)
-    listStaff = await app.ShowStaffMembers(listUsers, listEjecutives)
+    listUsers = await app.get_discord_users()
+    listEjecutives = await app.get_discord_ejecutives(listUsers)
+    listStaff = await app.get_discord_staff_users(listUsers, listEjecutives)
     
     for staff in listStaff:
         if idUser == staff.id:
             isStaff = True
             break
+        
     return isStaff
 
 async def IsMember(idUser):
     isMember = False 
-    listUsers = await app.ListUsers()
-    listEjecutives = await app.ShowEjecutives(listUsers)
-    listStaff = await app.ShowStaffMembers(listUsers, listEjecutives)
-    listMembers = await app.ShowMembers(listUsers, listStaff, listEjecutives)
+    listUsers = await app.get_discord_users()
+    listEjecutives = await app.get_discord_ejecutives(listUsers)
+    listStaff = await app.get_discord_staff_users(listUsers, listEjecutives)
+    listMembers = await app.get_discord_members(listUsers, listStaff, listEjecutives)
     
     for member in listMembers:
         if idUser == member.id:
             isMember = True
             break
+        
     return isMember

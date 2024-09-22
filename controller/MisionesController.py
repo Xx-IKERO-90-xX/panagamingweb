@@ -21,21 +21,21 @@ if app_route not in sys.path:
 import app
 
 
-async def GetMisiones():
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def get_all_missions():
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     cursor.execute("SELECT * FROM MISIONES;")
     result = cursor.fetchall()
     
-    resultado_json = await database.ConvertirJSON(result, cursor)
-    conexion.close()
+    resultado_json = await database.covert_to_json(result, cursor)
+    connection.close()
     
     return resultado_json
 
-async def ObtenerMisionPorId(id):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def get_mission_by_id(id):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     cursor.execute(f"""
         SELECT * FROM MISIONES
@@ -43,27 +43,27 @@ async def ObtenerMisionPorId(id):
     """)
     
     result = cursor.fetchall()
-    conexion.close()
-    resultado_json = await database.ConvertirJSON(result, cursor)
+    connection.close()
+    resultado_json = await database.covert_to_json(result, cursor)
     
     return resultado_json[0]
 
 
-async def NuevaMisionAction(descripcion, tipo, imagen_name, dificultad, estado, grupo, guerrero, aventurero, hechicero):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def create_mission(descripcion, tipo, imagen_name, dificultad, estado, grupo, guerrero, aventurero, hechicero):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     cursor.execute(f"""
         INSERT INTO MISIONES (descripcion, tipo, imagen, dificultad, num_personas, estado, guerrero, aventurero, hechicero)
         VALUES('{descripcion}', '{tipo}', '{imagen_name}', '{dificultad}', '{grupo}', '{estado}', '{guerrero}', '{aventurero}', '{hechicero}');               
     """)
     
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
-async def EditarMisionAction(id, descripcion, tipo, imagen_name, dificultad, estado, grupo, guerrero, aventurero, hechicero):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def update_mission(id, descripcion, tipo, imagen_name, dificultad, estado, grupo, guerrero, aventurero, hechicero):
+    connection = await database.AbrirConexionSQL()
+    cursor = connection.cursor()
     
     if imagen_name != None:
         cursor.execute(f"""
@@ -93,24 +93,24 @@ async def EditarMisionAction(id, descripcion, tipo, imagen_name, dificultad, est
             WHERE id = {id};       
         """)
     
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
-async def BorrarMisionAction(id):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def delete_mission(id):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     cursor.execute(f"""
         DELETE FROM MISIONES
         WHERE id = {id};               
     """)
     
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
 async def change_to_requested(id, idUser):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     cursor.execute(f"""
         UPDATE MISIONES
@@ -119,8 +119,8 @@ async def change_to_requested(id, idUser):
         WHERE id = '{id}';
     """)
     
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
         
         

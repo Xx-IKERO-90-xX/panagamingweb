@@ -22,54 +22,65 @@ if app_route not in sys.path:
 
 import app
 
-async def ObtenerPaginas():
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+# Get all pages from all characters diary.
+async def get_pages():
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
+
     cursor.execute("SELECT * FROM DIARIO;")
     result = cursor.fetchall()
-    resultados_json = await database.ConvertirJSON(result, cursor)
-    cursor.close()
+
+    resultados_json = await database.covert_to_json(result, cursor)
+    
+    connection.close()
     return resultados_json
 
-async def UpdateDiarioPageAction(idPagina, contenido):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+
+
+# Update a diary page.
+async def update_diario_page(idPagina, contenido):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         UPDATE DIARIO
             SET contenido = '{contenido}'
         WHERE idPagina = {idPagina};
     """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
-async def ShowDiarioPages(idPersonaje):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+
+#
+async def get_character_diario_pages(idPersonaje):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         SELECT * FROM DIARIO
         WHERE idPersonaje = {idPersonaje};
     """)
     result = cursor.fetchall()
-    paginas = await database.ConvertirJSON(result, cursor)    
-    conexion.close()
-    return paginas
-    
-async def NewPageAction(idPersonaje):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+    result_json = await database.covert_to_json(result, cursor)  
+    connection.close()
+    return result_json
+
+#
+async def create_page(idPersonaje):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         INSERT INTO DIARIO (idPersonaje, contenido)
         VALUES ({idPersonaje}, null);           
     """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
-async def DeletePageAction(idPage):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+#
+async def delete_page(idPage):
+    connection = await database()
+    cursor = connection.cursor()
     cursor.execute(f"""
         DELETE FROM DIARIO
         WHERE idPagina = {idPage};               
     """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()

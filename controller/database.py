@@ -18,17 +18,17 @@ if app_route not in sys.path:
     sys.path.insert(0, app_route)
 import app
 
-async def AbrirConexionSQL():
-    conection = mysql.connector.connect(
+async def open_database_connection():
+    connection = mysql.connector.connect(
         host = app.datos["database"]["host"],
         user = app.datos["database"]["user"],
         password = app.datos["database"]["passwd"],
         database = app.datos["database"]["db"],
         auth_plugin = app.datos["database"]["auth_plugin"]
     )
-    return conection
+    return connection
 
-async def ConvertirJSON(result, cursor):
+async def covert_to_json(result, cursor):
     columnas = [column[0] for column in cursor.description]
     resultados_json = []
     for fila in result:

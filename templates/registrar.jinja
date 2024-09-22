@@ -60,11 +60,13 @@
 </style>
 <div class="container" style="height: 100%;">
     <br><br><br><br><br><br>
-    <form class="registerForm" action="{{url_for('CrearCuenta')}}" method="post">
+    <form class="registerForm" action="{{url_for('register')}}" method="post">
         <img src="/static/img/img_index/logo.png" alt="">
         <br><br>
         <div class="contentForm">
             <label><strong>Id de Discord</strong></label><br><input type="text" name="idUser"><br>
+            <br>
+            <label><strong>Nombre de Usuario</strong></label><br><input type="text" name="username"><br>
             <br>
             <label><strong>Contraseña</strong><br><input type="password" name="passwd"></label><br>
             <br>

@@ -23,34 +23,34 @@ if app_route not in sys.path:
 import app
 
 
-async def MostrarSectoresPerdidosAction():
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def get_all_lost_sectors():
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     cursor.execute('SELECT * FROM SECTORES_PERDIDOS;')
     result = cursor.fetchall()
-    result_json = await database.ConvertirJSON(result, cursor)
-    conexion.close()
+    result_json = await database.covert_to_json(result, cursor)
+    connection.close()
     
     return result_json
 
-async def GetSectorPerdido(id):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def get_lost_sector_by_id(id):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     cursor.execute(f"""
         SELECT * FROM SECTORES_PERDIDOS
         WHERE id = {id};                       
-    """);
+    """)
     result = cursor.fetchall()
-    result_json = await database.ConvertirJSON(result, cursor)
-    conexion.close()
+    result_json = await database.covert_to_json(result, cursor)
+    connection.close()
     
     return result_json[0]
 
-async def CrearSectorPerdidoAction(descripcion, planeta, imagen_name, activo, cord_x, cord_y, cord_z):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def create_lost_sector(descripcion, planeta, imagen_name, activo, cord_x, cord_y, cord_z):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     if imagen_name:
         cursor.execute(f"""
@@ -62,12 +62,12 @@ async def CrearSectorPerdidoAction(descripcion, planeta, imagen_name, activo, co
             INSERT INTO SECTORES_PERDIDOS (descripcion, planeta, activo, cord_x, cord_y, cord_z)
             VALUES('{descripcion}', '{planeta}', '{activo}', {cord_x}, {cord_y}, {cord_z});               
         """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
-async def EditarSectorPerdidoAction(id, descripcion, planeta, imagen_name, activo, cord_x, cord_y, cord_z):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def edit_lost_sector(id, descripcion, planeta, imagen_name, activo, cord_x, cord_y, cord_z):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     
     if imagen_name:
         cursor.execute(f"""
@@ -93,15 +93,15 @@ async def EditarSectorPerdidoAction(id, descripcion, planeta, imagen_name, activ
             WHERE id = {id};            
         """)
     
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
-async def DeleteSectorPerdidoAction(id):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def delete_lost_sector(id):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         DELETE FROM SECTORES_PERDIDOS
         WHERE id = {id};                                  
     """)    
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()

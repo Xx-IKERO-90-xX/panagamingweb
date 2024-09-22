@@ -33,7 +33,7 @@
 </head>
 <body>
     <header>
-        <a href="{{url_for('Inicio')}}"><img alt=" " src="/static/img/img_index/logo.png"></a><br>
+        <a href="{{url_for('index')}}"><img alt=" " src="/static/img/img_index/logo.png"></a><br>
     </header>
     {%if session%}
     <div class="usuarioSesion">
@@ -44,10 +44,10 @@
     <nav>
         {%if session%}
         <ul>
-            <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
-            <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
+            <li><span><a href="{{url_for('community')}}">COMUNIDAD</a></span></li>
+            <li><span><a href="{{url_for('index')}}">PRINCIPAL</a></span></li>
             <li><span><a href="{{url_for('tiket')}}">SOPORTE</a></span></li>
-            <li><span><a href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
+            <li><span><a href="{{url_for('logout')}}">CERRAR SESION</a></span></li>
             {% if session['role'] == 'Ejecutivo' or session['role'] == 'Staff' %}
                 <li><span><a href="{{url_for('GestionarSectoresPerdidos')}}">SECTORES PERDIDOS</a></span></li>
                 <li><span><a href="{{url_for('GestionarMisiones')}}">MISIONES</a></span></li>
@@ -55,10 +55,10 @@
         </ul>
         {%else%}
         <ul>
-            <li><span><a href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
-            <li><span><a href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
-            <li><span><a href="{{url_for('formLogin')}}">INICIAR SESION</a></span></li>
-            <li><span><a href="{{url_for('formRegister')}}">REGISTRAR</a></span></li>
+            <li><span><a href="{{url_for('community')}}">COMUNIDAD</a></span></li>
+            <li><span><a href="{{url_for('index')}}">PRINCIPAL</a></span></li>
+            <li><span><a href="{{url_for('login')}}">INICIAR SESION</a></span></li>
+            <li><span><a href="{{url_for('register')}}">REGISTRAR</a></span></li>
         </ul>
         {%endif%}
     </nav>

@@ -21,29 +21,15 @@ if app_route not in sys.path:
 import app
 
 async def GetCharacterList():
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute("""
         SELECT * FROM PERSONAJES;
     """)
     result = cursor.fetchall()
-    resultados_json = await database.ConvertirJSON(result, cursor)
-    conexion.close()
-    return resultados_json
-
-async def ObtenerPersonaje(name):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
-    cursor.execute(f"""
-        SELECT PERSONAJES.id, PERSONAJES.name, PERSONAJES.descripcion, PERSONAJES.color, PERSONAJES.imgUrl, PERSONAJES.idUser, PERSONAJES.idDiario, USUARIO.name AS userNAme
-        FROM PERSONAJES INNER JOIN USUARIO
-            ON PERSONAJES.idUser = USUARIO.idUser
-        WHERE USUARIO.name = '{name}';
-    """)
-    result = cursor.fetchall()
-    resultados_json = await database.ConvertirJSON(result, cursor)
-    conexion.close()
-    return resultados_json
+    json_result = await database.covert_to_json(result, cursor)
+    connection.close()
+    return json_result
 
 async def ValidarPersonajeUsuario(idUser, name):
     listaPersonajes = await GetCharacterList()
@@ -63,44 +49,44 @@ async def ValidarPersonajeEditado(idUser, name):
             errorCod = 1
     return errorCod
 
-async def ObtenerPersonajePorIdUser(idUser):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def get_character_by_id_user(idUser):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         SELECT * FROM PERSONAJES
         WHERE PERSONAJES.idUser = {idUser};
     """)
     result = cursor.fetchall()
-    resultados_json = await database.ConvertirJSON(result, cursor)
-    conexion.close()
-    return resultados_json
+    json_result = await database.covert_to_json(result, cursor)
+    connection.close()
+    return json_result[0]
 
 async def GetCharacterById(id):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         SELECT * FROM PERSONAJES
         WHERE PERSONAJES.id = {id};
     """)
     result = cursor.fetchall()
-    resultados_json = await database.ConvertirJSON(result, cursor)
-    conexion.close()
-    return resultados_json[0]
+    json_result = await database.covert_to_json(result, cursor)
+    connection.close()
+    return json_result[0]
 
-async def NuevoPersonajePost(name, descripcion, color, imgUrl, idUser, raza, edad, sexo, tipo):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def new_character(name, descripcion, color, imgUrl, idUser, raza, edad, sexo, tipo):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         INSERT INTO PERSONAJES (name, descripcion, color, imgUrl, idUser, raza, edad, sexo, tipo, reputacion)
         VALUES ('{name}', '{descripcion}', '{color}', '{imgUrl}', '{idUser}', '{raza}', '{edad}', '{sexo}', '{tipo}', 0);
     """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
     
 
-async def EditarPersonajeAction(name, color, descripcion, imagen, idUser, raza, edad):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def edit_character(name, color, descripcion, imagen, idUser, raza, edad):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         UPDATE PERSONAJES
         SET name = '{name}', 
@@ -111,6 +97,6 @@ async def EditarPersonajeAction(name, color, descripcion, imagen, idUser, raza, 
             edad = {edad}
         WHERE idUser = '{idUser}';
     """)
-    conexion.commit() 
-    conexion.close()
+    connection.commit() 
+    connection.close()
     

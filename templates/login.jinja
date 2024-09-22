@@ -72,11 +72,11 @@
         {{ errorMsg }}
     </div>
     {%endif%}
-    <form action="{{url_for('IniciarSesion')}}" class="loginForm" method="post">
+    <form action="{{url_for('login')}}" class="loginForm" method="post">
         <img src="/static/img/img_index/logo.png">
         <br><br>
         <div class="formContent">
-            <label><strong>Nombre de Usuario </strong><br><input type="text" name="dName"></label><br>
+            <label><strong>Nombre de Usuario </strong><br><input type="text" name="username"></label><br>
             <br>
             <label><strong>Contraseña </strong><br><input type="password" name="passwd"></label><br>
         </div>

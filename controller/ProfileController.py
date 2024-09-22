@@ -24,23 +24,23 @@ if app_route not in sys.path:
 import app
 
 async def EditMyDescriptionPost(id, descripcion):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         UPDATE USUARIO
             SET descripcion = '{descripcion}'
         WHERE idUser = {id};
     """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
 async def SetMainUserTheme(id, mainBk):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         UPDATE STYLE_USUARIO
             SET main = '{mainBk}'
         WHERE idUser = {id};
     """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()

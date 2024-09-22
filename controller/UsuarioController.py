@@ -8,7 +8,7 @@ import mysql.connector
 import json
 import random
 import asyncio
-from controller.PersonajesController import *
+import controller.PersonajesController as characters
 from controller.database import *
 from controller.DiscordServerController import *
 
@@ -23,57 +23,64 @@ if app_route not in sys.path:
 
 import app
 
-async def nuevoUsuario(idUser, passwd, descripcion):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def get_all_users():
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM USUARIO;")    
+    result = cursor.fetchall()
+
+    json_result = await database.covert_to_json(result, cursor)
+    connection.close()
+
+    return json_result
+
+async def new_user(idUser, username, passwd, descripcion):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
-        INSERT INTO USUARIO (idUser, passwd, descripcion)
-        VALUES ('{idUser}', '{passwd}', '{descripcion}');                
+        INSERT INTO USUARIO (idUser, passwd, descripcion, username)
+        VALUES ('{idUser}', '{passwd}', '{descripcion}', '{username}');                
     """)
-    conexion.commit()
+    connection.commit()
     cursor.execute(f"""
         INSERT INTO STYLE_USUARIO (idUser, main, banner)
         VALUES({idUser}, null, null);
     """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
 async def actualizarUsuario(idUser, descripcion, color):
-    conexion = database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+    connection = database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         UPDATE USUARIO
             SET descripcion = {descripcion},
                 color = {color}
             WHERE idUser = {idUser};
     """)
-    conexion.commit()
-    conexion.close()
+    connection.commit()
+    connection.close()
 
 async def GetDiscordUser(idUser):
-    listaUsuarios = await app.ListUsers()
+    listaUsuarios = await app.get_discord_users()
     usuario = 'null'
     for user in listaUsuarios:
         if user.id == int(idUser):
             usuario = user
             break
+        
     return usuario
 
 async def HasCharacter(idUser):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
-    cursor.execute("""
-        SELECT * FROM PERSONAJES;
-    """)
-    result = cursor.fetchall()
-    resultados_json = await database.ConvertirJSON(result, cursor)
-    tiene = False
-    for personaje in resultados_json:
+    characters_list = await characters.get_all_characters()
+    has_character = False
+    for personaje in characters_list:
         if personaje['idUser'] == idUser:
-            tiene = True
+            has_character = True
             break
-    conexion.close()
-    return tiene
+
+    return has_character
 
 async def ValidarUsuario(idUser):
     listaUsuarios = await app.ListUsers()
@@ -84,40 +91,28 @@ async def ValidarUsuario(idUser):
     return valido
 
 async def comprobarSiTienePersonaje(idUser):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
-    cursor.execute("""
-        SELECT * FROM PERSONAJES;
-    """)
-    result = cursor.fetchall()
-    resultados_json = await database.ConvertirJSON(result, cursor)
-    tiene = False
-    for personaje in resultados_json:
-        if personaje['idUser'] == idUser:
-            tiene = True
+    has_character = False
+    character_list = await characters.GetCharacterList()
+    for character in character_list:
+        if character['idUser'] == idUser:
+            has_character = True
             break
-    conexion.close()
-    return tiene
+
+    return has_character
 
 async def ComprobarUsuarioRepetido(idUser):
-    conexion = await database.AbrirConexionSQL()
-    repite = False
-    cursor = conexion.cursor()
-    cursor.execute("""
-        SELECT * FROM USUARIO;
-    """)
-    result = cursor.fetchall()
-    resultados_json = await database.ConvertirJSON(result, cursor)
-    for usuario in resultados_json:
-        if str(usuario['idUser']) == idUser:
-            repite = True
-            break     
-    conexion.close()
-    return repite
+    repeate = False
+    users = await get_all_users()
+    for user in users:
+        if str(user['idUser']) == idUser:
+            repeate = True
+            break
+             
+    return repeate
 
-async def ObtenerUsuario(idUser):
-    conexion = await database.AbrirConexionSQL()
-    cursor = conexion.cursor()
+async def get_user_by_id(idUser):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
     cursor.execute(f"""
         SELECT USUARIO.descripcion AS descripcion, STYLE_USUARIO.main AS main, STYLE_USUARIO.banner
         FROM USUARIO INNER JOIN STYLE_USUARIO
@@ -125,7 +120,25 @@ async def ObtenerUsuario(idUser):
         WHERE USUARIO.idUser = {idUser};
     """)
     result = cursor.fetchall()
-    resultadoJson = await database.ConvertirJSON(result, cursor)
-    conexion.close()
-    print(resultadoJson)
+    
+    resultadoJson = await database.covert_to_json(result, cursor)
+    connection.close()
+    
     return resultadoJson[0]
+
+
+async def get_user_by_username(username):
+    connection = await database.open_database_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(f"""
+        SELECT * FROM USUARIO
+        WHERE username = '{username}';
+    """)
+
+    result = cursor.fetchall()
+    result_json = await database.covert_to_json(result, cursor)
+
+    connection.close()
+    return result_json[0]
+
