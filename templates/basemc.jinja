@@ -49,8 +49,8 @@
             <li><span><a href="{{url_for('tiket')}}">SOPORTE</a></span></li>
             <li><span><a href="{{url_for('logout')}}">CERRAR SESION</a></span></li>
             {% if session['role'] == 'Ejecutivo' or session['role'] == 'Staff' %}
-                <li><span><a href="{{url_for('GestionarSectoresPerdidos')}}">SECTORES PERDIDOS</a></span></li>
-                <li><span><a href="{{url_for('GestionarMisiones')}}">MISIONES</a></span></li>
+                <li><span><a href="{{url_for('minecraft.GestionarSectoresPerdidos')}}">SECTORES PERDIDOS</a></span></li>
+                <li><span><a href="{{url_for('minecraft.GestionarMisiones')}}">MISIONES</a></span></li>
             {% endif %}
         </ul>
         {%else%}

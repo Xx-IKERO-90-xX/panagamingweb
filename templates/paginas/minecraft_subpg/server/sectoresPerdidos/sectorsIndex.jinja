@@ -60,7 +60,7 @@
             <div class="col col-2">Descripción</div>
             <div class="col col-4">ACTIVO</div>
             <div class="col col-5"><a class="btn btn-success"
-                    href="{{url_for('NewSectorPerdido')}}"><strong>Nuevo</strong></a></div>
+                    href="{{url_for('minecraft.NewSectorPerdido')}}"><strong>Nuevo</strong></a></div>
         </li>
         {% for sector in sectoresPerdidos %}
         <li class="table-row">
@@ -107,8 +107,8 @@
             <div class="col col-4" style="margin: 10px;">
                 <button data-bs-toggle="modal" data-bs-target="#detalles_{{sector['id']}}"
                     class="btn_table">Detalles</button>
-                <a href="{{url_for('EditSectorPerdido', id=sector['id'])}}" class="btn_table">Editar</a>
-                <a href="{{url_for('DeleteSectorPerdido', id=sector['id'])}}" class="btn_table">Eliminar</a>
+                <a href="{{url_for('minecraft.EditSectorPerdido', id=sector['id'])}}" class="btn_table">Editar</a>
+                <a href="{{url_for('minecraft.DeleteSectorPerdido', id=sector['id'])}}" class="btn_table">Eliminar</a>
 
                 <div class="modal fade" id="detalles_{{sector['id']}}" tabindex="-1" role="dialog"
                     aria-labelledby="exampleModalLabel" aria-hidden="true">

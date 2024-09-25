@@ -4,7 +4,7 @@
 
 {%block content%}
 <div class="container">
-    <form class="manageForm" action="{{url_for('EditarSectorPerdido', id=sectorPerdido['id'])}}" method="POST"
+    <form class="manageForm" action="{{url_for('minecraft.EditarSectorPerdido', id=sectorPerdido['id'])}}" method="POST"
         enctype="multipart/form-data">
         <div class="form-group">
             <h2>Descripción</h2><br>
@@ -82,7 +82,7 @@
         </div>
         <br><br>
         <button type="submit" class="btn_table">Editar</button>
-        <a href="{{url_for('GestionarSectoresPerdidos')}}" class="btn_table">Volver</a>
+        <a href="{{url_for('minecraft.GestionarSectoresPerdidos')}}" class="btn_table">Volver</a>
     </form>
 </div>
 {%endblock%}

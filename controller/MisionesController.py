@@ -62,7 +62,7 @@ async def create_mission(descripcion, tipo, imagen_name, dificultad, estado, gru
     connection.close()
 
 async def update_mission(id, descripcion, tipo, imagen_name, dificultad, estado, grupo, guerrero, aventurero, hechicero):
-    connection = await database.AbrirConexionSQL()
+    connection = await database.open_database_connection()
     cursor = connection.cursor()
     
     if imagen_name != None:

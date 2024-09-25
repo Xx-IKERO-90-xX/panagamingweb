@@ -104,7 +104,7 @@
 </div>
 {%endif%}
 <br><br>
-<form action="{{url_for('new_character')}}" method="post" id="personajeForm" class="personajeForm">
+<form action="{{url_for('minecraft.new_character')}}" method="post" id="personajeForm" class="personajeForm">
     <div class="row">
         <div class="col col-4">
             <label>NOMBRE</label><br>
@@ -327,7 +327,7 @@
     <br><br>
     <div class="pjButtons">
         <button class="btn_table" type="submit">Crear</button>
-        <a href="{{url_for('characters_mc')}}" class="btn_table" style="color: white;">Volver</a>
+        <a href="{{url_for(minecraft.'characters_mc')}}" class="btn_table" style="color: white;">Volver</a>
     </div>
     <br><br><br>
 </form>

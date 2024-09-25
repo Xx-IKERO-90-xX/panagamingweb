@@ -17,7 +17,7 @@
         <br><br><br>
         <br><br><br>
         <div class="optButtons">
-            <a class="btn btn-success" href="{{url_for('NewPage', idPersonaje=personaje['id'])}}"><strong>Nueva Pagina</strong></a>
+            <a class="btn btn-success" href="{{url_for('minecraft.NewPage', idPersonaje=personaje['id'])}}"><strong>Nueva Pagina</strong></a>
             <a class="btn btn-success" href="#"><strong>Editar Estilo</strong></a>
         </div>
         <br><br><br><br>
@@ -105,7 +105,7 @@
             </div>
             {%for pagina in paginas%}
                 <div width="50" class="carousel-item">
-                    <form class="pagina" method="post" action="{{url_for('EditarPagina', idPersonaje=idPersonaje)}}">
+                    <form class="pagina" method="post" action="{{url_for('minecraft.EditarPagina', idPersonaje=idPersonaje)}}">
                         {%if personaje['contenido'] == None%}
                             <textarea id="contenido" name="contenido"></textarea>
                         {%else%}
@@ -114,7 +114,7 @@
                         <br><br>
                         <input type="text" name="idPagina" value="{{pagina['idPagina']}}" style="display: none;">
                         <button type="submit" class="btn btn-primary"><strong>Editar</strong></button>
-                        <a href="{{url_for('DeletePage', idPagina=pagina['idPagina'])}}" class="btn btn-danger"><strong>Eliminar</strong></a>                                                                       
+                        <a href="{{url_for('minecraft.DeletePage', idPagina=pagina['idPagina'])}}" class="btn btn-danger"><strong>Eliminar</strong></a>                                                                       
                     </form>
                 </div>
             {%endfor%}                       

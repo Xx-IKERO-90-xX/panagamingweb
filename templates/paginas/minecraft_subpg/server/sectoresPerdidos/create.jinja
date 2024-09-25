@@ -4,7 +4,7 @@
 
 {%block content%}
 <div class="container">
-    <form class="manageForm" action="{{url_for('CrearSectorPerdido')}}" method="POST" enctype="multipart/form-data">
+    <form class="manageForm" action="{{url_for('minecraft.CrearSectorPerdido')}}" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <h2>Descripción</h2><br>
             <textarea name="descripcion"></textarea>
@@ -57,7 +57,7 @@
         </div>
         <br><br>
         <button type="submit" class="btn_table">Crear</button>
-        <a class="btn_table" href="{{url_for('GestionarSectoresPerdidos')}}">Volver</a>
+        <a class="btn_table" href="{{url_for('minecraft.GestionarSectoresPerdidos')}}">Volver</a>
     </form>
 </div>
 {%endblock%}

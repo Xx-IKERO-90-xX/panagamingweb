@@ -27,7 +27,7 @@
     }
 </style>
 <div class="container">
-    <form class="manageForm" action="{{url_for('EditarMision', id=mision['id'])}}" method="POST"
+    <form class="manageForm" action="{{url_for('minecraft.EditarMision', id=mision['id'])}}" method="POST"
         enctype="multipart/form-data">
         <div class="form-group">
             <h2>Descripción</h2><br>
@@ -174,7 +174,7 @@
         </div>
         <br><br>
         <button type="submit" class="btn_table">Editar</button>
-        <a class="btn_table" href="{{url_for('GestionarMisiones')}}">Volver</a>
+        <a class="btn_table" href="{{url_for('minecraft.GestionarMisiones')}}">Volver</a>
     </form>
 </div>
 <script type="module" src="../../../../../static/scripts/missions/tipoPersonajes.js"></script>

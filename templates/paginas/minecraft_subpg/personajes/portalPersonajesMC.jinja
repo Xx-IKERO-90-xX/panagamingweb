@@ -8,7 +8,7 @@
 </div>
 <nav class="personajeNav">
     <div style="text-align: center;" class="personajeNavElements">
-        <a class="btn btn-success" style="height: 40px;" href="{{url_for('new_character')}}">CREAR PERSONAJE</a>
+        <a class="btn btn-success" style="height: 40px;" href="{{url_for('minecraft.new_character')}}">CREAR PERSONAJE</a>
     </div>
 </nav>
 <div class="personajeSections">
@@ -34,7 +34,7 @@
                 {{personaje["descripcion"]}}
             </p><br>
             <br><br>
-            <a href="{{url_for('VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="greenButton">Detalles</a>
+            <a href="{{url_for('minecraft.VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="greenButton">Detalles</a>
             <br><br>
         </div>
         <br><br><br><br>
@@ -53,7 +53,7 @@
                 {{personaje["descripcion"]}}
             </p><br>
             <br><br>
-            <a href="{{url_for('VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonBlue">Detalles</a>
+            <a href="{{url_for('minecraft.VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonBlue">Detalles</a>
             <br><br>
         </div>
         <br><br><br><br>
@@ -72,7 +72,7 @@
                 {{personaje["descripcion"]}}
             </p><br>
             <br><br>
-            <a href="{{url_for('VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonRed">Detalles</a>
+            <a href="{{url_for('minecraft.VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonRed">Detalles</a>
             <br><br>
         </div>
         <br><br><br><br>
@@ -91,7 +91,7 @@
                 personaje["descripcion"]
             </p><br>
             <br><br>
-            <a href="{{url_for('VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonYellow">Detalles</a>
+            <a href="{{url_for('minecraft.VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonYellow">Detalles</a>
             <br><br>
         </div>
         <br><br><br><br>
@@ -110,7 +110,7 @@
                 {{personaje["descripcion"]}}
             </p><br>
             <br><br>
-            <a href="{{url_for('VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonPink">Detalles</a>
+            <a href="{{url_for('minecraft.VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonPink">Detalles</a>
             <br><br>
         </div>
         <br><br><br><br>
@@ -129,7 +129,7 @@
                 {{personaje["descripcion"]}}
             </p><br>
             <br><br>
-            <a href="{{url_for('VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonPurple">Detalles</a>
+            <a href="{{url_for('minecraft.VerInfoPersonaje', idPersonaje=personaje['id'])}}" class="buttonPurple">Detalles</a>
             <br><br>
         </div>
         <br><br><br>
