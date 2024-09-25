@@ -246,12 +246,6 @@ async def tiket():
 ############ PORTAL PRINCIPAL DE MINECRAFT ##########################################
 #####################################################################################
 
-@app.route('/mineacraft/gameplay')
-async def portalServer():
-    if "id" in session:
-        return render_template('/paginas/minecraft_subpg/history/portalMc.jinja', session=session)
-    else:
-        return redirect(url_for('formLogin'))
 
 
 @app.route("/mineacraft/characters/new", methods=['GET', 'POST'])
@@ -276,7 +270,7 @@ async def new_character():
                 imagen.save(os.path.join(app.config['UPLOAD_FOLDER'], imagen_name))
         
             await characters.new_character(name, descripcion, color, imagen_name, session['id'], raza, edad, sexo, tipo)
-            return redirect(url_for('PersonajesMinecraftPG'))
+            return redirect(url_for('characters_mc'))
         else:
             return render_template("/paginas/minecraft_subpg/personajes/formPersonajes.jinja", session=session)
     else:
@@ -319,10 +313,10 @@ async def edit_character():
             
             await characters.edit_character(name, color, descripcion, imagen_name, session['id'], raza, edad)
             personaje = await characters.get_character_by_id_user(str(session['id']))
-            return render_template('/paginas/minecraft_subpg/personajes/editPersonaje.jinja', personaje=personaje[0], session=session)
+            return render_template('/paginas/minecraft_subpg/personajes/editPersonaje.jinja', personaje=personaje, session=session)
         else:
             personaje = await characters.get_character_by_id_user(str(session['id']))
-            return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.jinja", personaje=personaje[0], session=session)
+            return render_template("/paginas/minecraft_subpg/personajes/editPersonaje.jinja", personaje=personaje, session=session)
     else:
         return redirect(url_for("login"))
 
@@ -339,12 +333,12 @@ async def my_character():
 
 
 
-@app.route("/minecraft/characters/<int:idPersonaje>", methods=["GET"])
-async def character_details(idPersonaje):
+@app.route("/minecraft/characters/<int:id>", methods=["GET"])
+async def character_details(id):
     if 'id' in session:
         paginas = []
-        personaje = await characters.GetCharacterById(idPersonaje)
-        paginas = await diary.get_character_diario_pages(idPersonaje)
+        personaje = await characters.GetCharacterById(id)
+        paginas = await diary.get_character_diario_pages(id)
 
         return render_template("/paginas/minecraft_subpg/personajes/personaje.jinja", personaje=personaje, paginas=paginas, session=session) 
     else:
@@ -365,9 +359,9 @@ async def EditarPagina():
 async def MiDiario():
     if "id" in session:
         personaje = await characters.get_character_by_id_user(session['id'])
-        pages = await diary.ShowDiarioPages(int(personaje[0]['id']))
+        pages = await diary.get_character_diario_pages(int(personaje['id']))
         
-        return render_template("/paginas/minecraft_subpg/personajes/miDiario.jinja", paginas=pages, personaje=personaje[0], session=session)
+        return render_template("/paginas/minecraft_subpg/personajes/miDiario.jinja", paginas=pages, personaje=personaje, session=session)
     else:
         return redirect(url_for("formLogin"))
 
@@ -398,8 +392,10 @@ async def DeletePage(idPagina):
 async def MiPerfil(id):
     if 'id' in session:
         appUser = await users.get_user_by_id(id)
-        dUser = await users.get_user_by_id(id)
-        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
+        discord_user = await discord_server.get_discord_user_by_id(session["id"])
+        print(discord_user)
+        result = {"avatar": discord_user.avatar.url, "name":discord_user.name, "mote":discord_user.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
+        
         return render_template('/paginas/users/myProfile.jinja', user=result, session=session)
     else:
         return redirect(url_for("login"))
@@ -449,7 +445,7 @@ async def SetUserBackground(id):
 async def minecraftServer():
     if 'id' in session:
         sectoresPerdidos = await lost_sectors.get_all_lost_sectors()
-        misiones = await missions.GetMisiones()
+        misiones = await missions.get_all_missions()
         return render_template('/paginas/minecraft_subpg/server/minecraftServer.jinja', sectoresPerdidos=sectoresPerdidos, misiones=misiones, session=session)
     else:
         return redirect(url_for('login'))

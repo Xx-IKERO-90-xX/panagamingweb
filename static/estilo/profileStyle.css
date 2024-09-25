@@ -41,9 +41,7 @@
 */
 
 .profileDefault {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    width: 100%;
     text-align: center;
     font-family: Arial;
     background: black;
@@ -59,9 +57,9 @@
     width: 150px;
 }
 .profileDefault .profileDatos {
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
     background: rgb(29, 29, 29);
     border-radius: 10px;
     border: solid 0.2em;
@@ -85,9 +83,9 @@
     border-radius: 10px;
 }
 .profileDefault .profileAvatar {
-    width: 60%;
-    margin-left: 20%;
-    margin-right: 20%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
     background: rgb(29, 29, 29);
     border-radius: 10px;
     border: solid 0.2em;
@@ -119,9 +117,7 @@ ESTILOS PERSONALIZADOS CREADOS POR LEOZ0
 
 /**----------AZUL---------------**/
 .bBlue1 {
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
+    width: 100%;
     text-align: center;
     font-family: Arial;
     background-image: url("../assets/img/users/1/BLACK/1b_blue.png");

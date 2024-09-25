@@ -3,123 +3,104 @@
 {%block title%} Nuevo {%endblock%}
 
 {%block content%}
-    <style>        
 
-        .selected {
-            background:rgb(72, 255, 72);
-        }
+<style>
+    .selected {
+        background: rgb(72, 255, 72);
+    }
 
-        .personajesDispo button {
-            padding: 15px;
-        }
-        .personajesDispo button:hover {
-            background: rgb(72, 255, 72);
-        }
+    .personajesDispo button {
+        padding: 15px;
+    }
 
-        .personajesDispo button img {
-            width: 70px;
-        }
-        .personajesDispo h3 {
-            color: white;
-            font-weight: bold;
-        }
-    
-    </style>
-</head>
+    .personajesDispo button:hover {
+        background: rgb(72, 255, 72);
+    }
 
-<body>
-    <header>
-        <img alt=" " src="../../../../../static/img/img_index/logo.png">
-    </header>
-    <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}">
-            <img src="{{session['imgUrl']}}"><br>
-        </a>
-        <label>{{session['name']}}</label>
-    </div>
-    <nav>
-        <ul>
-            <li><span><a style="color: white;" href="{{url_for('comunidad')}}">COMUNIDAD</a></span></li>
-            <li><span><a style="color: white;" href="{{url_for('Inicio')}}">PRINCIPAL</a></span></li>
-            <li><span><a style="color: white;" href="{{url_for('soporte')}}">SOPORTE</a></span></li>
-            <li><span><a style="color: white;" href="{{url_for('cerrarSesion')}}">CERRAR SESION</a></span></li>
-        </ul>
-    </nav><br>
+    .personajesDispo button img {
+        width: 70px;
+    }
 
-    <main style="height: 100vh;">
-        <div class="container">
-            <form class="manageForm" method="POST" enctype="multipart/form-data">
-                <div class="form-group">
-                    <h2>Descripción</h2><br>
-                    <textarea name="descripcion"></textarea>
-                </div>
-                <br><br>
-                <br>
-                <div class="form-group">
-                    <label>Imágen</label>
-                    <br>
-                    <input type="file" name="imagen" accept="image/png, image/jpeg, image/jpg" style="color: white;">
-                </div>
-                <br><br>
-                <div class="row">
-                    <div class="col col-3">
-                        <label>Tipo</label>
-                        <br>
-                        <select name="tipo">
-                            <option value="Exploracion">Exploracion</option>
-                            <option value="Ataque">Ataque</option>
-                            <option value="Investigación">Investigación</option>
-                        </select>
-                    </div>
-                    <div class="col col-3">
-                        <label>Dificultad</label>
-                        <br>
-                        <select name="dificultad">
-                            <option value="Facil">Facil</option>
-                            <option value="Normal">Normal</option>
-                            <option value="Heroico">Heroico</option>
-                            <option value="Legendario">Legendario</option>
-                        </select>
-                    </div>
-                    <div class="col col-3">
-                        <label>Estado</label>
-                        <br>
-                        <select name="estado">
-                            <option value="Desactivado">Desactivado</option>
-                            <option value="Activado">Activado</option>
-                            <option value="Solicitado">Solicitado</option>
-                            <option value="En Curso">En Curso</option>
-                            <option value="Terminado">Terminado</option>
-                        </select>
-                    </div>
-                    <div class="col col-3">
-                        <label>Grupo de Personas</label>
-                        <br>
-                        <select name="grupo" id="group">
-                            <option value="1" class="groupOpt">Individual</option>
-                            <option value="2" class="groupOpt">Duo</option>
-                            <option value="4" class="groupOpt">Escuadron</option>
-                        </select>
-                    </div>
-                    
-                </div>
-                <br><br>
-                <div class="personajesDispo">
-                    <h3>Tipo de Personajes:</h3>
-                    <div>
-                        <button type="button" id="btnGuerrero"><img src="../../../../../static/img/guerreroSymbol.png"></button>
-                        <button type="button" id="btnAventurero"><img src="../../../../../static/img/aventureroSymbol.png"></button>
-                        <button type="button" id="btnHechicero"><img src="../../../../../static/img/hechizeroSymbol.png"></button>
-
-                        <input type="hidden" id="allowGuerrero" name="allowGuerrero" value="false">
-                        <input type="hidden" id="allowAventurero" name="allowAventurero" value="false">
-                        <input type="hidden" id="allowHechicero" name="allowHechicero" value="false">
-                    </div>
-                </div>
-                <br><br>
-                <button type="submit" class="btn_table">Crear</button>
-                <a class="btn_table" href="{{url_for('GestionarMisiones')}}">Volver</a>
-            </form>
+    .personajesDispo h3 {
+        color: white;
+        font-weight: bold;
+    }
+</style>
+<div class="container">
+    <form class="manageForm" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <h2>Descripción</h2><br>
+            <textarea name="descripcion"></textarea>
         </div>
-        <script type="module" src="../../../../../static/scripts/missions/tipoPersonajes.js"></script>
+        <br><br>
+        <br>
+        <div class="form-group">
+            <label>Imágen</label>
+            <br>
+            <input type="file" name="imagen" accept="image/png, image/jpeg, image/jpg" style="color: white;">
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col col-3">
+                <label>Tipo</label>
+                <br>
+                <select name="tipo">
+                    <option value="Exploracion">Exploracion</option>
+                    <option value="Ataque">Ataque</option>
+                    <option value="Investigación">Investigación</option>
+                </select>
+            </div>
+            <div class="col col-3">
+                <label>Dificultad</label>
+                <br>
+                <select name="dificultad">
+                    <option value="Facil">Facil</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Heroico">Heroico</option>
+                    <option value="Legendario">Legendario</option>
+                </select>
+            </div>
+            <div class="col col-3">
+                <label>Estado</label>
+                <br>
+                <select name="estado">
+                    <option value="Desactivado">Desactivado</option>
+                    <option value="Activado">Activado</option>
+                    <option value="Solicitado">Solicitado</option>
+                    <option value="En Curso">En Curso</option>
+                    <option value="Terminado">Terminado</option>
+                </select>
+            </div>
+            <div class="col col-3">
+                <label>Grupo de Personas</label>
+                <br>
+                <select name="grupo" id="group">
+                    <option value="1" class="groupOpt">Individual</option>
+                    <option value="2" class="groupOpt">Duo</option>
+                    <option value="4" class="groupOpt">Escuadron</option>
+                </select>
+            </div>
+
+        </div>
+        <br><br>
+        <div class="personajesDispo">
+            <h3>Tipo de Personajes:</h3>
+            <div>
+                <button type="button" id="btnGuerrero"><img src="../../../../../static/img/guerreroSymbol.png"></button>
+                <button type="button" id="btnAventurero"><img
+                        src="../../../../../static/img/aventureroSymbol.png"></button>
+                <button type="button" id="btnHechicero"><img
+                        src="../../../../../static/img/hechizeroSymbol.png"></button>
+
+                <input type="hidden" id="allowGuerrero" name="allowGuerrero" value="false">
+                <input type="hidden" id="allowAventurero" name="allowAventurero" value="false">
+                <input type="hidden" id="allowHechicero" name="allowHechicero" value="false">
+            </div>
+        </div>
+        <br><br>
+        <button type="submit" class="btn_table">Crear</button>
+        <a class="btn_table" href="{{url_for('GestionarMisiones')}}">Volver</a>
+    </form>
+</div>
+<script type="module" src="../../../../../static/scripts/missions/tipoPersonajes.js"></script>
 {%endblock%}

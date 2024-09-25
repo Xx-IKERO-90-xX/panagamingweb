@@ -3,158 +3,162 @@
 {%block title%} Mi Perfil {%endblock%}
 
 {%block content%}
-<br><br><br><br><br>
-{% if user['main'] != None %}
-<div id="profileGreen" class="{{user['main']}}">
-    <br><br>
-    <div class="profileAvatar">
-        <br>
-        <img src="{{user['avatar']}}">
+<div class="container">
+    <br><br><br><br><br>
+    {% if user['main'] != None %}
+    <div id="profileGreen" class="{{user['main']}}">
         <br><br>
-    </div>
-    <br>
-    <div class="profileDatos">
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Sobre mi:</strong></label>
-            <button id="editDescBtn" class="litleEditBtn btn btn-primary" onclick="EditDescription()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                    <path
-                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                    <path fill-rule="evenodd"
-                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                </svg>
-            </button>
-            <br><br><br>
-            <form id="aboutMe" method="post" action="{{url_for('EditMyDescription', id=session['id'])}}">
-                <textarea id="textDescripcion" name="descripcion" readonly>
-                            {{user["descripcion"]}}
-                        </textarea>
-                <div id="formButtons" style="border:none;">
-
-                </div>
-            </form>
-            <script>
-                function EditDescription() {
-                    let btnEdit = document.getElementById("editDescBtn");
-                    let formButtons = document.getElementById("formButtons");
-                    btnEdit.disabled = true;
-                    let submitBtn = document.createElement("button");
-                    submitBtn.className = "btn btn-success";
-                    submitBtn.type = "submit";
-                    submitBtn.textContent = "Guardar";
-                    let cancelBtn = document.createElement("button");
-                    cancelBtn.textContent = "Cancelar";
-                    cancelBtn.className = "btn btn-secondary";
-                    let textArea = document.getElementById("textDescripcion");
-                    textArea.readOnly = false;
-                    formButtons.appendChild(cancelBtn);
-                    formButtons.appendChild(submitBtn);
-                    cancelBtn.addEventListener("click", () => {
-                        textArea.value = "";
-                        textArea.value = `{{user["descripcion"]}}`;
-                        btnEdit.disabled = false;
-                        formButtons.removeChild(cancelBtn);
-                        formButtons.removeChild(submitBtn);
-                        textArea.readOnly = true;
-                    });
-                }
-            </script>
+        <div class="profileAvatar">
             <br>
-        </div><br>
-    </div>
-    <br><br>
-    <a href="{{url_for('EditUserStyle', id=session['id'])}}" class="btn btn-success"><strong>Edtar Estilo</strong></a>
-    <br><br>
-</div>
-<br><br><br><br>
-{% else %}
-<div id="profileGreen" class="profileDefault">
-    <br><br>
-    <div class="profileAvatar">
+            <img src="{{user['avatar']}}">
+            <br><br>
+        </div>
         <br>
-        <img src="{{user['avatar']}}">
-        <br><br>
-    </div>
-    <br>
-    <div class="profileDatos">
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Nombre :</strong> {{user["name"]}}</label>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Mote: </strong> {{user["mote"]}}</label><br>
-        </div>
-        {% if user['minecraftName'] != none%}
-        <div>
-            <label style="color: white;"><strong>Minecraft: </strong> {{user['minecraftName']}} </label>
-        </div>
-        {% endif %}
-        <div>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Sobre mi:</strong></label>
-            <button id="editDescBtn" class="litleEditBtn btn btn-primary" onclick="EditDescription()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                    <path
-                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                    <path fill-rule="evenodd"
-                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                </svg>
-            </button>
-            <br><br><br>
-            <form id="aboutMe" method="post" action="{{url_for('EditMyDescription', id=session['id'])}}">
-                <textarea id="textDescripcion" name="descripcion" readonly>
-                            {{user["descripcion"]}}
-                        </textarea>
-                <div id="formButtons" style="border:none;">
+        <div class="profileDatos">
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+            </div>
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+            </div>
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Sobre mi:</strong></label>
+                <button id="editDescBtn" class="litleEditBtn btn btn-primary" onclick="EditDescription()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path
+                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                    </svg>
+                </button>
+                <br><br><br>
+                <form id="aboutMe" method="post" action="{{url_for('EditMyDescription', id=session['id'])}}">
+                    <textarea id="textDescripcion" style="text-align: left; width: 100%;" name="descripcion" readonly>
+                    {{user["descripcion"]}}
+                </textarea>
+                    <div id="formButtons" style="border:none;">
 
-                </div>
-            </form>
-            <script>
-                function EditDescription() {
-                    let btnEdit = document.getElementById("editDescBtn");
-                    let formButtons = document.getElementById("formButtons");
-                    btnEdit.disabled = true;
-                    let submitBtn = document.createElement("button");
-                    submitBtn.className = "btn btn-success";
-                    submitBtn.type = "submit";
-                    submitBtn.textContent = "Guardar";
-                    let cancelBtn = document.createElement("button");
-                    cancelBtn.textContent = "Cancelar";
-                    cancelBtn.className = "btn btn-secondary";
-                    let textArea = document.getElementById("textDescripcion");
-                    textArea.readOnly = false;
-                    formButtons.appendChild(cancelBtn);
-                    formButtons.appendChild(submitBtn);
-                    cancelBtn.addEventListener("click", () => {
-                        textArea.value = "";
-                        textArea.value = `{{user["descripcion"]}}`;
-                        btnEdit.disabled = false;
-                        formButtons.removeChild(cancelBtn);
-                        formButtons.removeChild(submitBtn);
-                        textArea.readOnly = true;
-                    });
-                }
-            </script>
-            <br>
-        </div><br>
+                    </div>
+                </form>
+                <script>
+                    function EditDescription() {
+                        let btnEdit = document.getElementById("editDescBtn");
+                        let formButtons = document.getElementById("formButtons");
+                        btnEdit.disabled = true;
+                        let submitBtn = document.createElement("button");
+                        submitBtn.className = "btn btn-success";
+                        submitBtn.type = "submit";
+                        submitBtn.textContent = "Guardar";
+                        let cancelBtn = document.createElement("button");
+                        cancelBtn.textContent = "Cancelar";
+                        cancelBtn.className = "btn btn-secondary";
+                        let textArea = document.getElementById("textDescripcion");
+                        textArea.readOnly = false;
+                        formButtons.appendChild(cancelBtn);
+                        formButtons.appendChild(submitBtn);
+                        cancelBtn.addEventListener("click", () => {
+                            textArea.value = "";
+                            textArea.value = `{{user["descripcion"]}}`;
+                            btnEdit.disabled = false;
+                            formButtons.removeChild(cancelBtn);
+                            formButtons.removeChild(submitBtn);
+                            textArea.readOnly = true;
+                        });
+                    }
+                </script>
+                <br>
+            </div><br>
+        </div>
+        <br><br>
+        <a href="{{url_for('EditUserStyle', id=session['id'])}}" class="btn btn-success">
+            <strong>Editar Estilo</strong>
+        </a>
+        <br><br>
     </div>
-    <br><br>
-    <a href="{{url_for('EditUserStyle', id=session['id'])}}" class="btn btn-success"><strong>Edtar Estilo</strong></a>
-    <br><br>
+    <br><br><br><br>
+    {% else %}
+    <div id="profileGreen" class="profileDefault">
+        <br><br>
+        <div class="profileAvatar">
+            <br>
+            <img src="{{user['avatar']}}">
+            <br><br>
+        </div>
+        <br>
+        <div class="profileDatos">
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Nombre :</strong> {{user["name"]}}</label>
+            </div>
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Mote: </strong> {{user["mote"]}}</label><br>
+            </div>
+            {% if user['minecraftName']%}
+            <div>
+                <label style="color: white;"><strong>Minecraft: </strong> {{user['minecraftName']}} </label>
+            </div>
+            {% endif %}
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Sobre mi:</strong></label>
+                <button id="editDescBtn" class="litleEditBtn btn btn-primary" onclick="EditDescription()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path
+                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                    </svg>
+                </button>
+                <br><br><br>
+                <form id="aboutMe" method="post" action="{{url_for('EditMyDescription', id=session['id'])}}">
+                    <textarea id="textDescripcion" style="text-align: left; width: 100%;" name="descripcion" readonly>
+                    {{user["descripcion"]}}
+                </textarea>
+                    <div id="formButtons" style="border:none;">
+
+                    </div>
+                </form>
+                <script>
+                    function EditDescription() {
+                        let btnEdit = document.getElementById("editDescBtn");
+                        let formButtons = document.getElementById("formButtons");
+                        btnEdit.disabled = true;
+                        let submitBtn = document.createElement("button");
+                        submitBtn.className = "btn btn-success";
+                        submitBtn.type = "submit";
+                        submitBtn.textContent = "Guardar";
+                        let cancelBtn = document.createElement("button");
+                        cancelBtn.textContent = "Cancelar";
+                        cancelBtn.className = "btn btn-secondary";
+                        let textArea = document.getElementById("textDescripcion");
+                        textArea.readOnly = false;
+                        formButtons.appendChild(cancelBtn);
+                        formButtons.appendChild(submitBtn);
+                        cancelBtn.addEventListener("click", () => {
+                            textArea.value = "";
+                            textArea.value = `{{user["descripcion"]}}`;
+                            btnEdit.disabled = false;
+                            formButtons.removeChild(cancelBtn);
+                            formButtons.removeChild(submitBtn);
+                            textArea.readOnly = true;
+                        });
+                    }
+                </script>
+                <br>
+            </div><br>
+        </div>
+        <br><br>
+        <a href="{{url_for('EditUserStyle', id=session['id'])}}" class="btn btn-success">
+            <strong>Editar Estilo</strong></a>
+        <br><br>
+    </div>
+    {%endif%}
+    <br><br><br>
 </div>
-{%endif%}
 {%endblock%}

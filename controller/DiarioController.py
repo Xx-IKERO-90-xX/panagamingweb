@@ -69,14 +69,14 @@ async def create_page(idPersonaje):
     cursor = connection.cursor()
     cursor.execute(f"""
         INSERT INTO DIARIO (idPersonaje, contenido)
-        VALUES ({idPersonaje}, null);           
+        VALUES ({idPersonaje}, "");           
     """)
     connection.commit()
     connection.close()
 
 #
 async def delete_page(idPage):
-    connection = await database()
+    connection = await database.open_database_connection()
     cursor = connection.cursor()
     cursor.execute(f"""
         DELETE FROM DIARIO

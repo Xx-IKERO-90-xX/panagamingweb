@@ -47,6 +47,17 @@ async def UserInDiscordServer(idUser):
             break
     return valido
 
+async def get_discord_user_by_id(idUser):
+    result = {}
+    users_list = await app.get_discord_users()
+    
+    for user in users_list:
+        if user.id == int(idUser):
+            result = user
+    
+    return result
+            
+
 async def ComprobarNombreDiscord(nombre):
     valido = False
     listaUsuario = await app.get_discord_users()
