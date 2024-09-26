@@ -20,7 +20,7 @@ import controller.DiarioController as diary
 from controller.ProfileController import *
 from threading import Thread
 import bot
-from routes import auth_bp, minecraft_bp
+from routes import auth_bp, minecraft_bp, user_bp
 
 import globals
 
@@ -63,7 +63,8 @@ socketio = SocketIO(app)
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 app.register_blueprint(auth_bp, url_prefix="/auth")
-app.register_blueprint(minecraft_bp, url_prefix="/minecraft")
+app.register_blueprint(minecraft_bp, url_prefix="/minecraft") 
+app.register_blueprint(user_bp, url_prefix="/usuarios")
 
 
 
@@ -192,16 +193,6 @@ async def register():
 -------------------------------------------------------------------------------------------------
 """
 
-
-#######################################################################################
-######################## PROCESAMIENTO DE SESION ######################################
-#######################################################################################
-
-    
-    
-########################################################
-######### PÁGINAS CON SESIÓN ###########################
-########################################################
     
 @app.route("/minecraft")
 async def minecraft():
@@ -210,7 +201,7 @@ async def minecraft():
     else:
         return redirect(url_for('login'))
 
-@app.route("/comunity")
+@app.route("/community")
 async def community():
     userList = await get_discord_users()
     ejecList = await get_discord_ejecutives(userList)
@@ -219,7 +210,6 @@ async def community():
     
     if "id" in session:         
         return render_template("/paginas/comunidad.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)    
-    
     else:
         return render_template("comunidad1.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList)
 
@@ -250,67 +240,15 @@ async def tiket():
         return redirect(url_for("login"))
 
 
-#####################################################################################
-############ PORTAL PRINCIPAL DE MINECRAFT ##########################################
-#####################################################################################
+"""
+    SOCKETS
+"""
 
-
-
-
-#-----------------------------------------------------------------------#
-#-------------------- USUARIOS -----------------------------------------#
-#-----------------------------------------------------------------------#
-
-
-@app.route('/usuario/me/<int:id>', methods=['GET'])
-async def MiPerfil(id):
-    if 'id' in session:
-        appUser = await users.get_user_by_id(id)
-        discord_user = await discord_server.get_discord_user_by_id(session["id"])
-        print(discord_user)
-        result = {"avatar": discord_user.avatar.url, "name":discord_user.name, "mote":discord_user.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
-        
-        return render_template('/paginas/users/myProfile.jinja', user=result, session=session)
-    else:
-        return redirect(url_for("login"))
-
-@app.route('/usuario/<int:id>', methods=['GET'])
-async def UserProfile(id):
-    if 'id' in session:
-        appUser = await users.get_user_by_id(id)
-        dUser = await users.GetDiscordUser(id)
-        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
-        return render_template('/paginas/users/profile.jinja', user=result, session=session)
-    else:
-        return redirect(url_for('login'))
-
-@app.route('/usuario/edit/descripcion/<int:id>', methods=["GET","POST"])
-async def EditMyDescription(id):
-    if 'id' in session:
-        descripcion = request.form["descripcion"]
-        
-        await EditMyDescriptionPost(id, descripcion)
-        return redirect(url_for('MiPerfil', id=id))
-    else:
-        return redirect(url_for("login"))
-
-
-@app.route('/usuario/edit/style/<int:id>', methods=["GET"])
-async def EditUserStyle(id):
-    if 'id' in session:
-        appUser = await users.get_user_by_id(id)
-        dUser = await users.GetDiscordUser(id)
-        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"] }
-        return render_template('/paginas/users/styleProfile.jinja', user=result, session=session)
-    else:
-        return redirect(url_for("login"))
-
-@app.route('/usuario/edit/style/newMainBk/<int:id>', methods=["POST"])
-async def SetUserBackground(id):
-    mainBk = request.form["mainBk"]
-    await SetMainUserTheme(id, mainBk)
-    return redirect(url_for('EditUserStyle', id=id))
-
+@socketio.on('send_message')
+def hanbleData(data):
+    app.logger.info(f"Message: {data['message']} from {data['username']}")
+    data['id'] = f"/usuario/{data['id']}"
+    emit('recieve_message', data, broadcast=True)
 
 
 ################################################################################################

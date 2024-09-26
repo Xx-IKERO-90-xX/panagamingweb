@@ -34,3 +34,4 @@ import app
 session = app.session
 
 auth_bp = Blueprint('auth', __name__)
+

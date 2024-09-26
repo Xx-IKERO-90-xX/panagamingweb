@@ -36,7 +36,7 @@
                     </svg>
                 </button>
                 <br><br><br>
-                <form id="aboutMe" method="post" action="{{url_for('EditMyDescription', id=session['id'])}}">
+                <form id="aboutMe" method="post" action="{{url_for('usuario.EditMyDescription', id=session['id'])}}">
                     <textarea id="textDescripcion" style="text-align: left; width: 100%;" name="descripcion" readonly>
                     {{user["descripcion"]}}
                 </textarea>
@@ -74,7 +74,7 @@
             </div><br>
         </div>
         <br><br>
-        <a href="{{url_for('EditUserStyle', id=session['id'])}}" class="btn btn-success">
+        <a href="{{url_for('usuario.EditUserStyle', id=session['id'])}}" class="btn btn-success">
             <strong>Editar Estilo</strong>
         </a>
         <br><br>
@@ -116,10 +116,10 @@
                     </svg>
                 </button>
                 <br><br><br>
-                <form id="aboutMe" method="post" action="{{url_for('EditMyDescription', id=session['id'])}}">
+                <form id="aboutMe" method="post" action="{{url_for('usuario.EditMyDescription', id=session['id'])}}">
                     <textarea id="textDescripcion" style="text-align: left; width: 100%;" name="descripcion" readonly>
-                    {{user["descripcion"]}}
-                </textarea>
+                        {{user["descripcion"]}}
+                    </textarea>
                     <div id="formButtons" style="border:none;">
 
                     </div>
@@ -154,7 +154,7 @@
             </div><br>
         </div>
         <br><br>
-        <a href="{{url_for('EditUserStyle', id=session['id'])}}" class="btn btn-success">
+        <a href="{{url_for('usuario.EditUserStyle', id=session['id'])}}" class="btn btn-success">
             <strong>Editar Estilo</strong></a>
         <br><br>
     </div>

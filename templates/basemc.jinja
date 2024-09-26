@@ -37,7 +37,7 @@
     </header>
     {%if session%}
     <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('MiPerfil', id=session['id'])}}"><img src="{{session['imgUrl']}}"><br></a>
+        <a style="text-decoration: none; color: white;" href="{{url_for('usuario.MiPerfil', id=session['id'])}}"><img src="{{session['imgUrl']}}"><br></a>
         <label>{{session['name']}}</label>
     </div>
     {%endif%}

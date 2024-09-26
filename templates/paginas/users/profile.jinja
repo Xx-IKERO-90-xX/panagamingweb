@@ -5,75 +5,76 @@
 {%block content%}
 <br><br><br><br>
 <br><br><br><br><br>
-{% if user['main'] != None %}
-<div id="profileGreen" class="{{user['main']}}">
-    <br><br>
-    <div class="profileAvatar">
+<div class="container">
+    {% if user['main'] != None %}
+    <div id="profileGreen" class="{{user['main']}}">
+        <br><br>
+        <div class="profileAvatar">
+            <br>
+            <img src="{{user['avatar']}}">
+            <br><br>
+        </div>
         <br>
-        <img src="{{user['avatar']}}">
-        <br><br>
-    </div>
-    <br>
-    <div class="profileDatos">
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Sobre mi:</strong></label>
-            <br><br><br>
-            <textarea id="textDescripcion" readonly>
+        <div class="profileDatos">
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
+            </div>
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
+            </div>
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Sobre mi:</strong></label>
+                <br><br><br>
+                <textarea id="textDescripcion" readonly>
                         {{user["descripcion"]}}
                     </textarea>
+                <br>
+            </div><br>
+        </div>
+        <br><br>
+    </div>
+    <br><br><br><br>
+    {% else %}
+    <div id="profileGreen" class="profileDefault" style="width: 100%">
+        <br><br>
+        <div class="profileAvatar">
             <br>
-        </div><br>
-    </div>
-    <br><br>
-</div>
-<br><br><br><br>
-{% else %}
-<div id="profileGreen" class="profileDefault">
-    <br><br>
-    <div class="profileAvatar">
+            <img src="{{user['avatar']}}">
+            <br><br>
+        </div>
         <br>
-        <img src="{{user['avatar']}}">
-        <br><br>
-    </div>
-    <br>
-    <div class="profileDatos">
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Nombre :</strong> {{user["name"]}}</label>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Mote: </strong> {{user["mote"]}}</label><br>
-        </div>
-        {% if user['minecraftName'] != none%}
-        <div>
-            <label style="color: white;"><strong>Minecraft: </strong> {{user['minecraftName']}} </label>
-        </div>
-        {% endif %}
-        <div>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Sobre mi:</strong></label>
-            <br><br><br>
-            <textarea id="textDescripcion" readonly>
+        <div class="profileDatos">
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Nombre :</strong> {{user["name"]}}</label>
+            </div>
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Mote: </strong> {{user["mote"]}}</label><br>
+            </div>
+            {% if user['minecraftName'] != none%}
+            <div>
+                <label style="color: white;"><strong>Minecraft: </strong> {{user['minecraftName']}} </label>
+            </div>
+            {% endif %}
+            <div>
+            </div>
+            <br><br>
+            <div>
+                <label style="color: white;"><strong>Sobre mi:</strong></label>
+                <br><br><br>
+                <textarea id="textDescripcion" readonly>
                         {{user["descripcion"]}}
                     </textarea>
-            <br>
-        </div><br>
+                <br>
+            </div><br>
+        </div>
+        <br><br>
     </div>
-    <br><br>
+    <br><br><br><br>
+    {%endif%}
 </div>
-<br><br><br><br>
-{% endif %}
-
 {%endblock%}
