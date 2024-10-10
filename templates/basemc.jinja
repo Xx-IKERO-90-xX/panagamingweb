@@ -51,6 +51,7 @@
             {% if session['role'] == 'Ejecutivo' or session['role'] == 'Staff' %}
                 <li><span><a href="{{url_for('minecraft.GestionarSectoresPerdidos')}}">SECTORES PERDIDOS</a></span></li>
                 <li><span><a href="{{url_for('minecraft.GestionarMisiones')}}">MISIONES</a></span></li>
+                <li><span><a href="{{url_for('minecraft.mc_admin_pannel')}}">PANEL ADMINISTRADOR</a></span></li>
             {% endif %}
         </ul>
         {%else%}

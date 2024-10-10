@@ -393,3 +393,14 @@ async def request_mission(id):
         return redirect(url_for('minecraft.minecraftServer'))
     else:
         return redirect(url_for('login'))
+    
+@minecraft_bp.route("/adminPannel", methods=['GET'])
+async def mc_admin_pannel():
+    if 'id' in session:
+        if session['role'] == 'Staff' or session['role'] == 'Ejecutivo':
+            return render_template('paginas/minecraft_subpg/admin/pannel.jinja', session=session)
+        
+        else:
+            return redirect(url_for('minecraft'))
+    else:
+        return redirect(url_for('login'))

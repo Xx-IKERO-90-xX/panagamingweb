@@ -7,7 +7,7 @@
         "auth_plugin": "mysql_native_password"
     },
     "discord": {
-        "token": "OTY3NDI3OTY2NTQxOTE0MTUy.Gpr7_y.NluWjembSfDiIisuLtcH8Oi-B85RpLMJ_Jx0Q0",
+        "token": "",
         "server": {
             "id": 793956939687133184
         },
@@ -15,6 +15,24 @@
             "member": 852500184662409216,
             "staff": 856835937816674314,
             "ejecutive": 889578160495140898
+        }
+    },
+    "minecraft": {
+        "vanilla": {
+            "ip": "192.168.1.66",
+            "port": 25565,
+            "rcon": {
+                "port": 25575,
+                "passwd": "ikero9090"
+            }
+        },
+        "archlight": {
+            "ip": "",
+            "port": "",
+            "rcon": {
+                "port": "",
+                "passwd": ""
+            }
         }
     },
     "flask": {

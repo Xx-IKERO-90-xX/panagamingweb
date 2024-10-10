@@ -1,0 +1,25 @@
+.adminMenu {
+    width: 100%;
+    padding: 30px;
+    border-radius: 10px;
+    background: rgb(70, 70, 70);
+}
+
+.vanillaShell {
+    padding: 10px;
+    background: rgb(70, 70, 70);
+    border-radius: 10px;
+    border: solid 0.2em;
+    border-color: rgb(0, 255, 0);
+}
+.vanillaShell .output {
+    width: 100%;
+    background: black;
+    color: white;
+    height: 500px;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+.inputCommand input {
+    width: 330px;
+}

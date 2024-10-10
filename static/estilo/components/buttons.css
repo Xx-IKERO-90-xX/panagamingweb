@@ -12,3 +12,15 @@
 .btn_table:hover {
     background: #00bd48;
 }
+.btn_message_send {
+    width: 70px;
+    border-color: black;
+    background: green;
+    border: none;
+    border: solid 0.1em;
+    font-weight: bold;
+    margin-left: 5px;
+}
+.btn_message_send:hover {
+    background: rgb(0, 255, 0);
+}

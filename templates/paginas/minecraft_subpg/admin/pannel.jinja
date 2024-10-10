@@ -1,0 +1,29 @@
+{%extends 'basemc.jinja'%}
+
+{%block title%} Panel Administracion {%endblock%}
+
+{%block content%}
+<link rel="stylesheet" href="/static/estilo/admin/pannelMenu.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+<script type="module" src="/static/scripts/sockets/mc_servers/vanillaShell.js"></script>
+<div class="container" style="height: 100%;">
+    <br><br><br>
+    <br><br><br>
+    <div class="adminMenu">
+        
+    </div>
+    <br><br><br>
+    <div class="vanillaShell">
+        <div class="output" id="terminal_vanilla_output">
+        
+        </div>
+        <br>
+        <form id="vanilla_command_form" class="inputCommand" method="post">
+            <input id="commandInput" class="message_input" type="text" name="command"><button type="submit" class="btn_message_send">Enviar</button>        
+        </form>
+    </div>
+    <br><br><br>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+<script type="module" src="../../../../static/scripts/sockets/mc_servers/vanillaShell.js"></script>
+{%endblock%}

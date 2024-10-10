@@ -9,6 +9,7 @@ import mysql.connector
 import json
 import random
 import asyncio
+import multiprocessing
 import controller.PersonajesController as characters
 from controller.database import *
 import controller.UsuarioController as users
@@ -17,8 +18,10 @@ import controller.SecurityController as security
 import controller.SectoresPerdidosController as lost_sectors
 import controller.MisionesController as missions
 import controller.DiarioController as diary
+import controller.McServersController as mcservers
 from controller.ProfileController import *
 from threading import Thread
+from mcrcon import MCRcon
 import bot
 from routes import auth_bp, minecraft_bp, user_bp
 
@@ -70,6 +73,7 @@ app.register_blueprint(user_bp, url_prefix="/usuarios")
 
 
 #######################################################################################
+
 
 async def get_discord_users():
     list = []
@@ -179,12 +183,9 @@ async def register():
             user = await users.get_discord_user_by_username(int(idUser))
             passwd_encripted = await security.encrypt_passwd(passwd)
             await users.new_user(idUser, username, passwd_encripted, descripcion)
-            
-            session["id"] = idUser
-            session["name"] = username
-            session["imgUrl"] = user.avatar.url
                 
             return redirect(url_for("index"))
+        
         else:
             return render_template("registrar.jinja")
             
@@ -249,6 +250,29 @@ def hanbleData(data):
     app.logger.info(f"Message: {data['message']} from {data['username']}")
     data['id'] = f"/usuario/{data['id']}"
     emit('recieve_message', data, broadcast=True)
+
+
+#Terminal de los servidores de minecraft
+@socketio.on('send_vanilla_command')
+def handle_send_command(cmd):
+    
+    result_queue = multiprocessing.Queue()
+    
+    print(cmd['command'])
+
+    process = multiprocessing.Process(
+        target=mcservers.execute_vanilla_command, 
+        args=(cmd['command'], result_queue)
+    )
+    
+    process.start()
+    process.join()
+
+    response = result_queue.get()
+
+    print(response)
+    emit('server_output', {'output': response})
+
 
 
 ################################################################################################
