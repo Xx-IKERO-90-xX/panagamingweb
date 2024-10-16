@@ -6,7 +6,7 @@
 
 Este proyecto esta hecho principalemte mediante el Framework Back-end Flask y entra mucho en juego los sockets y los multihilos de procesamiento para ampliar la gama de posibilidades que tendrá el usuario.
 
-Se conecta mediante APIs y otras librerías a servidor de Discord, a los servidores de Minecraft de la comunidad.
+Se conecta mediante APIs y otras librerías al servidor de Discord oficial, a los servidores de Minecraft de la comunidad y a futuros proyectos.
 
 El gestor de base de datos que utiliza esta aplicación web es MySQL y se conecta mediante las librerías mysql-connector.
 
