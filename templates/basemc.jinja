@@ -46,7 +46,7 @@
         <ul>
             <li><span><a href="{{url_for('community')}}">COMUNIDAD</a></span></li>
             <li><span><a href="{{url_for('index')}}">PRINCIPAL</a></span></li>
-            <li><span><a href="{{url_for('tiket')}}">SOPORTE</a></span></li>
+            <li><span><a href="{{url_for('minecraft')}}">MINECRAFT</a></span></li>
             <li><span><a href="{{url_for('logout')}}">CERRAR SESION</a></span></li>
             {% if session['role'] == 'Ejecutivo' or session['role'] == 'Staff' %}
                 <li><span><a href="{{url_for('minecraft.GestionarSectoresPerdidos')}}">SECTORES PERDIDOS</a></span></li>
@@ -67,6 +67,6 @@
         {%block content%} {%endblock%}
     </main>
     <footer>
-    
+        © 2024 Pana Gaming. Todos los derechos reservados.
     </footer>
 </body>

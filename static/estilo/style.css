@@ -564,6 +564,43 @@ footer {
     width: 300px;
 }
 
+.mc_section_store {
+    background: rgba(0, 221, 37, 0.61);
+    padding: 20px;
+    margin-top: 50px;
+    border: solid 0.2em;
+    border-radius: 20px;
+    text-align: center;
+}
+.mc_section_store h2 {
+    font-family: mine_tit2;
+    font-size: 60px;
+    padding: 20px;
+    background: rgb(0, 221, 18);
+    border-radius: 10px;
+    border: solid 0.1em;
+}
+.mc_section_store a {
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    font-size: 30px;
+    border: solid 0.1em;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    font-family: mine_txt;
+}
+.mc_section_store a:hover {
+    background: rgba(49, 255, 84, 0.61);
+}
+.mc_section_store img {
+    width: 430px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    border-radius: 30px;
+    border: solid 0.3em;
+}
+
 
 @media screen and (max-width: 900px) {
     nav ul li {
@@ -629,7 +666,19 @@ footer {
         font-size: 20px;
     }
 
-    .mc_section2_ingame a:hover {
+    .mc_section_store a:hover {
+        font-size: 20px;
+    }
+
+    .mc_section_store h2 {
+        font-size: 34px;
+    }
+
+    .mc_section_store a {
+        font-size: 20px;
+    }
+
+    .mc_section_store a:hover {
         font-size: 20px;
     }
 

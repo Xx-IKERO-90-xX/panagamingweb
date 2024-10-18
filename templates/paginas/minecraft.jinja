@@ -31,6 +31,7 @@
 
     <!--Personajes de los usuarios-->
     <div class="mc_sections">
+        <!--
         <div class="mc_section2_personaje" style="border-color: black;">
             <br>
             <h2 style="border-color: black;"><strong style="color: black;">PERSONAJES</strong></h2>
@@ -43,6 +44,7 @@
             <a href="{{url_for('minecraft.characters_mc')}}">VER CONTENIDO</a><br>
             <br>
         </div><br>
+        -->
 
         <!--Contenido del servidor-->
         <div class="mc_section2_ingame" style="border-color: black;">
@@ -55,7 +57,15 @@
                 investiga los planetas y destinos, y disfruta con nosotros.
             </p>
             <br><br>
-            <a href="{{url_for('minecraft.minecraftServer')}}">VER CONTENIDO</a><br>
+            <a href="{{url_for('minecraft.minecraftServer')}}">VISITAR</a><br>
+            <br>
+        </div>
+        <div class="mc_section_store" style="border-color: black;">
+            <br>
+            <h2 style="border-color: black;"><strong style="color: black;">TIENDA</strong></h2>
+            <img style="border-color: black;" alt=" " src="/static/img/img_mc/villager.jpg"><br>
+            <br><br>
+            <a href="{{url_for('minecraft.minecraftServer')}}">VISITAR</a><br>
             <br>
         </div>
     </div>
