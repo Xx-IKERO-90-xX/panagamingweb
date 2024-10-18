@@ -140,9 +140,7 @@ async def logout():
     session.clear()
     return redirect(url_for("index"))
 
-'''
-    
-'''
+
 @app.route('/login', methods=['GET', 'POST'])
 async def login():
     if request.method == "GET":
