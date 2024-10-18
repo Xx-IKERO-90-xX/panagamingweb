@@ -138,7 +138,7 @@ async def index():
 @app.route("/logout")
 async def logout():
     session.clear()
-    return redirect(url_for("Inicio"))
+    return redirect(url_for("index"))
 
 '''
     
