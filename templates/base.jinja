@@ -49,6 +49,9 @@
             <li><span><a href="{{url_for('index')}}">PRINCIPAL</a></span></li>
             <li><span><a href="{{url_for('minecraft')}}">MINECRAFT</a></span></li>
             <li><span><a href="{{url_for('logout')}}">CERRAR SESION</a></span></li>
+            {%if session['role'] == 'Ejecutivo' or session['role'] == 'Staff'%}
+                <li><span><a href="{{url_for('notifications.index')}}">NOTIFICACIONES</a></span></li>
+            {%endif%}
         </ul>
         {%else%}
         <ul>

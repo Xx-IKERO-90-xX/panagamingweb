@@ -23,7 +23,7 @@ from controller.ProfileController import *
 from threading import Thread
 from mcrcon import MCRcon
 import bot
-from routes import auth_bp, minecraft_bp, user_bp
+from routes import auth_bp, minecraft_bp, user_bp, notifications_bp
 
 import globals
 
@@ -68,6 +68,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(minecraft_bp, url_prefix="/minecraft") 
 app.register_blueprint(user_bp, url_prefix="/usuarios")
+app.register_blueprint(notifications_bp, url_prefix='/notifications')
 
 
 

@@ -1,0 +1,41 @@
+{%extends 'base.jinja'%}
+
+{%block title%}Notificaciones{%endblock%}
+
+{%block content%}
+<div class="container" style="height: 100vh;">
+  <br><br><br><br><br><br>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Titulo</th>
+        <th scope="col">Texto</th>
+        <th scope="col">Destino</th>
+        <th scope="col">Publicado</th>
+        <th scope="col" style="text-align: right;">
+          <a href="#" class="btn btn-success"><strong>Nuevo</strong></a>
+          <a href="{{url_for('index')}}" class="btn btn-secondary"><strong>Volver</strong></a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for notification in notifications%}
+      <tr>
+        <td>{{notification['title']}}</th>
+        <td>{{notification['texto']}}</td>
+        <td>{{notificacion['destino_publicacion']}}</td>
+        <td>{{notificacion['publico']}}</td>
+        <td>
+          <a class="btn btn-secondary"><strong>Detalles</strong></a>
+          <a class="btn btn-warning"><strong>Editar</strong></a>
+          <a class="btn btn-danger"><strong>Eliminar</strong></a>
+        </td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+</div>
+
+
+
+{%endblock%}
