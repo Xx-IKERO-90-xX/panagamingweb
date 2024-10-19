@@ -18,19 +18,20 @@
     }
 
     .loginForm {
-        width:400px;
+        width: 400px;
         margin: auto;
         text-align: center;
         margin-top: 100px;
         font-family: Arial;
-        background: rgb(22,22,22);
-        background: linear-gradient(90deg, rgba(22,22,22,1) 10%, rgba(79,79,79,1) 50%, rgba(22,22,22,1) 90%);
+        background: rgb(22, 22, 22);
+        background: linear-gradient(90deg, rgba(22, 22, 22, 1) 10%, rgba(79, 79, 79, 1) 50%, rgba(22, 22, 22, 1) 90%);
         padding: 40px;
         color: white;
         border-radius: 10px;
         border: solid 0.2em;
         border-color: rgb(0, 207, 0);
     }
+
     .loginForm img {
         border-radius: 50%;
         width: 160px;
@@ -68,17 +69,18 @@
 <div class="container" style="height: 100vh;">
     <br>
     {%if errorMsg != null%}
-    <div class="errors" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ errorMsg }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {%endif%}
     <form action="{{url_for('login')}}" class="loginForm" method="post">
         <img src="/static/img/img_index/logo.png">
         <br><br>
         <div class="formContent">
-            <label><strong>Nombre de Usuario </strong><br><input type="text" name="username"></label><br>
+            <label><strong>Nombre de Usuario </strong><br><input type="text" name="username" required></label><br>
             <br>
-            <label><strong>Contraseña </strong><br><input type="password" name="passwd"></label><br>
+            <label><strong>Contraseña </strong><br><input type="password" name="passwd" required></label><br>
         </div>
         <div class="formButtons">
             <button type="submit" class="btn_table">Iniciar Sesion</button>

@@ -162,8 +162,8 @@ async def login():
             return render_template("/paginas/index2.jinja", session=session)
 
         else:
-            errorMsg = "No existe el usuario introducido."
-            return render_template("login.jinja", errorMsg = errorMsg)
+            errorMsg = "Hay datos erroneos en el formulario, revisalos bien."
+            return render_template("login.jinja", errorMsg=errorMsg)
 
 @app.route('/register', methods=['GET', 'POST'])
 async def register():
@@ -174,18 +174,16 @@ async def register():
         username = request.form['username']
         passwd = request.form['passwd']
         descripcion = request.form['descripcion']
-
-        user_repeate = await users.ComprobarUsuarioRepetido(idUser)
         
-        if not user_repeate:
-            user = await users.get_discord_user_by_username(int(idUser))
+        if not await users.ComprobarUsuarioRepetido(idUser):
             passwd_encripted = await security.encrypt_passwd(passwd)
             await users.new_user(idUser, username, passwd_encripted, descripcion)
                 
             return redirect(url_for("index"))
         
         else:
-            return render_template("registrar.jinja")
+            errorMsg = f"El usuario {username} ya existe."
+            return render_template("registrar.jinja", errorMsg=errorMsg)
             
 
 """
