@@ -3,7 +3,7 @@
         "host": "",
         "user": "",
         "passwd": "",
-        "db": "PANAGAMING",
+        "db": "",
         "auth_plugin": "mysql_native_password"
     },
     "discord": {
@@ -23,19 +23,11 @@
         }
     },
     "minecraft": {
-        "vanilla": {
+        "archlight": {
             "ip": "",
             "port": 25565,
             "rcon": {
                 "port": 25575,
-                "passwd": ""
-            }
-        },
-        "archlight": {
-            "ip": "",
-            "port": "",
-            "rcon": {
-                "port": "",
                 "passwd": ""
             }
         }

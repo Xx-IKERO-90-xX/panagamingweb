@@ -173,9 +173,15 @@ async def DeletePage(idPagina):
 @minecraft_bp.route('/server', methods=['GET'])
 async def minecraftServer():
     if 'id' in session:
-        sectoresPerdidos = await lost_sectors.get_all_lost_sectors()
-        misiones = await missions.get_all_missions()
-        return render_template('/paginas/minecraft_subpg/server/minecraftServer.jinja', sectoresPerdidos=sectoresPerdidos, misiones=misiones, session=session)
+        dynmap_host = app.datos['minecraft']['archlight']['ip']
+        dynmap_port = app.datos['minecraft']['archlight']['port']
+
+        return render_template(
+            '/paginas/minecraft_subpg/server/minecraftServer.jinja', 
+            dynmap_host=dynmap_host, 
+            dynmap_port=dynmap_port,
+            session=session
+        )
     else:
         return redirect(url_for('login'))
 

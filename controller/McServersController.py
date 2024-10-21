@@ -28,9 +28,9 @@ datos = {}
 with open('settings.json') as archivo:
     datos = json.load(archivo)
 
-HOST = datos["minecraft"]["vanilla"]["ip"]
-RCON_PORT = datos["minecraft"]["vanilla"]["rcon"]["port"]
-PASSWD_RCON = datos["minecraft"]["vanilla"]["rcon"]["passwd"]
+HOST = datos["minecraft"]["archlight"]["ip"]
+RCON_PORT = datos["minecraft"]["archlight"]["rcon"]["port"]
+PASSWD_RCON = datos["minecraft"]["archlight"]["rcon"]["passwd"]
 
 
 def execute_vanilla_command(command, result_queue):
