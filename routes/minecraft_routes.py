@@ -174,7 +174,7 @@ async def DeletePage(idPagina):
 async def minecraftServer():
     if 'id' in session:
         dynmap_host = app.datos['minecraft']['archlight']['ip']
-        dynmap_port = app.datos['minecraft']['archlight']['port']
+        dynmap_port = app.datos['minecraft']['archlight']['dynmap']['port']
 
         return render_template(
             '/paginas/minecraft_subpg/server/minecraftServer.jinja', 
