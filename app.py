@@ -218,11 +218,12 @@ async def community():
     SOCKETS
 """
 
+# Maneja los mensajes enviados desde el chat publico de la pagina del servidor de Minecraft
 @socketio.on('send_message')
-def hanbleData(data):
+def handle_public_chat_message(data):
     app.logger.info(f"Message: {data['message']} from {data['username']}")
     data['id'] = f"/usuario/{data['id']}"
-    emit('recieve_message', data, broadcast=True)
+    emit('receive_message', data, broadcast=True)
 
 
 #Terminal de los servidores de minecraft

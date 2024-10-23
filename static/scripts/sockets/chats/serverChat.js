@@ -1,6 +1,6 @@
-const sendBtn = document.getElementById('send');
-const cancelBtn = document.getElementById('cancel');
-const messageInput = document.getElementById('myMessage');
+let sendBtn = document.getElementById('send');
+let cancelBtn = document.getElementById('cancel');
+let messageInput = document.getElementById('myMessage');
 
 document.addEventListener('DOMContentLoaded', (event) => {
     var socket = io();
