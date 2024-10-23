@@ -8,7 +8,6 @@ import mysql.connector
 import json
 import random
 import asyncio
-import controller.PersonajesController as personaje
 import controller.database as database
 import controller.UsuarioController as usuario
 

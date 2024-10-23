@@ -9,14 +9,10 @@ import mysql.connector
 import json
 import random
 import asyncio
-import controller.PersonajesController as characters
 from controller.database import *
 import controller.UsuarioController as users
 import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
-import controller.SectoresPerdidosController as lost_sectors
-import controller.MisionesController as missions
-import controller.DiarioController as diary
 from controller.ProfileController import *
 from threading import Thread
 import bot
@@ -66,7 +62,6 @@ async def EditMyDescription(id):
         return redirect(url_for('usuario.MiPerfil', id=id))
     else:
         return redirect(url_for("login"))
-
 
 @user_bp.route('/usuario/edit/style/<int:id>', methods=["GET"])
 async def EditUserStyle(id):

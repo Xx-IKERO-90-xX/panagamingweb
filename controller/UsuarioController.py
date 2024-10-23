@@ -8,7 +8,6 @@ import mysql.connector
 import json
 import random
 import asyncio
-import controller.PersonajesController as characters
 from controller.database import *
 from controller.DiscordServerController import *
 

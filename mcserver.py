@@ -1,11 +1,11 @@
 from mcrcon import MCRcon
 
-host = "192.168.1.66"
-port = 25575
+host = "147.185.221.22"
+port = 32422
 
 try:
     with MCRcon(host, "ikero9090", port=port) as mcr:
-        response = mcr.command("list")
+        response = mcr.command("op THE_IKERO90")
         print(response)
 
 except Exception as e:
