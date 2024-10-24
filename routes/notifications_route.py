@@ -31,6 +31,7 @@ async def index():
     if 'id' in session:
         if session['role'] == 'Ejecutivo' or session['role'] == 'Staff':
             notifiactions_list = await notifications.get_all_notifications()
+            
             return render_template(
                 'paginas/notifications/index.jinja', 
                 notifications=notifiactions_list, 
@@ -40,4 +41,4 @@ async def index():
         else:
             return redirect(url_for('index'))
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))

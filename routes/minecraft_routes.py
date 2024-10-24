@@ -31,7 +31,6 @@ session = app.session
 
 minecraft_bp = Blueprint('minecraft', __name__)
 
-
 @minecraft_bp.route('/', methods=['GET'])
 async def index():
     if 'id' in session:
@@ -40,7 +39,7 @@ async def index():
             session=session
         )
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
     
 @minecraft_bp.route('/server', methods=['GET'])
 async def minecraftServer():
@@ -55,7 +54,7 @@ async def minecraftServer():
             session=session
         )
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
     
 @minecraft_bp.route("/adminPannel", methods=['GET'])
 async def admin_pannel():
@@ -68,4 +67,4 @@ async def admin_pannel():
         else:
             return redirect(url_for('minecraft'))
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))

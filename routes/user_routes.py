@@ -41,7 +41,7 @@ async def MiPerfil(id):
         
         return render_template('/paginas/users/myProfile.jinja', user=result, session=session)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
 
 @user_bp.route('/<int:id>', methods=['GET'])
 async def UserProfile(id):
@@ -51,7 +51,7 @@ async def UserProfile(id):
         result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
         return render_template('/paginas/users/profile.jinja', user=result, session=session)
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
 
 @user_bp.route('/edit/descripcion/<int:id>', methods=["GET","POST"])
 async def EditMyDescription(id):
@@ -61,7 +61,7 @@ async def EditMyDescription(id):
         await EditMyDescriptionPost(id, descripcion)
         return redirect(url_for('usuario.MiPerfil', id=id))
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
 
 @user_bp.route('/usuario/edit/style/<int:id>', methods=["GET"])
 async def EditUserStyle(id):
@@ -71,7 +71,7 @@ async def EditUserStyle(id):
         result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"] }
         return render_template('/paginas/users/styleProfile.jinja', user=result, session=session)
     else:
-        return redirect(url_for("login"))
+        return redirect(url_for("auth.login"))
 
 @user_bp.route('/usuario/edit/style/newMainBk/<int:id>', methods=["POST"])
 async def SetUserBackground(id):
@@ -80,4 +80,4 @@ async def SetUserBackground(id):
         await SetMainUserTheme(id, mainBk)
         return redirect(url_for('usuario.EditUserStyle', id=id))
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
