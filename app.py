@@ -74,8 +74,10 @@ app.register_blueprint(notifications_bp, url_prefix='/notifications')
 
 async def get_discord_users():
     list = []
+
     for m in globals.guild.members: 
         list.append(m)
+
     return list
 
 async def get_discord_ejecutives(userList):
@@ -85,6 +87,7 @@ async def get_discord_ejecutives(userList):
     for user in userList:
         if ejecRole in user.roles:
             ejec.append(user)
+
     return ejec
 
 async def get_discord_staff_users(userList, ejecList):
@@ -98,8 +101,10 @@ async def get_discord_staff_users(userList, ejecList):
                 if user == r:
                     encontrado = True
                     break
+
             if encontrado == False:
                 staff.append(user)
+
     return staff
 
 async def get_discord_members(userList, staffList, ejecList):
@@ -128,7 +133,10 @@ Rutas iniciales de la aplicacion
 @app.route("/")
 async def index():
     if "id" in session:
-        return render_template("/paginas/index2.jinja", session = session)
+        return render_template(
+            "/paginas/index2.jinja", 
+            session=session
+        )
     else:
         return render_template("index.jinja")
 
@@ -140,11 +148,21 @@ async def community():
     memberList = await get_discord_members(userList, staffList, ejecList)
     
     if "id" in session:         
-        return render_template("/paginas/comunidad.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList, session=session)    
+        return render_template(
+            "/paginas/comunidad.jinja", 
+            ejecList=ejecList, 
+            staffList=staffList, 
+            memberList=memberList, 
+            session=session
+        )
+
     else:
-        return render_template("comunidad1.jinja", ejecList=ejecList, staffList=staffList, memberList=memberList)
-
-
+        return render_template(
+            "comunidad1.jinja", 
+            ejecList=ejecList, 
+            staffList=staffList, 
+            memberList=memberList
+        )
 
 
 """
@@ -161,11 +179,8 @@ def handle_public_chat_message(data):
 
 #Terminal de los servidores de minecraft
 @socketio.on('send_vanilla_command')
-def handle_send_command(cmd):
-    
+def handle_send_command(cmd):  
     result_queue = multiprocessing.Queue()
-    
-    print(cmd['command'])
 
     process = multiprocessing.Process(
         target=mcservers.execute_vanilla_command, 
@@ -177,7 +192,6 @@ def handle_send_command(cmd):
 
     response = result_queue.get()
 
-    print(response)
     emit('server_output', {'output': response})
 
 
