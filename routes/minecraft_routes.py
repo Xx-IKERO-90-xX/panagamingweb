@@ -13,8 +13,10 @@ from controller.database import *
 import controller.UsuarioController as users
 import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
+import controller.McServersController as mcservers
 from controller.ProfileController import *
 from threading import Thread
+import multiprocessing
 import bot
 
 import globals
@@ -55,16 +57,17 @@ async def minecraftServer():
         )
     else:
         return redirect(url_for('auth.login'))
-    
-@minecraft_bp.route("/adminPannel", methods=['GET'])
+
+@minecraft_bp.route("/admin", methods=['GET'])
 async def admin_pannel():
     if 'id' in session:
         if session['role'] == 'Staff' or session['role'] == 'Ejecutivo':
             return render_template(
-                'paginas/minecraft_subpg/admin/pannel.jinja', 
+                'paginas/minecraft_subpg/admin/pannel.jinja',
                 session=session
             )
+        
         else:
-            return redirect(url_for('minecraft'))
+            return redirect(url_for('minecraft.index'))
     else:
         return redirect(url_for('auth.login'))

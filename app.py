@@ -37,6 +37,7 @@ bot = discord.Client(intents=intents)
 @bot.event
 async def on_ready():
     globals.guild = bot.get_guild(datos["discord"]["server"]["id"])
+    
     if globals.guild is not None:
         print(f"El bot se ha conectado con el servidor: {globals.guild.name}")
     else:
