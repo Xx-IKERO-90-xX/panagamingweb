@@ -71,16 +71,6 @@ async def GetDiscordUser(idUser):
         
     return usuario
 
-async def HasCharacter(idUser):
-    characters_list = await characters.get_all_characters()
-    has_character = False
-    for personaje in characters_list:
-        if personaje['idUser'] == idUser:
-            has_character = True
-            break
-
-    return has_character
-
 async def ValidarUsuario(idUser):
     listaUsuarios = await app.ListUsers()
     valido = False
@@ -89,15 +79,6 @@ async def ValidarUsuario(idUser):
             valido = True
     return valido
 
-async def comprobarSiTienePersonaje(idUser):
-    has_character = False
-    character_list = await characters.GetCharacterList()
-    for character in character_list:
-        if character['idUser'] == idUser:
-            has_character = True
-            break
-
-    return has_character
 
 async def ComprobarUsuarioRepetido(idUser):
     repeate = False
