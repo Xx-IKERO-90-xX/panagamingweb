@@ -2,12 +2,12 @@
     "database": {
         "host": "192.168.1.66",
         "user": "root",
-        "passwd": "",
+        "passwd": "ikero9090",
         "db": "PANAGAMING",
         "auth_plugin": "mysql_native_password"
     },
     "discord": {
-        "token": "",
+        "token": "OTY3NDI3OTY2NTQxOTE0MTUy.GQoJxm.g-gU8PZ8T_L0ZD-FtatL5Q6Lk36avliK4D7FjI",
         "server": {
             "id": 793956939687133184
         },
@@ -28,7 +28,7 @@
             "port": 25565,
             "rcon": {
                 "port": 25575,
-                "passwd": ""
+                "passwd": "ikero9090"
             },
             "dynmap": {
                 "port": 8999

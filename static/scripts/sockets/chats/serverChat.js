@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         msgTemplate.getElementById('content').innerHTML = data.message;
         document.getElementById('messages').append(msgDiv);
-    })
+    });
 
     window.sendMessage = function () {
 
