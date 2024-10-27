@@ -49,13 +49,7 @@ async def on_ready():
         host = datos["flask"]["host"],
         debug = True
     )
-    
-def run_discord_bot():
-    bot.run(app.datos["discord"]["token"])
 
-def start_discord_bot():
-    loop = asyncio.get_event_loop()
-    loop.create_task(run_discord_bot())
 
 app = Flask(__name__)
 app.secret_key = "tr4rt34t334yt"
@@ -69,10 +63,7 @@ app.register_blueprint(notifications_bp, url_prefix='/notifications')
 
 
 
-
-#######################################################################################
-
-
+# Obtiene el listado de todos los usuarios de Discord.
 async def get_discord_users():
     list = []
 
@@ -81,6 +72,8 @@ async def get_discord_users():
 
     return list
 
+
+# Saca los Ejecutivos de Pana Gaming registrados en el servidor de Discord.
 async def get_discord_ejecutives(userList):
     ejecRole = globals.guild.get_role(datos["discord"]["roles"]["ejecutive"])
     ejec = []
@@ -91,6 +84,7 @@ async def get_discord_ejecutives(userList):
 
     return ejec
 
+# Saca todos los miembros del Staff de Pana Gaming registrados en el servidor de Discord.
 async def get_discord_staff_users(userList, ejecList):
     staffRole = globals.guild.get_role(datos["discord"]["roles"]["staff"])
     staff = []
@@ -108,6 +102,7 @@ async def get_discord_staff_users(userList, ejecList):
 
     return staff
 
+# Saca los Miembros de la comunidad de pana gaming registrados en el servidor de Discord.
 async def get_discord_members(userList, staffList, ejecList):
     memberRole = globals.guild.get_role(datos["discord"]["roles"]["member"])
     members = []
@@ -123,24 +118,22 @@ async def get_discord_members(userList, staffList, ejecList):
                     encontrado = True           
             if encontrado == False:
                 members.append(user)  
+
     return members
 
-'''
-------------------------------------------------------------
-Rutas iniciales de la aplicacion
-------------------------------------------------------------
-'''
 
+# Ruta inicial de la aplicacion.
 @app.route("/")
 async def index():
     if "id" in session:
         return render_template(
-            "/paginas/index2.jinja", 
+            "/paginas/index.jinja", 
             session=session
         )
     else:
         return render_template("index.jinja")
 
+# Ruta donde se muestra información a cerca de la comunidad de pana gaming, los miembros y el equipo que hay detrás con sus respectivos roles principales.
 @app.route("/community")
 async def community():
     userList = await get_discord_users()
@@ -164,6 +157,7 @@ async def community():
             staffList=staffList, 
             memberList=memberList
         )
+
 
 
 """
@@ -200,6 +194,5 @@ def handle_send_command(cmd):
 ################################################################################################
 
 if __name__ == '__main__':
-    bot_thread = Thread(target=bot.run(datos['discord']['token']))
-    bot_thread.start()
+    bot.run(datos['discord']['token'])
     
