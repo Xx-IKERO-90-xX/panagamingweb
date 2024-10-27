@@ -46,14 +46,10 @@ async def MiPerfil(id):
 @user_bp.route('/<int:id>', methods=['GET'])
 async def UserProfile(id):
     if 'id' in session:
-        print("Usuario ID: ", id)
-        if id != session['id']:
-            appUser = await users.get_user_by_id(id)
-            dUser = await users.GetDiscordUser(id)
-            result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
-            return render_template('/paginas/users/profile.jinja', user=result, session=session)
-        else:
-            return redirect(url_for('usuario.MiPerfil', id=session['id']))
+        appUser = await users.get_user_by_id(id)
+        dUser = await users.GetDiscordUser(id)
+        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
+        return render_template('/paginas/users/profile.jinja', user=result, session=session)
     else:
         return redirect(url_for('auth.login'))
 
@@ -67,7 +63,7 @@ async def EditMyDescription(id):
     else:
         return redirect(url_for("auth.login"))
 
-@user_bp.route('/edit/style/<int:id>', methods=["GET"])
+@user_bp.route('/usuario/edit/style/<int:id>', methods=["GET"])
 async def EditUserStyle(id):
     if 'id' in session:
         appUser = await users.get_user_by_id(id)

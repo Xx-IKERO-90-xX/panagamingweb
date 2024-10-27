@@ -55,7 +55,6 @@ async def minecraftServer():
             dynmap_port=dynmap_port,
             session=session
         )
-    
     else:
         return redirect(url_for('auth.login'))
 

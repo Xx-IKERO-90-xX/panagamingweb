@@ -42,18 +42,3 @@ async def index():
             return redirect(url_for('index'))
     else:
         return redirect(url_for('auth.login'))
-    
-
-@notifications_bp.route('/create', methods=['GET', 'POST'])
-async def create():
-    if 'id' in session:
-        if session['role'] == 'Ejecutivo' or session['role'] == 'Staff':
-            return render_template(
-                'paginas/notificaciones/create.jinja',
-                session=session
-            )
-        
-        else:
-            return redirect(url_for('index'))
-    else:
-        return redirect(url_for('auth.login'))
