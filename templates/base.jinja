@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/static/estilo/indexStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/estilo/tailwind/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src='/static/scripts/main.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"
         integrity="sha512-luMnTJZ7oEchNDZAtQhgjomP1eZefnl82ruTH/3Oj/Yu5qYtwL7+dVRccACS/Snp1lFXq188XFipHKYE75IaQQ=="
@@ -29,34 +30,35 @@
 </head>
 
 <body>
-    <header>
-        <img alt=" " src="/static/img/img_index/logo.png">
+    <header class="mx-auto">
+        <a href="{{url_for('index')}}"><img class="mx-auto" alt=" " src="/static/img/img_index/logo.png"></a>
     </header>
     {%if session%}
     <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('usuario.MiPerfil', id=session['id'])}}"><img
-                src="{{session['imgUrl']}}"><br></a>
+        <a class="mx-auto" style="text-decoration: none; color: white;" href="{{url_for('usuario.MiPerfil', id=session['id'])}}"><img
+            class="mx-auto"
+            src="{{session['imgUrl']}}"></a>
         <label>{{session['name']}}</label>
     </div>
     {%endif%}
     <nav>
         {%if session%}
-        <ul>
-            <li><span><a href="{{url_for('community')}}">COMUNIDAD</a></span></li>
-            <li><span><a href="{{url_for('index')}}">PRINCIPAL</a></span></li>
-            <li><span><a href="{{url_for('minecraft.index')}}">MINECRAFT</a></span></li>
-            <li><span><a href="{{url_for('auth.logout')}}">CERRAR SESION</a></span></li>
+        <div class="mx-auto">
+            <a href="{{url_for('community')}}">COMUNIDAD</a>
+            <a href="{{url_for('index')}}">PRINCIPAL</a>
+            <a href="{{url_for('minecraft.index')}}">MINECRAFT</a>
+            <a href="{{url_for('auth.logout')}}">CERRAR SESION</a>
             {%if session['role'] == 'Ejecutivo' or session['role'] == 'Staff'%}
-                <li><span><a href="{{url_for('notifications.index')}}">NOTIFICACIONES</a></span></li>
+                <a href="{{url_for('notifications.index')}}">NOTIFICACIONES</a>
             {%endif%}
-        </ul>
+        </div>
         {%else%}
-        <ul>
-            <li><span><a href="{{url_for('community')}}">COMUNIDAD</a></span></li>
-            <li><span><a href="{{url_for('index')}}">PRINCIPAL</a></span></li>
-            <li><span><a href="{{url_for('auth.login')}}">INICIAR SESION</a></span></li>
-            <li><span><a href="{{url_for('auth.register')}}">REGISTRAR</a></span></li>
-        </ul>
+        <div class="mx-auto">
+            <a href="{{url_for('community')}}">COMUNIDAD</a>
+            <a href="{{url_for('index')}}">PRINCIPAL</a>
+            <a href="{{url_for('auth.login')}}">INICIAR SESION</a>
+            <a href="{{url_for('auth.register')}}">REGISTRAR</a>
+        </div>
         {%endif%}
     </nav><br>
     <main style="height: 100%;">

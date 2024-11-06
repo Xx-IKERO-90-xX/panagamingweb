@@ -49,14 +49,15 @@
         border-color: rgb(0, 199, 0);
         font-family: Arial;
         font-size: 20px;
+        color: black;
         text-align: center;
     }
 
     .formButtons input {
         padding: 5px;
         margin: 10px;
+        color: black;
         background: black;
-        color: white;
         border-color: green;
         font-weight: bold;
     }
@@ -75,7 +76,7 @@
     </div>
     {%endif%}
     <form action="{{url_for('auth.login')}}" class="loginForm" method="post">
-        <img src="/static/img/img_index/logo.png">
+        <img class="mx-auto" src="/static/img/img_index/logo.png">
         <br><br>
         <div class="formContent">
             <label><strong>Nombre de Usuario </strong><br><input type="text" name="username" required></label><br>
@@ -83,7 +84,10 @@
             <label><strong>Contraseña </strong><br><input type="password" name="passwd" required></label><br>
         </div>
         <div class="formButtons">
-            <button type="submit" class="btn_table">Iniciar Sesion</button>
+            <button type="submit"
+                class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                <strong>Iniciar Sesion</strong>
+            </button>
         </div>
     </form>
 </div>

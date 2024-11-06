@@ -43,47 +43,22 @@ nav {
     margin: auto;
     display: block;
 }
-nav > ul {
-    display: flex;
-    justify-content: center;
-}
-
-nav ul {
-    background: black;
-    width: 100%;
-    float: right;
-    display: block;
-    text-align: center;
-    margin: auto;
-}
-
-nav ul li {
-    list-style: None;
+nav a {
     float: left;
     border: solid 0.3em;
     border-color: green;
     border-radius: 30px;
-    padding: 9px;
+    padding: 12px;
     display: block;
     text-align: center;
     margin: 0 .75rem;
-}
-
-nav ul li a {
-    text-decoration: None;
     color: white;
-    padding: 4px;
     font-weight: bold;
     transition: background-color 0.5s;
-    border-radius: 20px;
-    font-family: Arial;
-    margin: 5px;
 }
 
-nav ul li a:hover {
+nav a:hover {
     background: rgb(0, 177, 0);
-    border-radius: 20px;
-    padding: 4px;
 }
 
 body {
@@ -125,15 +100,9 @@ footer {
     src: url(../texto/title/title1.ttf);
 }
 
-@media screen and (max-width: 900px) {
-    nav ul li {
-        margin-left: 30px;
-    }
-}
 
 @media screen and (max-width: 660px) {
-    nav ul li {
-        margin-left: 10px;
+    nav a {
         float: none;
         margin: 20px;
         text-align: center;
@@ -141,7 +110,7 @@ footer {
 }
 
 @media screen and (max-width: 390px) {
-    nav ul li a {
+    nav a {
         font-size: 15px;
         text-align: center;
     }
@@ -382,6 +351,7 @@ footer {
 .mc_section1 h1 {
     text-align: center;
     font-family: mine_tit;
+    font-size: 40px;
 }
 
 .mc_servidor_link {
