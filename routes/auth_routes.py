@@ -56,7 +56,7 @@ async def login():
             session["imgUrl"] = user.avatar.url
             session['role'] = await security.deduce_role(user.id)
     
-            return render_template("/paginas/index2.jinja", session=session)
+            return redirect(url_for('index'))
 
         else:
             errorMsg = "Hay datos erroneos en el formulario, revisalos bien."
