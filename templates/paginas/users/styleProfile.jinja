@@ -5,16 +5,13 @@
 {%block content%}
 <br><br><br>
 <br><br><br>
-<div style="text-align: center;">
-    <a href="{{url_for('usuario.MiPerfil', id=session['id'])}}" class="btn btn-success"><strong>Volver</strong></a>
-</div>
 <br><br>
 {% if user['main'] != None %}
 <div id="profileGreen" class="{{user['main']}}">
     <br><br>
     <div class="profileAvatar">
         <br>
-        <img src="{{user['avatar']}}">
+        <img class="mx-auto" src="{{user['avatar']}}">
         <br><br>
     </div>
     <br>
@@ -30,10 +27,10 @@
         <br><br>
         <div>
             <label style="color: white;"><strong>Sobre mi:</strong></label>
-            <br><br><br>
+            <br>
             <textarea id="textDescripcion" name="descripcion" readonly>
-                        {{user["descripcion"]}}
-                    </textarea>
+                {{user["descripcion"]}}
+            </textarea>
             <br>
         </div><br>
     </div>
@@ -60,10 +57,10 @@
         <br><br>
         <div>
             <label style="color: white;"><strong>Sobre mi:</strong></label>
-            <br><br><br>
+            <br>
             <textarea id="textDescripcion" name="descripcion" readonly>
-                        {{user["descripcion"]}}
-                    </textarea>
+                {{user["descripcion"]}}
+            </textarea>
             <br>
         </div><br>
     </div>
@@ -76,37 +73,77 @@
     <br><br>
     <div class="options">
         <div class="btn-group">
-            <button id="buttonMenu" style="font-size: 19px; font-weight: bold;" type="button"
-                class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                Estilos Normales
-            </button>
-            <div id="dOpts" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <button class="dropdown-item" id="everyDefaultBtn">Todos</button>
-                <button class="dropdown-item" id="blueFilterBtn">Azul</button>
-                <button class="dropdown-item" id="greenFilterBtn">Verde</button>
-                <button class="dropdown-item" id="redFilterBtn">Rojo</button>
-                <button class="dropdown-item" id="yellowFilterBtn">Amarillo</button>
-                <button class="dropdown-item" id="purpleFilterBtn">Morado</button>
-            </div>
-            <script>
-                let btnMenu = document.getElementById("buttonMenu");
-                let menuOpts = document.getElementById("dOpts");
-                btnMenu.addEventListener("click", () => {
-                    menuOpts.classList.toggle("on");
-                });
-            </script>
-        </div>
-        <button id="opt2" class="btn btn-success"><strong>Estilos Especiales</strong></button>
-    </div>
-    <br><br><br><br>
-    <div class="optionsSelect" id="optionsUserEdit">
 
-        <!-- En este div aparecerá todas las opciones disponibles de edicion de estilo -->
+            <div class="relative inline-block text-left">
+                <div>
+                    <button type="button"
+                        class="inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+                        id="btn-default-filter" aria-expanded="true" aria-haspopup="true">
+                        <span
+                            class="px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            <strong>
+                                Por Defecto
+
+                                <svg class="inline-flex w-2.5 h-2.5 ms-3" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 4 4 4-4" />
+                                </svg>
+                            </strong>
+                        </span>
+
+                    </button>
+                    <a
+                        href="{{url_for('usuario.MiPerfil', id=session['id'])}}"
+                        class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+                        <span
+                            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            <strong>Volver</strong>
+                        </span>
+                    </a>
+                </div>
+
+                <div id="defaut_options"
+                    class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none off"
+                    role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                            id="everyDefaultBtn">Todos</button>
+                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                            id="blueFilterBtn">Azul</button>
+                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                            id="greenFilterBtn">Verde</button>
+                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                            id="redFilterBtn">Rojo</button>
+                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                            id="yellowFilterBtn">Amarillo</button>
+                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+                            id="purpleFilterBtn">Morado</button>
+                    </div>
+                </div>
+            </div>
+            <!--
+                everyDefaultBtn
+                greenFilterBtn
+                blueFilterBtn
+                redFilterBtn
+                yellowFilterBtn
+                purpleFilterBtn
+            
+            -->
+        </div>
+        <br><br><br><br>
+        <div class="optionsSelect" id="optionsUserEdit">
+
+            <!-- En este div aparecerá todas las opciones disponibles de edicion de estilo -->
+        </div>
+        <br><br>
+
     </div>
+    <br><br><br>
     <br><br>
 </div>
-<br><br><br>
+<br><br>
 <template id="defaultTemplate">
     <div class="row" id="defaultThemes">
         <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
@@ -506,5 +543,6 @@
         </form>
     </div>
 </template>
-<script src="../../../static/scripts/styleProfile.js"></script>
+<script src="/static/scripts/users/styleProfile.js"></script>
+
 {%endblock%}

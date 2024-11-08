@@ -7,6 +7,7 @@
     <script type="module" src='/static/scripts/styleProfile.js'></script>
 </head>
 <body>
+    {%block default_templates%}
     <template id="defaultTemplate">
         <div class="row" id="defaultThemes">
             <form class="col-sm-3" method="post" action="{{url_for('SetUserBackground', id=session['id'])}}"
@@ -405,6 +406,7 @@
             </form>
         </div>
     </template>
+    {%endblock%}
     <script type="module" src='/static/scripts/styleProfile.js'></script>
 </body>
 </html>

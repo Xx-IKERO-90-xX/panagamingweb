@@ -62,11 +62,20 @@ let btnFilterRed = document.getElementById("redFilterBtn");
 let btnFilterYellow = document.getElementById("yellowFilterBtn");
 let btnFilterPurple = document.getElementById("purpleFilterBtn");
 
+let btnDefaultOptions = document.getElementById("btn-default-filter");
+let defaultOptions = document.getElementById("defaut_options");
+
+btnDefaultOptions.addEventListener("click", ()=> {
+    defaultOptions.classList.toggle('off');
+});
+
 everyBtn.addEventListener("click", loadDefaultThemes);
 btnFilterBlue.addEventListener("click", loadBlueThemes);
 btnFilterGreen.addEventListener("click", loadGreenThemes);
 btnFilterRed.addEventListener("click", loadRedThemes);
 btnFilterYellow.addEventListener("click", loadYellowThemes);
 btnFilterPurple.addEventListener("click", loadPurpleThemes);
+
+
 
 loadDefaultThemes();

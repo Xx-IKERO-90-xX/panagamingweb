@@ -10,7 +10,7 @@
         <br><br>
         <div class="profileAvatar">
             <br>
-            <img src="{{user['avatar']}}">
+            <img class="mx-auto" src="{{user['avatar']}}">
             <br><br>
         </div>
         <br>
@@ -74,7 +74,9 @@
             </div><br>
         </div>
         <br><br>
-        <a href="{{url_for('usuario.EditUserStyle', id=session['id'])}}" class="btn btn-success">
+        <a 
+            href="{{url_for('usuario.EditUserStyle', id=session['id'])}}" 
+            class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
             <strong>Editar Estilo</strong>
         </a>
         <br><br>
@@ -85,7 +87,7 @@
         <br><br>
         <div class="profileAvatar">
             <br>
-            <img src="{{user['avatar']}}">
+            <img class="mx-auto" src="{{user['avatar']}}">
             <br><br>
         </div>
         <br>
@@ -154,8 +156,11 @@
             </div><br>
         </div>
         <br><br>
-        <a href="{{url_for('usuario.EditUserStyle', id=session['id'])}}" class="btn btn-success">
-            <strong>Editar Estilo</strong></a>
+        <a 
+            href="{{url_for('usuario.EditUserStyle', id=session['id'])}}" 
+            class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+            <strong>Editar Estilo</strong>
+        </a>
         <br><br>
     </div>
     {%endif%}

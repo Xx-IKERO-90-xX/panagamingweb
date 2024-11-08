@@ -41,7 +41,7 @@
         <label>{{session['name']}}</label>
     </div>
     {%endif%}
-    <nav>
+    <nav class="mx-auto">
         {%if session%}
         <div class="mx-auto">
             <a href="{{url_for('community')}}">COMUNIDAD</a>
@@ -67,6 +67,7 @@
     <footer>
         © 2024 Pana Gaming. Todos los derechos reservados.
     </footer>
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 
 </html>

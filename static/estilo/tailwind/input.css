@@ -3,3 +3,5 @@
 @tailwind utilities;
 @tailwind forms;
 @tailwind typography;
+@tailwind base;
+@tailwind variants;

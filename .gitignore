@@ -1,2 +1,3 @@
 node_modules
-settings.json
+__pycache__
+web-env

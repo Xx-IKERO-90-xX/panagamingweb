@@ -144,8 +144,8 @@ footer {
 
 /**JS interactions**/
 
-.on {
-    display: block;
+.off {
+    display: none;
 }
 
 
