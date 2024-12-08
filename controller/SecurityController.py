@@ -3,15 +3,10 @@ import discord
 import sys
 from discord.ext import commands
 from discord.utils import *
-from flask import request, Flask, render_template, redirect, session, sessions, url_for
-import mysql.connector
-import json
-import random
-import asyncio
 import controller.DiscordServerController as DiscordServer
-import controller.database as database
-import controller.UsuarioController as users
 from passlib.hash import pbkdf2_sha256
+from entity.User import *
+
 
 import globals
 
@@ -23,16 +18,19 @@ if app_route not in sys.path:
 
 import app
 
+# Valida los datos del login
 async def validate_login(username, passwd):
     valid = False
-    users_list = await users.get_all_users()
-    for user in users_list:
-        if username == user['username'] and await verify_passwd(passwd, user['passwd']):
+    users = User.query.all()
+
+    for user in users:
+        if username == user.username and await verify_passwd(passwd, user.passwd):
             valid = True
             break
         
     return valid
 
+# Deduce el rol del usuario al iniciar sesión
 async def deduce_role(idUser):
     if await DiscordServer.IsEjecutive(idUser):
         return "Ejecutivo"
@@ -45,22 +43,24 @@ async def deduce_role(idUser):
     
     return "Usuario"
         
-
+# Comprueba si el usuario está dentro del servidor de Discord
 async def user_in_discord_server(idUser):
     in_server = False
     list_users = await app.get_discord_users()
 
     for user in list_users:
-        if user['id'] == idUser:
+        if user.id == idUser:
             in_server = True
             break
     
     return in_server
         
-        
+
+# Encripta la contraseña
 async def encrypt_passwd(passwd):
     hash_passwd = pbkdf2_sha256.hash(passwd)
     return hash_passwd
 
+# Verifica si la contraseña concuerda con la del hash
 async def verify_passwd(passwd, hash):
     return pbkdf2_sha256.verify(passwd, hash)

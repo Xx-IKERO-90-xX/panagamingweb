@@ -31,7 +31,7 @@
 
 <body>
     <header class="mx-auto">
-        <a href="{{url_for('index')}}"><img class="mx-auto" alt=" " src="/static/img/img_index/logo.png"></a>
+        <a href="{{url_for('index.index')}}"><img class="mx-auto" alt=" " src="/static/img/img_index/logo.png"></a>
     </header>
     {%if session%}
     <div class="usuarioSesion">
@@ -44,8 +44,7 @@
     <nav class="mx-auto">
         {%if session%}
         <div class="mx-auto">
-            <a href="{{url_for('community')}}">COMUNIDAD</a>
-            <a href="{{url_for('index')}}">PRINCIPAL</a>
+            <a href="{{url_for('index.index')}}">PRINCIPAL</a>
             <a href="{{url_for('minecraft.index')}}">MINECRAFT</a>
             <a href="{{url_for('auth.logout')}}">CERRAR SESION</a>
             {%if session['role'] == 'Ejecutivo' or session['role'] == 'Staff'%}
@@ -54,8 +53,7 @@
         </div>
         {%else%}
         <div class="mx-auto">
-            <a href="{{url_for('community')}}">COMUNIDAD</a>
-            <a href="{{url_for('index')}}">PRINCIPAL</a>
+            <a href="{{url_for('index.index')}}">PRINCIPAL</a>
             <a href="{{url_for('auth.login')}}">INICIAR SESION</a>
             <a href="{{url_for('auth.register')}}">REGISTRAR</a>
         </div>

@@ -1,4 +1,5 @@
 import os 
+import sys
 import discord
 from discord.ext import commands
 from discord.utils import *
@@ -9,12 +10,11 @@ import mysql.connector
 import json
 import random
 import asyncio
-from controller.database import *
-import controller.UsuarioController as users
 import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
-from controller.ProfileController import *
 from threading import Thread
+from entity.User import *
+from entity.UserStyle import *
 import bot
 
 import globals
@@ -24,60 +24,102 @@ sys.path.append("..")
 app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))
 if app_route not in sys.path:
     sys.path.insert(0, app_route)
-
 import app
+from extensions import db
 
 session = app.session
-
 user_bp = Blueprint('usuario', __name__)
+db = app.db
+
 
 @user_bp.route('/me/<int:id>', methods=['GET'])
-async def MiPerfil(id):
+async def my_profile(id):
     if 'id' in session:
-        appUser = await users.get_user_by_id(id)
-        discord_user = await discord_server.get_discord_user_by_id(session["id"])
-        print(discord_user)
-        result = {"avatar": discord_user.avatar.url, "name":discord_user.name, "mote":discord_user.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
+        user = User.query.get(id)
+        style_user = UserStyle.query.get(id)
         
+        result = {
+            "avatar": session["imgUrl"],
+            "name": user.username,
+            "mc_name": user.mc_name,
+            "descripcion": user.descripcion,
+            "main": style_user.main,
+            "banner": style_user.banner
+        }
+
         return render_template('/paginas/users/myProfile.jinja', user=result, session=session)
+    
     else:
         return redirect(url_for("auth.login"))
+
 
 @user_bp.route('/<int:id>', methods=['GET'])
 async def UserProfile(id):
     if 'id' in session:
-        appUser = await users.get_user_by_id(id)
-        dUser = await users.GetDiscordUser(id)
-        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"]}
+        user = User.query.get(id)
+        user_style = User.query.get().filter(idUser = id)
+        discord_user = await discord_server.get_discord_user_by_id(id)
+        
+        result = {
+            "avatar": discord_user.avatar.url, 
+            "name": user.name, 
+            "mc_name": user.mc_name, 
+            "descripcion": user.description, 
+            "main": user_style.main, 
+            "banner": user_style.banner
+        }
+
         return render_template('/paginas/users/profile.jinja', user=result, session=session)
+    
     else:
         return redirect(url_for('auth.login'))
 
-@user_bp.route('/edit/descripcion/<int:id>', methods=["GET","POST"])
-async def EditMyDescription(id):
+
+@user_bp.route('/edit/descripcion/<int:id>', methods=["POST"])
+async def edit_my_description(id):
     if 'id' in session:
         descripcion = request.form["descripcion"]
         
-        await EditMyDescriptionPost(id, descripcion)
+        user = User.query.get(id)
+        user.descripcion = descripcion
+        db.session.commit()
+
         return redirect(url_for('usuario.MiPerfil', id=id))
     else:
         return redirect(url_for("auth.login"))
 
+
+
 @user_bp.route('/usuario/edit/style/<int:id>', methods=["GET"])
 async def EditUserStyle(id):
     if 'id' in session:
-        appUser = await users.get_user_by_id(id)
-        dUser = await users.GetDiscordUser(id)
-        result = {"avatar": dUser.avatar.url, "name":dUser.name, "mote":dUser.nick, "descripcion":appUser["descripcion"], "main":appUser["main"], "banner":appUser["banner"] }
+        user = User.query.get(id)
+        style_user = UserStyle.query.get().filter(idUser = id)
+        
+        result = {
+            "avatar": session["imgUrl"], 
+            "name": user.username, 
+            "mc_name": user.mc_name, 
+            "descripcion": user.descripcion, 
+            "main": style_user.main, 
+            "banner": style_user.banner 
+        }
+
         return render_template('/paginas/users/styleProfile.jinja', user=result, session=session)
     else:
         return redirect(url_for("auth.login"))
 
+
 @user_bp.route('/usuario/edit/style/newMainBk/<int:id>', methods=["POST"])
-async def SetUserBackground(id):
+async def set_main_style(id):
     if 'id' in session:
-        mainBk = request.form["mainBk"]
-        await SetMainUserTheme(id, mainBk)
+        main_bk = request.form["mainBk"]
+
+        style_user = UserStyle.query.get().filter(idUser = id)
+        style_user.main = main_bk
+        db.session.commit()
+
         return redirect(url_for('usuario.EditUserStyle', id=id))
+    
     else:
         return redirect(url_for('auth.login'))

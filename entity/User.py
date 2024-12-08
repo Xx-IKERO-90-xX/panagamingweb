@@ -1,19 +1,22 @@
-import os 
-import discord
-from discord.ext import commands
-from discord.utils import *
-from flask import request, Flask, render_template, redirect, session, sessions, url_for
-import mysql.connector
-import json
-import random
-import asyncio
-from controller.PersonajesController import *
-from controller.database import *
-from controller.UsuarioController import *
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship, declarative_base
+from extensions import db
 
-class User:
-    def __init__(self, idUser, passwd, descripcion, mithrilCoins):
+
+class User(db.Model):
+    __tablename__ = 'Usuario'
+
+    id = db.Column(Integer, primary_key=True)
+
+    username = db.Column(String(100), unique=True)
+    passwd = db.Column(String(100))
+    descripcion = db.Column(String(300))
+    mc_name = db.Column(String(100))
+
+
+    def __init__(self, idUser, username, passwd, descripcion, mc_name):
         self.idUser = idUser
+        self.username = username
         self.passwd = passwd
         self.descripcion = descripcion
-        self.mithrilCoins = mithrilCoins
+        self.mc_name = mc_name

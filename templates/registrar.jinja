@@ -21,9 +21,33 @@
         margin: auto;
     }
 
+    @media (max-width: 1024px) {
+        .registerForm {
+            width: 100%;
+            margin-top: 100px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .contentForm input {
+            width: 100px;
+        }
+        .contentForm textarea {
+            width: 100px;
+        }
+    }
+
     .registerForm img {
         border-radius: 50%;
         width: 150px;
+    }
+    .registerForm input {
+        color: black;
+        width: 100%;
+    }
+    .registerForm textarea {
+        color: black;
+        padding: 3px;
     }
 
     .registerForm textarea {
@@ -42,7 +66,7 @@
         font-weight: bold;
         font-family: Arial;
         background: black;
-        color: white;
+        color: rgb(0, 0, 0);
         margin: 10px;
         text-align: center;
     }
@@ -68,7 +92,7 @@
     </div>
     {%endif%}
     <form class="registerForm" action="{{url_for('auth.register')}}" method="post">
-        <img src="/static/img/img_index/logo.png" alt="">
+        <img class="mx-auto" src="/static/img/img_index/logo.png" alt="">
         <br><br>
         <div class="contentForm">
             <label><strong>Id de Discord</strong></label><br><input type="text" name="idUser"><br>
@@ -84,7 +108,9 @@
         </div>
         <br><br>
         <div class="buttonsForm">
-            <button type="submit" class="btn_table">Registrarse</button>
+            <button type="submit" class="ext-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                <strong>Registrarse</strong>
+            </button>
         </div>
     </form>
     <br><br><br>

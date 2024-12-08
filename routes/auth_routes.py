@@ -1,24 +1,18 @@
 import os 
+import sys
 import discord
 from discord.ext import commands
 from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for, Blueprint
 from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename
-import mysql.connector
-import json
-import random
-import asyncio
-from controller.database import *
-import controller.UsuarioController as users
 import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
-from controller.ProfileController import *
 from threading import Thread
 import bot
+from entity.User import *
 
 import globals
-
 sys.path.append("..")
 
 app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))
@@ -26,11 +20,10 @@ if app_route not in sys.path:
     sys.path.insert(0, app_route)
 
 import app
+from extensions import db
 
 session = app.session
-
 auth_bp = Blueprint('auth', __name__)
-
 
 @auth_bp.route("/logout")
 async def logout():
@@ -50,7 +43,7 @@ async def login():
     
         if valid:
             user = await discord_server.get_discord_user_by_username(username)
-            print(user)
+
             session["id"] = str(user.id)
             session["name"] = username
             session["imgUrl"] = user.avatar.url
@@ -67,17 +60,22 @@ async def register():
     if request.method == "GET":
         return render_template("registrar.jinja")
     else:
-        idUser = request.form['idUser']
+        idUser = int(request.form['idUser'])
         username = request.form['username']
         passwd = request.form['passwd']
         descripcion = request.form['descripcion']
         
-        if not await users.ComprobarUsuarioRepetido(idUser):
-            passwd_encripted = await security.encrypt_passwd(passwd)
-            await users.new_user(idUser, username, passwd_encripted, descripcion)
+        passwd_encripted = await security.encrypt_passwd(passwd)
+        discord_user = await discord_server.get_discord_user_by_id(idUser)
+
+        new_user = User(idUser, username, passwd, descripcion, passwd_encripted, None)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        session["id"] = idUser
+        session["name"] = username
+        session["imgUrl"] = discord_user.avatar.url
+        session['role'] = await security.deduce_role(idUser)
                 
-            return redirect(url_for("index"))
-        
-        else:
-            errorMsg = f"El usuario {username} ya existe."
-            return render_template("registrar.jinja", errorMsg=errorMsg)
+        return redirect(url_for("index"))

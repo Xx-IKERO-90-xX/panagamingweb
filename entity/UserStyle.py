@@ -1,19 +1,17 @@
-import os 
-import discord
-from discord.ext import commands
-from discord.utils import *
-from flask import request, Flask, render_template, redirect, session, sessions, url_for
-import mysql.connector
-import json
-import random
-import asyncio
-from controller.PersonajesController import *
-from controller.database import *
-from controller.UsuarioController import *
+from extensions import db
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship, declarative_base
 
-class UserStyle:
-    def __init__(self, idStyle, idUser, main, banner):
-        self.idStyle = idStyle
+
+class UserStyle(db.Model):
+    __tablename__ = 'UserStyle'
+
+    id = db.Column(Integer, primary_key=True, autoincrement=True)
+    idUser = db.Column(Integer, ForeignKey('Usuario.id'))
+    main = db.Column(String(100))
+    banner = db.Column(String(100))
+
+    def __init__(self, idUser, main, banner):
         self.idUser = idUser
         self.main = main
         self.banner = banner

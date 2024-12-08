@@ -4,14 +4,8 @@ import sys
 from discord.ext import commands
 from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for
-import mysql.connector
-import json
-import random
-import asyncio
-import controller.database as database
-import controller.UsuarioController as usuarios
-import controller.UsuarioController as users
 from globals import guild
+from entity.User import *
 
 sys.path.append("..")
 
@@ -20,17 +14,17 @@ if app_route not in sys.path:
     sys.path.insert(0, app_route)
 
 import app
+from extensions import db
 
 async def get_discord_user_by_username(username):
     discord_user = {}
     
     users_list = await app.get_discord_users()
-    web_user = await users.get_user_by_username(username)
+    app_user = User.query.get().filter(username = username)
 
-    print(web_user)
 
     for user in users_list:
-        if user.id == int(web_user['idUser']):
+        if user.id == int(app_user.id):
             discord_user = user
     
     return discord_user
@@ -44,6 +38,7 @@ async def UserInDiscordServer(idUser):
         if user.id == int(idUser):
             valido = True
             break
+        
     return valido
 
 async def get_discord_user_by_id(idUser):

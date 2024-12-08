@@ -8,7 +8,6 @@ import mysql.connector
 import json
 import random
 import asyncio
-from controller.database import *
 from controller.DiscordServerController import *
 from mcrcon import MCRcon
 import multiprocessing
@@ -31,8 +30,9 @@ HOST = datos["minecraft"]["archlight"]["ip"]
 RCON_PORT = datos["minecraft"]["archlight"]["rcon"]["port"]
 PASSWD_RCON = datos["minecraft"]["archlight"]["rcon"]["passwd"]
 
-    
-def execute_vanilla_command(command, result_queue):
+
+# Permite la ejecución de un comando del servidor de minecraft a través de la aplicación web
+def execute_command(command, result_queue):
     response = ""
     
     with MCRcon(HOST, PASSWD_RCON, port=RCON_PORT) as mcr:
