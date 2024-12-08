@@ -6,6 +6,7 @@ from discord.utils import *
 import controller.DiscordServerController as DiscordServer
 from passlib.hash import pbkdf2_sha256
 from entity.User import *
+from extensions import db
 
 
 import globals
@@ -19,16 +20,14 @@ if app_route not in sys.path:
 import app
 
 # Valida los datos del login
-async def validate_login(username, passwd):
-    valid = False
+async def validate_login(name, passwd):
     users = User.query.all()
-
-    for user in users:
-        if username == user.username and await verify_passwd(passwd, user.passwd):
-            valid = True
-            break
-        
-    return valid
+    print(users)
+    for u in users:
+        if await verify_passwd(passwd, u.passwd):
+            return True
+        else:
+            return False
 
 # Deduce el rol del usuario al iniciar sesión
 async def deduce_role(idUser):

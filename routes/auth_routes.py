@@ -9,8 +9,8 @@ from werkzeug.utils import secure_filename
 import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
 from threading import Thread
-import bot
 from entity.User import *
+from entity.UserStyle import *
 
 import globals
 sys.path.append("..")
@@ -28,7 +28,7 @@ auth_bp = Blueprint('auth', __name__)
 @auth_bp.route("/logout")
 async def logout():
     session.clear()
-    return redirect(url_for("index"))
+    return redirect(url_for("index.index"))
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
@@ -49,7 +49,7 @@ async def login():
             session["imgUrl"] = user.avatar.url
             session['role'] = await security.deduce_role(user.id)
     
-            return redirect(url_for('index'))
+            return redirect(url_for('index.index'))
 
         else:
             errorMsg = "Hay datos erroneos en el formulario, revisalos bien."
@@ -68,9 +68,12 @@ async def register():
         passwd_encripted = await security.encrypt_passwd(passwd)
         discord_user = await discord_server.get_discord_user_by_id(idUser)
 
-        new_user = User(idUser, username, passwd, descripcion, passwd_encripted, None)
+        new_user = User(idUser, username, passwd_encripted, descripcion, None)
+        new_style_user = UserStyle(idUser, None, None)
 
         db.session.add(new_user)
+        db.session.add(new_style_user)
+        
         db.session.commit()
 
         session["id"] = idUser
@@ -78,4 +81,4 @@ async def register():
         session["imgUrl"] = discord_user.avatar.url
         session['role'] = await security.deduce_role(idUser)
                 
-        return redirect(url_for("index"))
+        return redirect(url_for("index.index"))

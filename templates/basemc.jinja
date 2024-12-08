@@ -33,14 +33,13 @@
     </header>
     {%if session%}
     <div class="usuarioSesion">
-        <a style="text-decoration: none; color: white;" href="{{url_for('usuario.MiPerfil', id=session['id'])}}"><img class="mx-auto" src="{{session['imgUrl']}}"></a>
+        <a style="text-decoration: none; color: white;" href="{{url_for('usuario.UserProfile', id=session['id'])}}"><img class="mx-auto" src="{{session['imgUrl']}}"></a>
         <label>{{session['name']}}</label>
     </div>
     {%endif%}
     <nav class="mx-auto">
         <div class="mx-auto">
         {%if session%}
-            <!--<a href="{{url_for('community')}}">COMUNIDAD</a></span>-->
             <a href="{{url_for('index.index')}}">PRINCIPAL</a>
             <a href="{{url_for('minecraft.index')}}">MINECRAFT</a>
             <a href="{{url_for('auth.logout')}}">CERRAR SESION</a>
@@ -48,7 +47,6 @@
                 <a href="{{url_for('minecraft.admin_pannel')}}">PANEL ADMINISTRADOR</a>
             {% endif %}
         {%else%}
-            <!--<a href="{{url_for('community')}}">COMUNIDAD</a>-->
             <a href="{{url_for('index.index')}}">PRINCIPAL</a>
             <a href="{{url_for('auth.login')}}">INICIAR SESION</a>
             <a href="{{url_for('auth.register')}}">REGISTRAR</a>

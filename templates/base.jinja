@@ -35,7 +35,7 @@
     </header>
     {%if session%}
     <div class="usuarioSesion">
-        <a class="mx-auto" style="text-decoration: none; color: white;" href="{{url_for('usuario.MiPerfil', id=session['id'])}}"><img
+        <a class="mx-auto" style="text-decoration: none; color: white;" href="{{url_for('usuario.UserProfile', id=session['id'])}}"><img
             class="mx-auto"
             src="{{session['imgUrl']}}"></a>
         <label>{{session['name']}}</label>
@@ -47,9 +47,6 @@
             <a href="{{url_for('index.index')}}">PRINCIPAL</a>
             <a href="{{url_for('minecraft.index')}}">MINECRAFT</a>
             <a href="{{url_for('auth.logout')}}">CERRAR SESION</a>
-            {%if session['role'] == 'Ejecutivo' or session['role'] == 'Staff'%}
-                <a href="{{url_for('notifications.index')}}">NOTIFICACIONES</a>
-            {%endif%}
         </div>
         {%else%}
         <div class="mx-auto">

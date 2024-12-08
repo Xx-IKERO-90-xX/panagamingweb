@@ -9,7 +9,6 @@ from werkzeug.utils import secure_filename
 import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
 from threading import Thread
-import bot
 from entity.User import *
 
 import globals

@@ -15,7 +15,6 @@ import controller.SecurityController as security
 from threading import Thread
 from entity.User import *
 from entity.UserStyle import *
-import bot
 
 import globals
 
