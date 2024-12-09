@@ -35,18 +35,22 @@ db = app.db
 async def my_profile(id):
     if 'id' in session:
         user = User.query.get(id)
-        style_user = UserStyle.query.get(id)
+        user_style = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
         
         result = {
             "avatar": session["imgUrl"],
             "name": user.username,
             "mc_name": user.mc_name,
             "descripcion": user.descripcion,
-            "main": style_user.main,
-            "banner": style_user.banner
+            "main": user_style.main,
+            "banner": user_style.banner
         }
 
-        return render_template('/paginas/users/myProfile.jinja', user=result, session=session)
+        return render_template(
+            '/paginas/users/myProfile.jinja', 
+            user=result, 
+            session=session
+        )
     
     else:
         return redirect(url_for("auth.login"))
@@ -56,19 +60,23 @@ async def my_profile(id):
 async def UserProfile(id):
     if 'id' in session:
         user = User.query.get(id)
-        user_style = User.query.get().filter(idUser = id)
+        user_style = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
         discord_user = await discord_server.get_discord_user_by_id(id)
         
         result = {
             "avatar": discord_user.avatar.url, 
-            "name": user.name, 
+            "name": user.username, 
             "mc_name": user.mc_name, 
-            "descripcion": user.description, 
+            "descripcion": user.descripcion, 
             "main": user_style.main, 
             "banner": user_style.banner
         }
 
-        return render_template('/paginas/users/profile.jinja', user=result, session=session)
+        return render_template(
+            '/paginas/users/profile.jinja', 
+            user=result, 
+            session=session
+        )
     
     else:
         return redirect(url_for('auth.login'))
@@ -93,7 +101,7 @@ async def edit_my_description(id):
 async def EditUserStyle(id):
     if 'id' in session:
         user = User.query.get(id)
-        style_user = UserStyle.query.get().filter(idUser = id)
+        style_user = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
         
         result = {
             "avatar": session["imgUrl"], 
@@ -104,7 +112,11 @@ async def EditUserStyle(id):
             "banner": style_user.banner 
         }
 
-        return render_template('/paginas/users/styleProfile.jinja', user=result, session=session)
+        return render_template(
+            '/paginas/users/styleProfile.jinja', 
+            user=result, 
+            session=session
+        )
     else:
         return redirect(url_for("auth.login"))
 
@@ -114,11 +126,10 @@ async def set_main_style(id):
     if 'id' in session:
         main_bk = request.form["mainBk"]
 
-        style_user = UserStyle.query.get().filter(idUser = id)
-        style_user.main = main_bk
+        user_style = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
+        user_style.main = main_bk
         db.session.commit()
 
         return redirect(url_for('usuario.EditUserStyle', id=id))
-    
     else:
         return redirect(url_for('auth.login'))
