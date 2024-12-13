@@ -20,15 +20,13 @@ if app_route not in sys.path:
 import app
 
 # Valida los datos del login
-async def validate_login(name, passwd):
-    users = User.query.all()
-    print(users)
-    for u in users:
-        if await verify_passwd(passwd, u.passwd):
-            return True
-        else:
-            return False
-
+async def validate_login(username, passwd):
+    user = db.session.query(User).filter(username = username).first()
+    if await verify_passwd(passwd, user.passwd):
+        return True
+    else:
+        return False
+    
 # Deduce el rol del usuario al iniciar sesión
 async def deduce_role(idUser):
     if await DiscordServer.IsEjecutive(idUser):

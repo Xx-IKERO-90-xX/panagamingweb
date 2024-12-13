@@ -18,17 +18,38 @@ from mcrcon import MCRcon
 from extensions import db, socketio
 import globals
 
+
 datos = {}
 with open('settings.json') as archivo:
     datos = json.load(archivo)
 
-app = None
 
 intents = discord.Intents.default()
 intents.guilds = True
 intents.members = True
 
 bot = discord.Client(intents=intents)
+
+app = Flask(__name__)
+app.secret_key = "a40ecfce592fd63c8fa2cda27d19e1dbc531e946"
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{datos['database']['user']}:{datos['database']['passwd']}@{datos['database']['host']}/{datos['database']['db']}"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
+socketio = SocketIO(app)
+
+from routes import auth_bp, minecraft_bp, user_bp, index_bp
+
+app.register_blueprint(auth_bp, url_prefix="/auth")
+app.register_blueprint(minecraft_bp, url_prefix="/minecraft")
+app.register_blueprint(user_bp, url_prefix="/usuarios")
+app.register_blueprint(index_bp)
+
+app.app_context()
+
+
 
 # Obtiene el listado de todos los usuarios de Discord.
 async def get_discord_users():
@@ -95,39 +116,7 @@ async def get_discord_members(userList, staffList, ejecList):
 async def on_ready():
     print(f"Bot conectado como {bot.user}")
     globals.guild = bot.get_guild(datos["discord"]["server"]["id"])
-    run_flask()
-
-
-def run_bot():
-    bot.run(datos['discord']['token'])
-    run_flask()
-
-
-def create_app():
-    app = Flask(__name__)
-    app.secret_key = "a40ecfce592fd63c8fa2cda27d19e1dbc531e946"
-    app.config['UPLOAD_FOLDER'] = 'static/uploads'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{datos['database']['user']}:{datos['database']['passwd']}@{datos['database']['host']}/{datos['database']['db']}"
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-    db.init_app(app)
-    socketio.init_app(app)
-
-    from routes import auth_bp, minecraft_bp, user_bp, index_bp
-
-    app.register_blueprint(auth_bp, url_prefix="/auth")
-    app.register_blueprint(minecraft_bp, url_prefix="/minecraft")
-    app.register_blueprint(user_bp, url_prefix="/usuarios")
-    app.register_blueprint(index_bp)
-
-    with app.app_context():
-        import sockets
-
-    return app
-
-
-def run_flask():
-    app = create_app()
+    
     with app.app_context():
         db.create_all()
     
@@ -137,11 +126,37 @@ def run_flask():
         host='0.0.0.0', 
         debug=True,
     )
+
+
+# Maneja los mensajes enviados desde el chat publico de la pagina del servidor de Minecraft
+@socketio.on('send_message')
+def handle_public_chat_message(data):
+    app.logger.info(f"Message: {data['message']} from {data['username']}")
+    data['id'] = f"/usuario/{data['id']}"
+    emit('receive_message', data, broadcast=True)
+
+
+#Terminal de los servidores de minecraft
+@socketio.on('send_vanilla_command')
+def handle_send_command(cmd):  
+    result_queue = multiprocessing.Queue()
+
+    process = multiprocessing.Process(
+        target=mcservers.execute_vanilla_command, 
+        args=(cmd['command'], result_queue)
+    )
+    
+    process.start()
+    process.join()
+
+    response = result_queue.get()
+
+    emit('server_output', {'output': response})
  
 
 
 if __name__ == "__main__":
-    run_bot()
+    bot.run(datos['discord']['token'])
 
 
 

@@ -20,7 +20,7 @@ async def get_discord_user_by_username(username):
     discord_user = {}
     
     users_list = await app.get_discord_users()
-    app_user = User.query.get().filter(username = username)
+    app_user = db.session.query(User).filter(username == username).first()
 
 
     for user in users_list:
