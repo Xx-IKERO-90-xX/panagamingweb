@@ -8,7 +8,6 @@ from passlib.hash import pbkdf2_sha256
 from entity.User import *
 from extensions import db
 
-
 import globals
 
 sys.path.append("..")
@@ -21,9 +20,12 @@ import app
 
 # Valida los datos del login
 async def validate_login(username, passwd):
-    user = db.session.query(User).filter(username = username).first()
-    if await verify_passwd(passwd, user.passwd):
-        return True
+    user = db.session.query(User).filter(User.username == username).first()
+    if user:
+        if await verify_passwd(passwd, user.passwd):
+            return True
+        else:
+            return False
     else:
         return False
     

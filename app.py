@@ -37,7 +37,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{datos['database']['user']}:{d
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
-
 socketio = SocketIO(app)
 
 from routes import auth_bp, minecraft_bp, user_bp, index_bp
@@ -152,13 +151,6 @@ def handle_send_command(cmd):
     response = result_queue.get()
 
     emit('server_output', {'output': response})
- 
-
 
 if __name__ == "__main__":
     bot.run(datos['discord']['token'])
-
-
-
-
-
