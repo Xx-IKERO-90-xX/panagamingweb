@@ -121,8 +121,8 @@ async def on_ready():
     
     socketio.run(
         app, 
-        port=5000, 
-        host='0.0.0.0', 
+        port=datos["flask"]["port"], 
+        host=datos["flask"]["host"], 
         debug=True,
     )
 
