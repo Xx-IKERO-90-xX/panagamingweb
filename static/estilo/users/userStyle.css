@@ -1,0 +1,73 @@
+.style_base {
+    background-image: url(/static/assets/img/users/1/BLACK/1b_blue.png);
+    background-size: cover; /* La imagen cubre todo el área del div */
+    background-attachment: fixed; /* La imagen permanece fija al hacer scroll */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+
+}
+.avatar_div {
+    background: rgb(154,154,154);
+    background: radial-gradient(circle, rgba(154,154,154,1) 0%, rgba(74,74,74,1) 100%);
+    border-radius: 20px;
+}
+.info_div {
+    background: rgb(154,154,154);
+    background: radial-gradient(circle, rgba(154,154,154,1) 0%, rgba(74,74,74,1) 100%);
+    border-radius: 20px;
+}
+
+/**
+    Estilos del LeoZ0
+**/
+
+.blue-b1 {
+    background-image: url(/static/assets/img/users/1/BLACK/b_blue.png);
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.blue-w1 {
+    background-image: url(/static/assets/img/users/1/WHITE/w_blue.png);
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.blue-2 {
+    background-image: url(/static/assets/img/users/2/colored/2_blue.png);
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.blue-b3 {
+    background-image: url(/static/assets/img/users/3/BLACK/b_blue.png);
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.blue-w3 {
+    background-image: url(/static/assets/img/users/3/WHITE/w_blue.png);
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.blue-b4 {
+    background-image: url(/static/assets/img/users/4/BLACK/b_blue.png);
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.blue-w4 {
+    background-image: url(/static/assets/img/users/4/WHITE/w_blue.png);
+    background-size: cover; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
