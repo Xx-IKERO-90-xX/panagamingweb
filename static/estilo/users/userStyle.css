@@ -16,6 +16,13 @@
     background: radial-gradient(circle, rgba(154,154,154,1) 0%, rgba(74,74,74,1) 100%);
     border-radius: 20px;
 }
+.info_div p {
+    height: 100px;
+    background: grey;
+    border-radius: 10px;
+    padding: 5px;
+    overflow-y: auto;
+}
 
 /**
     Estilos del LeoZ0
@@ -24,50 +31,255 @@
 .blue-b1 {
     background-image: url(/static/assets/img/users/1/BLACK/b_blue.png);
     background-size: cover; 
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 140, 255);
 }
 .blue-w1 {
     background-image: url(/static/assets/img/users/1/WHITE/w_blue.png);
     background-size: cover; 
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 140, 255);
 }
 .blue-2 {
     background-image: url(/static/assets/img/users/2/colored/2_blue.png);
     background-size: cover; 
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 140, 255);
 }
 .blue-b3 {
-    background-image: url(/static/assets/img/users/3/BLACK/b_blue.png);
+    background-image: url(/static/assets/img/users/3/Normal_background/Black/3b_blue.png);
     background-size: cover; 
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 140, 255);
 }
 .blue-w3 {
-    background-image: url(/static/assets/img/users/3/WHITE/w_blue.png);
+    background-image: url(/static/assets/img/users/3/Normal_background/White/3w_blue.png);
     background-size: cover; 
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 140, 255);
 }
 .blue-b4 {
-    background-image: url(/static/assets/img/users/4/BLACK/b_blue.png);
+    background-image: url(/static/assets/img/users/4/Black/4b_blue.png);
     background-size: cover; 
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 140, 255);
 }
 .blue-w4 {
-    background-image: url(/static/assets/img/users/4/WHITE/w_blue.png);
+    background-image: url("/static/assets/img/users/4/White/4w\ blue.png");
     background-size: cover; 
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 140, 255);
 }
 
+
+.green-b1 {
+    background-image: url(/static/assets/img/users/1/BLACK/b_green.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 255, 21);
+}
+.green-w1 {
+    background-image: url(/static/assets/img/users/1/WHITE/w_green.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 255, 21);
+}
+.green-2 {
+    background-image: url(/static/assets/img/users/2/colored/2_green.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 255, 21);
+}
+.green-b3 {
+    background-image: url(/static/assets/img/users/3/Normal_background/Black/3b_green.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 255, 21);
+}
+.green-w3 {
+    background-image: url(/static/assets/img/users/3/Normal_background/White/3w_green.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 255, 21);
+}
+.green-b4 {
+    background-image: url(/static/assets/img/users/4/Black/4b_green.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 255, 21);
+}
+.green-w4 {
+    background-image: url(/static/assets/img/users/4/White/4w\ green.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(0, 255, 21);
+}
+
+
+.red-b1 {
+    background-image: url(/static/assets/img/users/1/BLACK/b_red.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 0, 0);
+}
+.red-w1 {
+    background-image: url(/static/assets/img/users/1/WHITE/w_red.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 0, 0);
+}
+.red-2 {
+    background-image: url(/static/assets/img/users/2/colored/2_red.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 0, 0);
+}
+.red-b3 {
+    background-image: url(/static/assets/img/users/3/Normal_background/Black/3b_red.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 0, 0);
+}
+.red-w3 {
+    background-image: url(/static/assets/img/users/3/Normal_background/White/3w_red.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 0, 0);
+}
+.red-b4 {
+    background-image: url(/static/assets/img/users/4/Black/4b_red.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 0, 0);
+}
+.red-w4 {
+    background-image: url(/static/assets/img/users/4/White/4w\ red.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 0, 0);
+}
+
+
+
+.yellow-b1 {
+    background-image: url(/static/assets/img/users/1/BLACK/b_yellow.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.yellow-w1 {
+    background-image: url(/static/assets/img/users/1/WHITE/w_yellow.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.yellow-2 {
+    background-image: url(/static/assets/img/users/2/colored/2_yellow.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.yellow-b3 {
+    background-image: url(/static/assets/img/users/3/Normal_background/Black/3b_yellow.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.yellow-w3 {
+    background-image: url(/static/assets/img/users/3/Normal_background/White/3w_yellow.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.yellow-b4 {
+    background-image: url(/static/assets/img/users/4/Black/4b_yellow.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.yellow-w4 {
+    background-image: url(/static/assets/img/users/4/White/4w\ yellow.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+
+
+
+.purple-b1 {
+    background-image: url(/static/assets/img/users/1/BLACK/b_purple.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.purple-w1 {
+    background-image: url(/static/assets/img/users/1/WHITE/w_purple.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.purple-2 {
+    background-image: url(/static/assets/img/users/2/colored/2_purple.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.purple-b3 {
+    background-image: url(/static/assets/img/users/3/Normal_background/Black/3b_purple.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.purple-w3 {
+    background-image: url(/static/assets/img/users/3/Normal_background/White/3w_purple.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.purple-b4 {
+    background-image: url(/static/assets/img/users/4/Black/4b_purple.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
+.purple-w4 {
+    background-image: url(/static/assets/img/users/4/White/4w\ purple.png);
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+}
