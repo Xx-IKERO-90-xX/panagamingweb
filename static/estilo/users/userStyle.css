@@ -24,6 +24,15 @@
     overflow-y: auto;
 }
 
+
+.description_textarea {
+    width: 400px;
+    height: 100px;
+}
+.edit_description_button {
+    color: rgb(0, 255, 21);
+}
+
 /**
     Estilos del LeoZ0
 **/

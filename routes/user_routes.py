@@ -82,19 +82,19 @@ async def UserProfile(id):
         return redirect(url_for('auth.login'))
 
 
-@user_bp.route('/edit/descripcion/<int:id>', methods=["POST"])
-async def edit_my_description(id):
+@user_bp.route('/usuario/me/description/edit', methods=["POST"])
+async def edit_user_description():
     if 'id' in session:
-        descripcion = request.form["descripcion"]
-        
-        user = User.query.get(id)
-        user.descripcion = descripcion
+        description = request.form['description']
+        user = db.session.query(User).filter(User.id == session['id']).first()
+        print(user)
+        user.descripcion = description
         db.session.commit()
-
-        return redirect(url_for('usuario.MiPerfil', id=id))
+        
+        return redirect(url_for('usuario.my_profile', id=session['id']))
+    
     else:
-        return redirect(url_for("auth.login"))
-
+        return redirect(url_for('auth.login'))
 
 
 @user_bp.route('/usuario/edit/style/<int:id>', methods=["GET"])
