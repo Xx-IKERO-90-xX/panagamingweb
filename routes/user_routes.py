@@ -117,6 +117,7 @@ async def EditUserStyle(id):
             user=result, 
             session=session
         )
+        
     else:
         return redirect(url_for("auth.login"))
 

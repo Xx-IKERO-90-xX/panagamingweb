@@ -24,6 +24,17 @@
     overflow-y: auto;
 }
 
+.editPannel {
+    background: rgb(27, 27, 27);
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgb(0, 255, 34);
+}
+
+.btn-group {
+    text-align: center;
+    margin: auto;
+}
+
 
 .description_textarea {
     width: 400px;
@@ -32,6 +43,14 @@
 .edit_description_button {
     color: rgb(0, 255, 21);
 }
+
+.optionSelect form:hover {
+    border: solid 0.1em;
+    border-color: green;
+    border-radius: 5px;
+}
+
+
 
 /**
     Estilos del LeoZ0
@@ -248,47 +267,77 @@
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+    box-shadow: 5px 5px 15px rgb(89, 0, 255);
 }
 .purple-w1 {
     background-image: url(/static/assets/img/users/1/WHITE/w_purple.png);
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+    box-shadow: 5px 5px 15px rgb(89, 0, 255);
 }
 .purple-2 {
     background-image: url(/static/assets/img/users/2/colored/2_purple.png);
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+    box-shadow: 5px 5px 15px rgb(89, 0, 255);
 }
 .purple-b3 {
     background-image: url(/static/assets/img/users/3/Normal_background/Black/3b_purple.png);
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+    box-shadow: 5px 5px 15px rgb(89, 0, 255);
 }
 .purple-w3 {
     background-image: url(/static/assets/img/users/3/Normal_background/White/3w_purple.png);
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+    box-shadow: 5px 5px 15px rgb(89, 0, 255);
 }
 .purple-b4 {
     background-image: url(/static/assets/img/users/4/Black/4b_purple.png);
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+    box-shadow: 5px 5px 15px rgb(89, 0, 255);
 }
 .purple-w4 {
     background-image: url(/static/assets/img/users/4/White/4w\ purple.png);
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: 5px 5px 15px rgb(255, 217, 0);
+    box-shadow: 5px 5px 15px rgb(89, 0, 255);
 }
+
+.optionsSelect form {
+    margin: auto;
+    text-align: center;
+}
+.optionsSelect form button img {
+    width: 200px;
+    margin: auto;
+    border-radius: 10px;
+}
+.optionsSelect form button:hover{
+    border: solid 0.1em;
+    border-color: rgb(0, 255, 0);
+    border-radius: 10px;
+}
+
+@media (max-width: 780px) {
+    .optionsSelect form {
+        text-align: center;
+    }
+    .optionsSelect form button img {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+    .optionsSelect form button {
+        margin: auto;
+    }
+}
+

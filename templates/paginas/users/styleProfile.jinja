@@ -3,546 +3,269 @@
 {%block title%} Editar estilo perfil {%endblock%}
 
 {%block content%}
-<br><br><br>
-<br><br><br>
-<br><br>
-{% if user['main'] != None %}
-<div id="profileGreen" class="{{user['main']}}">
-    <br><br>
-    <div class="profileAvatar">
-        <br>
-        <img class="mx-auto" src="{{user['avatar']}}">
-        <br><br>
-    </div>
+
+
+<link rel="stylesheet" type="text/css" href="/static/estilo/users/userStyle.css">
+<div class="container">
     <br>
-    <div class="profileDatos">
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Sobre mi:</strong></label>
-            <br>
-            <textarea id="textDescripcion" name="descripcion" readonly>
-                {{user["descripcion"]}}
-            </textarea>
-            <br>
-        </div><br>
-    </div>
-    <br><br>
-</div>
-{% else %}
-<div id="profileGreen" class="profileDefault">
-    <br><br>
-    <div class="profileAvatar">
-        <br>
-        <img src="{{user['avatar']}}">
-        <br><br>
-    </div>
-    <br>
-    <div class="profileDatos">
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Nombre:</strong> {{user["name"]}}</label>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Mote:</strong> {{user["mote"]}}</label><br>
-        </div>
-        <br><br>
-        <div>
-            <label style="color: white;"><strong>Sobre mi:</strong></label>
-            <br>
-            <textarea id="textDescripcion" name="descripcion" readonly>
-                {{user["descripcion"]}}
-            </textarea>
-            <br>
-        </div><br>
-    </div>
-    <br><br>
-</div>
-{% endif %}
-<br><br>
-<br>
-<div class="editPannel">
-    <br><br>
-    <div class="options">
-        <div class="btn-group">
-
-            <div class="relative inline-block text-left">
-                <div>
-                    <button type="button"
-                        class="inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
-                        id="btn-default-filter" aria-expanded="true" aria-haspopup="true">
-                        <span
-                            class="px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            <strong>
-                                Por Defecto
-
-                                <svg class="inline-flex w-2.5 h-2.5 ms-3" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 1 4 4 4-4" />
-                                </svg>
-                            </strong>
-                        </span>
-
-                    </button>
-                    <a
-                        href="{{url_for('usuario.MiPerfil', id=session['id'])}}"
-                        class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
-                        <span
-                            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            <strong>Volver</strong>
-                        </span>
-                    </a>
+    {%if user['main'] != None %}
+    <div class="min-h-screen flex items-center justify-center p-10">
+        <div
+            class="{{user['main']}} font-std mb-10 w-full rounded-2xl p-10 font-normal leading-relaxed text-gray-900 shadow-xl">
+            <div class="flex flex-col md:flex-row">
+                <div class="avatar_div md:w-1/3 text-center mb-8 md:mb-0 bg-black p-5">
+                    <img src="{{user['avatar']}}" alt="Profile Picture"
+                        class="rounded-full w-28 h-28 mx-auto mb-4 border-4 border-indigo-800 transition-transform duration-300 hover:scale-105 ring ring-gray-300">
+                    <h1 class="text-2xl font-bold mb-2">{{user['name']}}</h1>
                 </div>
+                <div class="info_div md:w-2/3 md:pl-8 bg-black md:ml-10 p-5">
+                    <br>
+                    {% if user["mc_name"] != None %}
+                    <strong>Minecraft: </strong>
+                    <label class="text-gray-600 mb-6">{{user['mc_name']}}</label>
+                    {%endif%}
 
-                <div id="defaut_options"
-                    class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none off"
-                    role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                    <div class="py-1" role="none">
-                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                            id="everyDefaultBtn">Todos</button>
-                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                            id="blueFilterBtn">Azul</button>
-                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                            id="greenFilterBtn">Verde</button>
-                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                            id="redFilterBtn">Rojo</button>
-                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                            id="yellowFilterBtn">Amarillo</button>
-                        <button class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                            id="purpleFilterBtn">Morado</button>
-                    </div>
+                    <label style="text-align: left;" class="text-xl font-bold">Descripción</label>
+                    <p class="mb-6">
+                        {{user['descripcion']}}
+                    </p>
                 </div>
             </div>
-            <!--
-                everyDefaultBtn
-                greenFilterBtn
-                blueFilterBtn
-                redFilterBtn
-                yellowFilterBtn
-                purpleFilterBtn
-            
-            -->
         </div>
-        <br><br><br><br>
-        <div class="optionsSelect" id="optionsUserEdit">
-
-            <!-- En este div aparecerá todas las opciones disponibles de edicion de estilo -->
-        </div>
-        <br><br>
-
     </div>
-    <br><br><br>
+    {% else %}
+    <div class="min-h-screen flex items-center justify-center p-10">
+        <div
+            class="green-b1 font-std mb-10 w-full rounded-2xl p-10 font-normal leading-relaxed text-gray-900 shadow-xl">
+            <div class="flex flex-col md:flex-row">
+                <div class="avatar_div md:w-1/3 text-center mb-8 md:mb-0 bg-black p-5">
+                    <img src="{{user['avatar']}}" alt="Profile Picture"
+                        class="rounded-full w-28 h-28 mx-auto mb-4 border-4 border-indigo-800 transition-transform duration-300 hover:scale-105 ring ring-gray-300">
+                </div>
+                <div class="info_div md:w-2/3 md:pl-8 bg-black md:ml-10 p-5">
+                    <h1 class="text-2xl font-bold mb-2">{{user['name']}}</h1>
+                    <br>
+                    {% if user["mc_name"] != None %}
+                    <strong>Minecraft: </strong>
+                    <label class="text-gray-600 mb-6">{{user['mc_name']}}</label>
+                    {%endif%}
+
+                    <label style="text-align: left;" class="text-xl font-bold">Descripción</label>
+                    <p class="mb-6">
+                        {{user['descripcion']}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endif%}
     <br><br>
-</div>
-<br><br>
-<template id="defaultTemplate">
-    <div class="row" id="defaultThemes">
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bBlue1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="blue2">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wBlue1">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bBlue3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wBlue3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bBlue4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wBlue4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bGreen1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wGreen1">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="green2">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bGreen3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wGreen3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bGreen4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wGreen4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bRed1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wRed1">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="red2">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bRed3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wRed3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bRed4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wRed4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bYellow1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wYellow1">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="yellow2">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bYellow3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wYellow3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bYellow4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wYellow4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bPurple1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wPurple1">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="purple2">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bPurple3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wPurple3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bPurple4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wPurple4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w purple.png"></button>
-        </form>
-    </div>
-</template>
+    <br><br>
+    <div class="editPannel">
+        <br><br>
+        <div class="options">
+            <div class="btn-group">
+                <a href="{{url_for('usuario.my_profile', id=session['id'])}}" class="btn btn-success">
+                    <strong>Volver</strong>
+                </a>
+            </div>
+            <br><br><br><br>
+            <div class="optionsSelect" id="optionsUserEdit">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="defaultThemes">
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="blue-b1">
+                        <button type="submit"><img src="/static/assets/img/users/1/BLACK/b_blue.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="blue-w1">
+                        <button type="submit"><img src="/static/assets/img/users/1/WHITE/w_blue.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="blue-2">
+                        <button type="submit"><img src="/static/assets/img/users/2/colored/2_blue.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="blue-b3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_blue.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="blue-w3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/White/3w_alt_blue.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="blue-b4">
+                        <button type="submit"><img src="/static/assets/img/users/4/Black/4b_blue.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="blue-w4">
+                        <button type="submit"><img src="/static/assets/img/users/4/White/4w blue.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="green-b1">
+                        <button type="submit"><img src="/static/assets/img/users/1/BLACK/b_green.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="green-w1">
+                        <button type="submit"><img src="/static/assets/img/users/1/WHITE/w_green.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="green-2">
+                        <button type="submit"><img src="/static/assets/img/users/2/colored/2_green.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="green-b3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_green.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="green-w3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/White/3w_alt_green.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="green-b4">
+                        <button type="submit"><img src="/static/assets/img/users/4/Black/4b_green.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="green-w4">
+                        <button type="submit"><img src="/static/assets/img/users/4/White/4w green.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="red-b1">
+                        <button type="submit"><img src="/static/assets/img/users/1/BLACK/b_red.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="red-w1">
+                        <button type="submit"><img src="/static/assets/img/users/1/WHITE/w_red.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="red-2">
+                        <button type="submit"><img src="/static/assets/img/users/2/colored/2_red.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="red-b3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_red.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="red-w3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/White/3w_alt_red.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="red-b4">
+                        <button type="submit"><img src="/static/assets/img/users/4/Black/4b_red.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="red-w4">
+                        <button type="submit"><img src="/static/assets/img/users/4/White/4w red.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="yellow-b1">
+                        <button type="submit"><img src="/static/assets/img/users/1/BLACK/b_yellow.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="yellow-w1">
+                        <button type="submit"><img src="/static/assets/img/users/1/WHITE/w_yellow.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="yellow-2">
+                        <button type="submit"><img src="/static/assets/img/users/2/colored/2_yellow.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="yellow-b3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_yellow.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="yellow-w3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/White/3w_alt_yellow.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="yellow-b4">
+                        <button type="submit"><img src="/static/assets/img/users/4/Black/4b_yellow.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="yellow-w4">
+                        <button type="submit"><img src="/static/assets/img/users/4/White/4w yellow.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="purple-b1">
+                        <button type="submit"><img src="/static/assets/img/users/1/BLACK/b_purple.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="purple-w2">
+                        <button type="submit"><img src="/static/assets/img/users/1/WHITE/w_purple.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="purple-2">
+                        <button type="submit"><img src="/static/assets/img/users/2/colored/2_purple.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="purple-b3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_purple.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="purple-w3">
+                        <button type="submit"><img
+                                src="/static/assets/img/users/3/Alternative_background/White/3w_alt_purple.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="purple-b4">
+                        <button type="submit"><img src="/static/assets/img/users/4/Black/4b_purple.png"></button>
+                    </form>
+                    <form class="h-24 hover:border-green-500" method="post"
+                        action="{{url_for('usuario.set_main_style', id=session['id'])}}" style="margin-bottom: 40px;">
+                        <input type="hidden" name="mainBk" value="purple-w4">
+                        <button class="hover:border-green-500" type="submit"><img
+                                src="/static/assets/img/users/4/White/4w purple.png"></button>
+                    </form>
+                </div>
+                <!-- En este div aparecerá todas las opciones disponibles de edicion de estilo -->
+            </div>
+            <br><br>
 
-<template id="blueTemplate">
-    <div class="row" id="blueThemes">
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bBlue1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="blue2">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wBlue1">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bBlue3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wBlue3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bBlue4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_blue.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wBlue4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w blue.png"></button>
-        </form>
+        </div>
+        <br><br><br>
+        <br><br>
     </div>
-</template>
-
-<template id="greenTemplate">
-    <div class="row" id="greenThemes">
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bGreen1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wGreen1">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="green2">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bGreen3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wGreen3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bGreen4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_green.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wGreen4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w green.png"></button>
-        </form>
-    </div>
-</template>
-
-<template id="yellowTemplate">
-    <div class="row" id="yellowThemes">
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bYellow1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wYellow1">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="yellow2">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bYellow3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wYellow3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bYellow4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_yellow.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wYellow4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w yellow.png"></button>
-        </form>
-    </div>
-</template>
-
-<template id="redTemplate">
-    <div class="row" id="redThemes">
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bRed1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wRed1">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="red2">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bRed3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wRed3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bRed4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_red.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wRed4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w red.png"></button>
-        </form>
-    </div>
-</template>
-
-<template id="purpleTemplate">
-    <div class="row" id="purpleThemes">
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bPurple1">
-            <button type="submit"><img src="/static/assets/img/users/1/BLACK/1b_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wPurple1">
-            <button type="submit"><img src="/static/assets/img/users/1/WHITE/1w_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="purple2">
-            <button type="submit"><img src="/static/assets/img/users/2/colored/2_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bPurple3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/Black/3b_alt_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wPurple3">
-            <button type="submit"><img
-                    src="/static/assets/img/users/3/Alternative_background/White/3w_alt_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="bPurple4">
-            <button type="submit"><img src="/static/assets/img/users/4/Black/4b_purple.png"></button>
-        </form>
-        <form class="col-sm-3" method="post" action="{{url_for('usuario.SetUserBackground', id=session['id'])}}"
-            style="margin-bottom: 40px;">
-            <input type="hidden" name="mainBk" value="wPurple4">
-            <button type="submit"><img src="/static/assets/img/users/4/White/4w purple.png"></button>
-        </form>
-    </div>
-</template>
-<script src="/static/scripts/users/styleProfile.js"></script>
-
-{%endblock%}
+    <br><br>
+    {%endblock%}
