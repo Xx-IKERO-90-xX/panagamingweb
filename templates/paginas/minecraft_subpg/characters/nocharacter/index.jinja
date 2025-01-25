@@ -1,0 +1,39 @@
+{%extends 'basemc.jinja'%}
+
+{%block title%} Personajes {%endblock%}
+
+{%block content%}
+<br><br><br><br>
+<div class="container" style="height: 100vh;">
+  <br><br><br>
+  <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
+    <a class="mx-auto btn btn-success">
+      <strong>Crear Personaje</strong>
+    </a>
+  </div>
+  <br><br><br>
+  <div style="
+      height: 800px;
+      overflow-x: scroll;
+      padding: 20px;
+    " 
+    class="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+    <div class="mx-auto card bg-base-100 shadow-green-500/50 sm:w-50 lg:w-50 shadow-xl">
+      <figure class="px-10 pt-10">
+        <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes"
+          class="rounded-xl" />
+      </figure>
+      <div class="card-body items-center text-center">
+        <h2 class="card-title">Shoes!</h2>
+        <p style="overflow-y: scroll;">If a dog chews shoes whose shoes does he choose?</p>
+        <div class="card-actions">
+          <a href="#" type='button' class='py-2.5 px-6 text-sm rounded-full bg-gradient-to-r from-green-500 text-black to-green-300 cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-l'>
+            Ver Detalles
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock%}

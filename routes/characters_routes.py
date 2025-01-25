@@ -22,14 +22,15 @@ import app
 from extensions import db
 
 session = app.session
-index_bp = Blueprint('index', __name__)
 
-@index_bp.route('/', methods=['GET'])
+characters_bp = Blueprint('characters', __name__)
+
+@characters_bp.route('/', methods=["GET"])
 async def index():
     if 'id' in session:
         return render_template(
-            '/paginas/index.jinja', 
+            '/paginas/minecraft_subpg/characters/nocharacter/index.jinja', 
             session=session
         )
     else:
-        return render_template('index.jinja')
+        return redirect(url_for('index.index'))
