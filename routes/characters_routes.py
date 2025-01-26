@@ -32,5 +32,17 @@ async def index():
             '/paginas/minecraft_subpg/characters/nocharacter/index.jinja', 
             session=session
         )
+    
+    else:
+        return redirect(url_for('index.index'))
+
+@characters_bp.route('/new', methods=["GET", "POST"])
+async def create():
+    if 'id' in session:
+        if request.method == "GET":
+            return render_template(
+                '/paginas/minecraft_subpg/characters/nocharacter/create.jinja',
+                session=session
+            )
     else:
         return redirect(url_for('index.index'))
