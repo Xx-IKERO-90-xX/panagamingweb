@@ -4,71 +4,74 @@
 
 {%block content%}
 <div class="container" style="height: 100vh;">
-    <form style="margin-top: 350px;" class="mx-auto w-full max-w-lg bg-base-100 p-10 rounded-lg text-white-500">
+    <form style="margin-top: 350px;"
+        class="mx-auto shadow-lg shadow-green-500 w-full max-w-lg bg-base-100 p-10 rounded-lg">
         <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-xs font-bold mb-2" for="grid-first-name">
-                    First Name
+            <div class="w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2" for="grid-first-name">
+                    Nombre
                 </label>
                 <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    id="grid-first-name" type="text" placeholder="Jane">
+                    class="appearance-none shadow-md shadow-green-500 text-white-200 block w-full text-gray-700 bg-gray-200 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    name="nombre" id="grid-first-name" type="text">
+            </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full md:w-1/2 px-3">
+                <label class="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2" for="grid-last-name">
+                    Especie
+                </label>
+                <input
+                    class="appearance-none block shadow-md shadow-green-500 w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    name="especie" id="grid-last-name" type="text">
             </div>
             <div class="w-full md:w-1/2 px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                    Last Name
+                <label class="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2" for="grid-state">
+                    Genero
                 </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-last-name" type="text" placeholder="Doe">
+                <div class="relative">
+                    <select
+                        class="block appearance-none shadow-md shadow-green-500 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        name="sexo" id="grid-state">
+                        <option value="male">Hombre</option>
+                        <option value="female">Mujer</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
-                    Password
+                <label class="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2" for="description">
+                    Descripcion
                 </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-password" type="password" placeholder="******************">
-                <p class="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
+                <textarea class="textarea textarea-success w-full shadow-md shadow-green-500 text-gray-700 bg-gray-200"
+                    name="descripcion" id="description"></textarea>
             </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-2">
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                    City
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2" for="imagen">
+                    Imagen
                 </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-city" type="text" placeholder="Albuquerque">
+                <input id="imagen" name="image" type="file"
+                    class="file-input file-input-bordered file-input-success w-full max-w-xs" />
             </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                    State
-                </label>
-                <div class="relative">
-                    <select
-                        class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="grid-state">
-                        <option>New Mexico</option>
-                        <option>Missouri</option>
-                        <option>Texas</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-zip">
-                    Zip
-                </label>
-                <input
-                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="grid-zip" type="text" placeholder="90210">
+        </div>
+        <div style="text-align: center;" class="flex flex-wrap -mx-3 mb-6">
+            <div class="mx-auto w-full px-3">
+                <br>
+                <button 
+                    type="submit" 
+                    class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        Crear
+                </button>
+                <a 
+                    type="button"
+                    href="{{url_for('characters.index')}}"
+                    class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                        Volver
+                </a>
+
             </div>
         </div>
     </form>
