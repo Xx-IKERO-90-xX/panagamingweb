@@ -10,6 +10,8 @@ import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
 from threading import Thread
 from entity.User import *
+from entity.Character import *
+from controller.StaticsController import *
 
 import globals
 sys.path.append("..")
@@ -25,14 +27,34 @@ session = app.session
 
 characters_bp = Blueprint('characters', __name__)
 
+
+async def user_has_character(idUser):
+    character = db.session.query(Character).filter(Character.idUser == idUser)
+
+    if character != None:
+        return True
+    else:
+        return False
+
+
 @characters_bp.route('/', methods=["GET"])
 async def index():
     if 'id' in session:
-        return render_template(
-            '/paginas/minecraft_subpg/characters/nocharacter/index.jinja', 
-            session=session
-        )
-    
+        characters = Character.query.all()
+
+        if not user_has_character(session['id']):
+            return render_template(
+                '/paginas/minecraft_subpg/characters/nocharacter/index.jinja',
+                characters=characters, 
+                session=session
+            )
+        else:
+            return render_template(
+                '/paginas/minecraft_subpg/characters/withcharacter/index.jinja',
+                characters=characters, 
+                session=session
+            )
+
     else:
         return redirect(url_for('index.index'))
 
@@ -44,5 +66,26 @@ async def create():
                 '/paginas/minecraft_subpg/characters/nocharacter/create.jinja',
                 session=session
             )
+        
+        else:
+            name = request.form['nombre']
+            specie = request.form['especie']
+            gender = request.form['sexo']
+            description = request.form["descripcion"]
+
+            image_filename = None
+            
+            if "file" in request.files:
+                imagen = request.file["image"]
+                image_filename = secure_filename(imagen.filename)
+                filepath = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+                imagen.save(filepath)
+            
+            new_character = Character(session['id'], name, gender, specie, image_filename, description, 0)
+            db.session.add(new_character)
+            db.session.commit()
+
+            return redirect(url_for('characters.index'))
+
     else:
         return redirect(url_for('index.index'))
