@@ -4,7 +4,7 @@
 
 {%block content%}
 <br>
-{%if user['main'] != None %}
+{%if user['main'] != None%}
     <div class="min-h-screen flex items-center justify-center p-10">
         <div
             class="{{user['main']}} font-std mb-10 w-full rounded-2xl p-10 font-normal leading-relaxed text-gray-900 shadow-xl">
@@ -29,7 +29,7 @@
             </div>
         </div>
     </div>
-    {% else %}
+{%else%}
     <div class="min-h-screen flex items-center justify-center p-10">
         <div
             class="green-b1 font-std mb-10 w-full rounded-2xl p-10 font-normal leading-relaxed text-gray-900 shadow-xl">
@@ -54,7 +54,7 @@
             </div>
         </div>
     </div>
-    {%endif%}
+{%endif%}
     <br><br>
     <br><br>
 {%endblock%}

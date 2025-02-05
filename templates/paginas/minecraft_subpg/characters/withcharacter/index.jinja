@@ -7,7 +7,7 @@
 <div class="container" style="height: 100vh;">
   <br><br><br>
   <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
-    <a href="{{url_for('characters.create')}}" class="mx-auto btn btn-success">
+    <a href="{{url_for('characters.my_character')}}" class="mx-auto btn btn-success">
       <strong>Mi Personaje</strong>
     </a>
   </div>
@@ -21,7 +21,7 @@
     <div style="height: 500px;" class="mx-auto card bg-base-100 shadow-green-500/50 sm:w-50 lg:w-50 shadow-xl">
       <figure class="px-10 pt-10">
         {%if character.image != None%}
-          <img width="240" height="240" src="{{ character.image }}"
+          <img width="240" height="240" src="/static/uploads/{{character.image}}"
             class="rounded-xl" />
         {%else%}
           <img width="240" height="240" src="/static/img/noImage.jpg"

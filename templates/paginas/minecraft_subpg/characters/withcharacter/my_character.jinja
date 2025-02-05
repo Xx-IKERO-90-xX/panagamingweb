@@ -2,8 +2,34 @@
 
 {%block title%} Mi Personaje {%endblock%}
 
-{%block content%} 
+{%block content%}
 
-
-
+<div class="container">
+    <div class="hero min-h-screen">
+        <div class="hero-content shadow-lg shadow-green-500 bg-base-200 flex-col lg:flex-row w-full rounded-lg">
+            <div class="md:w-0/3 text-center mb-8 md:mb-0 p-5">
+                {%if character.image != None%}
+                <img src="/static/uploads/{{character.image}}" class="max-w-sm rounded-lg shadow-2xl" />
+                {%else%}
+                <img src="/static/img/noImage.jpg" width="240" class="max-w-sm rounded-lg shadow-2xl" />
+                {%endif%}
+                <br>
+            </div>
+            <div class="md:w-2/3 md:pl-9 md:ml-10 p-5">
+                <h1 class="text-5xl font-bold">{{character.name}}</h1>
+                <br>
+                <div>
+                    <label><strong>Descripción</strong></label>
+                    <p>
+                        {{character.description}}
+                    </p>
+                </div>
+                <div>
+                    <label><strong>Especie:</strong></label>
+                    <span>{{character.specie}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {%endblock%}

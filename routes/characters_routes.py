@@ -29,7 +29,7 @@ characters_bp = Blueprint('characters', __name__)
 
 
 async def user_has_character(idUser):
-    character = db.session.query(Character).filter(Character.idUser == idUser)
+    character = db.session.query(Character).filter(Character.idUser == idUser).first()
 
     if character != None:
         return True
@@ -48,13 +48,13 @@ async def index():
                 characters=characters, 
                 session=session
             )
+        
         else:
             return render_template(
                 '/paginas/minecraft_subpg/characters/withcharacter/index.jinja',
                 characters=characters, 
                 session=session
             )
-
     else:
         return redirect(url_for('index.index'))
 
@@ -65,8 +65,7 @@ async def create():
             return render_template(
                 '/paginas/minecraft_subpg/characters/nocharacter/create.jinja',
                 session=session
-            )
-        
+            )     
         else:
             name = request.form['nombre']
             specie = request.form['especie']
@@ -86,6 +85,23 @@ async def create():
             db.session.commit()
 
             return redirect(url_for('characters.index'))
-
     else:
         return redirect(url_for('index.index'))
+
+
+@characters_bp.route('/my', methods=['GET'])
+async def my_character():
+    if 'id' in session:
+        character = db.session.query(Character).filter(Character.idUser == session['id']).first()
+        
+        if character:
+            return render_template(
+                '/paginas/minecraft_subpg/characters/withcharacter/my_character.jinja',
+                character=character,
+                session=session
+            )
+        else:
+            return redirect(url_for('characters.index')) 
+    else:
+        return redirect(url_for('index.index'))
+
