@@ -47,9 +47,9 @@
             <a href="{{url_for('index.index')}}">PRINCIPAL</a>
             <a href="{{url_for('minecraft.index')}}">MINECRAFT</a>
             <a href="{{url_for('auth.logout')}}">CERRAR SESION</a>
-            {% if session['role'] == 'Ejecutivo' or session['role'] == 'Staff' %}
+            {%if session['role'] == 'Ejecutivo' or session['role'] == 'Staff'%}
             <a href="{{url_for('minecraft.admin_pannel')}}">PANEL ADMINISTRADOR</a>
-            {% endif %}
+            {%endif%}
             {%else%}
             <a href="{{url_for('index.index')}}">PRINCIPAL</a>
             <a href="{{url_for('auth.login')}}">INICIAR SESION</a>
