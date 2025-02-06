@@ -37,11 +37,11 @@
                     {{character.name}} Lv. {{character.level}}
                 </h1>
                 <hr>
-                <div class="md:text-2xl mt-4 text-lg">
+                <div class="md:text-2xl mt-4 ml-4 text-lg">
                     <label><strong>Raza:</strong></label>
                     <span>{{character.specie}}</span>
                 </div>
-                <div class="md:text-2xl text-lg flex">
+                <div class="md:text-2xl ml-4 text-lg flex">
                     <label class="font-bold">Genero:</label>
                     {%if character.gender == 'female'%}
                     <svg width="30px" height="30px" viewBox="0 0 1024 1024" class="icon ml-2" version="1.1"
@@ -217,11 +217,35 @@
                     </svg>
                     {%endif%}
                 </div>
-                <div>
-                    <label class="md:text-2xl text-lg"><strong>Descripción</strong></label>
+                <div class="ml-4">
+                    <label class="md:text-2xl text-lg">
+                        <strong>Descripción</strong>
+                        <button class="hover:text-green-500 font-bold" onclick="edit_description_modal.showModal()">
+                            <?xml version="1.0" ?><svg class="feather feather-edit" fill="none" height="22"
+                                stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg>
+                        </button>
+                    </label>
                     <p class="text-sm2 ml-5 h-50" style="overflow-y: scroll;">
                         {{character.description}}
                     </p>
+                    <dialog id="edit_description_modal" class="modal">
+                        <div class="modal-box shadow-lg shadow-green-500">
+                            <form method="dialog">
+                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                            </form>
+                            <form method="post" action="{{url_for('characters.edit_character_description', id=character.id)}}">
+                                <h3 class="text-lg font-bold">Descripción</h3>
+                                <textarea class="textarea textarea-success text-left w-full h-100" name="descripcion">
+                                    {{character.description}}
+                                </textarea>
+                                <button type="submit" class="btn btn-success">Editar</button>
+                            </form>
+                        </div>
+                    </dialog>
                 </div>
             </div>
         </div>

@@ -56,7 +56,7 @@ async def index():
                 session=session
             )
     else:
-        return redirect(url_for('index.index'))
+        return redirect(url_for('auth.login'))
 
 @characters_bp.route('/new', methods=["GET", "POST"])
 async def create():
@@ -86,7 +86,7 @@ async def create():
 
             return redirect(url_for('characters.index'))
     else:
-        return redirect(url_for('index.index'))
+        return redirect(url_for('auth.login'))
 
 
 @characters_bp.route('/my', methods=['GET'])
@@ -103,5 +103,22 @@ async def my_character():
         else:
             return redirect(url_for('characters.index')) 
     else:
-        return redirect(url_for('index.index'))
+        return redirect(url_for('auth.login'))
+
+@characters_bp.route('/edit/description/<int:id>', methods=['POST'])
+async def edit_character_description(id):
+    if 'id' in session:
+        character = db.session.query(Character).filter(Character.id == id).first()
+
+        if character:
+            description = request.form['descripcion']
+            character.description = description
+            db.session.commit()
+
+            return redirect(url_for('characters.my_character'))
+        else:
+            return redirect(url_for('characters.indexs'))
+    
+    else:
+        return redirect(url_for('auth.login'))
 
