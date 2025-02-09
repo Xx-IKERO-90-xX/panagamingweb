@@ -3,7 +3,7 @@ import sys
 import discord
 from discord.ext import commands
 from discord.utils import *
-from flask import request, Flask, render_template, redirect, session, sessions, url_for, Blueprint
+from flask import request, Flask, render_template, current_app, redirect, session, sessions, url_for, Blueprint
 from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename
 import controller.DiscordServerController as discord_server
@@ -42,7 +42,7 @@ async def index():
     if 'id' in session:
         characters = Character.query.all()
 
-        if not user_has_character(session['id']):
+        if not await user_has_character(session['id']):
             return render_template(
                 '/paginas/minecraft_subpg/characters/nocharacter/index.jinja',
                 characters=characters, 
@@ -75,7 +75,7 @@ async def create():
             image_filename = None
             
             if "file" in request.files:
-                imagen = request.file["image"]
+                imagen = request.files["image"]
                 image_filename = secure_filename(imagen.filename)
                 filepath = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
                 imagen.save(filepath)
@@ -122,3 +122,37 @@ async def edit_character_description(id):
     else:
         return redirect(url_for('auth.login'))
 
+@characters_bp.route('/edit/image/<int:id>', methods=['POST'])
+async def update_character_image(id):
+    if 'id' in session:
+        character = db.session.query(Character).filter(Character.id == id).first()
+
+        imagen = request.files["update_image"]
+        image_filename = secure_filename(imagen.filename)
+        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], image_filename)
+        imagen.save(filepath)
+
+        character.image = image_filename
+        db.session.commit()
+
+        return redirect(url_for('characters.my_character'))
+    else:
+        return redirect(url_for('auth.login'))
+
+
+@characters_bp.route('/<int:id>', methods=['GET'])
+async def details_character(id):
+    if 'id' in session:
+        character = db.session.query(Character).filter(Character.id == id).first()
+
+        if character:
+            return render_template(
+                '/paginas/minecraft_subpg/characters/withcharacter/details.jinja',
+                character=character,
+                session=session
+            )
+        else:
+            return redirect(url_for('characters.index'))
+
+    else:
+        return redirect(url_for('auth.login'))

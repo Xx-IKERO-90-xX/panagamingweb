@@ -34,7 +34,7 @@
           {{character.description}}
         </p>
         <div class="card-actions">
-          <a href="#" type='button' class='py-2.5 px-6 text-sm rounded-full bg-gradient-to-r from-green-500 text-black to-green-300 cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-l'>
+          <a href="{{url_for('characters.details_character', id=character.id)}}" type='button' class='py-2.5 px-6 text-sm rounded-full bg-gradient-to-r from-green-500 text-black to-green-300 cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-l'>
             Ver Detalles
           </a>
         </div>
