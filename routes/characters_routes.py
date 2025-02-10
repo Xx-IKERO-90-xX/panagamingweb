@@ -8,10 +8,10 @@ from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename
 import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
+import controller.StaticsController as statics
 from threading import Thread
 from entity.User import *
 from entity.Character import *
-from controller.StaticsController import *
 
 import globals
 sys.path.append("..")
@@ -24,9 +24,7 @@ import app
 from extensions import db
 
 session = app.session
-
 characters_bp = Blueprint('characters', __name__)
-
 
 async def user_has_character(idUser):
     character = db.session.query(Character).filter(Character.idUser == idUser).first()
@@ -73,12 +71,10 @@ async def create():
             description = request.form["descripcion"]
 
             image_filename = None
-            
-            if "file" in request.files:
-                imagen = request.files["image"]
-                image_filename = secure_filename(imagen.filename)
-                filepath = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
-                imagen.save(filepath)
+            imagen = request.files["image"]
+
+            if imagen:
+                image_filename = statics.upload_image(imagen)
             
             new_character = Character(session['id'], name, gender, specie, image_filename, description, 0)
             db.session.add(new_character)
@@ -126,14 +122,16 @@ async def edit_character_description(id):
 async def update_character_image(id):
     if 'id' in session:
         character = db.session.query(Character).filter(Character.id == id).first()
+        
+        last_image = character.image
+        image_filename = None
 
-        imagen = request.files["update_image"]
-        image_filename = secure_filename(imagen.filename)
-        filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], image_filename)
-        imagen.save(filepath)
-
-        character.image = image_filename
-        db.session.commit()
+        new_imagen = request.files["update_image"]
+        
+        if new_imagen:
+            image_filename = await statics.update_image(new_imagen, last_image)
+            character.image = image_filename
+            db.session.commit()
 
         return redirect(url_for('characters.my_character'))
     else:
@@ -156,3 +154,4 @@ async def details_character(id):
 
     else:
         return redirect(url_for('auth.login'))
+
