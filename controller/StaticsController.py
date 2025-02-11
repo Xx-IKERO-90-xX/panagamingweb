@@ -27,8 +27,9 @@ async def upload_image(imagen):
     return image_filename
 
 async def update_image(imagen, last_imagen):
-    old_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], last_imagen)
-    os.remove(old_image_path)
+    if last_imagen != None:
+        old_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], last_imagen)
+        os.remove(old_image_path)
     image_filename = secure_filename(imagen.filename)
     filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], image_filename)
     imagen.save(filepath)

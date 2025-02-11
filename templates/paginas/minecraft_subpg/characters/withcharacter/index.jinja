@@ -4,7 +4,7 @@
 
 {%block content%}
 <br><br><br><br>
-<div class="container" style="height: 100vh;">
+<div class="container" style="height: 100%; display:block;">
   <br><br><br>
   <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
     <a href="{{url_for('characters.my_character')}}" class="mx-auto btn btn-success">
@@ -12,8 +12,8 @@
     </a>
   </div>
   <br><br><br>
-  <div style="
-      height: 800px;
+  <div class="overflow-auto" style="
+      height: 1300px;
       padding: 20px;
     " 
     class="mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -21,16 +21,16 @@
     <div style="height: 500px;" class="mx-auto card bg-base-100 shadow-green-500/50 sm:w-50 lg:w-50 shadow-xl">
       <figure class="px-10 pt-10">
         {%if character.image != None%}
-          <img width="240" height="240" src="/static/uploads/{{character.image}}"
-            class="rounded-xl" />
+          <img src="/static/uploads/{{ character.image }}"
+            width="250" height="200" class="mx-auto rounded-xl" />
         {%else%}
-          <img width="240" height="240" src="/static/img/noImage.jpg"
-            class="rounded-xl" />
+          <img src="/static/img/noImage.jpg"
+            width="250" height="200" class="mx-auto rounded-xl" />
         {%endif%}
       </figure>
       <div class="card-body items-center text-center">
         <h2 class="card-title">{{character.name}}</h2>
-        <p style="overflow-y: scroll;">
+        <p class="overflow-auto">
           {{character.description}}
         </p>
         <div class="card-actions">
@@ -42,5 +42,7 @@
     </div>
     {%endfor%}
   </div>
+  <br><br>
 </div>
+<br><br><br>
 {%endblock%}

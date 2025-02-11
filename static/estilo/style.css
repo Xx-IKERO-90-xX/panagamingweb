@@ -72,6 +72,7 @@ footer {
     font-size: 30px;
     color: white;
     padding: 20px;
+    bottom: 0;
 }
 
 .usuarioSesion {

@@ -71,11 +71,13 @@ async def create():
             description = request.form["descripcion"]
 
             image_filename = None
-            imagen = request.files["image"]
-
-            if imagen:
-                image_filename = statics.upload_image(imagen)
             
+            try:
+                imagen = request.files["image"]
+                image_filename = statics.upload_image(imagen)
+            except:
+                pass
+                        
             new_character = Character(session['id'], name, gender, specie, image_filename, description, 0)
             db.session.add(new_character)
             db.session.commit()

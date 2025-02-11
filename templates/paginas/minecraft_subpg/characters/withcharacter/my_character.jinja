@@ -40,9 +40,9 @@
         <div class="grid grid-cols-3 gap-4">
             <div>
                 {%if character.image != None%}
-                <img src="/static/uploads/{{character.image}}" class="lg:h-500 lg:w-500 lg:mx-auto w-50 h-70 rounded-lg">
+                    <img src="/static/uploads/{{character.image}}" class="h-500 w-500 lg:mx-auto w-50 h-70 rounded-lg">
                 {%else%}
-                <img src="/static/img/noImage.jpg" width="140" height="140" class="lg:h-500 lg:w-500 lg:mx-auto w-50 h-70 rounded-lg">
+                    <img src="/static/img/noImage.jpg" class="lg:h-500 lg:w-500 lg:mx-auto w-50 h-70 rounded-lg">
                 {%endif%}
             </div>
             <div class="col-span-2 sm:col-span-0 ml-5">
