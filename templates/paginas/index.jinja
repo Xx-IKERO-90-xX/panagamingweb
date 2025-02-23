@@ -3,34 +3,35 @@
 {%block title%} Inicio {%endblock%}
 
 {%block content%}
-<!--Portada-->
-<div class="portada">
-    <img style="border-color: black;" src="/static/img/img_index/portada.jpg">
-</div>
+<div style="height: 100%;" class="w-full h-vh">
 
+<img src="/static/img/index_wallpaper.png" class="w-full">
+    <div class="bg-base-300">
+        <div class="hero bg-base-300 sha">
+            <div class="mt-20 hero-content flex-col lg:flex-row">
+                <br><br><br><br>
+                <img src="/static/img/img_index/logo.png" style="border-radius: 50%;" width="250"
+                    class="max-w-sm rounded-lg shadow-lg shadow-green-500" />
+                <div>
+                    <h1 class="text-5xl font-bold">Bienvenido a Pana Gaming!</h1>
+                    <p class="py-6">
+                        Pana Gaming es más que una comunidad de videojuegos: es un espacio donde la creatividad, la
+                        historia
+                        y la interacción se fusionan para ofrecer una experiencia única. Desde su inicio en 2021, ha
+                        evolucionado con el objetivo de conectar a personas con intereses y personalidades afines,
+                        creando
+                        mundos donde cada jugador puede dejar su marca.
 
-<!--Contenido principal-->
-<div class="main_content">
-    <h2><strong>BIENVENIDO A PANA GAMING!!!</strong></h2>
-
-</div><br>
-
-<!--Comunidades-->
-<div class="container">
-    <div class="newsPannel">
-
+                        A través de nuestros proyectos, buscamos innovar en la forma en que los jugadores viven y
+                        comparten
+                        sus historias, combinando juego, narrativa y tecnología en un ecosistema en constante expansión.
+                        Únete y forma parte de esta evolución.
+                    </p>
+                </div>
+            </div>
+            <br><br>
+        </div>
+        <br><br>
     </div>
-    <div class="minecraftIndexLink">
-        <h1 style="color: black;"><strong>MINECRAFT PANA GAMING</strong></h1>
-        <br><br>
-        <p style="color: black;">
-            Unete a un servidor de Minecraft totalmente único donde puedes disfrutar de experiencias no antes vividas en otros servidores de Minecraft.
-        </p>
-        <br><br>
-        <a href="{{url_for('minecraft.index')}}">Visitar</a>
-        <br><br>
-    </div>
 </div>
-
-<br>
 {%endblock%}
