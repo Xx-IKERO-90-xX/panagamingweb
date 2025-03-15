@@ -16,13 +16,13 @@
         border-top: solid 0.2em;
         border-color: black;
     }
+
     .server_iframe {
         width: 100%;
         height: 700px;
         border: solid 0.1em;
         border-color: white;
     }
-
 </style>
 <script type="module" src="/static/scripts/sockets/chats/serverChat.js"></script>
 <link rel="stylesheet" href="../../../../static/estilo/McServer/PublicChat.css">
@@ -34,12 +34,14 @@
 
         </div>
         <template id="messageTemplate" class="mesageTemplate">
-            <div id="msg" class="msg">
-                <div class="flex flex-row">
-                    <img id="msgImg" href="#">
-                    <a id="msgName" href="#"></a>
+            <div id="msg" style="font-family: Arial;" class="chat chat-start">
+                <div class="chat-image avatar">
+                    <div class="w-10 rounded-full">
+                        <img id="msgImg" href="#">
+                    </div>
                 </div>
-                <p id="content"></p>
+                <div id="msgName" class="chat-header font-bold text-zinc-950"></div>
+                <div id="content" class="chat-bubble"></div>
             </div>
         </template>
         <div class="msgControls">
