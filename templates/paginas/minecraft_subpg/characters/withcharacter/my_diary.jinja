@@ -1,0 +1,89 @@
+{%extends 'basemc.jinja'%}
+
+{%block title%}Diario{%endblock%}
+
+{%block content%}
+
+<link rel="stylesheet" href="/static/estilo/characters/diary.css" />
+
+<div class="container" style="height: 100%;">
+    {%if pagination.page == 1%}
+    <div class="diary">
+        <br><br>
+        <h2>{{character.name}}</h2>
+        <br><br>
+        <img width="250" height="250" class="mx-auto rounded-lg" src="/static/uploads/{{character.image}}">
+    </div>
+    {%else%}
+
+    {%for page in pagination.items%}
+    <div class="page">
+        <p class="text-gray-950">
+            {{page.text}}
+        </p>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <button class="btn btn-circle" onclick="edit_page.showModal()">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+            </svg>
+        </button>
+        <a href="{{url_for('characters.delete_diary_page', id=page.id)}}" class="btn btn-circle">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                    d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z"
+                    clip-rule="evenodd" />
+            </svg>
+        </a>
+    </div>
+
+    <!--Modal para editar una página-->
+    <dialog id="edit_page" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <form action="{{url_for('characters.edit_diary_page', id=page.id)}}" method="post">
+                <h3><strong>Editar Pagina</strong></h3>
+                <br>
+                <textarea type="text" style="height: 600px;" name="text" class="textarea textarea-success w-full">
+                    {{page.text}}
+                </textarea>
+                <br><br>
+                <button type="submit" class="btn btn-success">Editar</button>
+            </form>
+        </div>
+    </dialog>
+
+    {%endfor%}
+    {%endif%}
+    <br><br><br>
+    <div class="mx-auto text-center">
+        <a class="btn btn-neutral" href="?page={{pagination.prev_num}}">&laquo; Anterior</a>
+        <button class="btn btn-success" onclick="create_page.showModal()">Nueva Página</button>
+        <a class="btn btn-neutral" href="?page={{pagination.next_num}}">Siguiente &raquo;</a>
+    </div>
+    <br><br><br>
+    <!--Modal para crear una pagina-->
+    <dialog id="create_page" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <form action="{{url_for('characters.new_diary_page')}}" method="post">
+                <h3><strong>Nueva Página</strong></h3>
+                <br>
+                <textarea type="text" style="height: 600px;" name="text" class="textarea textarea-success w-full">
+                </textarea>
+                <br><br>
+                <button type="submit" class="btn btn-success">Crear Página</button>
+            </form>
+        </div>
+    </dialog>
+</div>
+
+{%endblock%}

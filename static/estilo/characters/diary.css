@@ -1,0 +1,36 @@
+.diary {
+    width: 600px;
+    padding: 10px;
+    background-image: url(/static/img/img_mc/diary_portada.jpg);
+    background-size: cover; /* La imagen cubre todo el área del div */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    text-align: center;
+    margin: auto;
+    margin-top: 300px;
+    border-radius: 10px;
+    height: 700px;
+}
+.diary {
+    font-weight: bold;
+}
+.diary h2 {
+    font-size: 50px;
+    font-family: hogwarts;
+    color: black;
+}
+
+.page {
+    width: 600px;
+    padding: 10px;
+    background-image: url(/static/img/img_mc/diaryPage.png);
+    background-size: cover; /* La imagen cubre todo el área del div */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    text-align: center;
+    margin: auto;
+    margin-top: 300px;
+    border-radius: 10px;
+    height: 700px;
+}
+

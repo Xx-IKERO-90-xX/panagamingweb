@@ -12,6 +12,7 @@ import controller.StaticsController as statics
 from threading import Thread
 from entity.User import *
 from entity.Character import *
+from entity.DiaryPage import *
 
 import globals
 sys.path.append("..")
@@ -80,6 +81,10 @@ async def create():
                         
             new_character = Character(session['id'], name, gender, specie, image_filename, description, 0)
             db.session.add(new_character)
+            db.session.commit()
+
+            new_diary = DiaryPage(new_character.id, f'Diario de {new_character.name}')
+            db.session.add(new_diary)
             db.session.commit()
 
             return redirect(url_for('characters.index'))
@@ -156,4 +161,79 @@ async def details_character(id):
 
     else:
         return redirect(url_for('auth.login'))
+
+
+@characters_bp.route('/my/diary', methods=["GET"])
+async def my_diary():
+    if 'id' in session:
+        character = db.session.query(Character).filter(
+            Character.idUser == session['id']
+        ).first()
+        
+        page = request.args.get('page', 1, type=int)
+        
+        pagination = db.session.query(DiaryPage).filter(
+            DiaryPage.id_character == character.id
+        ).paginate(page=page, per_page=1)
+
+        return render_template(
+            '/paginas/minecraft_subpg/characters/withcharacter/my_diary.jinja',
+            pagination=pagination,
+            character=character,
+            session=session
+        )
+    
+    else:
+        return redirect(url_for('auth.login'))
+
+
+@characters_bp.route('/my/diary/newpage', methods=['POST'])
+async def new_diary_page():
+    if 'id' in session:
+        text = request.form['text']
+
+        character = db.session.query(Character).filter(
+            Character.idUser == session['id']
+        ).first()
+
+        new_page = DiaryPage(character.id, text)
+        db.session.add(new_page)
+        db.session.commit()
+
+        return redirect(url_for('characters.my_diary'))
+    
+    else:
+        return redirect(url_for('auth.login'))
+
+@characters_bp.route('/my/diary/edit/<int:id>', methods=['POST'])
+async def edit_diary_page(id):
+    if 'id' in session:
+        text = request.form['text']
+
+        page = db.session.query(DiaryPage).filter(
+            DiaryPage.id == id
+        ).first()
+
+        page.text = text
+        db.session.commit()
+
+        return redirect(url_for('characters.my_diary'))
+    else:
+        return redirect(url_for('auth.login'))
+
+@characters_bp.route('/my/diary/delete/<int:id>', methods=['GET'])
+async def delete_diary_page(id):
+    if 'id' in session:
+        page = db.session.query(DiaryPage).filter(
+            DiaryPage.id == id
+        ).first()
+
+        db.session.delete(page)
+        db.session.commit()
+
+        return redirect(url_for('characters.my_diary'))
+    else:
+        return redirect(url_for)
+
+
 
