@@ -66,7 +66,6 @@ async def admin_pannel():
                 'paginas/minecraft_subpg/admin/pannel.jinja',
                 session=session
             )
-        
         else:
             return redirect(url_for('minecraft.index'))
     else:

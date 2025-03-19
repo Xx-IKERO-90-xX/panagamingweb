@@ -108,6 +108,8 @@ async def my_character():
     else:
         return redirect(url_for('auth.login'))
 
+
+
 @characters_bp.route('/edit/description/<int:id>', methods=['POST'])
 async def edit_character_description(id):
     if 'id' in session:
@@ -124,6 +126,8 @@ async def edit_character_description(id):
     
     else:
         return redirect(url_for('auth.login'))
+
+
 
 @characters_bp.route('/edit/image/<int:id>', methods=['POST'])
 async def update_character_image(id):
@@ -158,7 +162,6 @@ async def details_character(id):
             )
         else:
             return redirect(url_for('characters.index'))
-
     else:
         return redirect(url_for('auth.login'))
 
@@ -182,7 +185,6 @@ async def my_diary():
             character=character,
             session=session
         )
-    
     else:
         return redirect(url_for('auth.login'))
 
@@ -200,7 +202,13 @@ async def new_diary_page():
         db.session.add(new_page)
         db.session.commit()
 
-        return redirect(url_for('characters.my_diary'))
+        pages = db.session.query(DiaryPage).filter(
+            DiaryPage.id_character == character.id
+        ).all()
+
+        last_page = len(pages)
+
+        return redirect(url_for('characters.my_diary', page=last_page))
     
     else:
         return redirect(url_for('auth.login'))
@@ -209,6 +217,7 @@ async def new_diary_page():
 async def edit_diary_page(id):
     if 'id' in session:
         text = request.form['text']
+        current_page = request.form['current_page']
 
         page = db.session.query(DiaryPage).filter(
             DiaryPage.id == id
@@ -217,7 +226,7 @@ async def edit_diary_page(id):
         page.text = text
         db.session.commit()
 
-        return redirect(url_for('characters.my_diary'))
+        return redirect(url_for('characters.my_diary', page=current_page))
     else:
         return redirect(url_for('auth.login'))
 
@@ -231,9 +240,6 @@ async def delete_diary_page(id):
         db.session.delete(page)
         db.session.commit()
 
-        return redirect(url_for('characters.my_diary'))
+        return redirect(url_for('characters.my_diary', page=1))
     else:
         return redirect(url_for)
-
-
-
