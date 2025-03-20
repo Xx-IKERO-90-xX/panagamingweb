@@ -188,6 +188,29 @@ async def my_diary():
     else:
         return redirect(url_for('auth.login'))
 
+@characters_bp.route('/<int:id>/diary', methods=["GET"])
+async def character_diary(id):
+    if 'id' in session:
+        character = db.session.query(Character).filter(
+            Character.id == id
+        ).first()
+        
+        page = request.args.get('page', 1, type=int)
+        
+        pagination = db.session.query(DiaryPage).filter(
+            DiaryPage.id_character == character.id
+        ).paginate(page=page, per_page=1)
+
+        return render_template(
+            '/paginas/minecraft_subpg/characters/withcharacter/diary.jinja',
+            pagination=pagination,
+            character=character,
+            session=session
+        )
+    else:
+        return redirect(url_for('auth.login'))
+
+
 
 @characters_bp.route('/my/diary/newpage', methods=['POST'])
 async def new_diary_page():

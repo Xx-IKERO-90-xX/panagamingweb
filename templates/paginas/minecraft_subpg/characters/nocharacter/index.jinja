@@ -10,22 +10,22 @@
     <a href="{{url_for('characters.create')}}" class="mx-auto btn btn-success">
       <strong>Crear Personaje</strong>
     </a>
+    <a href="{{url_for('minecraft.index')}}" class="btn btn-success mx-2">
+      <strong>Volver</strong>
+    </a>
   </div>
   <br><br><br>
   <div class="overflow-auto" style="
       height: 1300px;
       padding: 20px;
-    " 
-    class="d-block mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    " class="d-block mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
     {%for character in characters%}
     <div style="height: 500px;" class="mx-auto card bg-base-100 shadow-green-500/50 w-full sm:w-50 lg:w-50 shadow-xl">
       <figure class="px-10 pt-10">
         {%if character.image != None%}
-          <img src="/static/uploads/{{ character.image }}"
-            width="250" height="200" class="mx-auto rounded-xl" />
+        <img src="/static/uploads/{{ character.image }}" width="250" height="200" class="mx-auto rounded-xl" />
         {%else%}
-          <img src="/static/img/noImage.jpg"
-            width="250" height="200" class="mx-auto rounded-xl" />
+        <img src="/static/img/noImage.jpg" width="250" height="200" class="mx-auto rounded-xl" />
         {%endif%}
       </figure>
       <div class="card-body items-center text-center">
@@ -34,7 +34,8 @@
           {{character.description}}
         </p>
         <div class="card-actions">
-          <a href="{{url_for('characters.details_character', id=character.id)}}" type='button' class='py-2.5 px-6 text-sm rounded-full bg-gradient-to-r from-green-500 text-black to-green-300 cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-l'>
+          <a href="{{url_for('characters.details_character', id=character.id)}}" type='button'
+            class='py-2.5 px-6 text-sm rounded-full bg-gradient-to-r from-green-500 text-black to-green-300 cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-l'>
             Ver Detalles
           </a>
         </div>

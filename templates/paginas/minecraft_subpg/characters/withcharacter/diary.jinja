@@ -1,0 +1,43 @@
+{%extends 'basemc.jinja'%}
+
+{%block title%}Diario de {{character.name}}{%endblock%}
+
+{%block content%}
+
+<link rel="stylesheet" href="/static/estilo/characters/diary.css" />
+
+<div class="container" style="height: 100%;">
+    {%if pagination.page == 1%}
+    <div class="diary">
+        <br><br>
+        <h2>{{character.name}}</h2>
+        <br><br>
+        <img width="250" height="250" class="mx-auto rounded-lg" src="/static/uploads/{{character.image}}">
+    </div>
+    {%else%}
+
+    {%for page in pagination.items%}
+    <div class="page">
+        <p class="text-gray-950">
+            {{page.text}}
+        </p>
+    </div>
+    <br>
+    {%endfor%}
+    {%endif%}
+    <br><br><br>
+    <div class="mx-auto text-center">
+        {%if pagination.has_prev%}
+        <a class="btn btn-neutral" href="?page={{pagination.prev_num}}">&laquo; Anterior</a>
+        {%endif%}
+        <a href="{{url_for('characters.details_character', id=character.id)}}" class="mx-auto btn btn-success">
+            <strong>Volver</strong>
+        </a>
+        {%if pagination.has_next%}
+        <a class="btn btn-neutral" href="?page={{pagination.next_num}}">Siguiente &raquo;</a>
+        {%endif%}
+    </div>
+    <br><br><br>
+</div>
+
+{%endblock%}

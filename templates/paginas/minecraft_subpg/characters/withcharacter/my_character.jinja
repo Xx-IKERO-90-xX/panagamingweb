@@ -17,6 +17,9 @@
             <a href="{{url_for('characters.my_diary', page=1)}}" class="btn btn-success mx-2">
                 <strong>Diario</strong>
             </a>
+            <a href="{{url_for('characters.index')}}" class="btn btn-success mx-2">
+                <strong>Volver</strong>
+            </a>
             <a href="#" class="btn btn-success mx-2">
                 <strong>Estilo</strong>
             </a>
@@ -47,7 +50,7 @@
             </div>
             <div class="col-span-2 sm:col-span-0 ml-5">
                 <h1 class="md:text-4xl text-2xl font-bold">
-                    {{character.name}} Lv. {{character.level}}
+                    {{character.name}} Lv. {{character.character_level}}
                 </h1>
                 <hr>
                 <div class="md:text-2xl mt-4 ml-4 text-lg">
