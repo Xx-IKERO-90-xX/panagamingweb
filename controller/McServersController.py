@@ -4,7 +4,6 @@ import sys
 from discord.ext import commands
 from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for
-import mysql.connector
 import json
 import random
 import asyncio

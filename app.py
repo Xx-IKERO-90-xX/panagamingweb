@@ -5,7 +5,6 @@ from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for
 from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename
-import mysql.connector
 import json
 import random
 import asyncio
