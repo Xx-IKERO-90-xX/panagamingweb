@@ -7,12 +7,14 @@
 <div class="container h-lvh">
   <br><br><br>
   <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
-    <a href="{{url_for('characters.create')}}" class="mx-auto btn btn-success">
-      <strong>Crear Personaje</strong>
-    </a>
-    <a href="{{url_for('minecraft.index')}}" class="btn btn-success mx-2">
-      <strong>Volver</strong>
-    </a>
+    <div class="mx-auto">
+      <a href="{{url_for('characters.create')}}" class="btn btn-success mx-2">
+        <strong>Crear Personaje</strong>
+      </a>
+      <a href="{{url_for('minecraft.index')}}" class="btn btn-success mx-2">
+        <strong>Volver</strong>
+      </a>
+    </div>
   </div>
   <br><br><br>
   <div class="overflow-auto" style="
