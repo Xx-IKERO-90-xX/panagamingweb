@@ -30,11 +30,11 @@ user_bp = Blueprint('usuario', __name__)
 db = app.db
 
 
-@user_bp.route('/me/<int:id>', methods=['GET'])
-async def my_profile(id):
+@user_bp.route('/me', methods=['GET'])
+async def my_profile():
     if 'id' in session:
-        user = User.query.get(id)
-        user_style = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
+        user = User.query.get(session['id'])
+        user_style = db.session.query(UserStyle).filter(UserStyle.idUser == session['id']).first()
         
         result = {
             "avatar": session["imgUrl"],

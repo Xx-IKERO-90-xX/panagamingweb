@@ -4,77 +4,15 @@
     box-sizing: border-box;
 }
 
-header {
-    text-align: center;
-    padding: 70px 0;
-    background-image: url("../img/fondoverde.jpg");
-    display: block;
-    width: 100%;
-}
-
-header img {
-    width: 200px;
+.pgLogo {
+    width: 50px;
     border-radius: 50%;
-    box-shadow: 0px 10px 45px 30px green;
-    animation: 1.5s infinite alternate;
-}
-
-header h1 {
-    padding: 10px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    border-radius: 50px;
-    background: black;
-    margin-left: 40px;
-    margin-right: 40px;
-    color: white;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    margin-left: 100px;
-    margin-right: 100px;
-}
-
-nav {
-    text-align: center;
-    background: black;
-    padding: 20px;
-    width: 100%;
-    float: left;
-    margin: auto;
-    display: block;
-}
-nav a {
-    float: left;
-    border: solid 0.3em;
-    border-color: green;
-    border-radius: 30px;
-    padding: 12px;
-    display: block;
-    text-align: center;
-    margin: 0 .75rem;
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.5s;
-}
-
-nav a:hover {
-    background: rgb(0, 177, 0);
 }
 
 body {
     background-image: url("../img/fondoVerdeNeon.jpg");
     background-attachment: fixed;
 }
-
-footer {
-    background: rgb(0, 0, 0);
-    text-align: center;
-    font-size: 30px;
-    color: white;
-    padding: 20px;
-    bottom: 0;
-}
-
 .usuarioSesion {
     display: block;
     background: rgb(10, 10, 10);
