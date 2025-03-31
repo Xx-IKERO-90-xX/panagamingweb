@@ -251,7 +251,8 @@ body {
 .mc_title {
     padding: 20px;
     text-align: center;
-    background-image: url(../img/img_mc/grass_bg.png);
+    background-image: url(../img/img_mc/grass_wallpaper.png);
+    background-size: 120%;
     border-radius: 30px;
     border: solid 0.3em;
     margin-left: 200px;
@@ -333,7 +334,7 @@ body {
 }
 
 .mc_section2 {
-    background-image: url(../img/img_mc/stone_bg.png);
+    background-image: url(../img/img_mc/96345.jpg);
     padding: 20px;
     border: solid 0.3em;
 }
