@@ -5,8 +5,6 @@
 {%block content%}
 <br><br><br><br><br>
 <br><br><br><br><br>
-<br><br><br><br><br>
-<br><br><br>
 <div class="container" style="height: 100vh;">
     <br><br>
     <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
@@ -256,7 +254,7 @@
                             <form method="post"
                                 action="{{url_for('characters.edit_character_description', id=character.id)}}">
                                 <h3 class="text-lg font-bold">Descripción</h3>
-                                <textarea class="textarea textarea-success text-left w-full h-100" name="descripcion">
+                                <textarea class="textarea textarea-success text-left w-full" style="text-align: left; height: 180px;" name="descripcion">
                                     {{character.description}}
                                 </textarea>
                                 <br><br>
