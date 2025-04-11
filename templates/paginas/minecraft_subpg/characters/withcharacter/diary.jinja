@@ -12,7 +12,11 @@
         <br><br>
         <h2>{{character.name}}</h2>
         <br><br>
-        <img width="250" height="250" class="mx-auto rounded-lg" src="/static/uploads/{{character.image}}">
+        {%if character.image != None%}
+            <img width="250" height="250" class="mx-auto rounded-lg" src="/static/uploads/{{character.image}}">
+        {%else%}
+            <img width="250" height="250" class="mx-auto rounded-lg" src="/static/img/noImage.jpg">
+        {%endif%}
     </div>
     {%else%}
 

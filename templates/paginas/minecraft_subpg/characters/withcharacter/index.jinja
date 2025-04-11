@@ -5,47 +5,58 @@
 {%block content%}
 <br><br><br><br>
 <div class="container" style="height: 100%; display:block;">
-  <br><br><br>
-  <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
-    <div class="mx-auto">
-      <a href="{{url_for('characters.my_character')}}" class="btn btn-success mx-2">
-        <strong>Mi Personaje</strong>
-      </a>
-      <a href="{{url_for('minecraft.index')}}" class="btn btn-success mx-2">
-        <strong>Volver</strong>
-      </a>
+    <br><br><br>
+    <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
+        <div class="mx-auto">
+            <a href="{{url_for('characters.my_character')}}" class="btn btn-success mx-2">
+                <strong>Mi Personaje</strong>
+            </a>
+            <a href="{{url_for('minecraft.index')}}" class="btn btn-success mx-2">
+                <strong>Volver</strong>
+            </a>
+        </div>
     </div>
-  </div>
-  <br><br><br>
-  <div style="
+    <br><br><br>
+    <div style="
       height: 1300px;
       padding: 20px;
     " class="overflow-auto mx-auto grid grid-cols-1 d-flex sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {%for character in characters%}
-    <div style="height: 500px;" class="mx-auto card bg-base-100 shadow-green-500/50 w-50 sm:w-50 lg:w-50 lx:w-50 shadow-xl">
-      <figure class="px-10 pt-10">
-        {%if character.image != None%}
-        <img src="/static/uploads/{{ character.image }}" width="250" height="200" class="mx-auto rounded-xl" />
-        {%else%}
-        <img src="/static/img/noImage.jpg" width="250" height="200" class="mx-auto rounded-xl" />
-        {%endif%}
-      </figure>
-      <div class="card-body items-center text-center">
-        <h2 class="card-title">{{character.name}}</h2>
-        <p style="width: 200px;" class="overflow-auto">
-          {{character.description}}
-        </p>
-        <div class="card-actions">
-          <a href="{{url_for('characters.details_character', id=character.id)}}" type='button'
-            class='py-2.5 px-6 text-sm rounded-full bg-gradient-to-r from-green-500 text-black to-green-300 cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-l'>
-            Ver Detalles
-          </a>
+        {%for character in characters%}
+        <div style="height: 500px;"
+            class="mx-auto card bg-base-100 shadow-green-500/50 w-50 sm:w-50 lg:w-50 lx:w-50 shadow-xl">
+            <figure class="px-10 pt-10">
+                {%if character.image != None%}
+                <img src="/static/uploads/{{ character.image }}" width="250" height="200" class="mx-auto rounded-xl" />
+                {%else%}
+                <img src="/static/img/noImage.jpg" width="250" height="200" class="mx-auto rounded-xl" />
+                {%endif%}
+            </figure>
+            <div class="card-body items-center text-center">
+                <h2 class="card-title">{{character.name}}</h2>
+                <p style="width: 200px;" class="overflow-auto">
+                    {{character.description}}
+                </p>
+                <div class="card-actions">
+                    <a href="{{url_for('characters.details_character', id=character.id)}}" type='button'
+                        class='py-2.5 px-6 text-sm rounded-full bg-gradient-to-r from-green-500 text-black to-green-300 cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gradient-to-l'>
+                        Ver Detalles
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
+        {%endfor%}
     </div>
-    {%endfor%}
-  </div>
-  <br><br>
+    <div class="mx-auto text-center">
+        <div class="join">
+            {%if characters.has_prev%}
+                <a class="join-item btn" href="?page={{characters.prev_num}}">«</a>
+            {%endif%}
+            <button class="join-item btn">Page {{characters.page}}</button>
+            {%if characters.has_next%}
+                <a class="join-item btn" href="?page={{characters.next_num}}">»</a>
+            {%endif%}
+        </div>
+    </div>
 </div>
 <br><br><br>
 {%endblock%}

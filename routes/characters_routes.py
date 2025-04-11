@@ -39,7 +39,9 @@ async def user_has_character(idUser):
 @characters_bp.route('/', methods=["GET"])
 async def index():
     if 'id' in session:
-        characters = Character.query.all()
+        page = request.args.get('page', 1, type=int)
+
+        characters = db.session.query(Character).paginate(page=page, per_page=6)
 
         if not await user_has_character(session['id']):
             return render_template(
