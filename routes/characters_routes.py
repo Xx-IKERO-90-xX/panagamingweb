@@ -268,4 +268,3 @@ async def delete_diary_page(id):
         return redirect(url_for('characters.my_diary', page=1))
     else:
         return redirect(url_for)
-    

@@ -1,6 +1,6 @@
 var socket = io();
 
-// Recibe la salida dle servidor de minecraft en tiempo real
+// Recibe la salida del servidor de minecraft en tiempo real
 socket.on('server_output', function(data) {
     var terminal = document.getElementById("terminal_vanilla_output");
     console.log(data)

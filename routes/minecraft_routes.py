@@ -57,12 +57,12 @@ async def minecraftServer():
         return redirect(url_for('auth.login'))
 
 # Ruta que te permite llevar al panel del administrador del servidor de minecraft
-@minecraft_bp.route("/admin", methods=['GET'])
-async def admin_pannel():
+@minecraft_bp.route("/admin/mcconsole", methods=['GET'])
+async def mc_console():
     if 'id' in session:
         if session['role'] == 'Staff' or session['role'] == 'Ejecutivo':
             return render_template(
-                'paginas/minecraft_subpg/admin/pannel.jinja',
+                'paginas/minecraft_subpg/admin/console.jinja',
                 session=session
             )
         else:

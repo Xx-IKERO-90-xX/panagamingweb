@@ -50,7 +50,7 @@
                             <summary><strong>Administrador</strong></summary>
                             <ul class="bg-base-100 rounded-t-none p-2">
                                 {%if session['role'] == 'Ejecutivo'%}
-                                    <li><a><strong>Consolas</strong></a></li>
+                                    <li><a href="{{url_for('minecraft.mc_console')}}"><strong>Consolas</strong></a></li>
                                 {%endif%}
                                 <li><a><strong>Usuarios</strong></a></li>
                                 <li><a><strong>Personajes</strong></a></li>

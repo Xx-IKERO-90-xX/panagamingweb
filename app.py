@@ -141,7 +141,7 @@ def handle_send_command(cmd):
     result_queue = multiprocessing.Queue()
 
     process = multiprocessing.Process(
-        target=mcservers.execute_vanilla_command, 
+        target=mcservers.execute_mc_command, 
         args=(cmd['command'], result_queue)
     )
     

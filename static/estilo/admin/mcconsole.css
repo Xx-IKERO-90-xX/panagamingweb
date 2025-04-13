@@ -19,6 +19,7 @@
     height: 500px;
     overflow-y: scroll;
     border-radius: 10px;
+    font-family: mine_txt;
 }
 .inputCommand input {
     width: 330px;

@@ -31,7 +31,7 @@ PASSWD_RCON = datos["minecraft"]["archlight"]["rcon"]["passwd"]
 
 
 # Permite la ejecución de un comando del servidor de minecraft a través de la aplicación web
-def execute_command(command, result_queue):
+def execute_mc_command(command, result_queue):
     response = ""
     
     with MCRcon(HOST, PASSWD_RCON, port=RCON_PORT) as mcr:
