@@ -1,30 +1,31 @@
 # PANA GAMING WEB
+![main](./static/img/sneapicks/main1.png)
+![main](./static/img/sneapicks/Captura%20de%20pantalla%20de%202025-06-21%2023-43-11.png)
 
-![logo](https://github.com/user-attachments/assets/104347a2-63c9-40f1-b15a-bbbff7019c18)
+## 🌐 Pana Gaming – Plataforma Web Integrada
 
-<strong>Descripcion: </strong> Este proyecto consiste en una aplicación web diseñada para integrarse con todos los servicios ofrecidos por <a href="https://discord.gg/wNnCkV6ZvJ">Pana Gaming</a>, con un enfoque principal en la interacción con el servidor oficial de Discord de la comunidad. La aplicación tiene como objetivo ampliar significativamente las posibilidades de los usuarios, acercándolos a una experiencia similar a la de una red social, lo cual refleja las expectativas y deseos de la comunidad para su evolución futura.
+Se trata de una **aplicación web** en desarrollo que busca convertirse en el núcleo interactivo de una comunidad de jugadores unida por la narrativa, la cooperación y la evolución personal dentro del universo de Minecraft.
+
+Este proyecto nace con el objetivo de conectar el servidor de Minecraft de Pana Gaming con una plataforma web moderna, donde los usuarios puedan gestionar sus personajes, seguir el desarrollo del lore, participar en eventos, y sentirse parte activa de un mundo compartido y en constante expansión.
+
+## 🎯 Objetivo principal
+
+Desarrollar una plataforma web que funcione como extensión del servidor de Minecraft, integrando elementos de comunidad, progreso narrativo y herramientas de interacción social, todo dentro de un entorno intuitivo, seguro e inclusivo.
+
+## ⚙️ Características en desarrollo
+
+- Gestión de personajes y progresos
+
+- Diario interactivo al estilo medieval
+
+- Panel de eventos y misiones
+
+- Espacio para la comunidad y la narrativa compartida
+
+
+Este repositorio refleja el progreso técnico y conceptual de la plataforma. Si compartes la visión o deseas aportar al proyecto, ¡eres bienvenido!
+
+    Pana Gaming no es solo un servidor ni una web: es una red de personas que sueñan con un espacio donde jugar, crear, y sentirse comprendidas.
 
 <hr>
 
-## Instalación y Configuración
-
-### Requisitos
-- Ser parte del equipo de Desarrollo de Pana Gaming.
-- Tener Python3 instalado. 
-- Tener MySQL instalado y configurado.
-- Tener Docker instalado y activado (opcional pero recomendable)
-
-### Instalación
-
-1. Clonamos el repositorio.
-
-```
-git clone https://github.com/Xx-IKERO-90-xX/panagamingweb.git
-```
-
-2. Instalamos las dependencias.
-```
-pip install -r requirements.txt
-```
-
-Debido a que se esta haciendo mas cambios para que mas desarrolladores puedan contribuir, el READMI esta inacabado.

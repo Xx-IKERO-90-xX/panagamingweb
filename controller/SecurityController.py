@@ -3,12 +3,9 @@ import discord
 import sys
 from discord.ext import commands
 from discord.utils import *
-import controller.DiscordServerController as DiscordServer
 from passlib.hash import pbkdf2_sha256
 from entity.User import *
 from extensions import db
-
-import globals
 
 sys.path.append("..")
 
@@ -29,19 +26,7 @@ async def validate_login(username, passwd):
     else:
         return False
     
-# Deduce el rol del usuario al iniciar sesión
-async def deduce_role(idUser):
-    if await DiscordServer.IsEjecutive(idUser):
-        return "Ejecutivo"
-    
-    if await DiscordServer.IsStaff(idUser):
-        return "Staff"
 
-    if await DiscordServer.IsMember(idUser):
-        return "Miembro"
-    
-    return "Usuario"
-        
 # Comprueba si el usuario está dentro del servidor de Discord
 async def user_in_discord_server(idUser):
     in_server = False

@@ -6,13 +6,11 @@ from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for, Blueprint
 from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename
-import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
 from threading import Thread
 from entity.User import *
 from entity.UserStyle import *
 
-import globals
 sys.path.append("..")
 
 app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))
@@ -42,12 +40,12 @@ async def login():
         valid = await security.validate_login(username, passwd)
     
         if valid:
-            user = await discord_server.get_discord_user_by_username(username)
+            user = db.session.query(User).filter(User.username == username).first()
 
-            session["id"] = str(user.id)
-            session["name"] = username
-            session["imgUrl"] = user.avatar.url
-            session['role'] = await security.deduce_role(user.id)
+            session["id"] = user.id
+            session["name"] = user.username
+            session["image"] = user.image
+            session['role'] = user.role
     
             return redirect(url_for('index.index'))
 
@@ -59,26 +57,28 @@ async def login():
 async def register():
     if request.method == "GET":
         return render_template("registrar.jinja")
+    
     else:
-        idUser = int(request.form['idUser'])
+        email = request.form['email']
         username = request.form['username']
         passwd = request.form['passwd']
         descripcion = request.form['descripcion']
         
         passwd_encripted = await security.encrypt_passwd(passwd)
-        discord_user = await discord_server.get_discord_user_by_id(idUser)
 
-        new_user = User(idUser, username, passwd_encripted, descripcion, None)
-        new_style_user = UserStyle(idUser, None, None)
-
+        new_user = User(email, username, passwd_encripted, descripcion, None, None, 'Usuario')
         db.session.add(new_user)
-        db.session.add(new_style_user)
-        
         db.session.commit()
 
-        session["id"] = idUser
-        session["name"] = username
-        session["imgUrl"] = discord_user.avatar.url
-        session['role'] = await security.deduce_role(idUser)
+        user = db.session.query(User).filter(new_user.username == username).first()
+
+        new_style_user = UserStyle(user.id, None, None)
+        db.session.add(new_style_user)
+        db.session.commit()
+
+        session["id"] = user.id
+        session["name"] = user.username
+        session["image"] = user.image
+        session['role'] = user.role
                 
         return redirect(url_for("index.index"))

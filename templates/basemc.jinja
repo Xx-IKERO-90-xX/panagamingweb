@@ -62,10 +62,13 @@
             </div>
             <div class="flex gap-2">
                 <div class="dropdown dropdown-end">
-
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
-                            <img src="{{session['imgUrl']}}" />
+                            {%if session['image'] != None%}
+                                <img src="{{session['image']}}" />
+                            {%else%}
+                                <img src="/static/img/userlog.jpg">
+                            {%endif%}
                         </div>
                     </div>
                     <ul tabindex="0"

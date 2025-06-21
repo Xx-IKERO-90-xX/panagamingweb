@@ -7,11 +7,8 @@ from flask import request, Flask, render_template, redirect, session, sessions, 
 import json
 import random
 import asyncio
-from controller.DiscordServerController import *
 from mcrcon import MCRcon
 import multiprocessing
-
-import globals
 
 sys.path.append("..")
 

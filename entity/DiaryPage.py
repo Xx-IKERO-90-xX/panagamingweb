@@ -7,7 +7,7 @@ class DiaryPage(db.Model):
     __tablename__ = "DiaryPage"
 
     id = db.Column(Integer, primary_key=True)
-    id_character = db.Column(Integer, ForeignKey("Character.id"))
+    id_character = db.Column(Numeric)
     text = db.Column(String(1000))
 
     def __init__(self, id_character, text):

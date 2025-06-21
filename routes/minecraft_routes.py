@@ -9,13 +9,11 @@ import json
 import random
 import sys
 import asyncio
-import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
 import controller.McServersController as mcservers
 from threading import Thread
 import multiprocessing
 
-import globals
 
 sys.path.append("..")
 

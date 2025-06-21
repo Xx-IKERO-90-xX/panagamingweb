@@ -3,7 +3,6 @@ import sys
 from flask import request, Flask, render_template, current_app, redirect, session, sessions, url_for, Blueprint
 from werkzeug.utils import secure_filename
 
-import globals
 sys.path.append("..")
 
 app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))

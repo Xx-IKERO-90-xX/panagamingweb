@@ -6,7 +6,6 @@ from discord.utils import *
 from flask import request, Flask, render_template, current_app, redirect, session, sessions, url_for, Blueprint
 from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename
-import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
 import controller.StaticsController as statics
 from threading import Thread
@@ -14,7 +13,6 @@ from entity.User import *
 from entity.Character import *
 from entity.DiaryPage import *
 
-import globals
 sys.path.append("..")
 
 app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))

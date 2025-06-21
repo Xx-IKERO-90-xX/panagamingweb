@@ -9,13 +9,11 @@ from werkzeug.utils import secure_filename
 import json
 import random
 import asyncio
-import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
 from threading import Thread
 from entity.User import *
 from entity.UserStyle import *
 
-import globals
 
 sys.path.append("..")
 
@@ -37,7 +35,7 @@ async def my_profile():
         user_style = db.session.query(UserStyle).filter(UserStyle.idUser == session['id']).first()
         
         result = {
-            "avatar": session["imgUrl"],
+            "avatar": session["image"],
             "name": user.username,
             "mc_name": user.mc_name,
             "descripcion": user.descripcion,
@@ -60,10 +58,8 @@ async def UserProfile(id):
     if 'id' in session:
         user = User.query.get(id)
         user_style = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
-        discord_user = await discord_server.get_discord_user_by_id(id)
-        
+
         result = {
-            "avatar": discord_user.avatar.url, 
             "name": user.username, 
             "mc_name": user.mc_name, 
             "descripcion": user.descripcion, 
@@ -103,7 +99,7 @@ async def EditUserStyle(id):
         style_user = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
         
         result = {
-            "avatar": session["imgUrl"], 
+            "avatar": user.image, 
             "name": user.username, 
             "mc_name": user.mc_name, 
             "descripcion": user.descripcion, 

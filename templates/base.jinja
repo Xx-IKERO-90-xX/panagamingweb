@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="utf-8">
     <title>{%block title%} {%endblock%}</title>
@@ -30,7 +29,6 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
     <header>
         <div style="background-image: url(/static/img/fondoverde.jpg);" class="navbar shadow-sm border-b-2 border-gray-950">
@@ -51,7 +49,11 @@
 
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
-                            <img src="{{session['imgUrl']}}" />
+                            {%if session['image'] != None%}
+                                <img src="{{session['image']}}" />
+                            {%else%}
+                                <img src="/static/img/userlog.jpg">
+                            {%endif%}
                         </div>
                     </div>
                     <ul tabindex="0"
@@ -119,5 +121,4 @@
     </footer>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
-
 </html>

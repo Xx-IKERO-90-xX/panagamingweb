@@ -1,0 +1,9 @@
+Pana Gaming – Proyecto Creativo y Comunitario
+
+Este proyecto forma parte del universo de **Pana Gaming**, una idea original creada por **Iker Javier Rodríguez Hernández** en 2021.
+
+Todo el diseño conceptual, estructura narrativa, visión comunitaria e identidad del proyecto están protegidos como obra original. El nombre "Pana Gaming", así como su estética, su enfoque social inclusivo, su sistema narrativo y cualquier elemento que no sea puramente código, no pueden ser reproducidos ni usados con fines comerciales sin autorización expresa del autor.
+
+El código contenido en este repositorio está licenciado bajo la licencia MIT, y puede ser reutilizado bajo sus términos. Sin embargo, la visión y el alma de este proyecto son únicas, y pedimos respeto hacia ellas.
+
+Para más información, colaboración o dudas legales, contactar directamente con el autor.

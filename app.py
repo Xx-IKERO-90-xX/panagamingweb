@@ -9,13 +9,11 @@ import json
 import random
 import asyncio
 import multiprocessing
-import controller.DiscordServerController as discord_server
 import controller.SecurityController as security
 import controller.McServersController as mcservers
 from threading import Thread
 from mcrcon import MCRcon
 from extensions import db, socketio
-import globals
 
 
 datos = {}
@@ -49,84 +47,6 @@ app.register_blueprint(index_bp)
 app.app_context()
 
 
-
-# Obtiene el listado de todos los usuarios de Discord.
-async def get_discord_users():
-    list = []
-
-    for m in globals.guild.members: 
-        list.append(m)
-
-    return list
-
-
-# Saca los Ejecutivos de Pana Gaming registrados en el servidor de Discord.
-async def get_discord_ejecutives(userList):
-    ejecRole = globals.guild.get_role(datos["discord"]["roles"]["ejecutive"])
-    ejec = []
-    
-    for user in userList:
-        if ejecRole in user.roles:
-            ejec.append(user)
-
-    return ejec
-
-
-# Saca todos los miembros del Staff de Pana Gaming registrados en el servidor de Discord.
-async def get_discord_staff_users(userList, ejecList):
-    staffRole = globals.guild.get_role(datos["discord"]["roles"]["staff"])
-    staff = []
-    
-    for user in userList:
-        if staffRole in user.roles:
-            encontrado = False
-            for r in ejecList:
-                if user == r:
-                    encontrado = True
-                    break
-
-            if encontrado == False:
-                staff.append(user)
-
-    return staff
-
-
-# Saca los Miembros de la comunidad de pana gaming registrados en el servidor de Discord.
-async def get_discord_members(userList, staffList, ejecList):
-    memberRole = globals.guild.get_role(datos["discord"]["roles"]["member"])
-    members = []
-    
-    for user in userList:
-        if memberRole in user.roles:
-            encontrado = False
-            for r in staffList:
-                if user == r:
-                    encontrado = True       
-            for r in ejecList:
-                if user == r:
-                    encontrado = True           
-            if encontrado == False:
-                members.append(user)  
-
-    return members
-
-
-@bot.event
-async def on_ready():
-    print(f"Bot conectado como {bot.user}")
-    globals.guild = bot.get_guild(datos["discord"]["server"]["id"])
-    
-    with app.app_context():
-        db.create_all()
-    
-    socketio.run(
-        app, 
-        port=datos["flask"]["port"], 
-        host=datos["flask"]["host"], 
-        debug=True,
-    )
-
-
 # Maneja los mensajes enviados desde el chat publico de la pagina del servidor de Minecraft
 @socketio.on('send_message')
 def handle_public_chat_message(data):
@@ -154,4 +74,12 @@ def handle_send_command(cmd):
 
 
 if __name__ == "__main__":
-    bot.run(datos['discord']['token'])
+    with app.app_context():
+        db.create_all()
+    
+    socketio.run(
+        app, 
+        port=datos["flask"]["port"], 
+        host=datos["flask"]["host"], 
+        debug=True,
+    )
