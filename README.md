@@ -25,7 +25,5 @@ Desarrollar una plataforma web que funcione como extensión del servidor de Mine
 
 Este repositorio refleja el progreso técnico y conceptual de la plataforma. Si compartes la visión o deseas aportar al proyecto, ¡eres bienvenido!
 
-    Pana Gaming no es solo un servidor ni una web: es una red de personas que sueñan con un espacio donde jugar, crear, y sentirse comprendidas.
-
-<hr>
-
+### Ayudame y apoya este proyecto!!
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/X8X617UI2O)
