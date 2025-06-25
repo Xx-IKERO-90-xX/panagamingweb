@@ -1,18 +1,18 @@
 {
     "database": {
-        "host": "",
-        "user": "",
-        "passwd": "",
+        "host": "100.109.96.72",
+        "user": "root",
+        "passwd": "ikero9090",
         "db": "PANAGAMING",
         "auth_plugin": "mysql_native_password"
     },
     "minecraft": {
         "archlight": {
-            "ip": "",
+            "ip": "100.109.96.72",
             "port": 25565,
             "rcon": {
                 "port": 25575,
-                "passwd": ""
+                "passwd": "ikero9090"
             },
             "dynmap": {
                 "port": 7887

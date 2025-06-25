@@ -127,5 +127,7 @@ async def set_main_style(id):
         db.session.commit()
 
         return redirect(url_for('usuario.EditUserStyle', id=id))
+    
     else:
         return redirect(url_for('auth.login'))
+
