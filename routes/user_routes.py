@@ -13,6 +13,7 @@ import controller.SecurityController as security
 from threading import Thread
 from entity.User import *
 from entity.UserStyle import *
+import controller.StaticsController as statics
 
 
 sys.path.append("..")
@@ -131,3 +132,23 @@ async def set_main_style(id):
     else:
         return redirect(url_for('auth.login'))
 
+@user_bp.route('/usuario/edit/avatar/<int:id>', methods=["POST"])
+async def update_avatar(id):
+    if 'id' in session:
+        user = db.session.query(User).filter(User.id == id).first()
+
+        last_image = user.image
+        image_filename = None
+        new_image = request.files["new_avatar"]
+
+        if new_image:
+            image_filename = await statics.update_image(new_image, last_image)
+            user.image = image_filename
+            db.session.commit()
+
+            session['image'] = image_filename
+        
+        return redirect(url_for('usuario.my_profile'))
+    
+    else:
+        return redirect(url_for('auth.login'))

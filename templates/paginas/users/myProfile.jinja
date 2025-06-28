@@ -22,6 +22,7 @@
                     <h1 class="text-2xl font-bold mb-2">{{user['name']}}</h1>
                     <a href="{{url_for('usuario.EditUserStyle', id=session['id'])}}"
                         class="btn btn-success"><strong>Estilo</strong></a>
+                    <button class="btn btn-success" onclick="modal_avatar.showModal()"><strong>Avatar</strong></button>
                 </div>
                 <div class="info_div md:w-2/3 md:pl-8 bg-black md:ml-10 p-5">
                     <br>
@@ -61,10 +62,11 @@
                     <h1 class="text-2xl font-bold mb-2">{{user['name']}}</h1>
                     <a href="{{url_for('usuario.EditUserStyle', id=session['id'])}}"
                         class="btn btn-success"><strong>Estilo</strong></a>
+                    <button class="btn btn-success" onclick="modal_avatar.showModal()"><strong>Avatar</strong></button>
                 </div>
                 <div class="info_div md:w-2/3 md:pl-8 bg-black md:ml-10 p-5">
                     <br>
-                    {% if user["mc_name"] != None %}
+                    {%if user["mc_name"] != None%}
                     <strong>Minecraft: </strong>
                     <label class="text-gray-600 mb-6">{{user['mc_name']}}</label>
                     {%endif%}
@@ -82,7 +84,6 @@
                     </p>
                 </div>
             </div>
-
         </div>
     </div>
     {%endif%}
@@ -102,16 +103,15 @@
         </div>
     </dialog>
 
-
-    <button class="btn" onclick="my_modal_3.showModal()">open modal</button>
     <dialog id="modal_avatar" class="modal">
         <div class="modal-box">
             <form method="dialog">
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
             <h3 class="text-lg font-bold">Nuevo Avatar</h3>
-            <form method="post" enctype="multipart/form-data">
+            <form action="{{url_for('usuario.update_avatar', id=session['id'])}}" method="post" enctype="multipart/form-data">
                 <input type="file" name="new_avatar" class="file-input file-input-success" />
+                <button class="btn btn-success"><strong>Actualizar</strong></button>
             </form>
         </div>
     </dialog>
