@@ -4,7 +4,7 @@
 
 {%block content%}
 <br><br><br><br>
-<div class="container h-lvh">
+<div class="container">
     <br><br><br>
     <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
         <div class="mx-auto">
@@ -26,9 +26,9 @@
             class="mx-auto card bg-base-100 shadow-green-500/50 w-full sm:w-50 lg:w-50 shadow-xl">
             <figure class="px-10 pt-10">
                 {%if character.image != None%}
-                    <img src="/static/uploads/{{ character.image }}" width="250" height="200" class="mx-auto rounded-xl" />
+                <img src="/static/uploads/{{ character.image }}" width="250" height="200" class="mx-auto rounded-xl" />
                 {%else%}
-                    <img src="/static/img/noImage.jpg" width="250" height="200" class="mx-auto rounded-xl" />
+                <img src="/static/img/noImage.jpg" width="250" height="200" class="mx-auto rounded-xl" />
                 {%endif%}
             </figure>
             <div class="card-body items-center text-center">
@@ -49,11 +49,11 @@
     <div class="mx-auto text-center">
         <div class="join">
             {%if characters.has_prev%}
-                <a class="join-item btn" href="?page={{characters.prev_num}}">«</a>
+            <a class="join-item btn" href="?page={{characters.prev_num}}">«</a>
             {%endif%}
             <button class="join-item btn">Page {{characters.page}}</button>
             {%if characters.has_next%}
-                <a class="join-item btn" href="?page={{characters.next_num}}">»</a>
+            <a class="join-item btn" href="?page={{characters.next_num}}">»</a>
             {%endif%}
         </div>
     </div>
