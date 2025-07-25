@@ -4,7 +4,6 @@
 
 {%block content%}
 <br><br><br><br><br>
-<br><br><br><br><br>
 <div class="container" style="height: 100vh;">
     <br><br>
     <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px;">
@@ -27,9 +26,11 @@
                 <form method="dialog">
                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                 </form>
-                <form method="post" action="{{url_for('characters.update_character_image', id=character.id)}}" enctype="multipart/form-data">
+                <form method="post" action="{{url_for('characters.update_character_image', id=character.id)}}"
+                    enctype="multipart/form-data">
                     <h3 class="text-lg font-bold">Imagen</h3>
-                    <input name="update_image" type="file" class="file-input file-input-bordered file-input-success w-full max-w-xs" />
+                    <input name="update_image" type="file"
+                        class="file-input file-input-bordered file-input-success w-full max-w-xs" />
                     <br><br>
                     <button type="submit" class="btn btn-success">Editar</button>
                 </form>
@@ -41,9 +42,9 @@
         <div class="grid grid-cols-3 gap-4">
             <div>
                 {%if character.image != None%}
-                    <img src="/static/uploads/{{character.image}}" class="h-500 w-500 lg:mx-auto w-50 h-70 rounded-lg">
+                <img src="/static/uploads/{{character.image}}" class="h-500 w-500 lg:mx-auto w-50 h-70 rounded-lg">
                 {%else%}
-                    <img src="/static/img/noImage.jpg" class="lg:h-500 lg:w-500 lg:mx-auto w-50 h-70 rounded-lg">
+                <img src="/static/img/noImage.jpg" class="lg:h-500 lg:w-500 lg:mx-auto w-50 h-70 rounded-lg">
                 {%endif%}
             </div>
             <div class="col-span-2 sm:col-span-0 ml-5">
@@ -254,7 +255,8 @@
                             <form method="post"
                                 action="{{url_for('characters.edit_character_description', id=character.id)}}">
                                 <h3 class="text-lg font-bold">Descripción</h3>
-                                <textarea class="textarea textarea-success text-left w-full" style="text-align: left; height: 180px;" name="descripcion">
+                                <textarea class="textarea textarea-success text-left w-full"
+                                    style="text-align: left; height: 180px;" name="descripcion">
                                     {{character.description}}
                                 </textarea>
                                 <br><br>
@@ -263,9 +265,109 @@
                         </div>
                     </dialog>
                 </div>
+                <div>
+                    <br><br>
+                    <h2 class="text-2xl font-bold text-left">Personalidad</h2>
+                    <hr class="my-2">
+                    <br>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-bold">Rasgos de personalidad</h3>
+                        <div class="ml-5">
+                            {%for characteristic in characteristics%}
+                            <div class="badge badge-soft badge-accent">
+                                {{ characteristic.rasgo }}
+                            </div>
+                            {%endfor%}
+                            <button class="btn btn-xs btn-success" onclick="add_rasgo.showModal()">Agregar</button>
+
+                            <dialog id="add_rasgo" class="modal">
+                                <div class="modal-box">
+                                    <form method="dialog">
+                                        <button
+                                            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>
+                                    <form method="post"
+                                        action="{{url_for('characters.add_characteristic', id=character.id)}}">
+                                        <input type="text" name="rasgo" placeholder="Nuevo Rasgo"
+                                            class="input input-success" />
+                                        <button type="submit" class="btn btn-success">Agregar</button>
+                                    </form>
+                                </div>
+                            </dialog>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <br><br>
+                    <div class="ml-4">
+                        <div class="h-96 overflow-x-auto">
+                            <table class="table table-pin-rows bg-base-200">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="text-lg">Motivaciones</span>
+                                            <button class="btn btn-xs btn-success ml-2"
+                                                onclick="new_motivation_modal.showModal()">Agregar</button>
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for motivation in motivations%}
+                                    <tr>
+                                        <td>
+                                            <span>{{motivation.motivation_text}}</span>
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-xs btn-error">Eliminar</a>
+                                            <button class="btn btn-xs btn-accent" onclick="edit_motivation_modal.showModal()">Editar</button>
+                                        </td>
+                                    </tr>
+                                    <dialog id="edit_motivation_modal" class="modal">
+                                        <div class="modal-box shadow-lg shadow-green-500">
+                                            <form method="dialog">
+                                                <button
+                                                    class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                            </form>
+                                            <br>
+                                            <form method="post"
+                                                action="{{url_for('characters.edit_motivation', id=motivation.id)}}">
+                                                <textarea placeholder="Nueva Motivación" name="motivation"
+                                                    class="textarea textarea-success w-full text-left">
+                                                    {{motivation.motivation_text}}    
+                                                </textarea><br>
+                                                <button type="submit"
+                                                    class="btn btn-success"><strong>Editar</strong></button>
+                                            </form>
+                                        </div>
+                                    </dialog>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+
+                            <dialog id="new_motivation_modal" class="modal">
+                                <div class="modal-box shadow-lg shadow-green-500">
+                                    <form method="dialog">
+                                        <button
+                                            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>
+                                    <br>
+                                    <form method="post"
+                                        action="{{url_for('characters.add_motivation', id=character.id)}}">
+                                        <textarea placeholder="Nueva Motivación" name="motivation"
+                                            class="textarea textarea-success w-full"></textarea><br>
+                                        <button type="submit" class="btn btn-success"><strong>Agregar</strong></button>
+                                    </form>
+                                </div>
+                            </dialog>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <br><br>
+</div>
+<br><br>
 </div>
 {%endblock%}

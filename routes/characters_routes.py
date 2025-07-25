@@ -12,6 +12,9 @@ from threading import Thread
 from entity.User import *
 from entity.Character import *
 from entity.DiaryPage import *
+from controller.CharacterController import *
+from entity.Characteristic import *
+from entity.Motivation import *
 
 sys.path.append("..")
 
@@ -38,7 +41,6 @@ async def user_has_character(idUser):
 async def index():
     if 'id' in session:
         page = request.args.get('page', 1, type=int)
-
         characters = db.session.query(Character).paginate(page=page, per_page=6)
 
         if not await user_has_character(session['id']):
@@ -70,7 +72,34 @@ async def create():
             specie = request.form['especie']
             gender = request.form['sexo']
             description = request.form["descripcion"]
-
+            
+            if not name or not specie or not gender or not description:
+                return redirect(url_for('characters.create'))
+            
+            if await character_name_in_use(name):
+                error_msg = "El nombre del personaje ya esta en uso."
+                return render_template(
+                    '/paginas/minecraft_subpg/characters/nocharacter/create.jinja', 
+                    session=session, 
+                    error_msg=error_msg
+                )
+            
+            if len(description) > 400:
+                error_msg = "La descripcion del personaje no puede tener mas de 400 caracteres."
+                return render_template(
+                    '/paginas/minecraft_subpg/characters/nocharacter/create.jinja', 
+                    session=session, 
+                    error_msg=error_msg
+                )
+            
+            if len(name) > 100 or len(gender) > 30 or len(specie) > 50:
+                error_msg = "El nombre, el sexo o la especie del personaje no pueden tener mas de 100, 30 o 50 caracteres respectivamente."
+                return render_template(
+                    '/paginas/minecraft_subpg/characters/nocharacter/create.jinja', 
+                    session=session, 
+                    error_msg=error_msg
+                )
+            
             image_filename = None
             
             try:
@@ -96,11 +125,15 @@ async def create():
 async def my_character():
     if 'id' in session:
         character = db.session.query(Character).filter(Character.idUser == session['id']).first()
-        
+        characteristics = db.session.query(Characteristic).filter(Characteristic.id_character == character.id).all()
+        motivations = db.session.query(Motivation).filter(Motivation.id_character == character.id).all()
+
         if character:
             return render_template(
                 '/paginas/minecraft_subpg/characters/withcharacter/my_character.jinja',
                 character=character,
+                characteristics=characteristics,
+                motivations=motivations,
                 session=session
             )
         else:
@@ -153,11 +186,15 @@ async def update_character_image(id):
 async def details_character(id):
     if 'id' in session:
         character = db.session.query(Character).filter(Character.id == id).first()
+        motivations = db.session.query(Motivation).filter(Motivation.id_character == character.id).all()
+        characteristics = db.session.query(Characteristic).filter(Characteristic.id_character == character.id).all()
 
         if character:
             return render_template(
                 '/paginas/minecraft_subpg/characters/withcharacter/details.jinja',
                 character=character,
+                motivations=motivations,
+                characteristics=characteristics,
                 session=session
             )
         else:
@@ -242,6 +279,9 @@ async def edit_diary_page(id):
         text = request.form['text']
         current_page = request.form['current_page']
 
+        if not text or not id:
+            return redirect(url_for('characters.my_diary', page=current_page))
+
         page = db.session.query(DiaryPage).filter(
             DiaryPage.id == id
         ).first()
@@ -266,3 +306,58 @@ async def delete_diary_page(id):
         return redirect(url_for('characters.my_diary', page=1))
     else:
         return redirect(url_for)
+
+
+'''
+Rasgos y Motivaciones de los personajes.
+'''
+@characters_bp.route('/characteristic/add/<int:id>', methods=['POST'])
+async def add_characteristic(id):
+    if 'id' in session:
+        rasgo = request.form['rasgo']
+
+        if not rasgo or not id:
+            return redirect(url_for('characters.my_character'))
+
+        new_characteristic = Characteristic(id, rasgo)
+        db.session.add(new_characteristic)
+        db.session.commit()
+
+        return redirect(url_for('characters.my_character'))
+    else:
+        return redirect(url_for('auth.login'))
+
+@characters_bp.route('/motivation/add/<int:id>', methods=['POST'])
+async def add_motivation(id):
+    if 'id' in session:
+        motivation_text = request.form['motivation']
+
+        if not motivation_text or not id:
+            return redirect(url_for('characters.my_character'))
+
+        new_motivation = Motivation(id, motivation_text)
+        db.session.add(new_motivation)
+        db.session.commit()
+
+        return redirect(url_for('characters.my_character'))
+    else:
+        return redirect(url_for('auth.login'))
+
+@characters_bp.route('/motivation/edit/<int:id>', methods=['POST'])
+async def edit_motivation(id):
+    if 'id' in session:
+        motivation_text = request.form['motivation']
+
+        if not motivation_text or not id:
+            return redirect(url_for('characters.my_character'))
+
+        motivation = db.session.query(Motivation).filter(
+            Motivation.id == id
+        ).first()
+
+        motivation.motivation_text = motivation_text
+        db.session.commit()
+
+        return redirect(url_for('characters.my_character'))
+    else:
+        return redirect(url_for('auth.login'))

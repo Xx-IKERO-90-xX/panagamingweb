@@ -5,8 +5,6 @@
 {%block content%}
 
 <br><br><br><br>
-<br><br><br><br>
-<br><br><br><br>
 <div class="container" style="height: 100vh;">
     <br><br>
     <div class="navbar bg-base-100 shadow-xl shadow-green-500/50" style="border-radius: 10px; text-align: center;">
@@ -217,9 +215,51 @@
                         {{character.description}}
                     </p>
                 </div>
+                <div>
+                    <br><br>
+                    <h2 class="text-2xl font-bold text-left">Personalidad</h2>
+                    <hr class="my-2">
+                    <br>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-bold">Rasgos de personalidad</h3>
+                        <div class="ml-5">
+                            {%for characteristic in characteristics%}
+                            <div class="badge badge-soft badge-accent">
+                                {{ characteristic.rasgo }}
+                            </div>
+                            {%endfor%}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <br><br>
+                    <div class="ml-4">
+                        <div class="h-96 overflow-x-auto">
+                            <table class="table table-pin-rows bg-base-200">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span class="text-lg">Motivaciones</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for motivation in motivations%}
+                                    <tr>
+                                        <td>
+                                            <span>{{motivation.motivation_text}}</span>
+                                        </td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<br><br>
 
 {%endblock%}

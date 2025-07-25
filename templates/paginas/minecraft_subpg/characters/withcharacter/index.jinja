@@ -51,7 +51,9 @@
             {%if characters.has_prev%}
                 <a class="join-item btn" href="?page={{characters.prev_num}}">«</a>
             {%endif%}
-            <button class="join-item btn">Page {{characters.page}}</button>
+            {%if characters.has_next or characters.has_next%}
+                <button class="join-item btn">Page {{characters.page}}</button>
+            {%endif%}
             {%if characters.has_next%}
                 <a class="join-item btn" href="?page={{characters.next_num}}">»</a>
             {%endif%}

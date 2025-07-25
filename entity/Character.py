@@ -22,3 +22,4 @@ class Character(db.Model):
         self.image = image
         self.description = description
         self.level = level
+

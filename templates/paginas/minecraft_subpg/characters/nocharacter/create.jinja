@@ -3,7 +3,15 @@
 {%block title%} Nuevo Personaje {%endblock%}
 
 {%block content%}
+
 <div class="container" style="height: 100vh;" enctype="multipart/form-data">
+    {%if error_msg%}
+    <br><br><br>
+    <div role="alert" class="alert alert-error alert-soft">
+        <span>{{error_msg}}</span>
+    </div>
+    {%endif%}
+
     <form style="margin-top: 350px;"
         class="mx-auto shadow-lg shadow-green-500 w-full max-w-lg bg-base-100 p-10 rounded-lg"
         method="post" action="{{url_for('characters.create')}}">
@@ -14,7 +22,7 @@
                 </label>
                 <input
                     class="appearance-none shadow-md shadow-green-500 text-white-200 block w-full text-gray-700 bg-gray-200 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                    name="nombre" id="grid-first-name" type="text">
+                    name="nombre" id="grid-first-name" type="text" required>
             </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
@@ -24,7 +32,7 @@
                 </label>
                 <input
                     class="appearance-none block shadow-md shadow-green-500 w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    name="especie" id="grid-last-name" type="text">
+                    name="especie" id="grid-last-name" type="text" required>
             </div>
             <div class="w-full md:w-1/2 px-3">
                 <label class="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2" for="grid-state">
@@ -33,7 +41,7 @@
                 <div class="relative">
                     <select
                         class="block appearance-none shadow-md shadow-green-500 w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        name="sexo" id="grid-state">
+                        name="sexo" id="grid-state" required>
                         <option value="male">Hombre</option>
                         <option value="female">Mujer</option>
                     </select>
@@ -42,11 +50,11 @@
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
-                <label class="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2" for="description">
+                <label class="block uppercase tracking-wide text-gray-200 text-xs font-bold mb-2" for="description" required>
                     Descripcion
                 </label>
                 <textarea class="textarea textarea-success w-full shadow-md shadow-green-500 text-gray-700 bg-gray-200"
-                    name="descripcion" id="description"></textarea>
+                    name="descripcion" id="description" required></textarea>
             </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
@@ -72,7 +80,6 @@
                     class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                         Volver
                 </a>
-
             </div>
         </div>
     </form>

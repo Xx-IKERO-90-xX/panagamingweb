@@ -30,7 +30,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body>
+<body class="min-h-screen grid grid-rows-[auto_1fr_auto]">
     <header>
         <div style="background-image: url(/static/img/fondoverde.jpg);"
             class="navbar shadow-sm border-b-2 border-gray-950">
@@ -92,10 +92,10 @@
             {%endif%}
         </div>
     </header>
-    <main class="h-full">
+    <main class="h-full ">
         {%block content%} {%endblock%}
     </main>
-    <footer class="footer footer-center bg-base-200 text-base-content rounded p-10">
+    <footer class="footer footer-center bg-base-200 text-base-content rounded p-4">
         <div class="grid grid-flow-col gap-4">
             <a class="link link-hover">About us</a>
             <a class="link link-hover">Contact</a>
