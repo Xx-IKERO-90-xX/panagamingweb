@@ -319,7 +319,7 @@
                                             <span>{{motivation.motivation_text}}</span>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-xs btn-error">Eliminar</a>
+                                            <a href="{{url_for('characters.delete_motivation', id=motivation.id)}}" class="btn btn-xs btn-error">Eliminar</a>
                                             <button class="btn btn-xs btn-accent" onclick="edit_motivation_modal.showModal()">Editar</button>
                                         </td>
                                     </tr>

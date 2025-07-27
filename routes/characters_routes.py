@@ -361,3 +361,17 @@ async def edit_motivation(id):
         return redirect(url_for('characters.my_character'))
     else:
         return redirect(url_for('auth.login'))
+
+@characters_bp.route('motivation/delete/<int:id>', methods=['GET'])
+async def delete_motivation(id):
+    if 'id' in session:
+        motivation = db.session.query(Motivation).filter(
+            Motivation.id == id
+        ).first()
+
+        db.session.delete(motivation)
+        db.session.commit()
+
+        return redirect(url_for('characters.my_character'))
+    else:
+        return redirect(url_for('auth.login'))
