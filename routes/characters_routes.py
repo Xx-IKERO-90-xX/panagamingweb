@@ -10,11 +10,11 @@ import controller.SecurityController as security
 import controller.StaticsController as statics
 from threading import Thread
 from entity.User import *
-from entity.Character import *
-from entity.DiaryPage import *
+from entity.characters.Character import *
+from entity.characters.DiaryPage import *
 from controller.CharacterController import *
-from entity.Characteristic import *
-from entity.Motivation import *
+from entity.characters.Motivations import *
+from entity.characters.Characteristic import *
 
 sys.path.append("..")
 
