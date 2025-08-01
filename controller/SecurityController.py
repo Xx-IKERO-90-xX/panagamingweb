@@ -1,8 +1,5 @@
 import os 
-import discord
 import sys
-from discord.ext import commands
-from discord.utils import *
 from passlib.hash import pbkdf2_sha256
 from entity.User import *
 from extensions import db

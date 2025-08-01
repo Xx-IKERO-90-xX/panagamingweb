@@ -1,7 +1,4 @@
 import os 
-import discord
-from discord.ext import commands
-from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for, Blueprint
 from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename

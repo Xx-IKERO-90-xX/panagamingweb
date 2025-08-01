@@ -1,8 +1,5 @@
 import os 
 import sys
-import discord
-from discord.ext import commands
-from discord.utils import *
 from flask import request, Flask, render_template, current_app, redirect, session, sessions, url_for, Blueprint
 from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename
@@ -13,7 +10,7 @@ from entity.User import *
 from entity.characters.Character import *
 from entity.characters.DiaryPage import *
 from controller.CharacterController import *
-from entity.characters.Motivations import *
+from entity.characters.Motivation import *
 from entity.characters.Characteristic import *
 
 sys.path.append("..")

@@ -1,5 +1,5 @@
 from extensions import db
-from entity.Character import Character
+from entity.characters.Character import Character
 
 async def character_name_in_use(name):
     """

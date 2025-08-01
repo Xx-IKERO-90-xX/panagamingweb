@@ -1,7 +1,4 @@
 import os 
-import discord
-from discord.ext import commands
-from discord.utils import *
 from flask import request, Flask, render_template, redirect, session, sessions, url_for
 from flask_socketio import SocketIO, send, emit
 from werkzeug.utils import secure_filename
@@ -21,16 +18,10 @@ with open('settings.json') as archivo:
     datos = json.load(archivo)
 
 
-intents = discord.Intents.default()
-intents.guilds = True
-intents.members = True
-
-bot = discord.Client(intents=intents)
-
 app = Flask(__name__)
 app.secret_key = "a40ecfce592fd63c8fa2cda27d19e1dbc531e946"
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql://{datos['database']['user']}:{datos['database']['passwd']}@{datos['database']['host']}/{datos['database']['db']}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+mysqlconnector://{datos['database']['user']}:{datos['database']['passwd']}@{datos['database']['host']}/{datos['database']['db']}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
