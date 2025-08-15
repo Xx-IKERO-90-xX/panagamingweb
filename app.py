@@ -27,8 +27,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 socketio = SocketIO(app)
 
-from routes import auth_bp, minecraft_bp, user_bp, index_bp, characters_bp
+from routes import auth_bp, minecraft_bp, user_bp, index_bp, characters_bp, chat_bp
 
+app.register_blueprint(chat_bp, url_prefix="/chat")
 app.register_blueprint(auth_bp, url_prefix="/auth")
 app.register_blueprint(minecraft_bp, url_prefix="/minecraft")
 app.register_blueprint(user_bp, url_prefix="/usuarios")

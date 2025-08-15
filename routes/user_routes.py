@@ -56,20 +56,26 @@ async def UserProfile(id):
     if 'id' in session:
         user = User.query.get(id)
         user_style = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
+        
+        if not user:
+            if user.id != session['id']:
+                result = {
+                    "avatar": user.image,
+                    "name": user.username, 
+                    "mc_name": user.mc_name, 
+                    "descripcion": user.descripcion, 
+                    "main": user_style.main, 
+                    "banner": user_style.banner
+                }
 
-        result = {
-            "name": user.username, 
-            "mc_name": user.mc_name, 
-            "descripcion": user.descripcion, 
-            "main": user_style.main, 
-            "banner": user_style.banner
-        }
-
-        return render_template(
-            '/paginas/users/profile.jinja', 
-            user=result, 
-            session=session
-        )
+                return render_template(
+                    '/paginas/users/profile.jinja', 
+                    user=result, 
+                    session=session
+                )
+            
+            else:
+                return redirect(url_for('usuario.my_profile'))
     
     else:
         return redirect(url_for('auth.login'))

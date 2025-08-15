@@ -9,8 +9,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         let msgTemplate = document.getElementById('messageTemplate').content.cloneNode(true);
         let msgDiv = msgTemplate.getElementById('msg');
 
-        msgTemplate.getElementById('msgImg').src = data.imgUrl;
-        msgTemplate.getElementById('msgName').href = data.id;
+        if (data.imgUrl === '' || data.imgUrl === null || data.imgUrl === undefined || data.imgUrl === 'None') {
+            msgTemplate.getElementById('msgImg').src = '/static/img/userlog.jpg'
+        }
+        else {
+            msgTemplate.getElementById('msgImg').src = `/static/uploads/${data.imgUrl}`;
+        }
+        msgTemplate.getElementById('msgName').href = `/usuarios/${data.id}`;
         msgTemplate.getElementById('msgName').innerHTML = data.username
 
         msgTemplate.getElementById('content').innerHTML = data.message;

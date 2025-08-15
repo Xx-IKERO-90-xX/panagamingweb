@@ -40,14 +40,14 @@
                         <img id="msgImg" href="#">
                     </div>
                 </div>
-                <div id="msgName" class="chat-header font-bold text-zinc-950"></div>
+                <a id="msgName" href="#" class="chat-header font-bold text-zinc-950"></a>
                 <div id="content" class="chat-bubble"></div>
             </div>
         </template>
         <div class="msgControls">
             <input type="hidden" id="idUser" value="{{session['id']}}">
             <input type="hidden" id="idName" value="{{session['name']}}">
-            <input type="hidden" id="imgUrl" value="{{session['imgUrl']}}">
+            <input type="hidden" id="imgUrl" value="{{session['image']}}">
             <input type="text" id="myMessage">
             <button type="button" class="btnSend" onclick="sendMessage()" id="send"><strong>Enviar</strong></button>
             <button type="button" class="btnCancel" id="cancel"><strong>Cancelar</strong></button>

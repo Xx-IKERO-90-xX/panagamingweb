@@ -28,6 +28,15 @@
         integrity="sha512-luMnTJZ7oEchNDZAtQhgjomP1eZefnl82ruTH/3Oj/Yu5qYtwL7+dVRccACS/Snp1lFXq188XFipHKYE75IaQQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        html {
+            background-image: url('/static/img/fondoverde.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;   
+        }
+    </style>
 </head>
 
 <body class="min-h-screen grid grid-rows-[auto_1fr_auto]">
@@ -77,6 +86,9 @@
                             <a href="{{url_for('usuario.my_profile')}}" class="justify-between">
                                 <strong>Perfil</strong>
                             </a>
+                        </li>
+                        <li>
+                            <a href="{{url_for('chat.index')}}"><strong>Mis Contactos</strong></a>
                         </li>
                         <li><a href="{{url_for('auth.logout')}}"><strong>Cerrar Sesión</strong></a></li>
                     </ul>

@@ -28,9 +28,10 @@
         integrity="sha512-luMnTJZ7oEchNDZAtQhgjomP1eZefnl82ruTH/3Oj/Yu5qYtwL7+dVRccACS/Snp1lFXq188XFipHKYE75IaQQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <style>
         html {
-            background-image: url('/static/img/fondoverde.jpg');
+            background-image: url('/static/img/fondoVerdeNeon.jpg');
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
@@ -72,7 +73,7 @@
                                 <strong>Perfil</strong>
                             </a>
                         </li>
-                         <li>
+                        <li>
                             <a href="{{url_for('chat.index')}}"><strong>Mis Contactos</strong></a>
                         </li>
                         <li><a href="{{url_for('auth.logout')}}"><strong>Cerrar Sesión</strong></a></li>
@@ -89,7 +90,7 @@
             {%endif%}
         </div>
     </header>
-    <main class="h-dvh h-full">
+    <main style="height: 100vh;" class="h-vh">
         {%block content%} {%endblock%}
     </main>
     <footer class="footer footer-center bg-base-200 text-base-content rounded p-10">
@@ -132,5 +133,6 @@
         </aside>
     </footer>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
 </body>
 </html>
