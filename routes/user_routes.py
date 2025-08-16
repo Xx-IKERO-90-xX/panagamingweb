@@ -25,7 +25,7 @@ session = app.session
 user_bp = Blueprint('usuario', __name__)
 db = app.db
 
-
+# User profile from session
 @user_bp.route('/me', methods=['GET'])
 async def my_profile():
     if 'id' in session:
@@ -50,37 +50,37 @@ async def my_profile():
     else:
         return redirect(url_for("auth.login"))
 
-
+# User profile page
 @user_bp.route('/<int:id>', methods=['GET'])
 async def UserProfile(id):
     if 'id' in session:
         user = User.query.get(id)
         user_style = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
-        
-        if not user:
-            if user.id != session['id']:
-                result = {
-                    "avatar": user.image,
-                    "name": user.username, 
-                    "mc_name": user.mc_name, 
-                    "descripcion": user.descripcion, 
-                    "main": user_style.main, 
-                    "banner": user_style.banner
-                }
+        print('Userstyle: ', user_style)
 
-                return render_template(
-                    '/paginas/users/profile.jinja', 
-                    user=result, 
-                    session=session
-                )
-            
-            else:
-                return redirect(url_for('usuario.my_profile'))
-    
+        if user.id != session['id']:
+            result = {
+                "avatar": id,
+                "avatar": user.image,
+                "name": user.username,
+                "mc_name": user.mc_name,
+                "descripcion": user.descripcion,
+                "main": user_style.main,
+                "banner": user_style.banner
+            }
+
+            return render_template(
+                '/paginas/users/profile.jinja', 
+                user=result, 
+                session=session
+            )
+        
+        else:
+            return redirect(url_for('usuario.my_profile'))
     else:
         return redirect(url_for('auth.login'))
 
-
+# Edit user description
 @user_bp.route('/usuario/me/description/edit', methods=["POST"])
 async def edit_user_description():
     if 'id' in session:
@@ -91,11 +91,10 @@ async def edit_user_description():
         db.session.commit()
         
         return redirect(url_for('usuario.my_profile', id=session['id']))
-    
     else:
         return redirect(url_for('auth.login'))
 
-
+# Edit user style
 @user_bp.route('/usuario/edit/style/<int:id>', methods=["GET"])
 async def EditUserStyle(id):
     if 'id' in session:
@@ -120,7 +119,7 @@ async def EditUserStyle(id):
     else:
         return redirect(url_for("auth.login"))
 
-
+# Set new main background style
 @user_bp.route('/usuario/edit/style/newMainBk/<int:id>', methods=["POST"])
 async def set_main_style(id):
     if 'id' in session:
@@ -135,6 +134,7 @@ async def set_main_style(id):
     else:
         return redirect(url_for('auth.login'))
 
+# Update user avatar
 @user_bp.route('/usuario/edit/avatar/<int:id>', methods=["POST"])
 async def update_avatar(id):
     if 'id' in session:

@@ -3,11 +3,34 @@
 {%block title %} Mis Contactos {%endblock%}
 
 {%block content%}
-<div class="container flex h-full flex-col">
-    <div style="height: 100%;" class="p-4 mt-3 bg-base-300 rounded-box grid shadow-lg shadow-green-500 h-full">
-        
+<script type="module" src="/static/scripts/users/contacts.js"></script>
+<div class="container flex h-full flex-col p-4 bg-base-300">
+    <div style="text-align: center;" class="bg-base-100 shadow-sm rounded align-items-center p-2">
+        <button id="btn-friends" type="button" class="btn btn-success">Amigos</button>
+        <button id="btn-contacts" type="button" class="btn btn-success">Chats</button>
     </div>
     <br><br>
+    <div id="content">
+    
+    </div>
 </div>
 <br><br>
+
+<template id="friendships-template">
+    <div id="friendships-content" class="p-4">
+        <div>
+            <h1 class="card-title" class="p-4">Mis Amistades</h1>
+        </div>        
+    </div>
+</template>
+
+<template id="contacts-template">
+    <div id="contacts-content" class="p-4">
+        <div>
+            <h1 class="card-title">Mis Contactos</h1>
+        </div>
+    </div>
+</template>
+<script type="module" src="/static/scripts/users/contacts.js"></script>
+
 {%endblock%}

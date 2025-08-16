@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         else {
             msgTemplate.getElementById('msgImg').src = `/static/uploads/${data.imgUrl}`;
         }
-        msgTemplate.getElementById('msgName').href = `/usuarios/${data.id}`;
+        msgTemplate.getElementById('msgName').href = `${data.id}`;
         msgTemplate.getElementById('msgName').innerHTML = data.username
 
         msgTemplate.getElementById('content').innerHTML = data.message;

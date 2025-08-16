@@ -43,7 +43,7 @@ app.app_context()
 @socketio.on('send_message')
 def handle_public_chat_message(data):
     app.logger.info(f"Message: {data['message']} from {data['username']}")
-    data['id'] = f"/usuario/{data['id']}"
+    data['id'] = f"/usuarios/{data['id']}"
     emit('receive_message', data, broadcast=True)
 
 
