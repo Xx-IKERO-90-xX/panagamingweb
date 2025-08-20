@@ -6,8 +6,8 @@ class PrivateRoom(db.Model):
     __tablename__ = 'PrivateRoom'
 
     id = db.Column(Integer, primary_key=True)
-    user_1 = db.Column(Integer, nullable=False)
-    user_2 = db.Column(Integer, nullable=False)
+    user_1 = db.Column(Integer, ForeignKey('User.id'), nullable=False)
+    user_2 = db.Column(Integer, ForeignKey('User.id'), nullable=False)
     name = db.Column(String(100), unique=True)
 
     def __init__(self, user_1, user_2, name):

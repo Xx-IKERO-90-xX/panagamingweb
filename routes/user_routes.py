@@ -11,6 +11,8 @@ from threading import Thread
 from entity.User import *
 from entity.UserStyle import *
 import controller.StaticsController as statics
+from entity.Friendship import Friendship
+import controller.UserController as user_controller
 
 
 sys.path.append("..")
@@ -18,6 +20,7 @@ sys.path.append("..")
 app_route = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'app'))
 if app_route not in sys.path:
     sys.path.insert(0, app_route)
+
 import app
 from extensions import db
 
@@ -56,11 +59,10 @@ async def UserProfile(id):
     if 'id' in session:
         user = User.query.get(id)
         user_style = db.session.query(UserStyle).filter(UserStyle.idUser == id).first()
-        print('Userstyle: ', user_style)
 
         if user.id != session['id']:
             result = {
-                "avatar": id,
+                "id": id,
                 "avatar": user.image,
                 "name": user.username,
                 "mc_name": user.mc_name,
@@ -153,5 +155,39 @@ async def update_avatar(id):
         
         return redirect(url_for('usuario.my_profile'))
     
+    else:
+        return redirect(url_for('auth.login'))
+
+# Send friendship request
+@user_bp.route('/friendship/request/send/<int:id>', methods=["GET"])
+async def send_friendship_request(id):
+    if 'id' in session:
+        user = db.session.query(User).filter(User.id == id).first()
+        if user:
+            friendship = Friendship(session['id'], id, 'pending')
+            db.session.add(friendship)
+            db.session.commit()
+            return redirect(url_for('usuario.UserProfile', id=id))
+        else:
+            return "User not found", 404 
+    else:
+        return redirect(url_for('auth.login'))
+
+# Accept friendship request
+@user_bp.route('/friendship/request/accept/<int:id>', methods=["GET"])
+async def accept_friendship_request(id):
+    if 'id' in session:
+        friendship = db.session.query(Friendship).filter(
+            (Friendship.id_user1 == session['id'] and Friendship.id_user2 == id) |
+            (Friendship.id_user1 == id and Friendship.id_user2 == session['id'])
+        )
+        
+        if friendship:
+            friendship.status = 'accepted'
+            db.session.commit()
+            return redirect(url_for('usuario.my_profile'))
+        
+        else:
+            return "Friendship request not found", 404
     else:
         return redirect(url_for('auth.login'))

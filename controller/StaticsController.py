@@ -17,7 +17,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 def allowed_image(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
+# Upload image function
 async def upload_image(imagen):
     image_filename = secure_filename(imagen.filename)
     filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], image_filename)
@@ -25,6 +25,7 @@ async def upload_image(imagen):
 
     return image_filename
 
+# Update image function
 async def update_image(imagen, last_imagen):
     if last_imagen != None:
         old_image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], last_imagen)

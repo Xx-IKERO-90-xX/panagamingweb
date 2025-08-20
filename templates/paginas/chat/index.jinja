@@ -3,34 +3,64 @@
 {%block title %} Mis Contactos {%endblock%}
 
 {%block content%}
-<script type="module" src="/static/scripts/users/contacts.js"></script>
 <div class="container flex h-full flex-col p-4 bg-base-300">
-    <div style="text-align: center;" class="bg-base-100 shadow-sm rounded align-items-center p-2">
-        <button id="btn-friends" type="button" class="btn btn-success">Amigos</button>
-        <button id="btn-contacts" type="button" class="btn btn-success">Chats</button>
-    </div>
     <br><br>
-    <div id="content">
-    
-    </div>
-</div>
-<br><br>
-
-<template id="friendships-template">
-    <div id="friendships-content" class="p-4">
-        <div>
-            <h1 class="card-title" class="p-4">Mis Amistades</h1>
-        </div>        
-    </div>
-</template>
-
-<template id="contacts-template">
-    <div id="contacts-content" class="p-4">
-        <div>
-            <h1 class="card-title">Mis Contactos</h1>
+    <div>
+        <div id="friendships-content" class="p-4">
+            <div class="overflow-x-auto" style="height: 500px;">
+                <h1 class="card-title" class="p-4">Mis Amistades</h1>
+            </div>
+            <div class="overflow-x-auto" style="height: 500px;">
+                <h1 class="card-title" class="p-4">Solicitudes de Amistad</h1>
+                <div class="overflow-x-auto">
+                    <table class="table">
+                        <!-- head -->
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- row 1 -->
+                            {%for friendship, user in friendships_pending%}
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-3">
+                                        <div class="avatar">
+                                            <div class="mask mask-squircle h-12 w-12">
+                                                {%if user.image != None%}
+                                                <img src="/static/uploads/{{user.image}}" alt="Avatar">
+                                                {%else%}
+                                                <img src="/static/img/userlog.jpg" alt="Avatar">
+                                                {%endif%}
+                                            </div>
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{user.username}}
+                                </td>
+                                <td></td>
+                                <th>
+                                    <a type="button" href="#" class="btn btn-xs btn-success">Aceptar</a>
+                                    <a type="button" href="#" class="btn btn-xs btn-error">Rechazar</a>
+                                </th>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                        <!-- foot -->
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-</template>
-<script type="module" src="/static/scripts/users/contacts.js"></script>
+</div>
+    <br><br>
 
-{%endblock%}
+    {%endblock%}

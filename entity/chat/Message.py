@@ -7,8 +7,8 @@ class Message(db.Model):
 
     id = db.Column(Integer, primary_key=True)
     content = db.Column(String(500), nullable=False)
-    sender_id = db.Column(Integer, nullable=False)
-    room_id = db.Column(Integer, nullable=False)
+    sender_id = db.Column(Integer, ForeignKey('User.id'), nullable=False)
+    room_id = db.Column(Integer, ForeignKey('PrivateRoom.id'), nullable=False)
     timestamp = db.Column(BigInteger, nullable=False)
 
     def __init__(self, content, sender_id, room_id):

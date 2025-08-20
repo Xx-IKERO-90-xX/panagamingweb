@@ -20,6 +20,12 @@
                             class="rounded-full w-28 h-28 mx-auto mb-4 border-4 border-indigo-800 transition-transform duration-300 hover:scale-105 ring ring-gray-300">
                     {%endif%}
                     <h1 class="text-2xl font-bold mb-2">{{user['name']}}</h1>
+                    {%if is_friend%}
+                        <span class="text-green-500">Amigo</span>
+                    {%else%}
+                        <a href="{{url_for('usuario.send_friendship_request', id=user['id'])}}" class="btn btn-success btn-sm">Solicitud de Amistad</a>
+                    {%endif%}
+                    <button class="btn btn-success btn-sm">Seguir</button>
                 </div>
                 <div class="info_div md:w-2/3 md:pl-8 bg-black md:ml-10 p-5">
                     {% if user["mc_name"] != None %}
@@ -48,6 +54,12 @@
                             class="rounded-full w-28 h-28 mx-auto mb-4 border-4 border-indigo-800 transition-transform duration-300 hover:scale-105 ring ring-gray-300">
                     {%endif%}
                     <h1 class="text-2xl font-bold mb-2">{{user['name']}}</h1>
+                    {%if is_friend%}
+                        <span class="text-green-500">Amigo</span>
+                    {%else%}
+                        <a href="{{url_for('usuario.send_friendship_request', id=user['id'])}}" class="btn btn-success btn-sm">Solicitud de Amistad</a>
+                    {%endif%}
+                    <button class="btn btn-success btn-sm">Seguir</button>
                 </div>
                 <div class="info_div md:w-2/3 md:pl-8 bg-black md:ml-10 p-5">
                     {%if user["mc_name"] != None%}
@@ -64,4 +76,5 @@
         </div>
     </div>
     {%endif%}
+</div>
 {%endblock%}
