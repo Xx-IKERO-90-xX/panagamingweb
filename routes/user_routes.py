@@ -177,15 +177,15 @@ async def send_friendship_request(id):
 @user_bp.route('/friendship/request/accept/<int:id>', methods=["GET"])
 async def accept_friendship_request(id):
     if 'id' in session:
-        friendship = db.session.query(Friendship).filter(
+        friendship = db.session.query(Friendship, User).filter(
             (Friendship.id_user1 == session['id'] and Friendship.id_user2 == id) |
             (Friendship.id_user1 == id and Friendship.id_user2 == session['id'])
-        )
-        
+        ).first()
+                
         if friendship:
             friendship.status = 'accepted'
             db.session.commit()
-            return redirect(url_for('usuario.my_profile'))
+            return redirect(url_for('chat.index'))
         
         else:
             return "Friendship request not found", 404

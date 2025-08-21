@@ -1,5 +1,6 @@
 let contentDiv = document.getElementById('content');
-
+let friendshipsBtn = document.getElementById('friendships-btn');
+let requestsBtn = document.getElementById('requests-btn');
 
 function clear() {
     contentDiv.innerHTML = "";
@@ -7,24 +8,22 @@ function clear() {
 
 function loadFriendships() {
     clear();
+    let template = document.getElementById('frinships-template').content.cloneNode(true);
+    let friendshipsContent = template.getElementById('friendships-content');
 
-    let friendshipsTemplate = document.getElementById('friendships-template').content.cloneNode(true);
-    let friendships = friendshipsTemplate.getElementById('friendships-content');
-    contentDiv.append(friendships);
+    contentDiv.appendChild(friendshipsContent)
 }
 
-function loadContacts() {
+function loadFriendshipRequests() {
     clear();
+    let template = document.getElementById('friendship-pending-template').content.cloneNode(true);
+    let friendshipPendingRequest = template.getElementById('friendship-pending-request');
 
-    let contactsTemplate = document.getElementById('contacts-template').content.cloneNode(true);
-    let contacts = contactsTemplate.getElementById('contacts-content');
-    contentDiv.append(contacts);    
+    contentDiv.appendChild(friendshipPendingRequest);
 }
 
-let btnFriends = document.getElementById('btn-friends');
-let btnContacts = document.getElementById('btn-contacts');
-
-btnFriends.addEventListener('click', loadFriendships);
-btnContacts.addEventListener('click', loadContacts);
+friendshipsBtn.addEventListener('click', loadFriendships);
+requestsBtn.addEventListener('click', loadFriendshipRequests);  
 
 loadFriendships();
+

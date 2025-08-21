@@ -41,11 +41,6 @@ async def index():
             (Friendship.status == 'pending')
         ).join(User, Friendship.id_user1 == User.id).all()
 
-        print(friendships_pending)
-        for friendship, user in friendships_pending:
-            print("Pending Friendship:", friendship.id, "with User:", user.username)
-
-
         private_rooms1 = db.session.query(PrivateRoom).filter(
             (PrivateRoom.user_1 == int(session['id']))
         ).all()
