@@ -10,8 +10,8 @@ import controller.SecurityController as security
 import controller.McServersController as mcservers
 from threading import Thread
 from mcrcon import MCRcon
-from extensions import db, socketio
-
+from extensions import db, socketio, mongodb
+from pymongo import MongoClient
 
 datos = {}
 with open('settings.json') as archivo:
@@ -21,7 +21,7 @@ with open('settings.json') as archivo:
 app = Flask(__name__)
 app.secret_key = "a40ecfce592fd63c8fa2cda27d19e1dbc531e946"
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+mysqlconnector://{datos['database']['user']}:{datos['database']['passwd']}@{datos['database']['host']}/{datos['database']['db']}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+mysqlconnector://{datos['database']['mysql']['user']}:{datos['database']['mysql']['passwd']}@{datos['database']['mysql']['host']}/{datos['database']['mysql']['db']}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)

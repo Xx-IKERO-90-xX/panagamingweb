@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     })
 
     window.sendMessage = function () {
-
         let userName = document.getElementById('idName').value;
         let idUser = document.getElementById('idUser').value;
         let imgUrl = document.getElementById('imgUrl').value;
@@ -33,7 +32,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             id: idUser,
             username: userName,
             imgUrl: imgUrl,
-            message: msg
+            content: msg
         });
         messageInput.value = '';
     }

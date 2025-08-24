@@ -1,0 +1,79 @@
+{%extends '/paginas/chat/base.jinja'%}
+
+{%block title%} {{friend.username}} {%endblock%}
+
+{%block content%}
+<div style="height: 100%;" class="container bg-base-100 h-full">
+    <div id="messages_div">
+        {%for message in messages%}
+        {%if message['sender'] == fiend.id%}
+        <div class="chat chat-start">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                    {%if friend.image == None%}
+                    <img alt="Tailwind CSS chat bubble component" src="/static/img/userlog.jpg" />
+                    {%else%}
+                    <img src="/static/uploads/{{friend.image}}">
+                    {%endif%}
+                </div>
+            </div>
+            <div class="chat-header">
+                {{friend.username}}
+                <time class="text-xs opacity-50">{{message['timestamp']}}</time>
+            </div>
+            <div class="chat-bubble">{{message['content']}}</div>
+        </div>
+        {%else%}
+        <div class="chat chat-end">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                    {%if me.image == None%}
+                    <img alt="Tailwind CSS chat bubble component" src="/static/img/userlog.jpg" />
+                    {%else%}
+                    <img src="/static/uploads/{{me.image}}">
+                    {%endif%}
+                </div>
+            </div>
+            <div class="chat-header">
+                {{me.username}}
+                <time class="text-xs opacity-50">{{message['timestamp']}}</time>
+            </div>
+            <div class="chat-bubble">{{message['content']}}</div>
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+</div>
+
+<template id="message_template">
+    <div id="message_content">
+        {%if message['sender'] != session['id']%}
+        <div class="chat chat-start">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                    <img id="msgImg" alt="Tailwind CSS chat bubble component" href="#" />
+                </div>
+            </div>
+            <div class="chat-header">
+                <span id="msgName"></span>
+                <time id="msgTime" class="text-xs opacity-50"></time>
+            </div>
+            <div id="content" class="chat-bubble"></div>
+        </div>
+        {%else%}
+        <div class="chat chat-end">
+            <div class="chat-image avatar">
+                <div class="w-10 rounded-full">
+                    <img id="msgImg" alt="Tailwind CSS chat bubble component" href="#" />
+                </div>
+            </div>
+            <div class="chat-header">
+                <span id="msgName"></span>
+                <time id="msgTime" class="text-xs opacity-50"></time>
+            </div>
+            <div id="content" class="chat-bubble"></div>
+        </div>
+        {%endif%}
+    </div>
+</template>
+{%endblock%}

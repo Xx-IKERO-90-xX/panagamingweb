@@ -1,6 +1,6 @@
 from entity.chat.Message import Message
 from flask import Blueprint, render_template, session, request, redirect, url_for, jsonify
-from extensions import db
+from extensions import db, mongodb
 from entity.chat.PrivateRoom import PrivateRoom
 from entity.Friendship import Friendship
 from entity.User import User
@@ -60,4 +60,46 @@ async def index():
     
     else:
         return redirect(url_for('auth.login'))
-    
+
+# Route to open a private chat room
+@chat_bp.route('/private/<int:user_id>', methods=['GET'])
+async def private_room(user_id):
+    if 'id' in session:
+        friendship = db.session.query(Friendship).filter(
+            ((Friendship.id_user1 == session['id']) & (Friendship.id_user2 == user_id) | 
+            (Friendship.id_user2 == session['id']) & (Friendship.id_user1 == user_id)) & 
+            (Friendship.status == 'accepted')
+        ).first()
+
+        if not friendship:
+            return redirect(url_for('chat.index'))
+        else:
+            me = None
+            friend = None
+            
+            if friendship.id_user2 == session['id']:
+                user_1 = db.session.query(User).filter_by(id=user_id).first()
+                user_2 = db.session.query(User).filter_by(id=session['id']).first()
+                
+                me = user_2
+                friend = user_1
+            else:
+                user_1 = db.session.query(User).filter_by(id=session['id']).first()
+                user_2 = db.session.query(User).filter_by(id=user_id).first()
+
+                me = user_1
+                friend = user_2
+
+            private_room = mongodb[f'private_room_{user_1.id}_{user_2.id}']
+            messages = private_room.find().sort('timestamp', 1)
+
+            return render_template(
+                'paginas/chat/private_room.jinja',
+                room=private_room,
+                me=me,
+                friend=friend,
+                messages=messages,
+                session=session
+            )
+    else:
+        return redirect(url_for('auth.login'))
