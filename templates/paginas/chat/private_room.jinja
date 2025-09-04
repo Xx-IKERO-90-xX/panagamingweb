@@ -6,7 +6,7 @@
 <div style="height: 100%;" class="container bg-base-100 h-full">
     <div id="messages_div">
         {%for message in messages%}
-        {%if message['sender'] == fiend.id%}
+        {%if message['sender'] == friend.id%}
         <div class="chat chat-start">
             <div class="chat-image avatar">
                 <div class="w-10 rounded-full">
@@ -24,7 +24,7 @@
             <div class="chat-bubble">{{message['content']}}</div>
         </div>
         {%else%}
-        <div class="chat chat-end">
+        <div class="chat chat-start">
             <div class="chat-image avatar">
                 <div class="w-10 rounded-full">
                     {%if me.image == None%}
@@ -43,37 +43,102 @@
         {%endif%}
         {%endfor%}
     </div>
+    <div class="fixed bottom-0 left-0 w-full p-4 bg-base-200">
+        <input type="hidden" id="idName" value="{{session['username']}}">
+        <input type="hidden" id="idUser" value="{{session['id']}}">
+        <input type="hidden" id="imgUrl" value="{{session['image']}}">
+        <input type="hidden" id="privateRoom" value="{{private_room}}">
+        <div class="form-control">
+            <div class="input-group">
+                <input id="myMessage" type="text" placeholder="Type your message here" class="input input-bordered w-full" />
+                <button id="send" onclick="sendMessage()" class="btn btn-primary">Send</button>
+                <button id="cancel" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<template id="message_template">
-    <div id="message_content">
-        {%if message['sender'] != session['id']%}
-        <div class="chat chat-start">
-            <div class="chat-image avatar">
-                <div class="w-10 rounded-full">
-                    <img id="msgImg" alt="Tailwind CSS chat bubble component" href="#" />
-                </div>
+<template id="message_template_start">
+    <div id="message" class="chat chat-start">
+        <div class="chat-image avatar">
+            <div class="w-10 rounded-full">
+                <img id="msgImg" alt="Tailwind CSS chat bubble component" href="#" />
             </div>
-            <div class="chat-header">
-                <span id="msgName"></span>
-                <time id="msgTime" class="text-xs opacity-50"></time>
-            </div>
-            <div id="content" class="chat-bubble"></div>
         </div>
-        {%else%}
-        <div class="chat chat-end">
-            <div class="chat-image avatar">
-                <div class="w-10 rounded-full">
-                    <img id="msgImg" alt="Tailwind CSS chat bubble component" href="#" />
-                </div>
-            </div>
-            <div class="chat-header">
-                <span id="msgName"></span>
-                <time id="msgTime" class="text-xs opacity-50"></time>
-            </div>
-            <div id="content" class="chat-bubble"></div>
+        <div class="chat-header">
+            <span id="msgName"></span>
+            <time id="msgTime" class="text-xs opacity-50"></time>
         </div>
-        {%endif%}
+        <div id="content" class="chat-bubble"></div>
     </div>
 </template>
+
+<template id="message_template_end">
+    <div id="message" class="chat chat-end">
+        <div class="chat-image avatar">
+            <div class="w-10 rounded-full">
+                <img id="msgImg" alt="Tailwind CSS chat bubble component" href="#" />
+            </div>
+        </div>
+        <div class="chat-header">
+            <span id="msgName"></span>
+            <time id="msgTime" class="text-xs opacity-50"></time>
+        </div>
+        <div id="content" class="chat-bubble"></div>
+    </div>
+</template>
+
+<script>
+    console.log(Number('{{session['id']}}'));
+
+    let sendBtn = document.getElementById('send');
+    let cancelBtn = document.getElementById('cancel');
+    let messageInput = document.getElementById('myMessage');
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+        var socket = io();
+
+        socket.on('receive_message', (data) => {
+            let msgTemplate = {}
+            let msgDiv = {}
+
+            msgTemplate = document.getElementById('message_template_start').content.cloneNode(true);
+            msgDiv = msgTemplate.getElementById('message');
+
+            if (data.imgUrl === '' || data.imgUrl === null || data.imgUrl === undefined || data.imgUrl === 'None') {
+                msgTemplate.getElementById('msgImg').src = '/static/img/userlog.jpg'
+            }
+            else {
+                msgTemplate.getElementById('msgImg').src = `/static/uploads/${data.imgUrl}`;
+            }
+            msgTemplate.getElementById('msgName').href = `${data.id}`;
+            msgTemplate.getElementById('msgName').innerHTML = data.username
+
+            msgTemplate.getElementById('content').innerHTML = data.content;
+            document.getElementById('messages_div').append(msgDiv);
+        });
+
+        window.sendMessage = function () {
+            let userName = document.getElementById('idName').value;
+            let idUser = document.getElementById('idUser').value;
+            let imgUrl = document.getElementById('imgUrl').value;
+            let privateRoom = document.getElementById('privateRoom').value;
+            let msg = messageInput.value;
+
+            socket.emit('send_private_message', {
+                id: idUser,
+                username: userName,
+                imgUrl: imgUrl,
+                private_room: privateRoom,
+                content: msg
+            });
+            messageInput.value = '';
+        }
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        messageInput.value = '';
+    });
+
+</script>
 {%endblock%}

@@ -90,15 +90,16 @@ async def private_room(user_id):
                 me = user_1
                 friend = user_2
 
-            private_room = mongodb[f'private_room_{user_1.id}_{user_2.id}']
-            messages = private_room.find().sort('timestamp', 1)
+            private_room_name = f'private_room_{user_1.id}_{user_2.id}'
+            private_room = mongodb[private_room_name]
+            messages = private_room.find()
 
             return render_template(
-                'paginas/chat/private_room.jinja',
-                room=private_room,
+                'paginas/chat/private_room.jinja',                
                 me=me,
                 friend=friend,
                 messages=messages,
+                private_room=private_room_name,
                 session=session
             )
     else:

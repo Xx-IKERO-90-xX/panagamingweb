@@ -12,6 +12,8 @@ from threading import Thread
 from mcrcon import MCRcon
 from extensions import db, socketio, mongodb
 from pymongo import MongoClient
+from datetime import datetime
+
 
 datos = {}
 with open('settings.json') as archivo:
@@ -63,6 +65,21 @@ def handle_send_command(cmd):
     response = result_queue.get()
 
     emit('server_output', {'output': response})
+
+# Maneja los mensajes privados enviados desde el chat privado.
+@socketio.on("send_private_message")
+def handle_private_message(data):
+    private_room = data['private_room']
+    collection = mongodb[f'{private_room}']
+    collection.insert_one({
+        "sender": data['id'],
+        "timestamp": datetime.utcnow(),
+        "content": data['content']
+    })
+    print(data)
+    emit('receive_message', data, broadcast=True)
+
+
 
 
 if __name__ == "__main__":
