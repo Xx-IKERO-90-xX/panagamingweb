@@ -4,7 +4,7 @@
 
 {%block content%}
 <div style="height: 100%;" class="container bg-base-100 h-full">
-    <div id="messages_div">
+    <div id="messages_div" class="overflow-y-auto mb-20" style="height: calc(100% - 80px);">
         {%for message in messages%}
         {%if message['sender'] == friend.id%}
         <div class="chat chat-start">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="chat-header">
-                {{friend.username}}
+                <a href="{{url_for('usuario.UserProfile', id=friend.id)}}">{{friend.username}}</a>
                 <time class="text-xs opacity-50">{{message['timestamp']}}</time>
             </div>
             <div class="chat-bubble">{{message['content']}}</div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="chat-header">
-                {{me.username}}
+                <a href="{{url_for('usuario.UserProfile', id=me.id)}}">{{me.username}}</a>
                 <time class="text-xs opacity-50">{{message['timestamp']}}</time>
             </div>
             <div class="chat-bubble">{{message['content']}}</div>
@@ -66,7 +66,7 @@
             </div>
         </div>
         <div class="chat-header">
-            <span id="msgName"></span>
+            <a href="#" id="msgName"></a>
             <time id="msgTime" class="text-xs opacity-50"></time>
         </div>
         <div id="content" class="chat-bubble"></div>
@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="chat-header">
-            <span id="msgName"></span>
+            <a href="#" id="msgName"></a>
             <time id="msgTime" class="text-xs opacity-50"></time>
         </div>
         <div id="content" class="chat-bubble"></div>
@@ -112,7 +112,8 @@
                 msgTemplate.getElementById('msgImg').src = `/static/uploads/${data.imgUrl}`;
             }
             msgTemplate.getElementById('msgName').href = `${data.id}`;
-            msgTemplate.getElementById('msgName').innerHTML = data.username
+            msgTemplate.getElementById('msgName').innerHTML = data.username;
+            msgTemplate.getElementById('msgTime').innerHTML = data.timestamp;
 
             msgTemplate.getElementById('content').innerHTML = data.content;
             document.getElementById('messages_div').append(msgDiv);
@@ -127,7 +128,7 @@
 
             socket.emit('send_private_message', {
                 id: idUser,
-                username: userName,
+                username: "{{session['username']}}",
                 imgUrl: imgUrl,
                 private_room: privateRoom,
                 content: msg

@@ -83,6 +83,7 @@ async def private_room(user_id):
                 
                 me = user_2
                 friend = user_1
+            
             else:
                 user_1 = db.session.query(User).filter_by(id=session['id']).first()
                 user_2 = db.session.query(User).filter_by(id=user_id).first()
@@ -93,6 +94,7 @@ async def private_room(user_id):
             private_room_name = f'private_room_{user_1.id}_{user_2.id}'
             private_room = mongodb[private_room_name]
             messages = private_room.find()
+
 
             return render_template(
                 'paginas/chat/private_room.jinja',                

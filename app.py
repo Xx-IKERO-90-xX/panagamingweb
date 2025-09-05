@@ -69,14 +69,21 @@ def handle_send_command(cmd):
 # Maneja los mensajes privados enviados desde el chat privado.
 @socketio.on("send_private_message")
 def handle_private_message(data):
+    date = datetime.now()
+    formated_date = date.strftime("%Y-%m-%d %H:%M:%S")
+
     private_room = data['private_room']
     collection = mongodb[f'{private_room}']
     collection.insert_one({
-        "sender": data['id'],
-        "timestamp": datetime.utcnow(),
+        "sender": int(data['id']),
+        "timestamp": formated_date,
         "content": data['content']
     })
-    print(data)
+
+    data['username'] = session['name']
+    data['id'] = f"/usuarios/{data['id']}"
+    data['timestamp'] = formated_date
+
     emit('receive_message', data, broadcast=True)
 
 
