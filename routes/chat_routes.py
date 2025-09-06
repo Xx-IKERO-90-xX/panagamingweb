@@ -6,6 +6,7 @@ from entity.Friendship import Friendship
 from entity.User import User
 import os
 import sys
+from datetime import datetime
 
 sys.path.append("..")
 
@@ -35,6 +36,7 @@ async def index():
         ).join(User, User.id == Friendship.id_user1).all()
 
         friendships = friendships1 + friendships2
+        friendships.sort(key=lambda x: x.Friendship.last_message_date if x.Friendship.last_message_date else datetime(2000, 1, 1), reverse=True)
 
         friendships_pending = db.session.query(Friendship, User).filter(
             (Friendship.id_user2 == int(session['id'])) & 
@@ -101,6 +103,7 @@ async def private_room(user_id):
                 me=me,
                 friend=friend,
                 messages=messages,
+                friendship=friendship,
                 private_room=private_room_name,
                 session=session
             )

@@ -67,15 +67,13 @@ async def register():
         db.session.add(new_user)
         db.session.commit()
 
-        user = db.session.query(User).filter(new_user.username == username).first()
-
-        new_style_user = UserStyle(user.id, None, None)
+        new_style_user = UserStyle(new_user.id, None, None)
         db.session.add(new_style_user)
         db.session.commit()
 
-        session["id"] = user.id
-        session["name"] = user.username
-        session["image"] = user.image
-        session['role'] = user.role
+        session["id"] = new_user.id
+        session["name"] = new_user.username
+        session["image"] = new_user.image
+        session['role'] = new_user.role
                 
         return redirect(url_for("index.index"))

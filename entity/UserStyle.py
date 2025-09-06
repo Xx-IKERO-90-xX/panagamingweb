@@ -7,7 +7,7 @@ class UserStyle(db.Model):
     __tablename__ = 'UserStyle'
 
     id = db.Column(Integer, primary_key=True, autoincrement=True)
-    idUser = db.Column(ForeignKey('User.id'), nullable=False)
+    idUser = db.Column(Integer, ForeignKey('Usuario.id'), nullable=False)
     main = db.Column(String(100))
     banner = db.Column(String(100))
 

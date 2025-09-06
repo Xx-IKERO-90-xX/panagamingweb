@@ -48,6 +48,7 @@
         <input type="hidden" id="idUser" value="{{session['id']}}">
         <input type="hidden" id="imgUrl" value="{{session['image']}}">
         <input type="hidden" id="privateRoom" value="{{private_room}}">
+        <input type="hidden" id="friendshipId" value="{{friendship.id}}">
         <div class="form-control">
             <div class="input-group">
                 <input id="myMessage" type="text" placeholder="Type your message here" class="input input-bordered w-full" />
@@ -89,8 +90,6 @@
 </template>
 
 <script>
-    console.log(Number('{{session['id']}}'));
-
     let sendBtn = document.getElementById('send');
     let cancelBtn = document.getElementById('cancel');
     let messageInput = document.getElementById('myMessage');
@@ -124,6 +123,7 @@
             let idUser = document.getElementById('idUser').value;
             let imgUrl = document.getElementById('imgUrl').value;
             let privateRoom = document.getElementById('privateRoom').value;
+            let friendshipId = document.getElementById('friendshipId').value;
             let msg = messageInput.value;
 
             socket.emit('send_private_message', {
@@ -131,6 +131,7 @@
                 username: "{{session['username']}}",
                 imgUrl: imgUrl,
                 private_room: privateRoom,
+                friendshipId: friendshipId,
                 content: msg
             });
             messageInput.value = '';

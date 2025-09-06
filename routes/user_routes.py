@@ -13,6 +13,8 @@ from entity.UserStyle import *
 import controller.StaticsController as statics
 from entity.Friendship import Friendship
 import controller.UserController as user_controller
+from datetime import datetime
+import controller.FriendshipController as friendship_controller
 
 
 sys.path.append("..")
@@ -163,13 +165,18 @@ async def update_avatar(id):
 async def send_friendship_request(id):
     if 'id' in session:
         user = db.session.query(User).filter(User.id == id).first()
-        if user:
-            friendship = Friendship(session['id'], id, 'pending')
-            db.session.add(friendship)
-            db.session.commit()
+        if friendship_controller.friendship_is_sended(session['id'], id):
             return redirect(url_for('usuario.UserProfile', id=id))
+        
         else:
-            return "User not found", 404 
+            if user:
+                friendship = Friendship(session['id'], id, 'pending', None)
+                db.session.add(friendship)
+                db.session.commit()
+                return redirect(url_for('usuario.UserProfile', id=id))
+            
+            else:
+                return "User not found", 404 
     else:
         return redirect(url_for('auth.login'))
 
@@ -177,14 +184,13 @@ async def send_friendship_request(id):
 @user_bp.route('/friendship/request/accept/<int:id>', methods=["GET"])
 async def accept_friendship_request(id):
     if 'id' in session:
-        friendship = db.session.query(Friendship, User).filter(
-            (Friendship.id_user1 == session['id'] and Friendship.id_user2 == id) |
-            (Friendship.id_user1 == id and Friendship.id_user2 == session['id'])
-        ).first()
-                
+        friendship = db.session.query(Friendship).filter(Friendship.id == id).first()
+
         if friendship:
             friendship.status = 'accepted'
+            friendship.last_message_date = datetime.utcnow()
             db.session.commit()
+            
             return redirect(url_for('chat.index'))
         
         else:

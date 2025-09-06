@@ -13,6 +13,7 @@ from mcrcon import MCRcon
 from extensions import db, socketio, mongodb
 from pymongo import MongoClient
 from datetime import datetime
+from entity.Friendship import Friendship
 
 
 datos = {}
@@ -80,14 +81,15 @@ def handle_private_message(data):
         "content": data['content']
     })
 
+    friendship = Friendship.query.get(int(data['friendshipId']))
+    friendship.last_message_date = datetime.utcnow()
+    db.session.commit()
+
     data['username'] = session['name']
     data['id'] = f"/usuarios/{data['id']}"
     data['timestamp'] = formated_date
 
     emit('receive_message', data, broadcast=True)
-
-
-
 
 if __name__ == "__main__":
     with app.app_context():
